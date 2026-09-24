@@ -1,0 +1,10 @@
+<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Problem Solving with Information and Communication Technologies</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:0 20px}li{margin:12px 0}a{font-size:1.2em}</style></head><body><h1>Problem Solving with Information and Communication Technologies</h1><ul id="list"><li>Зареждане...</li></ul><script>
+fetch('https://api.github.com/repos/martin-lift/108/contents/'+encodeURIComponent('Problem Solving with Information and Communication Technologies'))
+.then(r=>{if(!r.ok)throw Error(r.status);return r.json()}).then(items=>{
+ const list=document.getElementById('list'); list.innerHTML='';
+ items.filter(x=>x.type==='file'&&x.name.toLowerCase().endsWith('.html')&&x.name.toLowerCase()!=='index.html').sort((a,b)=>a.name.localeCompare(b.name)).forEach(x=>{
+  const li=document.createElement('li'),a=document.createElement('a'); a.href=encodeURIComponent(x.name); a.textContent=x.name; li.appendChild(a); list.appendChild(li);
+ });
+ if(!list.children.length) list.innerHTML='<li>Няма уроци</li>';
+}).catch(()=>document.getElementById('list').innerHTML='<li>Съдържанието не може да се зареди</li>');
+</script></body></html>
