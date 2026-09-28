@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Урок 3 за 40 минути: възникване и развитие на компютрите, съвременни архитектури и бъдещи изследователски проекти.">
+  <meta name="description" content="Урок 3: възникване и развитие на компютрите, съвременни архитектури и бъдещи изследователски проекти.">
   <title>Урок 3: Развитие на компютърните архитектури</title>
   <style>
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:#202124;font:18px/1.7 Arial,sans-serif}main{max-width:880px;margin:auto;padding:32px 24px 60px}a{color:#174ea6;text-underline-offset:3px}nav,.meta,.source{font-size:15px;color:#555}h1{font-size:34px;line-height:1.25;margin:20px 0}h2{font-size:26px;line-height:1.35}h3{font-size:21px;line-height:1.4;margin:0 0 10px}p{margin:10px 0}li{margin:7px 0}.part{margin-top:36px;border-top:3px solid #174ea6;padding-top:16px}.topic{margin:22px 0;padding:20px;border:1px solid #d4dae2;border-radius:8px}.note{border-left:4px solid #174ea6;background:#f3f6fb;padding:14px 18px}.schedule{padding-left:24px}.tag{font-size:14px;font-weight:bold;color:#174ea6;text-transform:uppercase;letter-spacing:.04em}summary{cursor:pointer;font-weight:bold}details{padding:14px 18px;background:#f3f6fb;margin:16px 0}a:focus-visible,summary:focus-visible{outline:3px solid #174ea6;outline-offset:4px}footer{margin-top:36px;border-top:1px solid #ccc;padding-top:18px} .sources li{font-size:15px;overflow-wrap:anywhere}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:#202124;font:18px/1.7 Arial,sans-serif}main{max-width:880px;margin:auto;padding:32px 24px 60px}a{color:#174ea6;text-underline-offset:3px}nav,.meta,.source{font-size:15px;color:#555}h1{font-size:34px;line-height:1.25;margin:20px 0}h2{font-size:26px;line-height:1.35}h3{font-size:21px;line-height:1.4;margin:0 0 10px}p{margin:10px 0}li{margin:7px 0}.part{margin-top:36px;border-top:3px solid #174ea6;padding-top:16px}.topic{margin:22px 0;padding:20px;border:1px solid #d4dae2;border-radius:8px}.note{border-left:4px solid #174ea6;background:#f3f6fb;padding:14px 18px}.tag{font-size:14px;font-weight:bold;color:#174ea6;text-transform:uppercase;letter-spacing:.04em}summary{cursor:pointer;font-weight:bold}details{padding:14px 18px;background:#f3f6fb;margin:16px 0}a:focus-visible,summary:focus-visible{outline:3px solid #174ea6;outline-offset:4px}footer{margin-top:36px;border-top:1px solid #ccc;padding-top:18px} .sources li{font-size:15px;overflow-wrap:anywhere}
     @media(max-width:520px){main{padding:22px 16px 40px}h1{font-size:28px}h2{font-size:24px}.topic{padding:16px}}
     @media print{body{font-size:11pt;line-height:1.45}main{max-width:none;padding:0}nav{display:none}h1{font-size:23pt}h2{font-size:18pt}h3{font-size:14pt}.part{margin-top:20px}.topic{margin:12px 0;padding:12px;break-inside:avoid}h2,h3{break-after:avoid}p,li{orphans:3;widows:3}a{color:inherit}.source,.sources li{font-size:9pt}}
   </style>
@@ -15,28 +15,21 @@
 <main>
   <nav aria-label="Навигация"><a href="./">Всички уроци по предмета</a> · <a href="02-Basic-Computer-Architecture.html">Урок 2</a></nav>
   <header>
-    <p class="meta">Компютърни архитектури и операционни системи · Урок 3 · 40 минути</p>
+    <p class="meta">Компютърни архитектури и операционни системи · Урок 3</p>
     <h1>Развитие на компютърните архитектури</h1>
     <p>От механичните проекти и електронните лампи до многоядрените процесори и квантовите изследвания.</p>
     <p><strong>Цел:</strong> да проследите основните промени, да обясните какво подобряват те и да разграничавате работещите технологии от бъдещите планове.</p>
-    <ol class="schedule">
-      <li><a href="#recall">Припомняне</a> — 3 минути</li>
-      <li><a href="#history">Възникване и еволюция</a> — 12 минути</li>
-      <li><a href="#today">Съвременни системи</a> — 10 минути</li>
-      <li><a href="#future">Бъдещи проекти</a> — 7 минути</li>
-      <li><a href="#practice">Задачи и проверка</a> — 8 минути</li>
-    </ol>
   </header>
 
   <section class="part" id="recall">
-    <p class="tag">0–3 мин · Припомняне</p>
+    <p class="tag">Припомняне</p>
     <h2>Какво вече знаем?</h2>
     <p>В урок 2 разгледахме процесора, RAM, шините и периферните устройства. Посочете кой изпълнява инструкциите, къде са текущите данни и как се пренася информацията.</p>
-    <p class="note">Днес следим <strong>как се променят реализацията и организацията</strong> на тези компоненти: по-малки елементи, по-бърз обмен и повече едновременна работа.</p>
+    <p class="note">В този урок ще проследим <strong>как се променят реализацията и организацията</strong> на тези компоненти: по-малки елементи, по-бърз обмен и повече едновременна работа.</p>
   </section>
 
   <section class="part" id="history">
-    <p class="tag">3–15 мин · Възникване и еволюция</p>
+    <p class="tag">Възникване и еволюция</p>
     <h2>От идея до персонален компютър</h2>
     <section class="topic">
       <h3>1. Преди електрониката: механични машини</h3>
@@ -75,7 +68,7 @@
   </section>
 
   <section class="part" id="today">
-    <p class="tag">15–25 мин · Съвременни системи</p>
+    <p class="tag">Съвременни системи</p>
     <h2>Как се постига повече производителност?</h2>
     <section class="topic">
       <h3>6. По-бърза работа: кеш и конвейер</h3>
@@ -109,7 +102,7 @@
   </section>
 
   <section class="part" id="future">
-    <p class="tag">25–32 мин · Бъдещи проекти</p>
+    <p class="tag">Бъдещи проекти</p>
     <h2>Какво се изследва?</h2>
     <p class="meta">Проверено към 28 септември 2026 г. Посочените срокове са цели на разработчиците, а не гарантирани резултати.</p>
     <section class="topic">
@@ -137,10 +130,10 @@
   </section>
 
   <section class="part" id="practice">
-    <p class="tag">32–40 мин · Задачи и проверка</p>
+    <p class="tag">Задачи и проверка</p>
     <h2>Приложете наученото</h2>
     <section class="topic">
-      <h3>14. Работа по двойки — 4 минути</h3>
+      <h3>14. Задачи</h3>
       <ol>
         <li>Подредете: микропроцесор, електронна лампа, интегрална схема, транзистор. Посочете едно подобрение при всяка промяна.</li>
         <li>Защо нова програма се зарежда по-лесно в машина със съхранявана програма, отколкото в първоначалния ENIAC?</li>
@@ -148,7 +141,7 @@
       </ol>
     </section>
     <section class="topic">
-      <h3>15. Самопроверка — 2 минути</h3>
+      <h3>15. Самопроверка</h3>
       <ol>
         <li>Как кешът намалява чакането на процесора?</li>
         <li>Защо повече ядра не винаги ускоряват една програма?</li>
@@ -156,10 +149,10 @@
         <li>Вярно ли е, че квантовият компютър ще изпълнява всяка задача по-бързо?</li>
       </ol>
     </section>
-    <h3>Обсъждане и отговори — 2 минути</h3>
+    <h3>Отговори</h3>
     <details>
       <summary>Проверете след самостоятелната работа</summary>
-      <p><strong>Работа по двойки:</strong></p>
+      <p><strong>Задачи:</strong></p>
       <ol>
         <li>Лампа → транзистор → интегрална схема → микропроцесор. Подобрения: по-малък и надежден елемент; много елементи в чип; функциите на CPU в интегрална схема.</li>
         <li>Инструкциите се зареждат като съдържание в паметта, вместо да се пренареждат кабели и превключватели.</li>
@@ -173,11 +166,11 @@
         <li>Не. Предимството зависи от задачата, алгоритъма и възможностите на системата.</li>
       </ol>
     </details>
-    <p><strong>Изходен въпрос:</strong> „Коя промяна в архитектурата според вас е най-значима и защо?“ Отговорете с едно изречение.</p>
+    <p><strong>Помислете:</strong> „Коя промяна в архитектурата според вас е най-значима и защо?“ Отговорете с едно изречение.</p>
   </section>
   <footer>
     <p><strong>Запомнете:</strong> еволюцията включва миниатюризация, съхранявана програма, паралелна работа и специализирани ускорители. Бъдещите проекти търсят решения на конкретни ограничения.</p>
-    <p class="meta">Източниците са посочени към съответните теми и са за допълнително четене извън 40-минутния час. Урокът работи без интернет; интернет е необходим само за отваряне на източниците.</p>
+    <p class="meta">Източниците към съответните теми предлагат допълнителна информация.</p>
     <nav aria-label="Навигация в края"><a href="./">Към списъка с уроци</a></nav>
   </footer>
 </main>
