@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Урок 02 — Упражнение: формуляр за инвентаризация на компютри</title>
+<style>
+:root{color-scheme:light;--ink:#222138;--purple:#493582;--line:#ddd7ec}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f5f3fa;color:var(--ink);font:18px/1.65 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}header{background:#302253;color:white}header>div,main,footer{max-width:1020px;margin:auto;padding:32px 24px}header p{color:#e4dbfa;margin:0}h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.15;max-width:850px;margin:16px 0 20px}.tags{display:flex;flex-wrap:wrap;gap:8px}.tags span{border:1px solid #8874b3;border-radius:999px;padding:4px 13px;font-size:14px}nav{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 24px}a{color:#493582;text-underline-offset:3px}nav a{background:white;padding:10px 18px;border:1px solid var(--line);border-radius:8px}section{background:white;border:1px solid var(--line);border-radius:16px;padding:28px 32px;margin-bottom:24px}h2{color:var(--purple);font-size:1.8rem;line-height:1.25;margin:0 0 20px}h3{font-size:1.2rem;color:#352452;margin:32px 0 10px}p{margin:10px 0 16px}li{margin:8px 0}ul,ol{padding-left:26px}.note{background:#f2edfc;border-left:4px solid #8061b9;padding:14px 18px;margin:20px 0}.goal{font-size:1.15rem}.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.9rem;margin:14px 0}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}thead th{background:#eee8f8;color:#352452}tbody th{font-weight:600}code{font: .9em Consolas,monospace;background:#eeebf5;padding:2px 5px;border-radius:4px}kbd{font: .87em Consolas,monospace;border:1px solid #c8c0d7;border-bottom-width:2px;border-radius:4px;padding:2px 5px;white-space:nowrap}.layout{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}.paper{background:#fff;border:1px solid #bfb6ce;padding:18px;box-shadow:0 5px 14px #32245f12;max-width:320px;margin:12px auto}.card{border:2px solid #5c5074;padding:16px;text-align:center;font-size:15px}.card strong{display:block}.gap{text-align:center;font-size:12px;color:#61536f;padding:9px}.caption{font-size:14px;color:#675c78;text-align:center}.checks{list-style:none;padding:0}.checks li{padding:7px 0 7px 29px;position:relative}.checks li:before{content:"□";position:absolute;left:0;color:var(--purple)}.small,footer{font-size:14px;color:#635b70}footer{padding-top:0}footer a{overflow-wrap:anywhere}.menu{font-weight:600}.step{border-top:1px solid var(--line);padding-top:22px}section>h3:first-of-type{margin-top:24px}@media(max-width:650px){body{font-size:16px}section{padding:22px 18px}header>div,main,footer{padding-left:16px;padding-right:16px}.layout{grid-template-columns:1fr}h2{font-size:1.5rem}th,td{padding:8px}table{font-size:.82rem}}@page{size:A4;margin:15mm}@media print{body{background:white;color:black;font:10pt/1.4 Arial,sans-serif}header{background:white;color:black;border-bottom:2px solid #444}header p{color:black}header>div,main,footer{max-width:none;padding:8mm 0}h1{font-size:23pt}h2{font-size:18pt}h3{font-size:12pt;break-after:avoid}nav,.tags{display:none}section{border:0;padding:0;border-radius:0}table{font-size:9pt}tr,.note,.paper{break-inside:avoid}thead{display:table-header-group}a{color:black}h2{break-after:avoid}.scroll{overflow:visible}.paper{box-shadow:none}.small,footer{font-size:8pt}.layout{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div>
+<p>Обработка на социално-икономическа информация · Урок 02 · Упражнение</p>
+<h1>Формуляр за инвентаризация на компютри</h1>
+<p>Създайте електронна таблица, която може да се попълва в OpenOffice Calc и на хартия.</p>
+<div class="tags" style="margin-top:22px"><span>OpenOffice Calc</span><span>2 формуляра на А4</span><span>ODS + PDF</span></div>
+</div></header>
+<main>
+<nav aria-label="Съдържание"><a href="#task">1. Задача</a><a href="#hints">2. Подсказки и указания</a></nav>
+<section id="task">
+<h2>1. Задача</h2>
+<p class="goal"><strong>Вие сте екип, който описва компютрите в училището.</strong> Създайте в <strong>OpenOffice Calc</strong> формуляр за описание на един компютър. Разположете <strong>два еднакви празни формуляра един под друг на една страница А4</strong>.</p>
+<p>Формулярът трябва да позволява въвеждане на данни в клетките, а след отпечатване — попълване с химикал. За всеки компютър включете следните <strong>15 полета</strong>:</p>
+<div class="scroll"><table>
+<thead><tr><th scope="col">№</th><th scope="col">Поле</th><th scope="col">Пример или подходящ отговор</th></tr></thead>
+<tbody><tr><td>1</td><th scope="row">Номер от етикет</th><td>00108</td></tr>
+<tr><td>2</td><th scope="row">Дата на залепяне на етикет</th><td>01.10.2026</td></tr>
+<tr><td>3</td><th scope="row">Къде се намира</th><td>Кабинет 108, бюро 3</td></tr>
+<tr><td>4</td><th scope="row">Сериен номер от документ</th><td>SN-012345</td></tr>
+<tr><td>5</td><th scope="row">Кой документ</th><td>Приемо-предавателен протокол № 12 / 15.09.2026</td></tr>
+<tr><td>6</td><th scope="row">Друг сериен номер</th><td>SN-012345 от корпуса; ако няма — „няма“</td></tr>
+<tr><td>7</td><th scope="row">Има ли кабел/зарядно</th><td>Да — захранващ кабел / Не / Не е проверено</td></tr>
+<tr><td>8</td><th scope="row">Стартира ли</th><td>Да / Не / Не е проверено</td></tr>
+<tr><td>9</td><th scope="row">Стартира ли Windows</th><td>Да / Не / Не е проверено / Няма Windows</td></tr>
+<tr><td>10</td><th scope="row">Ползван ли е в последния месец</th><td>Да / Не / Не е известно</td></tr>
+<tr><td>11</td><th scope="row">Кой го ползва</th><td>Учебен ползвател А</td></tr>
+<tr><td>12</td><th scope="row">За какво се ползва</th><td>Работа с документи и електронни таблици</td></tr>
+<tr><td>13</td><th scope="row">Какви проблеми има ползвателят</th><td>Ползвателят съобщава: работи бавно</td></tr>
+<tr><td>14</td><th scope="row">Какви проблеми вижда преброителят</th><td>Преброителят установява: шумен вентилатор</td></tr>
+<tr><td>15</td><th scope="row">Какво ще го правим</th><td>Предложение: преглед от техник</td></tr></tbody>
+</table></div>
+<p class="small">Примерите са учебни. Те показват какъв вид информация се записва; не ги въвеждайте в празния образец.</p>
+<h3>Изисквания към резултата</h3>
+<ul>
+<li>Всеки формуляр има заглавие <strong>„Описание на компютър“</strong>, всички 15 полета и ясно отделени места за отговор.</li>
+<li>Използвайте <strong>обединени клетки</strong> за заглавието и по-широките полета. Поставете видими рамки.</li>
+<li>Текстът е четим, не излиза от клетките и се вижда изцяло. Оставете повече място за проблемите и за решението „Какво ще го правим“.</li>
+<li>При печат двата формуляра се побират на <strong>един лист А4</strong>, без отрязани полета и без разделяне на формуляр между две страници.</li>
+<li>Запазете празния образец, преди да направите пробно попълване.</li>
+</ul>
+<div class="note"><strong>Предайте три файла:</strong><br>
+<code>inventarizacia_prazna.ods</code> — два празни формуляра за попълване в Calc;<br>
+<code>inventarizacia_popalnena.ods</code> — копие с два различни учебни компютъра;<br>
+<code>inventarizacia_prazna.pdf</code> — една страница А4 с два празни формуляра за печат.</div>
+</section>
+<section id="hints">
+<h2>2. Подсказки и указания</h2>
+<p>Използвайте указанията, когато ви е нужна помощ. Предложените адреси и размери са удобен вариант за изпълнение. Имената на командите са дадени и на английски, защото преводът може да се различава според версията.</p>
+<h3>А. Планирайте разположението</h3>
+<div class="layout"><div>
+<p>Отворете <span class="menu">File → New → Spreadsheet</span> (Файл → Нов → Електронна таблица). Работете в един работен лист.</p>
+<ul>
+<li><code>A1:D16</code> — първи формуляр.</li>
+<li><code>A17:D17</code> — празен разделителен ред.</li>
+<li><code>A18:D33</code> — втори формуляр.</li>
+</ul>
+<p>В първия формуляр ред 1 е заглавието. В редове 2–16 разположете 15-те полета в реда от задачата. Колони <strong>A:B</strong> са за наименованията, а <strong>C:D</strong> — за отговорите.</p>
+</div><div><div class="paper" role="img" aria-label="Схема на А4: първи формуляр от A1 до D16, разделител на ред 17 и втори формуляр от A18 до D33."><div class="card"><strong>Описание на компютър</strong>15 полета с място за отговор<br><code>A1:D16</code></div><div class="gap">Празен ред 17</div><div class="card"><strong>Описание на компютър</strong>15 полета с място за отговор<br><code>A18:D33</code></div></div><p class="caption">Схема на една страница А4</p></div></div>
+<p class="note"><strong>Бързо маркиране:</strong> щракнете в полето за име вляво от реда за формули, въведете например <code>A1:D16</code> и натиснете <kbd>Enter</kbd>. Двоеточието означава „всички клетки от … до …“.</p>
+<h3 class="step">Б. Как се обединяват клетки?</h3>
+<ol>
+<li>Маркирайте <code>A1:D1</code>.</li>
+<li>Изберете <span class="menu">Format → Merge Cells → Merge and Center</span> (Форматиране → Обединяване на клетки → Обединяване и центриране), или бутона за обединяване и центриране в лентата.</li>
+<li>Въведете <strong>„Описание на компютър“</strong>. Направете заглавието получер.</li>
+<li>Маркирайте <code>A2:B2</code> и използвайте <span class="menu">Format → Merge Cells → Merge Cells</span>. Въведете „Номер от етикет“.</li>
+<li>Обединете отделно <code>C2:D2</code> и оставете полученото поле празно за отговора.</li>
+<li>Повторете за всеки ред до ред 16: по едно обединение в A:B и по едно в C:D. В лявото поле въведете съответното наименование.</li>
+</ol>
+<p class="note"><strong>Обединявайте по един ред.</strong> Ако обедините наведнъж <code>A2:B16</code>, ще получите едно голямо поле вместо 15 отделни. Най-лесно е да обединявате празни клетки, преди да въвеждате текста. При грешка използвайте <kbd>Ctrl</kbd> + <kbd>Z</kbd>.</p>
+<h3 class="step">В. Размери, текст и място за писане</h3>
+<p>За ширина маркирайте буквата на колоната и използвайте <span class="menu">Format → Column → Width</span> (Колона → Ширина). За височина маркирайте номерата на редовете и използвайте <span class="menu">Format → Row → Height</span> (Ред → Височина). Може да използвате и десния бутон върху буквите или номерата.</p>
+<div class="scroll"><table><thead><tr><th scope="col">Елемент</th><th scope="col">Примерна настройка</th></tr></thead><tbody>
+<tr><th scope="row">Колони A и B</th><td>По 3,7 cm — общо 7,4 cm за наименованието.</td></tr>
+<tr><th scope="row">Колони C и D</th><td>По 5,7 cm — общо 11,4 cm за отговора.</td></tr>
+<tr><th scope="row">Ред 1 — заглавие</th><td>0,8 cm; шрифт 12 pt, получер.</td></tr>
+<tr><th scope="row">Редове 2–13 — първите 12 полета</th><td>По 0,65 cm; шрифт 10 pt.</td></tr>
+<tr><th scope="row">Редове 14–16 — проблеми и решение</th><td>По 1,2 cm; място за два кратки реда.</td></tr>
+<tr><th scope="row">Ред 17 — разстояние между формулярите</th><td>0,6 cm, без рамки.</td></tr>
+</tbody></table></div>
+<p>При различна мерна единица може да въведете стойността с <code>cm</code>. Маркирайте полетата и отворете <span class="menu">Format → Cells → Alignment</span> (Форматиране → Клетки → Подравняване). Включете <strong>Wrap text automatically</strong> — автоматично пренасяне на текста. За наименованията изберете ляво подравняване; за по-дългите отговори е удобно вертикално подравняване отгоре.</p>
+<p>В <span class="menu">Format → Cells → Numbers</span> задайте категория <strong>Text</strong> за отговорите с номер от етикет и серийни номера <em>преди</em> въвеждане. Така <code>00108</code> няма да загуби началните си нули. За датата задайте категория <strong>Date</strong> и формат с ден, месец и година.</p>
+<h3 class="step">Г. Как се форматират рамките?</h3>
+<ol>
+<li>Маркирайте първия формуляр <code>A1:D16</code>.</li>
+<li>Отворете <span class="menu">Format → Cells → Borders</span> (Форматиране → Клетки → Рамки).</li>
+<li>Изберете черна непрекъсната линия, например <strong>0,5 pt</strong>. В областта за подреждане на линиите изберете външна рамка и всички вътрешни линии.</li>
+<li>Проверете в малкия образец дали се виждат линиите между редовете и между наименованията и отговорите. Потвърдете с <strong>OK</strong>.</li>
+</ol>
+<p>Оставете полетата за отговор бели. За заглавието може да използвате много светлосив фон. <strong>Сивата работна мрежа в Calc не замества рамките</strong> — задайте истински граници на клетките, които ще се виждат при печат.</p>
+<h3 class="step">Д. Направете втория формуляр</h3>
+<p>Когато първият формуляр е готов и полетата за отговор са празни, маркирайте <code>A1:D16</code>, натиснете <kbd>Ctrl</kbd> + <kbd>C</kbd>, щракнете в <code>A18</code> и натиснете <kbd>Ctrl</kbd> + <kbd>V</kbd>. Получавате втория формуляр в <code>A18:D33</code>.</p>
+<p><strong>Задайте и проверете височините на новите редове:</strong> ред 18 — 0,8 cm; редове 19–30 — по 0,65 cm; редове 31–33 — по 1,2 cm. Копирането на клетки не гарантира пренасянето на височините на редовете.</p>
+<h3 class="step">Е. Как се настройват page margins и областта за печат?</h3>
+<ol>
+<li>Отворете <span class="menu">Format → Page</span> (Форматиране → Страница). В раздела <strong>Page</strong> изберете размер <strong>A4</strong> и ориентация <strong>Portrait</strong> (портретна).</li>
+<li>В <strong>Margins</strong> (Полета на страницата) задайте <strong>Left, Right, Top, Bottom = 1 cm</strong> — ляво, дясно, горе и долу.</li>
+<li>В разделите <strong>Header</strong> и <strong>Footer</strong> изключете горния и долния колонтитул.</li>
+<li>Маркирайте <code>A1:D33</code> и изберете <span class="menu">Format → Print Ranges → Define</span> (Форматиране → Области за печат → Задаване).</li>
+<li>В <span class="menu">Format → Page → Sheet</span>, в <strong>Scale</strong>, изберете <strong>Fit print range(s) on number of pages</strong> и задайте <strong>1</strong>. Изключете отпечатването на буквите на колоните и номерата на редовете; не е необходимо да включвате отпечатване на работната мрежа.</li>
+<li>Отворете <span class="menu">File → Page Preview</span> (Файл → Преглед на страница). Трябва да виждате <strong>една страница с два цели формуляра</strong>.</li>
+</ol>
+<p class="note"><strong>Проверете четимостта.</strong> Побиране на една страница може да смали текста. Примерното разположение е широко 18,8 cm и високо 25 cm; при полета 1 cm използваемата част на А4 е 19 × 27,7 cm. Ако нещо е отрязано, първо проверете размерите, областта за печат и колонтитулите.</p>
+<p class="small">Справка: <a href="https://wiki.openoffice.org/wiki/Documentation/OOo3_User_Guides/Getting_Started/Printing_from_Calc">OpenOffice — настройване на печата</a> и <a href="https://wiki.openoffice.org/wiki/Documentation/AOO4_User_Guides/Calc_Guide/Printing_Exporting_Emailing/Using_Print_Ranges">области за печат</a>.</p>
+<h3 class="step">Ж. Как се записва и „печата“ в PDF?</h3>
+<ol>
+<li>Запазете празния образец чрез <span class="menu">File → Save As</span> като <code>inventarizacia_prazna.ods</code>. Изберете формат <strong>ODF Spreadsheet (.ods)</strong>.</li>
+<li>За PDF използвайте <span class="menu">File → Export as PDF</span> (Файл → Експортиране като PDF). Не е необходимо да имате физически принтер.</li>
+<li>В прозореца за PDF изберете <strong>All</strong> (Всички), натиснете <strong>Export</strong> и запазете като <code>inventarizacia_prazna.pdf</code>. Работете само с подготвения лист; премахнете излишни листове с данни, ако сте създали такива.</li>
+<li>Отворете получения PDF. Проверете, че съдържа <strong>точно една страница А4</strong>, два празни формуляра, всички рамки и целите надписи.</li>
+<li>За печат на хартия от PDF изберете <strong>А4</strong>, <strong>Actual size / 100%</strong> и <strong>1 страница на лист</strong>. Двата формуляра вече са разположени на страницата.</li>
+</ol>
+<p>Ако използвате <span class="menu">File → Print</span> и е наличен принтер <strong>Microsoft Print to PDF</strong>, може да го изберете като алтернатива. Запишете файла и направете същата проверка. Основният вариант в това упражнение е <strong>Export as PDF</strong>.</p>
+<p class="small">Справка: <a href="https://wiki.openoffice.org/wiki/Documentation/AOO4_User_Guides/Calc_Guide/Printing_Exporting_Emailing/Exporting_to_PDF">OpenOffice — експортиране като PDF</a>.</p>
+<h3 class="step">З. Проверете дали се попълва удобно</h3>
+<p>От празния ODS файл изберете <span class="menu">File → Save As</span> и създайте <code>inventarizacia_popalnena.ods</code>. Попълнете двата формуляра с различни учебни данни, като щраквате в обединените полета вдясно. За редакция на въведен отговор използвайте <kbd>F2</kbd>.</p>
+<p>Пробвайте и по-дълъг отговор за проблем. Ако текстът е отрязан, съкратете го ясно или коригирайте височината на реда и проверете отново страницата. При липса на проверка записвайте „Не е проверено“, а не предполагаем отговор. Разграничавайте казаното от ползвателя от лично установеното от преброителя.</p>
+<p>Преди предаване проверете:</p>
+<ul class="checks">
+<li>Всеки формуляр съдържа всички 15 полета.</li>
+<li>Номерата запазват началните нули, а датата е разбираема.</li>
+<li>Има достатъчно място за писане с химикал.</li>
+<li>Попълнените отговори се виждат изцяло в Calc и в прегледа за печат.</li>
+<li>PDF файлът съдържа една страница А4 с два празни формуляра.</li>
+<li>Запазени са и трите файла с посочените имена.</li>
+</ul>
+</section>
+</main>
+<footer>Урок 02 · Обработка на социално-икономическа информация<br>Допълнителна справка: <a href="https://wiki.openoffice.org/wiki/Documentation/OOo3_User_Guides/Calc_Guide/Formatting_data">OpenOffice — форматиране на данни и рамки</a>.</footer>
+</body>
+</html>
