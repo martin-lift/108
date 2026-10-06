@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 03: Филтриране и валидиране на данни</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f5f5fa;color:#202236;font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:24px 18px 70px}header{background:#32245f;color:white;padding:42px max(18px,calc((100vw - 864px)/2));}header p{margin:0;color:#ded6ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.2;margin:.4em 0}h2{font-size:1.55rem;line-height:1.3;color:#40317d;margin:0 0 12px}h3{font-size:1.1rem;margin:1.2em 0 .3em}section{background:white;border:1px solid #e4e1ef;border-radius:14px;padding:24px 28px;margin:20px 0}p{margin:.5em 0 1em}li{margin:.35em 0}table{width:100%;border-collapse:collapse;font-size:.94em}th,td{border:1px solid #ddd9e9;padding:9px;text-align:left}th{background:#efeafa}.scroll{overflow-x:auto}.note{border-left:4px solid #7955c9;background:#f3efff;padding:10px 16px;border-radius:5px}.task{background:#faf7ff;border-left:4px solid #7955c9;padding:14px 18px;margin-top:14px}nav a{display:inline-block;margin:0 12px 8px 0;color:#49358e}code{background:#f0edf6;padding:2px 5px;border-radius:4px}footer{font-size:.85em;color:#666;text-align:center}@media(max-width:600px){section{padding:19px 17px}body{font-size:16px}}
+</style>
+</head>
+<body>
+<header>
+<p>Обработка на социално-икономическа информация · Урок 03</p>
+<h1>Филтриране и валидиране на данни</h1>
+<p>Работа с критерии, разширен филтър и контрол на въвежданите стойности в MS Excel</p>
+</header>
+<main>
+<nav aria-label="Съдържание">
+<a href="#filtering">Филтриране</a>
+<a href="#criteria">Критерии</a>
+<a href="#two">Два критерия</a>
+<a href="#advanced">Разширен филтър</a>
+<a href="#validation">Валидиране</a>
+<a href="#validation-settings">Настройки</a>
+<a href="#practice">Практика</a>
+</nav>
+
+<section id="filtering">
+<h2>1. Филтриране на данни в таблица</h2>
+<p><strong>Филтрирането</strong> е действие, при което от електронната таблица се показват само редовете, които отговарят на предварително зададени условия, наречени <strong>критерии за филтриране</strong>.</p>
+<p>Редовете, които не отговарят на критериите, временно се скриват. Така можем по-бързо и по-ефективно да анализираме само данните, които са важни за конкретната задача.</p>
+
+<div class="task">
+<h3>Задача 1</h3>
+<p>Отворете файла <code>admin.xlsx</code> от папката <code>urok 2</code> и извлечете списък на областите, които имат население <strong>над 200 000 души</strong>. След това отпечатайте извлечените данни.</p>
+</div>
+
+<h3>Как се включва филтър?</h3>
+<ol>
+<li>Маркирайте таблицата или щракнете в нея.</li>
+<li>От меню <strong>Data</strong> използвайте бутона <strong>Filter</strong> в панела <strong>Sort &amp; Filter</strong>.</li>
+<li>В заглавния ред на колоните се появяват стрелки за филтриране.</li>
+<li>Щракнете върху стрелката на колоната, по която искате да филтрирате.</li>
+<li>В падащото меню може да избирате конкретни стойности или да зададете условие чрез <strong>Number Filters</strong>.</li>
+</ol>
+<p>При задаване на конкретен числов критерий се отваря прозорецът <strong>Custom AutoFilter</strong>, в който се въвеждат параметрите на условието.</p>
+</section>
+
+<section id="criteria">
+<h2>2. Основни критерии за филтриране</h2>
+<div class="scroll">
+<table>
+<thead><tr><th>Критерий</th><th>Значение</th></tr></thead>
+<tbody>
+<tr><td>Equals</td><td>равно на</td></tr>
+<tr><td>Does not equal</td><td>различно от</td></tr>
+<tr><td>Greater than</td><td>по-голямо от</td></tr>
+<tr><td>Greater or equal to</td><td>по-голямо или равно на</td></tr>
+<tr><td>Less than</td><td>по-малко от</td></tr>
+<tr><td>Less or equal to</td><td>по-малко или равно на</td></tr>
+<tr><td>Between</td><td>между</td></tr>
+<tr><td>Begins with</td><td>започва със</td></tr>
+<tr><td>Ends with</td><td>завършва на</td></tr>
+<tr><td>Does not end with</td><td>да не завършва на</td></tr>
+<tr><td>Does not begin with</td><td>да не започва със</td></tr>
+<tr><td>Custom Filter</td><td>задаване на разширени критерии</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="two">
+<h2>3. Филтриране по два критерия: AND и OR</h2>
+<p>При филтриране могат да се използват два критерия, свързани с логическа операция:</p>
+<ul>
+<li><strong>AND (И)</strong> — записът трябва да изпълнява <strong>и двата</strong> критерия едновременно.</li>
+<li><strong>OR (ИЛИ)</strong> — записът трябва да изпълнява <strong>поне единия</strong> от двата критерия.</li>
+</ul>
+
+<div class="task">
+<h3>Задача 2</h3>
+<p>Отворете файла <code>admin.xlsx</code> от папката <code>urok 2</code> и извлечете списък на областите с гъстота на населението <strong>под 50</strong> или <strong>над 70</strong> човека.</p>
+<ol>
+<li>Включете филтър за таблицата.</li>
+<li>От падащото меню на колоната <strong>Гъстота</strong> изберете <strong>Number Filters → Custom Filter</strong>.</li>
+<li>Задайте двата критерия.</li>
+<li>Свържете ги с операция <strong>OR</strong>.</li>
+</ol>
+</div>
+</section>
+
+<section id="advanced">
+<h2>4. Разширен филтър при няколко колони</h2>
+<p>Когато трябва да филтрираме по критерии от няколко колони, можем да използваме <strong>Advanced Filter</strong>. За него се създава помощна таблица със същите имена на колоните, които участват във филтрирането.</p>
+
+<div class="task">
+<h3>Задача 3</h3>
+<p>Отворете файла <code>admin.xlsx</code> и извлечете списък на областите от <strong>Северозападния район</strong>, които имат:</p>
+<ul>
+<li>население между <strong>100 000</strong> и <strong>300 000</strong> души;</li>
+<li>площ над <strong>3500 кв. км</strong>.</li>
+</ul>
+</div>
+
+<p>Помощната таблица за критериите може да изглежда така:</p>
+<div class="scroll">
+<table>
+<thead>
+<tr><th>Район</th><th>Площ (кв. км.)</th><th>Население</th><th>Население</th></tr>
+</thead>
+<tbody>
+<tr><td>Северозападен</td><td>&gt;3500</td><td>&gt;100000</td><td>&lt;300000</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note"><strong>Важно:</strong> Когато за една и съща колона има две ограничения, например „над 100 000“ и „под 300 000“, името на колоната се повтаря в помощната таблица.</p>
+
+<h3>Стъпки</h3>
+<ol>
+<li>Създайте помощната таблица с критериите.</li>
+<li>От меню <strong>Data</strong> изберете <strong>Advanced</strong> от панела <strong>Sort &amp; Filter</strong>.</li>
+<li>В прозореца <strong>Advanced Filter</strong> в полето <strong>List range</strong> посочете областта с основните данни.</li>
+<li>В полето <strong>Criteria range</strong> посочете помощната таблица с критериите.</li>
+<li>Стартирайте филтрирането.</li>
+</ol>
+</section>
+
+<section id="validation">
+<h2>5. Валидиране на данни</h2>
+<p><strong>Валидирането на данни</strong> е функция на MS Excel, която позволява да се задават ограничения за стойностите, които могат да бъдат въвеждани в дадена клетка.</p>
+<p>При избор на клетката може да се показва указание какви данни са допустими. Ако въведената стойност не отговаря на зададените критерии, Excel може да покаже съобщение за грешка, предупреждение или информация.</p>
+<p>При стил <strong>Stop</strong> невалидната стойност не може да бъде въведена.</p>
+
+<div class="task">
+<h3>Задача 4</h3>
+<p>Отворете файла <code>magazin.xlsx</code> от папката <code>urok 2</code> и задайте условие за валидност на данните в колоната <strong>Дата</strong>, така че стойността да бъде в интервала <strong>от 1 до 30</strong>.</p>
+<ul>
+<li>Помощно съобщение: <strong>„Въведете дата от 1 до 30“</strong>.</li>
+<li>Съобщение за грешка: <strong>„Въведете вярна дата“</strong>.</li>
+</ul>
+</div>
+</section>
+
+<section id="validation-settings">
+<h2>6. Настройки на Data Validation</h2>
+<p>Валидирането се задава от <strong>Data → Data Tools → Data Validation</strong>. Диалоговият прозорец съдържа три основни раздела:</p>
+
+<h3>Settings</h3>
+<p>Тук се задава конкретното условие за валидност:</p>
+<ul>
+<li><strong>Allow</strong> — типът на данните, които са разрешени;</li>
+<li><strong>Data</strong> — видът на ограничението, например между, по-голямо от, по-малко от;</li>
+<li><strong>Source</strong> — списъкът с разрешени стойности, когато е избран тип <strong>List</strong>.</li>
+</ul>
+
+<h3>Input Message</h3>
+<p>Задава помощно съобщение, което се появява при избиране на клетката.</p>
+<ul>
+<li><strong>Title</strong> — заглавие на съобщението;</li>
+<li><strong>Input Message</strong> — текстът на указанието.</li>
+</ul>
+
+<h3>Error Alert</h3>
+<p>Задава съобщението, което се показва при въвеждане на невалидни данни.</p>
+<ul>
+<li><strong>Title</strong> — заглавие на съобщението;</li>
+<li><strong>Error Message</strong> — текст на съобщението;</li>
+<li><strong>Style</strong> — <strong>Stop</strong>, <strong>Warning</strong> или <strong>Information</strong>.</li>
+</ul>
+
+<div class="task">
+<h3>Задача 5</h3>
+<p>Отворете файла <code>magazin.xlsx</code> от папката <code>urok 2</code> и създайте условие за валидност на колоната <strong>Продукти</strong>.</p>
+<p>Разрешените стойности са: <strong>Учебник</strong>, <strong>Химикал</strong>, <strong>Бележник</strong>.</p>
+<p>Използвайте валидиране от тип <strong>List</strong>, така че потребителят да избира от падащ списък.</p>
+</div>
+</section>
+
+<section id="practice">
+<h2>7. Въпроси и задачи</h2>
+
+<div class="task">
+<h3>1. Работа с файла country.xlsx</h3>
+<p>Отворете файла <code>country.xlsx</code> от папката <code>urok 2</code> и чрез филтриране извлечете:</p>
+<ol>
+<li>държавите от <strong>Северна Америка</strong> и <strong>Южна Америка</strong> с население над <strong>100 млн. души</strong>;</li>
+<li>държавите от <strong>Европа</strong> и <strong>Африка</strong> с площ между <strong>50 000</strong> и <strong>200 000 кв. км</strong>;</li>
+<li>държавите от <strong>Азия</strong> с население над <strong>100 млн. души</strong> и площ над <strong>500 000 кв. км</strong>;</li>
+<li>държавите от <strong>Европа</strong> с население между <strong>10</strong> и <strong>60 млн. души</strong>.</li>
+</ol>
+</div>
+
+<div class="task">
+<h3>2. Работа с файла magazin.xlsx</h3>
+<ol>
+<li>За колоната <strong>Месец</strong> задайте валидиране със списък от три разрешени стойности: <strong>януари</strong>, <strong>февруари</strong> и <strong>март</strong>. Добавете помощно съобщение и съобщение за грешка.</li>
+<li>За колоната <strong>Продажби</strong> задайте условие броят на продажбите да не може да бъде повече от <strong>1000 броя</strong>. Добавете помощно съобщение и съобщение за грешка.</li>
+</ol>
+</div>
+
+<h3>Проверете знанията си</h3>
+<ol>
+<li>Какво се случва с редовете, които не отговарят на зададения филтър?</li>
+<li>Каква е разликата между логическите операции AND и OR?</li>
+<li>Кога е удобно да използваме Advanced Filter?</li>
+<li>Каква е целта на Data Validation?</li>
+<li>Кои са трите основни раздела в прозореца Data Validation?</li>
+</ol>
+</section>
+
+<footer>Урок 03 · Обработка на социално-икономическа информация</footer>
+</main>
+</body>
+</html>
