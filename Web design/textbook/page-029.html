@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Текст от предоставените снимки на учебника по уеб дизайн, страници 4–64."><title>Страница 29 — Основи на HTML. Тагове за текст, хипервръзка, изображение (Упражнение)</title><style>
+:root {color-scheme:light;--ink:#172334;--muted:#53657c;--accent:#225d88;--line:#d8e1e9;--paper:#fff;--bg:#f3f6f8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1000px;margin:32px auto 64px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:40px 48px}
+h1,h2,h3{line-height:1.3;text-wrap:balance}h1{font-size:1.75rem;margin:0 0 26px}h2{font-size:1.35rem;color:var(--accent);margin:32px 0 16px}h3{font-size:1.1rem;margin:24px 0 12px}p{margin:0 0 16px}li{margin:0 0 8px}ul,ol{padding-left:1.6em;margin-top:12px;margin-bottom:22px}
+a{color:var(--accent);text-underline-offset:3px;overflow-wrap:anywhere}code,pre{font-family:ui-monospace,"Cascadia Code",Consolas,monospace}code{font-size:.92em;overflow-wrap:anywhere}pre{background:#f2f5f8;border:1px solid var(--line);border-left:4px solid #779bb7;border-radius:5px;padding:18px 22px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;font-size:16px}pre code{font-size:inherit}table{border-collapse:collapse;width:100%;margin:20px 0;font-size:16px}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left;overflow-wrap:anywhere}th{background:#edf3f7}tr:nth-child(even) td{background:#fafcfd}.source{font-size:12px;color:var(--muted);word-break:break-all}.eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 14px}.meta{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:28px;color:var(--muted);font-size:14px}.notice{border-left:4px solid #c78b2c;background:#fff6e6;padding:16px 20px;margin:22px 0;font-size:16px}.notice p:last-child{margin-bottom:0}.note{font-size:14px;color:var(--muted)}nav{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;font-size:15px;margin:16px 0 28px}nav a{text-decoration:none;border-bottom:1px solid var(--line)}.page{scroll-margin-top:20px}.page+.page{border-top:3px solid var(--line);margin-top:64px;padding-top:36px}.page-number{color:var(--muted);font-size:14px;margin-bottom:18px}.footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.toc td:first-child{white-space:nowrap}.missing{background:#fff6e6!important}button{font:inherit}
+@media(max-width:650px){body{font-size:17px}main{margin:0;border:0;border-radius:0;padding:24px 18px}h1{font-size:1.5rem}pre{font-size:14px;padding:12px}table{font-size:14px}th,td{padding:8px 6px}.source{font-size:11px}}
+@media print{body{background:white;font-size:11pt}main{border:0;margin:0;padding:0;max-width:none}nav{display:none}h1,h2,h3{break-after:avoid}pre,table{break-inside:avoid}.page+.page{break-before:page;border:0;margin:0;padding:0}.notice{border:1px solid #888}a{color:inherit}}
+</style></head><body><main><p class="eyebrow">Уеб дизайн · Препис от учебника</p><header class="meta">Страница <strong>29</strong> · Урок 11<br><span class="source">Снимка: wd29.jpg</span></header><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-028.html">← Стр. 28</a><a href="page-030.html">Стр. 30 →</a><a href="web-design-text-004-064.html#page-029">В общия файл</a></nav><article class="original-text" data-page="29"><p>Пример:</p>
+<pre><code class="language-html">&lt;h3 id=&quot;glava3&quot;&gt;Глава III&lt;/h3&gt;
+&lt;a href=&quot;#glava3&quot;&gt;Към 3. глава&lt;/a&gt;
+&lt;a href=&quot;tom1.html#glava3&quot;&gt;Към 3. глава на
+  1. том&lt;/a&gt;
+</code></pre>
+<p>Първият ред е заглавие на глава от книга със зададен атрибут <em>id</em>, което се намира някъде в страницата &quot;tom1.html&quot;. Вторият представлява хипервръзка към това заглавие, което се намира в същата страница, напр. в началото ѝ като меню. Третият показва как да използваме същата връзка, но от друга страница, например от съдържанието на книгата.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;a id=&quot;end&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;#end&quot;&gt;Към края на книгата&lt;/a&gt;
+</code></pre>
+<p>Първият ред създава отметка в страницата (невидима), а вторият – и връзка към нея.</p>
+<p>Атрибутът <em>target</em> определя къде да се отвори свързаният документ, към който сочи хиперлинкът. Приема някоя от стойностите: <em>име, _blank, _self, _parent, _top</em>. Най-често се използват:</p>
+<p><em>_blank</em> – отваря документа в нов прозорец;<br><em>_self</em> – отваря документа в текущия прозорец (по подразбиране);<br><em>име</em> – отваря документа в област с това име (напр. <code>&lt;iframe id=&quot;име&quot;&gt;</code>). Ако няма такава, се отваря в нов прозорец..</p>
+<p><strong>Задача 4. Отворете файла pois.html от папката &quot;Site&quot;. Потърсете в него текста &quot;виж на картата&quot; и като използвате тага <code>&lt;a&gt;</code> и атрибута &quot;href&quot;, направете от текста връзка към сайта maps.google.com с реалното местоположение на музея.</strong></p>
+<ul>
+<li>За целта ще ви трябва URL адреса на картата с местоположението на обекта. Влезте в maps.google.bg и потърсете музея с подходящи ключови думи.</li>
+<li>След като го намерите, използвайте иконката &quot;Share&quot;, за да вземете линк към картата (може да използвате вече готов линк от файла &quot;link.txt&quot; в същата папка).</li>
+<li>Запишете файла и изпробвайте резултата.</li>
+<li>Ако не сте използвали и атрибута <em>target</em>, виждате, че картата се отваря на мястото на отворената страница. По-добре е да се отваря в нов прозорец. За целта използвайте атрибута <em>target</em> със стойност &quot;_blank&quot;.</li>
+</ul>
+<h2>Изображения в HTML</h2>
+<p>Изображенията – картинки, фотографии и др., анимирани или статични, са важна част от почти всеки уеб сайт. В HTML страницата може да се вмъкнат различни формати (gif, jpeg, png) на файлове, представляващи изображения.</p>
+<p>Тагът за връзка към изображение е <strong><code>&lt;img&gt;</code></strong>. Той се използва без затварящ таг. По подразбиране изображението се появява в лявата част на страницата.</p>
+<p>Тагът <strong>img</strong> се използва задължително с атрибутите <em>src</em> и <em>alt</em>. Атрибутът <em>src</em> указва път към изображението или URL адрес. Този път може да е относителен (локален) или абсолютен (пълен).</p>
+<h3>Относителен (локален път)</h3>
+<table><tbody>
+<tr><td><code>&lt;img src="picture.jpg"&gt;</code></td><td>Файлът "picture.jpg" се намира в същата папка като HTML страницата.</td></tr>
+<tr><td><code>&lt;img src="images/picture.jpg"&gt;</code></td><td>Файлът "picture.jpg" се намира в подпапка "images" на текущата папка.</td></tr>
+<tr><td><code>&lt;img src="/images/picture.jpg"&gt;</code></td><td>Файлът "picture.jpg" се намира в подпапката "images" на основната папка на сайта.</td></tr>
+<tr><td><code>&lt;img src="../picture.jpg"&gt;</code></td><td>Файлът "picture.jpg" се намира в папката родител на текущата.</td></tr>
+</tbody></table>
+
+<h3>Абсолютен (пълен) път</h3>
+<pre><code class="language-html">&lt;img src=&quot;https://www.w3schools.com/images/picture.jpg&quot; alt=&quot;Пример&quot;&gt;
+</code></pre>
+<p>Атрибутът <em>alt</em> указва алтернативен текст, ако браузърът не зареди изображението. Това, което напишете между кавичките, ще се появи на мястото на изображението ви, ако то не се зареди.</p>
+<p>С тага <strong>img</strong> могат да се използват и незадължителни атрибути. Атрибутите <em>height</em> и <em>width</em> указват съответно височината и ширината на изображението в пиксели (ако не съвпадат с истинските размери на изображението, тогава изображението ще се &quot;разтегне&quot; или ще се &quot;свие&quot;). Препоръчително е винаги да задавате ширина и височина на изображенията си.</p>
+<p>Ако искате да използвате изображението като препратка към друга страница или мултимедия, просто заградете тага <strong><code>&lt;img&gt;</code></strong> в тагове <strong><code>&lt;a&gt; &lt;/a&gt;</code></strong> и задайте атрибута <em>href</em> на хипервръзката.</p>
+<p><strong>Задача 5. Отворете файла pois.html. Като използвате таг за изображение, добавете подходящо изображение за Исторически музей – Карлово. Файловете се намират в подпапка &quot;history_museum&quot;. Какъв път ще използвате?</strong></p>
+<ul>
+<li>След като добавихте изображението, ще видите, че то е много голямо. За да зададем с какъв размер да се показва на страницата, трябва да зададем стойност на атрибутите <em>height</em> и <em>width</em> в тага <strong><code>&lt;img&gt;</code></strong>. Най-добре е да се задават и двата атрибута, но съществува опасност, ако не са спазени пропорциите на зададените и истинските размери, изображението да е сплескано. Затова задайте само <em>height=&quot;300&quot;</em>, запишете файла и проверете резултата в браузъра. Вместо <em>height</em> задайте <em>width</em> и пак проверете резултата.</li>
+</ul>
+<h2>Важно</h2>
+<ul>
+<li>Препоръчително е таговете и атрибутите да се пишат с малки букви, въпреки че HTML не прави разлика.</li>
+<li>Стойностите на атрибутите се заграждат в кавички (&quot; &quot;).</li>
+<li>Може предварително да се извърши форматиране на информацията за страницата в програмата MS Word и тогава да се започне писането на HTML страница.</li>
+</ul>
+</article><footer class="footer">Страница 29 · Текст по снимка от wd29.jpg. Илюстрациите не са включени.</footer><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-028.html">← Стр. 28</a><a href="page-030.html">Стр. 30 →</a><a href="web-design-text-004-064.html#page-029">В общия файл</a></nav></main></body></html>

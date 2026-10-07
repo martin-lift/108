@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Текст от предоставените снимки на учебника по уеб дизайн, страници 4–64."><title>Страница 32 — Основи на HTML. Създаване на форми (Упражнение)</title><style>
+:root {color-scheme:light;--ink:#172334;--muted:#53657c;--accent:#225d88;--line:#d8e1e9;--paper:#fff;--bg:#f3f6f8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1000px;margin:32px auto 64px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:40px 48px}
+h1,h2,h3{line-height:1.3;text-wrap:balance}h1{font-size:1.75rem;margin:0 0 26px}h2{font-size:1.35rem;color:var(--accent);margin:32px 0 16px}h3{font-size:1.1rem;margin:24px 0 12px}p{margin:0 0 16px}li{margin:0 0 8px}ul,ol{padding-left:1.6em;margin-top:12px;margin-bottom:22px}
+a{color:var(--accent);text-underline-offset:3px;overflow-wrap:anywhere}code,pre{font-family:ui-monospace,"Cascadia Code",Consolas,monospace}code{font-size:.92em;overflow-wrap:anywhere}pre{background:#f2f5f8;border:1px solid var(--line);border-left:4px solid #779bb7;border-radius:5px;padding:18px 22px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;font-size:16px}pre code{font-size:inherit}table{border-collapse:collapse;width:100%;margin:20px 0;font-size:16px}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left;overflow-wrap:anywhere}th{background:#edf3f7}tr:nth-child(even) td{background:#fafcfd}.source{font-size:12px;color:var(--muted);word-break:break-all}.eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 14px}.meta{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:28px;color:var(--muted);font-size:14px}.notice{border-left:4px solid #c78b2c;background:#fff6e6;padding:16px 20px;margin:22px 0;font-size:16px}.notice p:last-child{margin-bottom:0}.note{font-size:14px;color:var(--muted)}nav{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;font-size:15px;margin:16px 0 28px}nav a{text-decoration:none;border-bottom:1px solid var(--line)}.page{scroll-margin-top:20px}.page+.page{border-top:3px solid var(--line);margin-top:64px;padding-top:36px}.page-number{color:var(--muted);font-size:14px;margin-bottom:18px}.footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.toc td:first-child{white-space:nowrap}.missing{background:#fff6e6!important}button{font:inherit}
+@media(max-width:650px){body{font-size:17px}main{margin:0;border:0;border-radius:0;padding:24px 18px}h1{font-size:1.5rem}pre{font-size:14px;padding:12px}table{font-size:14px}th,td{padding:8px 6px}.source{font-size:11px}}
+@media print{body{background:white;font-size:11pt}main{border:0;margin:0;padding:0;max-width:none}nav{display:none}h1,h2,h3{break-after:avoid}pre,table{break-inside:avoid}.page+.page{break-before:page;border:0;margin:0;padding:0}.notice{border:1px solid #888}a{color:inherit}}
+</style></head><body><main><p class="eyebrow">Уеб дизайн · Препис от учебника</p><header class="meta">Страница <strong>32</strong> · Урок 13<br><span class="source">Снимка: IMG_20261004_150158_490.jpg</span></header><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-031.html">← Стр. 31</a><a href="page-033.html">Стр. 33 →</a><a href="web-design-text-004-064.html#page-032">В общия файл</a></nav><article class="original-text" data-page="32"><h1>13. Основи на HTML. Създаване на форми (Упражнение)</h1>
+<p>Формите (формуляри) представляват част от документ, позволяваща на потребителя да въвежда информация за последваща обработка от системата. Във формите се използват различни елементи (контроли, етикети и др.), в които може да се избере или въведе определена информация, да се отбележат предложените възможности.</p>
+<p>Всяка форма започва с отварящ таг <strong><code>&lt;form&gt;</code></strong> и завършва със затварящ таг <strong><code>&lt;/form&gt;</code></strong>. Цялото съдържание на формата е заключено между тези два тага.</p>
+<p>Повечето елементи на формите се въвеждат чрез тага <strong><code>&lt;input&gt;</code></strong>, който може да съдържа няколко атрибута, най-важният от които е <em>type</em>. Атрибутът <em>type</em> указва вида на елемента в конкретния случай.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;input type=&quot;text&quot; /&gt;
+&lt;input type=&quot;hidden&quot; /&gt;
+&lt;input type=&quot;password&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+<h2>Поле за текст</h2>
+<p>Почти всяка форма съдържа поле за въвеждане на текст. На страницата тези полета се показват като правоъгълници, в които може да се въвежда текст. За да се зададе поле за въвеждане на текст във форма, трябва да се въведе атрибутът type на тага input и да му се зададе стойност text:</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;input type=&quot;text&quot; /&gt;
+</code></pre>
+<p>В този случай на страницата ще се изобрази текстово поле, което по подразбиране има дължина 20 символа. Препоръчително е освен атрибута <em>type</em>, в тага <strong>input</strong> да се използват и следните атрибути:</p>
+<ul>
+<li>Атрибута <em>name</em>, който приема като стойност името за полето.</li>
+<li>Атрибутът <em>size</em> задава дължината на текстовото поле в брой символи (например size=&quot;40&quot;). Ако не се използва този атрибут, дължината на текстовото поле по подразбиране ще бъде 20 символа.</li>
+<li>Чрез атрибута <em>value</em> може да се зададе текст, който да се вижда в текстовото поле, преди още клиентът да е въвел някаква информация.</li>
+<li>Чрез атрибута <em>maxlenght</em> може да въведете ограничение на броя на изписваните в текстовото поле символи. Например ако зададете maxlenght=&quot;15&quot;, в текстовото поле няма да бъде възможно да се въведат повече от 15 символа (букви, цифри и други).</li>
+</ul>
+<p>За да въведете текст, който да обяснява на потребителя предназначението на съответното поле, използвайте елемента <strong><code>&lt;label&gt;</code></strong>. Той създава етикет, свързан с полето чрез неговото <em>id</em>, зададено в атрибута <em>for</em>.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;label for=&quot;Name&quot;&gt;Вашето име:&lt;/label&gt;
+&lt;input type=&quot;text&quot; name=&quot;Name&quot; id=&quot;Name&quot;
+  size=&quot;30&quot; maxlenght=&quot;35&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Примерът създава форма с 1 текстово поле с етикет &quot;Вашето име&quot;. То има дължина 30 знака и ограничение за въвеждане на повече от 35 символа.</p>
+<h2>Поле за отметка</h2>
+<p>Полетата за отметки се използват във формите, за да може посетителят на страницата да избере едновременно няколко възможности. Създават се няколко елемента <strong><code>&lt;input&gt;</code></strong>, на които се задава атрибут <em>type</em> със стойност <em>checkbox</em>. На всеки се присвоява двойка атрибути <em>name</em> и <em>value</em>.</p>
+<p>Полетата, които потребителят отметне, ще изпратят към сървъра съответната комбинация name=value.</p>
+<p>Използваме елемента <strong><code>&lt;label&gt;</code></strong> за описание на полето.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;input type=&quot;checkbox&quot; id=&quot;device1&quot;
+  name=&quot;device1&quot; value=&quot;Phone&quot;&gt;
+&lt;label for=&quot;device1&quot;&gt; Телефон&lt;/label&gt;&lt;br&gt;
+&lt;input type=&quot;checkbox&quot; id=&quot;device2&quot;
+  name=&quot;device2&quot; value=&quot;Tablet&quot;&gt;
+&lt;label for=&quot;device2&quot;&gt; Таблет&lt;/label&gt;&lt;br&gt;
+&lt;input type=&quot;checkbox&quot; id=&quot;device3&quot;
+  name=&quot;device3&quot; value=&quot;Laptop&quot;&gt;
+&lt;label for=&quot;device3&quot;&gt; Лаптоп&lt;/label&gt;
+&lt;/form&gt;
+</code></pre>
+<p>В примера създаваме форма за въпроса &quot;Какви IT устройства използвате?&quot; с три отговора, които могат да бъдат избрани едновременно. Тя ще изпрати от 0 до 3 стойности във формат name=value, напр.</p>
+<p>device1=Phone&amp;device3=Laptop</p>
+<h2>Радиобутон</h2>
+<p>Радиобутоните се използват за избор между няколко възможности, като позволяват да се избере само една. За да се изработи радиобутон, на атрибута <em>type</em> от елемента <strong><code>&lt;input&gt;</code></strong> се задава стойност <em>radio</em>. На атрибута <em>name</em> на всички елементи от групата радиобутони се задава една и съща стойност. Останалите атрибути са като при полетата за маркиране. Радиобутоните изпращат само една двойка name=value.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;input type=&quot;radio&quot; id=&quot;device1&quot;
+  name=&quot;device&quot; value=&quot;Phone&quot;&gt;
+&lt;label for=&quot;device1&quot;&gt; Телефон&lt;/label&gt;&lt;br&gt;
+&lt;input type=&quot;radio&quot; id=&quot;device2&quot;
+  name=&quot;device&quot; value=&quot;Tablet&quot;&gt;
+&lt;label for=&quot;device2&quot;&gt; Таблет&lt;/label&gt;&lt;br&gt;
+&lt;input type=&quot;radio&quot; id=&quot;device3&quot;
+  name=&quot;device&quot; value=&quot;Laptop&quot;&gt;
+&lt;label for=&quot;device3&quot;&gt; Лаптоп&lt;/label&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Този път създаваме форма за въпроса &quot;Какъв подарък искате?&quot; с три отговора, като можете да изберете само един от тях. Тя ще изпрати само една стойност във формат name=value, напр. device=Phone. Забележете, че атрибутите id винаги са уникални. В случая се използват за връзка с <strong><code>&lt;label&gt;</code></strong>.</p>
+<h2>Важно</h2>
+<p>При използване на елементите <strong>form</strong>, <strong>select</strong>, <strong>option</strong>, <strong>textarea</strong> изпускането на затварящия таг ще доведе до сериозни обърквания и грешки.</p>
+</article><footer class="footer">Страница 32 · Текст по снимка от 15_34.zip. Илюстрациите не са включени.</footer><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-031.html">← Стр. 31</a><a href="page-033.html">Стр. 33 →</a><a href="web-design-text-004-064.html#page-032">В общия файл</a></nav></main></body></html>

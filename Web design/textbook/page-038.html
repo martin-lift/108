@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Текст от предоставените снимки на учебника по уеб дизайн, страници 4–64."><title>Страница 38 — Визуално оформяне на уеб сайт с използване на CSS (Упражнение)</title><style>
+:root {color-scheme:light;--ink:#172334;--muted:#53657c;--accent:#225d88;--line:#d8e1e9;--paper:#fff;--bg:#f3f6f8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1000px;margin:32px auto 64px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:40px 48px}
+h1,h2,h3{line-height:1.3;text-wrap:balance}h1{font-size:1.75rem;margin:0 0 26px}h2{font-size:1.35rem;color:var(--accent);margin:32px 0 16px}h3{font-size:1.1rem;margin:24px 0 12px}p{margin:0 0 16px}li{margin:0 0 8px}ul,ol{padding-left:1.6em;margin-top:12px;margin-bottom:22px}
+a{color:var(--accent);text-underline-offset:3px;overflow-wrap:anywhere}code,pre{font-family:ui-monospace,"Cascadia Code",Consolas,monospace}code{font-size:.92em;overflow-wrap:anywhere}pre{background:#f2f5f8;border:1px solid var(--line);border-left:4px solid #779bb7;border-radius:5px;padding:18px 22px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;font-size:16px}pre code{font-size:inherit}table{border-collapse:collapse;width:100%;margin:20px 0;font-size:16px}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left;overflow-wrap:anywhere}th{background:#edf3f7}tr:nth-child(even) td{background:#fafcfd}.source{font-size:12px;color:var(--muted);word-break:break-all}.eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 14px}.meta{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:28px;color:var(--muted);font-size:14px}.notice{border-left:4px solid #c78b2c;background:#fff6e6;padding:16px 20px;margin:22px 0;font-size:16px}.notice p:last-child{margin-bottom:0}.note{font-size:14px;color:var(--muted)}nav{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;font-size:15px;margin:16px 0 28px}nav a{text-decoration:none;border-bottom:1px solid var(--line)}.page{scroll-margin-top:20px}.page+.page{border-top:3px solid var(--line);margin-top:64px;padding-top:36px}.page-number{color:var(--muted);font-size:14px;margin-bottom:18px}.footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.toc td:first-child{white-space:nowrap}.missing{background:#fff6e6!important}button{font:inherit}
+@media(max-width:650px){body{font-size:17px}main{margin:0;border:0;border-radius:0;padding:24px 18px}h1{font-size:1.5rem}pre{font-size:14px;padding:12px}table{font-size:14px}th,td{padding:8px 6px}.source{font-size:11px}}
+@media print{body{background:white;font-size:11pt}main{border:0;margin:0;padding:0;max-width:none}nav{display:none}h1,h2,h3{break-after:avoid}pre,table{break-inside:avoid}.page+.page{break-before:page;border:0;margin:0;padding:0}.notice{border:1px solid #888}a{color:inherit}}
+</style></head><body><main><p class="eyebrow">Уеб дизайн · Препис от учебника</p><header class="meta">Страница <strong>38</strong> · Урок 15<br><span class="source">Снимка: IMG_20261004_150253_839.jpg</span></header><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-037.html">← Стр. 37</a><a href="page-039.html">Стр. 39 →</a><a href="web-design-text-004-064.html#page-038">В общия файл</a></nav><article class="original-text" data-page="38"><ul>
+<li><strong>letter-spacing</strong> – променя разредката между символите. Може да бъде normal (без промяна на разредката) или число с мерна единица. Може да приема отрицателни стойности.</li>
+<li><strong>word-spacing</strong> – променя разстоянието между думите аналогично на <strong>letter-spacing</strong>.</li>
+<li><strong>line-height</strong> – задава височината на реда (междуредието).</li>
+<li><strong>text-transform</strong> – управлява главни и малки букви: <strong>none</strong> (без промяна, по подразбиране), <strong>uppercase</strong> (само с главни букви), <strong>lowercase</strong> (само с малки букви), <strong>capitalize</strong> (всяка дума започва с главна буква).</li>
+</ul>
+<p>Пример:</p>
+<pre><code class="language-css">p {
+  text-align: justify;
+  font-family: &#39;Times New Roman&#39;;
+  font-size: 12px;
+  color: #00ffff;
+  font-weight: bold
+  line-height: 1;
+}
+</code></pre>
+<p><strong>Задача 2. Отворете файла &quot;styles.css&quot;, намерете правилото със селектор &quot;.poiText p&quot; и го копирайте два пъти, като промените селекторите на &quot;p.p1&quot; и &quot;p.p2&quot;. В първото от новите правила добавете цвят на текста и го направете удебелен. Във второто задайте друг цвят с функцията rgb() и променете &quot;margin&quot; така, че отляво да е 10 пиксела. Запишете. Отворете файла &quot;pois.html&quot;, намерете <code>&lt;div&gt;</code> с id=&quot;1&quot; и задайте на първия и втория <code>&lt;p&gt;</code> елементи в него класове &quot;p1&quot; и &quot;p2&quot;. Запишете и вижте в браузъра как се промени страницата.</strong></p>
+<h2>Форматиране на фон</h2>
+<p>Външният вид на уеб сайта зависи от използването на подходящи фонове както на целите страници, така и на отделните елементи.</p>
+<p>Цветът на фона се задава, като на свойството <strong>background-color</strong> се присвоява стойност в някой от приложимите формати.</p>
+<p>Пример:</p>
+<pre><code class="language-css">h1 {background-color: red;}
+</code></pre>
+<p>За фон на уеб елемент може да се използва и изображение. То се задава с <strong>background-image</strong>. За посочване на пътя до избраното изображение се използва функцията <strong>url(&#39;URL&#39;)</strong>.</p>
+<p>Пример:</p>
+<pre><code class="language-css">body {
+  background-image: url(&#39;proba.gif&#39;);
+}
+</code></pre>
+<p>По подразбиране изображението се повтаря вертикално и хоризонтално до запълване на целия елемент. Свойството <strong>background-repeat</strong> служи за управление на запълването.</p>
+<p>Приема стойности: <strong>repeat</strong> – изображението се повтаря както хоризонтално, така и вертикално, <strong>repeat-x (repeat-y)</strong> – изображението се повтаря само хоризонтално (вертикално), <strong>no-repeat</strong> – изображението не се повтаря.</p>
+<p>Пример:</p>
+<pre><code class="language-css">body {
+  background-image: url(&#39;proba.gif&#39;);
+  background-repeat: repeat-y;
+}
+</code></pre>
+<p>В примера изображението ще се повтаря по вертикала.</p>
+<p>Свойството <strong>background-attachment</strong> определя дали фоновото изображение ще е фиксирано спрямо видимата област от страницата (fixed), или ще се движи при превъртане с елемента (scroll).</p>
+<p>Пример:</p>
+<pre><code class="language-css">body {
+  background-image: url(&#39;proba.gif&#39;);
+  background-repeat: repeat-y;
+  background-attachment: fixed;
+}
+</code></pre>
+<p>В примера изображението е фиксирано.</p>
+<p>Свойството <strong>background-position</strong> определя началната позиция на изображението. Задават се хоризонтална и вертикална стойност в проценти или мерни единици, или комбинация от служебните думи left, center, right (за хоризонтално позициониране) и top, center, bottom (за вертикално). Ако е посочена само една стойност, другата се приема за center.</p>
+<p>Пример:</p>
+<pre><code class="language-css">body {
+  background-image: url(&#39;banner.jpeg&#39;);
+  background-repeat: no-repeat;
+}
+body { background-position: right top; }
+/* аналогично на background-position:
+  100% 0% */
+body { background-position: top center; }
+/* 50% 0% */
+body { background-position: center; }
+/* 50% 50% */
+body { background-position: bottom; }
+/* 50% 100% */
+</code></pre>
+<p><strong>Задача 3. Отворете файла &quot;styles.css&quot; и намерете правилото със селектор &quot;#pois&quot;. Обяснете какво е действието на всяка дефиниция в него. Редактирайте ги по ваш избор и вижте в браузъра какъв ще е ефектът върху страницата &quot;pois.html&quot;.</strong></p>
+<h2>Използване на рамки</h2>
+<p>Основни свойства за рамки:</p>
+<ul>
+<li><strong>border-color</strong> – цвят на рамката.</li>
+<li><strong>border-style</strong> – стил на рамката, който има няколко варианта (none, dotted, dashed, solid, double, groove, ridge, inset, outset), фиг. 1.</li>
+<li><strong>border-width</strong> – дебелина на рамката, която се определя в пиксели или друга мерна единица.</li>
+</ul>
+<p>Изброените свойства могат да се задават като списък от до 4 стойности (както описахме по-горе) или отделно, напр. border-top-color, border-right-width, border-bottom-style и т.н. Много често рамката се задава в съкратен формат:</p>
+<p><strong>border: border-width border-style border-color;</strong></p>
+</article><footer class="footer">Страница 38 · Текст по снимка от 35_44.zip. Илюстрациите не са включени.</footer><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-037.html">← Стр. 37</a><a href="page-039.html">Стр. 39 →</a><a href="web-design-text-004-064.html#page-038">В общия файл</a></nav></main></body></html>

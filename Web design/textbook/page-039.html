@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Текст от предоставените снимки на учебника по уеб дизайн, страници 4–64."><title>Страница 39 — Визуално оформяне на уеб сайт с използване на CSS (Упражнение)</title><style>
+:root {color-scheme:light;--ink:#172334;--muted:#53657c;--accent:#225d88;--line:#d8e1e9;--paper:#fff;--bg:#f3f6f8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1000px;margin:32px auto 64px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:40px 48px}
+h1,h2,h3{line-height:1.3;text-wrap:balance}h1{font-size:1.75rem;margin:0 0 26px}h2{font-size:1.35rem;color:var(--accent);margin:32px 0 16px}h3{font-size:1.1rem;margin:24px 0 12px}p{margin:0 0 16px}li{margin:0 0 8px}ul,ol{padding-left:1.6em;margin-top:12px;margin-bottom:22px}
+a{color:var(--accent);text-underline-offset:3px;overflow-wrap:anywhere}code,pre{font-family:ui-monospace,"Cascadia Code",Consolas,monospace}code{font-size:.92em;overflow-wrap:anywhere}pre{background:#f2f5f8;border:1px solid var(--line);border-left:4px solid #779bb7;border-radius:5px;padding:18px 22px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;font-size:16px}pre code{font-size:inherit}table{border-collapse:collapse;width:100%;margin:20px 0;font-size:16px}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left;overflow-wrap:anywhere}th{background:#edf3f7}tr:nth-child(even) td{background:#fafcfd}.source{font-size:12px;color:var(--muted);word-break:break-all}.eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 14px}.meta{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:28px;color:var(--muted);font-size:14px}.notice{border-left:4px solid #c78b2c;background:#fff6e6;padding:16px 20px;margin:22px 0;font-size:16px}.notice p:last-child{margin-bottom:0}.note{font-size:14px;color:var(--muted)}nav{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;font-size:15px;margin:16px 0 28px}nav a{text-decoration:none;border-bottom:1px solid var(--line)}.page{scroll-margin-top:20px}.page+.page{border-top:3px solid var(--line);margin-top:64px;padding-top:36px}.page-number{color:var(--muted);font-size:14px;margin-bottom:18px}.footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.toc td:first-child{white-space:nowrap}.missing{background:#fff6e6!important}button{font:inherit}
+@media(max-width:650px){body{font-size:17px}main{margin:0;border:0;border-radius:0;padding:24px 18px}h1{font-size:1.5rem}pre{font-size:14px;padding:12px}table{font-size:14px}th,td{padding:8px 6px}.source{font-size:11px}}
+@media print{body{background:white;font-size:11pt}main{border:0;margin:0;padding:0;max-width:none}nav{display:none}h1,h2,h3{break-after:avoid}pre,table{break-inside:avoid}.page+.page{break-before:page;border:0;margin:0;padding:0}.notice{border:1px solid #888}a{color:inherit}}
+</style></head><body><main><p class="eyebrow">Уеб дизайн · Препис от учебника</p><header class="meta">Страница <strong>39</strong> · Урок 15<br><span class="source">Снимка: IMG_20261004_150258_754.jpg</span></header><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-038.html">← Стр. 38</a><a href="page-040.html">Стр. 40 →</a><a href="web-design-text-004-064.html#page-039">В общия файл</a></nav><article class="original-text" data-page="39"><p>Пример:</p>
+<pre><code class="language-css">div { border: 1px solid red; }
+</code></pre>
+<ul>
+<li><strong>border-radius</strong> – определя радиуса на закръгляне на върховете на елемента. Както и при останалите свойства на рамката, могат да се задават до 4 стойности, като тук ще се отнасят съответно за горен ляв, горен десен, долен десен и долен ляв ъгъл.</li>
+</ul>
+<p>Пример:</p>
+<pre><code class="language-css">div {
+  width: 100px;
+  height: 70px;
+  border-color: black red;
+  border-style: dashed solid;
+  border-width: 5px 10px;
+  border-radius: 10px 20px 15px;
+}
+</code></pre>
+<p>Правилото ще направи горната и долната рамка черни, пунктирани, дебели 5 пиксела, а дясната и лявата – червени линии с дебелина 10 пиксела. Ъглите ще са закръглени съответно горен ляв – 10, горен десен – 20, долен десен – 15, и долен ляв – 20 пиксела.</p>
+<p><em>Фиг. 1</em></p>
+<p><strong>Задача 4. Отворете файла &quot;styles.css&quot; и намерете правилото със селектор &quot;.poiBlock&quot;. Направете рамката червена с дебелина 5 пиксела. Задайте закръгляне на горния ляв ъгъл с радиус, 3 пъти по-голям от размера на шрифта. Използвайте свойството border-top-left-radius и мерната единица &quot;em&quot;.</strong></p>
+<h2>Добавяне и използване на шрифтове</h2>
+<p>Както споменахме по-рано, на текстовите елементи се задават шрифтове със свойството <strong>font-family</strong>. По подразбиране браузърът използва само шрифтовете, налични в системата. За да има алтернатива, задаваме списък с разделител запетая (,). Имена, които съдържат интервал, се поставят в кавички, напр. &#39;Times New Roman&#39;.</p>
+<p>Пример:</p>
+<pre><code class="language-css">p {
+  font-family: Tahoma, Verdana, sans-serif;
+}
+</code></pre>
+<p>Браузърът ще потърси Tahoma, ако не е достъпен – Verdana. Ако и той липсва, ще се използва sans-serif, който е от набора универсални шрифтове, налични във всички браузъри: sans-serif, serif, monospace, cursive, fantasy.</p>
+<p>За да сме сигурни, че документът се показва, както очакваме, можем да добавим шрифт, наличен на сървъра, чрез CSS правилото <strong>@font-face</strong>:</p>
+<pre><code class="language-css">@font-face {
+  font-family: myFont;
+  src: url(myfont_file.woff);
+}
+</code></pre>
+<p>След това използваме във <strong>font-family</strong> както обикновено:</p>
+<p>Пример:</p>
+<pre><code class="language-css">p {
+  font-family: myFont, &#39;Times New Roman&#39;, serif;
+}
+</code></pre>
+<h2>Уеб услуги за шрифтове</h2>
+<p>Удобен начин да разнообразим визията на сайта с различни шрифтове са уеб услугите. Една от най-използваните е Google Fonts, предлагаща над 1000 шрифтови семейства. На адрес <a href="https://fonts.google.com/">https://fonts.google.com/</a> можем да търсим и разглеждаме, като настройваме различни параметри – категории, езици, размер, стил и др. След като изберем нужните ни начертания, услугата предлага готов код, който да вмъкнем в нашата страница (фиг. 2):</p>
+<pre><code class="language-html">&lt;style&gt;
+  @import
+  url(&#39;https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap&#39;);
+&lt;/style&gt;
+</code></pre>
+<p>Показания код с правилото @import вмъкваме в секцията <code>&lt;head&gt;</code> на HTML документа или, без тага <code>&lt;style&gt;</code>, в началото на нашия външен CSS файл. След това можем да използваме шрифта по стандартния начин:</p>
+<pre><code class="language-css">font-family: &#39;Open Sans&#39;, sans-serif;
+</code></pre>
+<p><em>Фиг. 2</em></p>
+</article><footer class="footer">Страница 39 · Текст по снимка от 35_44.zip. Илюстрациите не са включени.</footer><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-038.html">← Стр. 38</a><a href="page-040.html">Стр. 40 →</a><a href="web-design-text-004-064.html#page-039">В общия файл</a></nav></main></body></html>

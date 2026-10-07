@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Текст от предоставените снимки на учебника по уеб дизайн, страници 4–64."><title>Страница 33 — Основи на HTML. Създаване на форми (Упражнение)</title><style>
+:root {color-scheme:light;--ink:#172334;--muted:#53657c;--accent:#225d88;--line:#d8e1e9;--paper:#fff;--bg:#f3f6f8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1000px;margin:32px auto 64px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:40px 48px}
+h1,h2,h3{line-height:1.3;text-wrap:balance}h1{font-size:1.75rem;margin:0 0 26px}h2{font-size:1.35rem;color:var(--accent);margin:32px 0 16px}h3{font-size:1.1rem;margin:24px 0 12px}p{margin:0 0 16px}li{margin:0 0 8px}ul,ol{padding-left:1.6em;margin-top:12px;margin-bottom:22px}
+a{color:var(--accent);text-underline-offset:3px;overflow-wrap:anywhere}code,pre{font-family:ui-monospace,"Cascadia Code",Consolas,monospace}code{font-size:.92em;overflow-wrap:anywhere}pre{background:#f2f5f8;border:1px solid var(--line);border-left:4px solid #779bb7;border-radius:5px;padding:18px 22px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;font-size:16px}pre code{font-size:inherit}table{border-collapse:collapse;width:100%;margin:20px 0;font-size:16px}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left;overflow-wrap:anywhere}th{background:#edf3f7}tr:nth-child(even) td{background:#fafcfd}.source{font-size:12px;color:var(--muted);word-break:break-all}.eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 14px}.meta{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:28px;color:var(--muted);font-size:14px}.notice{border-left:4px solid #c78b2c;background:#fff6e6;padding:16px 20px;margin:22px 0;font-size:16px}.notice p:last-child{margin-bottom:0}.note{font-size:14px;color:var(--muted)}nav{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;font-size:15px;margin:16px 0 28px}nav a{text-decoration:none;border-bottom:1px solid var(--line)}.page{scroll-margin-top:20px}.page+.page{border-top:3px solid var(--line);margin-top:64px;padding-top:36px}.page-number{color:var(--muted);font-size:14px;margin-bottom:18px}.footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.toc td:first-child{white-space:nowrap}.missing{background:#fff6e6!important}button{font:inherit}
+@media(max-width:650px){body{font-size:17px}main{margin:0;border:0;border-radius:0;padding:24px 18px}h1{font-size:1.5rem}pre{font-size:14px;padding:12px}table{font-size:14px}th,td{padding:8px 6px}.source{font-size:11px}}
+@media print{body{background:white;font-size:11pt}main{border:0;margin:0;padding:0;max-width:none}nav{display:none}h1,h2,h3{break-after:avoid}pre,table{break-inside:avoid}.page+.page{break-before:page;border:0;margin:0;padding:0}.notice{border:1px solid #888}a{color:inherit}}
+</style></head><body><main><p class="eyebrow">Уеб дизайн · Препис от учебника</p><header class="meta">Страница <strong>33</strong> · Урок 13<br><span class="source">Снимка: IMG_20261004_150203_290.jpg</span></header><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-032.html">← Стр. 32</a><a href="page-034.html">Стр. 34 →</a><a href="web-design-text-004-064.html#page-033">В общия файл</a></nav><article class="original-text" data-page="33"><h2>Падащо меню</h2>
+<p>Елементът <strong><code>&lt;select&gt;</code></strong> се използва за създаване на списък, от който потребителят избира една или няколко стойности (падащо меню). Задължителен атрибут е <em>name</em>. Той определя под какво име избраните стойности ще се изпратят към сървъра.</p>
+<p>Тагът <strong><code>&lt;select&gt;</code></strong> загражда нужния брой елементи <strong><code>&lt;option&gt;</code></strong>, които съставят списъка. Техните атрибути <em>value</em> задават стойностите, които ще бъдат върнати, а текстът, затворен между таговете <strong><code>&lt;option&gt;</code></strong> и <strong><code>&lt;/option&gt;</code></strong>, ще се визуализира в падащото меню</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+Кой е любимият ви цвят? &lt;br /&gt;
+&lt;select name=&quot;ChooseOne&quot;&gt;
+&lt;option value=&quot;Red&quot;&gt;червен&lt;/option&gt;
+&lt;option value=&quot;Blue&quot;&gt;син&lt;/option&gt;
+&lt;option value=&quot;Green&quot;&gt;зелен&lt;/option&gt;
+&lt;/select&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Падащите менюта дават възможност както за единичен, така и за множествен избор. За да бъде възможно да се маркира повече от едно поле от падащото меню, в тага <strong>select</strong> е нужно да се въведе атрибутът <em>multiple</em>. Атрибутът <em>size</em> задава броя на видимите опции. По подразбиране е 1. При по-голяма стойност менюто ще се покаже като списък с лента за превъртане.</p>
+<h2>Текстова област</h2>
+<p>Ако желаете да предоставите възможност за по-подробно мнение или коментар, трябва да използвате многоредово поле за въвеждане на текст. Многоредовите полета се въвеждат чрез тага <strong><code>&lt;textarea&gt;</code></strong>. Атрибутите на тага са:</p>
+<ul>
+<li>Атрибутът <em>name</em>, определящ названието, под което ще се съхранява и обработва тази част от формата.</li>
+<li>Атрибутът <em>rows</em>, на който се присвоява като стойност някаква цифра, указваща височина на полето в брой редове.</li>
+<li>Атрибутът <em>cols</em>, на който се присвоява като стойност някаква цифра, указваща ширината на полето в брой символи (цифри, букви и др.).</li>
+</ul>
+<p>Ако искате да зададете текст, който да се покаже в полето, трябва да го изпишете между отварящия и затварящия таг.</p>
+<p>Ако желаете да поясните предназначението на многоредовото поле, изпишете текста преди тага <strong><code>&lt;textarea&gt;</code></strong>, най-добре в елемент <strong><code>&lt;label&gt;</code></strong>.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;label for=&quot;text1&quot;&gt;Вашият коментар:&lt;/label&gt;
+&lt;textarea name=&quot;Comentar&quot; id=&quot;text1&quot;
+  cols=&quot;40&quot; rows=&quot;12&quot;&gt;Моят коментар е
+  &lt;/textarea&gt;
+&lt;/form&gt;.
+</code></pre>
+<p>Това е пример за форма с текстова област с име Comentar, с дължина 40 символа и височина 12 реда. Указващият текст към полето да бъде &quot;Вашият коментар:&quot;, а вътре в самото поле да се вижда текстът &quot;Моят коментар е&quot;.</p>
+<p>Ако коментарът е дълъг и не се събере във видимата част на полето, отстрани ще се появи лента за превъртане.</p>
+<h2>Поле за въвеждане на парола</h2>
+<p>За да изработите поле за въвеждане на парола, трябва да зададете на атрибута <em>type</em> от тага <strong>input</strong> стойността <em>password</em>.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;label for=&quot;pass&quot;&gt;Въведете парола:&lt;/label&gt;
+&lt;input type=&quot;password&quot; id=&quot;pass&quot;
+  name=&quot;parola&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+<h2>Поле за качване на файлове</h2>
+<p>За да изработите поле за качване на файлове, трябва да зададете на атрибута <em>type</em> от тага <strong>input</strong> стойността <em>file</em>. С атрибута <em>name</em> се задава име, под което данните ще се изпратят към сървъра. Може да се използва и атрибутът <em>multiple</em> за качване на няколко файла едновременно. След изписване на кода в прозореца на браузъра се изобразява поле и бутон с надпис <strong>Browse</strong>. При натискане върху бутона се появява прозорец с файловете от компютъра, от който той избира нужния за прехвърляне файл.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;input type=&quot;file&quot; name=&quot;UploadFile&quot;
+  size=&quot;25&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+<h2>Бутон за изпращане (изтриване) на данни</h2>
+<p>За изпращане и обработка на попълнените данни в дадена форма се използва бутонът &quot;Submit&quot;. Обикновено този бутон може да се види в края на формата. За да изработите бутон за изпращане на данни, трябва да зададете на атрибута <em>type</em> от тага <strong>input</strong> стойността <em>submit</em>.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Аналогично е изработването на бутон &quot;Reset&quot;, чрез който формата се изчиства и се изтриват попълнените вече данни. За целта трябва да зададете на атрибута <em>type</em> от тага <strong>input</strong> стойността <em>reset</em>.</p>
+<p>Други атрибути на <strong><code>&lt;form&gt;</code></strong>:</p>
+<p><em>method</em> – определя метода за изпращане на формата<br><em>action</em> – задава URL адрес, на който да се изпрати, по подразбиране е адресът на формата<br><em>name</em> – определя името на формата</p>
+<p>Други атрибути на <strong><code>&lt;input&gt;</code></strong>:</p>
+<p><em>type=image</em> – определя външно изображение като бутон за изпращане<br><em>type=hidden</em> – определя скрито поле<br><em>value</em> – задава начална стойност на полето<br><em>name</em> – определя името на полето при изпращане на данните</p>
+<p>Формата се изпраща на URL адреса, посочен в атрибута ѝ <em>action</em> по два метода: <strong>GET</strong> и <strong>POST</strong>. Първият добавя данните от полетата към URL адреса като списък във формат <em>име=стойност</em>, разделени със знака &amp;. Това е лесно за проследяване и запомняне като отметка в браузъра, но не е подходящо за чувствителна информация, а адресът не може да е по-дълъг от 3000 символа. Методът <strong>POST</strong> вмъква данните в тялото на HTML заявката. Така те не се виждат в полето за адрес на браузъра и отпада ограничението за обема им.</p>
+<p><strong>Задача. Отворете редактора BlueGriffon и създайте файл с име form.html, който да представлява регистрационна форма със следните данни: Име (текстово поле), Години (падащо меню), Пол (радиобутон), Потребител (текстово поле), Парола (поле за парола), Имейл (текстово поле), Бутон за изпращане (Submit).</strong></p>
+</article><footer class="footer">Страница 33 · Текст по снимка от 15_34.zip. Илюстрациите не са включени.</footer><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-032.html">← Стр. 32</a><a href="page-034.html">Стр. 34 →</a><a href="web-design-text-004-064.html#page-033">В общия файл</a></nav></main></body></html>

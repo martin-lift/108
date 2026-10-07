@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Текст от предоставените снимки на учебника по уеб дизайн, страници 4–64."><title>Страница 31 — Основи на HTML. Тагове за таблица, списъци, аудио, видео (Упражнение)</title><style>
+:root {color-scheme:light;--ink:#172334;--muted:#53657c;--accent:#225d88;--line:#d8e1e9;--paper:#fff;--bg:#f3f6f8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1000px;margin:32px auto 64px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:40px 48px}
+h1,h2,h3{line-height:1.3;text-wrap:balance}h1{font-size:1.75rem;margin:0 0 26px}h2{font-size:1.35rem;color:var(--accent);margin:32px 0 16px}h3{font-size:1.1rem;margin:24px 0 12px}p{margin:0 0 16px}li{margin:0 0 8px}ul,ol{padding-left:1.6em;margin-top:12px;margin-bottom:22px}
+a{color:var(--accent);text-underline-offset:3px;overflow-wrap:anywhere}code,pre{font-family:ui-monospace,"Cascadia Code",Consolas,monospace}code{font-size:.92em;overflow-wrap:anywhere}pre{background:#f2f5f8;border:1px solid var(--line);border-left:4px solid #779bb7;border-radius:5px;padding:18px 22px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;font-size:16px}pre code{font-size:inherit}table{border-collapse:collapse;width:100%;margin:20px 0;font-size:16px}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left;overflow-wrap:anywhere}th{background:#edf3f7}tr:nth-child(even) td{background:#fafcfd}.source{font-size:12px;color:var(--muted);word-break:break-all}.eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 14px}.meta{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:28px;color:var(--muted);font-size:14px}.notice{border-left:4px solid #c78b2c;background:#fff6e6;padding:16px 20px;margin:22px 0;font-size:16px}.notice p:last-child{margin-bottom:0}.note{font-size:14px;color:var(--muted)}nav{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;font-size:15px;margin:16px 0 28px}nav a{text-decoration:none;border-bottom:1px solid var(--line)}.page{scroll-margin-top:20px}.page+.page{border-top:3px solid var(--line);margin-top:64px;padding-top:36px}.page-number{color:var(--muted);font-size:14px;margin-bottom:18px}.footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.toc td:first-child{white-space:nowrap}.missing{background:#fff6e6!important}button{font:inherit}
+@media(max-width:650px){body{font-size:17px}main{margin:0;border:0;border-radius:0;padding:24px 18px}h1{font-size:1.5rem}pre{font-size:14px;padding:12px}table{font-size:14px}th,td{padding:8px 6px}.source{font-size:11px}}
+@media print{body{background:white;font-size:11pt}main{border:0;margin:0;padding:0;max-width:none}nav{display:none}h1,h2,h3{break-after:avoid}pre,table{break-inside:avoid}.page+.page{break-before:page;border:0;margin:0;padding:0}.notice{border:1px solid #888}a{color:inherit}}
+</style></head><body><main><p class="eyebrow">Уеб дизайн · Препис от учебника</p><header class="meta">Страница <strong>31</strong> · Урок 12<br><span class="source">Снимка: IMG_20261004_150141_922.jpg</span></header><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-030.html">← Стр. 30</a><a href="page-032.html">Стр. 32 →</a><a href="web-design-text-004-064.html#page-031">В общия файл</a></nav><article class="original-text" data-page="31"><p>I. Едно<br>II. Две<br>III. Три</p>
+<p>Неподредените списъци започват с тага <code>&lt;ul&gt;</code>, а всеки елемент на списъка – с тага <code>&lt;li&gt;</code>:</p>
+<pre><code class="language-html">&lt;ul&gt;
+&lt;li&gt; Едно &lt;/li&gt;
+&lt;li&gt; Две &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<ul>
+<li>Едно</li>
+<li>Две</li>
+</ul>
+<p><strong>Задача 2. Отворете файла pois.html от папката &quot;Site&quot;. Преобразувайте последните два параграфа от текста за първия обект (<code>&lt;div id=&quot;1&quot;&gt;</code>) в неподреден списък. Запишете файла и го проверете.</strong></p>
+<h2>Таг за аудио</h2>
+<p>Таг за аудио – <strong><code>&lt;audio&gt;</code></strong>. Използва се за вграждане на звукови файлове. Включва възпроизвеждане на звук, синтез и запис, също така описва техники за разпознаване на реч. Той осигурява контроли (възпроизвеждане, пауза, сила на звука), които може да изглеждат различно в различните браузъри и операционни системи.</p>
+<p>Основните атрибути, използвани с тага <strong>audio</strong>:</p>
+<p><em>src</em> – път (URL) към файла<br><em>preload</em> – предварително зареждане на файл<br><em>autoplay</em> – автоматично възпроизвеждане на файл<br><em>loop</em> – циклично възпроизвеждане<br><em>muted</em> – без звук по подразбиране при стартирането<br><em>controls</em> – контроли за управление на звук</p>
+<p>Тагът <strong>audio</strong> може да съдържа един или повече аудиоизточници, представени с помощта на атрибута <em>src</em> или тага <code>&lt;source&gt;</code>, като браузърът избира подходящия.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;audio controls&gt;
+&lt;source src= &quot;music.mp3&quot;/&gt;
+&lt;source src= &quot;music.ogg&quot;/&gt;
+&lt;source src= &quot;music.flac&quot;/&gt;
+&lt;/audio&gt;
+</code></pre>
+<h2>Таг за видео</h2>
+<p>Таг за видео – <strong><code>&lt;video&gt;</code></strong>. Използва се за вграждане на видеофайлове.</p>
+<p>Източникът на видеофайла може да бъде зададен по два начина. По-краткият е даден в пример 1.</p>
+<p>Различните браузъри поддържат много на брой видеоформати. Чрез използване на тага <strong><code>&lt;source&gt;</code></strong> (пример 2) има възможност за изброяване на файлове с различни медийни формати, като браузърът автоматично пробва подред да зареди всеки файл. Както е съставен пример 2 – ако браузърът не успее да възпроизведе никой от трите видеофайла, ще изпише съобщението под тях.</p>
+<p>Основните атрибути, използвани с тага video:</p>
+<p><em>src</em> – път (URL) към файла<br><em>preload</em> – предварително зареждане на файл<br><em>autoplay</em> – автоматично възпроизвеждане на файл<br><em>controls</em> – контроли за управление на възпроизвеждането<br><em>poster</em> – показва изображение на мястото на видеоклипа, преди да започне възпроизвеждането<br><em>type</em> – указва типа на видеото (MIME). Може да включва и списък с кодеци, които помагат на браузъра да определи дали може да декодира файла.<br><em>loop</em> – циклично възпроизвеждане<br><em>autoplay</em> – автоматично стартиране на видеото със зареждане на страницата<br><em>muted</em> – без звук по подразбиране при стартирането<br><em>height, width</em> – размери на видеоелемента (видеоплейъра)</p>
+<p>Пример 1:</p>
+<pre><code class="language-html">&lt;video controls width=&quot;640&quot; src=&quot;movie.mp4&quot; type=&quot;video/mp4&quot;&gt;
+&lt;/video&gt;
+</code></pre>
+<p>Пример 2:</p>
+<pre><code class="language-html">&lt;video poster=&quot;movie.jpg&quot; controls
+  height=&quot;640&quot; width=&quot;480&quot;&gt;
+&lt;source src=&quot;movie.mp4&quot;
+  type=&quot;video/mp4&quot;/&gt;
+&lt;source src=&quot;movie.webm&quot;
+  type=&quot;video/webm&quot;/&gt;
+&lt;source src=&quot;movie.ogv&quot;
+  type=&quot;video/ogg&quot;/&gt;
+Your browser does not support this
+  video type!
+&lt;/video&gt;
+</code></pre>
+<p><strong>Задача 3. Отворете файла index.html от папката &quot;Site&quot;. Потърсете таг <code>&lt;div id=&quot;video&quot;&gt;</code> и вътре добавете видеофайла &quot;rosa.mp4&quot; от подпапката &quot;video&quot;.</strong></p>
+<ul>
+<li>Използвайте атрибута <strong>poster</strong> за указване на начално изображение на видеоелемента, като използвате файла &quot;poster.png&quot; от папката на видеото.</li>
+<li>Изпробвайте различни стойност за атрибута <strong>width</strong>, например &quot;600&quot;. Какви пътища ще зададете? Запишете файла и го изпробвайте.</li>
+</ul>
+</article><footer class="footer">Страница 31 · Текст по снимка от 15_34.zip. Илюстрациите не са включени.</footer><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-030.html">← Стр. 30</a><a href="page-032.html">Стр. 32 →</a><a href="web-design-text-004-064.html#page-031">В общия файл</a></nav></main></body></html>

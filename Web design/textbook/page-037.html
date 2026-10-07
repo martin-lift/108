@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Текст от предоставените снимки на учебника по уеб дизайн, страници 4–64."><title>Страница 37 — Визуално оформяне на уеб сайт с използване на CSS (Упражнение)</title><style>
+:root {color-scheme:light;--ink:#172334;--muted:#53657c;--accent:#225d88;--line:#d8e1e9;--paper:#fff;--bg:#f3f6f8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1000px;margin:32px auto 64px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:40px 48px}
+h1,h2,h3{line-height:1.3;text-wrap:balance}h1{font-size:1.75rem;margin:0 0 26px}h2{font-size:1.35rem;color:var(--accent);margin:32px 0 16px}h3{font-size:1.1rem;margin:24px 0 12px}p{margin:0 0 16px}li{margin:0 0 8px}ul,ol{padding-left:1.6em;margin-top:12px;margin-bottom:22px}
+a{color:var(--accent);text-underline-offset:3px;overflow-wrap:anywhere}code,pre{font-family:ui-monospace,"Cascadia Code",Consolas,monospace}code{font-size:.92em;overflow-wrap:anywhere}pre{background:#f2f5f8;border:1px solid var(--line);border-left:4px solid #779bb7;border-radius:5px;padding:18px 22px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;font-size:16px}pre code{font-size:inherit}table{border-collapse:collapse;width:100%;margin:20px 0;font-size:16px}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left;overflow-wrap:anywhere}th{background:#edf3f7}tr:nth-child(even) td{background:#fafcfd}.source{font-size:12px;color:var(--muted);word-break:break-all}.eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 14px}.meta{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:28px;color:var(--muted);font-size:14px}.notice{border-left:4px solid #c78b2c;background:#fff6e6;padding:16px 20px;margin:22px 0;font-size:16px}.notice p:last-child{margin-bottom:0}.note{font-size:14px;color:var(--muted)}nav{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;font-size:15px;margin:16px 0 28px}nav a{text-decoration:none;border-bottom:1px solid var(--line)}.page{scroll-margin-top:20px}.page+.page{border-top:3px solid var(--line);margin-top:64px;padding-top:36px}.page-number{color:var(--muted);font-size:14px;margin-bottom:18px}.footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.toc td:first-child{white-space:nowrap}.missing{background:#fff6e6!important}button{font:inherit}
+@media(max-width:650px){body{font-size:17px}main{margin:0;border:0;border-radius:0;padding:24px 18px}h1{font-size:1.5rem}pre{font-size:14px;padding:12px}table{font-size:14px}th,td{padding:8px 6px}.source{font-size:11px}}
+@media print{body{background:white;font-size:11pt}main{border:0;margin:0;padding:0;max-width:none}nav{display:none}h1,h2,h3{break-after:avoid}pre,table{break-inside:avoid}.page+.page{break-before:page;border:0;margin:0;padding:0}.notice{border:1px solid #888}a{color:inherit}}
+</style></head><body><main><p class="eyebrow">Уеб дизайн · Препис от учебника</p><header class="meta">Страница <strong>37</strong> · Урок 15<br><span class="source">Снимка: IMG_20261004_150243_773.jpg</span></header><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-036.html">← Стр. 36</a><a href="page-038.html">Стр. 38 →</a><a href="web-design-text-004-064.html#page-037">В общия файл</a></nav><article class="original-text" data-page="37"><h1>15. Визуално оформяне на уеб сайт с използване на CSS (Упражнение)</h1>
+<h2>Основни свойства</h2>
+<p>Основните свойства, които се използват при работа с езика CSS, са сходни с част от атрибутите на таговете в езика HTML.</p>
+<p>Ето накратко някои основни, често използвани свойства:</p>
+<ul>
+<li><strong>width</strong> – задава дължината на елемента;</li>
+<li><strong>height</strong> – задава височината на елемента;</li>
+<li><strong>opacity</strong> – задава прозрачност на елемента в интервала 0 – 1 или 0% – 100%;</li>
+<li><strong>padding</strong> – задава разстояние между съдържанието на елемента и неговата рамка. Приема до четири стойности, разделени с интервали, съответно за горната, дясната, долната и лявата страна. Вижте &quot;Задаване на списък от стойности&quot; по-долу;</li>
+<li><strong>margin</strong> – задава разстояние между рамката и околните елементи. Форматът на стойностите е като на padding;</li>
+<li><strong>display</strong> – определя видимостта на елемента. Възможните стойности са: none (скрива елемента), inline (показва елементите един след друг и игнорира стойностите за размер), block (елементът се изобразява като блок, започва на нов ред и заема цялата ширина);</li>
+<li><strong>position</strong> – задава начина на позициониране: static (елементите се показват по реда на срещане в HTML кода), absolute (абсолютно – спрямо най-близкия нестатичен родителски елемент), relative (относително – спрямо нормалното си разположение), fixed (фиксирано – спрямо прозореца на браузъра);</li>
+<li><strong>left, right, top, bottom</strong> – задават отместване на елемента съответно отляво, отдясно, отгоре, отдолу при позициониране, различно от статично;</li>
+<li><strong>float</strong> – &quot;плаване&quot;. Позволява даден елемент да се обтича от текст и други inline обекти. Игнорира се за елементите с абсолютна позиция Възможните стойности са: none (не &quot;плава&quot;, стойност по подразбиране), left (позиционира се най-вляво на родителския елемент, като позволява текстът и другите елементи да го обтекат отдясно), right (като left, но вдясно);</li>
+<li><strong>clear</strong> – определя от коя страна на елемента не може да има плаващи елементи. Стойности: left (отляво), right (отдясно), both (от двете страни);</li>
+<li><strong>z-index</strong> – задава реда на елементите при позициониране – тези с по-малък индекс са под тези с по-голям индекс.</li>
+</ul>
+<h3>Задаване на списък от стойности</h3>
+<p>Някои свойства, напр. margin и padding, които се отнасят до четирите страни на елемента, могат да приемат списък от 1 до 4 стойности, разделени с интервал:</p>
+<ul>
+<li>4 стойности (напр. margin: 1px 2px 3px 4px;) – отнасят се съответно за горната (1px), дясната (2px), долната (3px) и лявата (4px) страна;</li>
+<li>3 стойности (напр. margin: 1px 2px 3px;) – отнасят се за горната (1px), дясната и лявата (2px) и долната (3px) страна;</li>
+<li>2 стойности (напр. margin: 1px 2px;) – отнасят се съответно за горната и долната (1px) и дясната и лявата (2px) страна;</li>
+<li>1 стойност (напр. margin: 1px;) – отнася се за четирите страни.</li>
+</ul>
+<p>Тези параметри могат да се задават и като отделни свойства с по една стойност (напр. <strong>margin-left</strong>: 2px; или <strong>padding-top</strong>: 5px; ).</p>
+<p>Пример:</p>
+<pre><code class="language-css">div {
+  margin-top: 5px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  margin-left: 50px;
+  padding-top: 3px;
+  padding-right: 7px;
+  padding-bottom: 3px;
+  padding-left: 7px;
+}
+</code></pre>
+<p>Това правило е аналогично на:</p>
+<pre><code class="language-css">div {
+  margin: 5px 10px 20px 50px;
+  padding: 3px 7px;
+}
+</code></pre>
+<p>Съдържание на елемента</p>
+<pre><code class="language-css">padding: 3px 7px;
+margin: 5px 10px 20px 50px;
+</code></pre>
+<p><strong>Задача 1. Стартирайте &quot;pois.html&quot; в браузъра. Отворете файла &quot;styles.css&quot;, намерете правилото със селектор &quot;.poiBlock img&quot; и променете стойността на &quot;float&quot; първо на &quot;left&quot;, а след това на &quot;none&quot;. Опреснете страницата в браузъра и опишете как се отразяват промените. Върнете я пак в начално състояние.</strong></p>
+<h2>Форматиране на текст</h2>
+<p>Основни свойства за форматиране на текст:</p>
+<ul>
+<li><strong>color</strong> – цвят на символите в CSS формат.</li>
+<li><strong>text-align</strong> – подравняване на текст с възможни стойности: left (ляво), right (дясно), center (центрирано), justify (двустранно).</li>
+<li><strong>font-size</strong> – размер на символите.</li>
+<li><strong>font-family</strong> – шрифт на текст.</li>
+<li><strong>font-weight</strong> – задава &quot;тегло&quot; на текста. Може да приема стойности: <strong>normal</strong> (нормален текст), <strong>bold</strong> (удебелен текст), <strong>lighter</strong> (изтънен текст) и др.</li>
+<li><strong>text-decoration</strong> – задава допълнителен ефект на текста. Възможните му стойности са: <strong>underline</strong> (подчертава текста с долна черта), <strong>none</strong> (без ефекти), <strong>overline</strong> (подчертава текста с горна черта), <strong>blink</strong> (текстът премигва), <strong>line-through</strong> (зачертава текста).</li>
+<li><strong>text-indent</strong> – задава отстъп на първия ред на абзац.</li>
+</ul>
+</article><footer class="footer">Страница 37 · Текст по снимка от 35_44.zip. Илюстрациите не са включени.</footer><nav aria-label="Навигация по страниците"><a href="index.html">Съдържание</a><a href="page-036.html">← Стр. 36</a><a href="page-038.html">Стр. 38 →</a><a href="web-design-text-004-064.html#page-037">В общия файл</a></nav></main></body></html>
