@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 10: Основи на HTML</title><meta name="description" content="Урок 10: Основи на HTML — обяснения, примери и задачи за ученици."><style>body{font-family:Arial,sans-serif;line-height:1.65;max-width:1000px;margin:auto;padding:28px;color:#222;background:#fff}h1{color:#244b73;border-bottom:3px solid #244b73;padding-bottom:12px;line-height:1.25}h2{color:#315f8d;margin-top:32px;line-height:1.35}h3{color:#315f8d}p{margin:12px 0}li{margin:7px 0}.task,.note{background:#eef4f9;border-left:5px solid #315f8d;padding:14px 18px;margin:18px 0}.task{background:#f1f7ee;border-color:#557b39}pre{background:#f3f5f7;border:1px solid #d8e0e8;border-radius:5px;padding:16px;overflow-x:auto;line-height:1.5;font-size:.95em}code{font-family:Consolas,monospace;overflow-wrap:anywhere}pre code{overflow-wrap:normal}table{border-collapse:collapse;max-width:100%;display:block;overflow-x:auto;margin:18px 0}td,th{border:1px solid #bdcbd8;padding:9px;text-align:left}th{background:#eef4f9}figure{margin:24px 0;padding:16px;border:1px solid #d8e0e8;background:#fafcff}figure img{display:block;max-width:100%;height:auto;margin:auto;max-height:600px;object-fit:contain}figcaption{font-size:.92em;color:#455568;margin-top:12px}nav{margin-bottom:20px;display:flex;flex-wrap:wrap;gap:16px}a{color:#244b73}footer{margin-top:32px;border-top:1px solid #ddd;padding-top:16px;font-size:.9em;color:#555}.contents{background:#f4f7fa;padding:16px 24px}.contents ol{columns:2;column-gap:36px}.contents li{break-inside:avoid}section{scroll-margin-top:16px}@media(max-width:600px){body{padding:18px}h1{font-size:1.7em}.contents ol{columns:1}}@media print{nav,.contents{display:none}body{max-width:none;padding:0}h2{break-after:avoid}pre,figure,.task{break-inside:avoid}a{color:#222}}</style></head><body><nav aria-label="Навигация"><a href="index.html">← Всички уроци по уеб дизайн</a><a href="09-Specialized-Web-Editors.html">← Урок 9</a><a href="11-HTML-Text-Links-and-Images.html">Урок 11 →</a></nav><main><h1>Урок 10: Основи на HTML</h1><details class="contents"><summary>Теми в урока</summary><ol><li><a href="#topic-1">История</a></li><li><a href="#topic-2">Редактор и разширение на файла</a></li><li><a href="#topic-3">Тагове</a></li><li><a href="#topic-4">Справочник за HTML тагове</a></li><li><a href="#topic-5">Влагане на HTML елементи</a></li><li><a href="#topic-6">Атрибути</a></li><li><a href="#topic-7">Имена и стойности на атрибутите</a></li><li><a href="#topic-8">Задължителни и допълнителни атрибути</a></li><li><a href="#topic-9">Справочник за атрибутите</a></li><li><a href="#topic-10">Структура на HTML документ</a></li><li><a href="#topic-11">Декларацията DOCTYPE</a></li><li><a href="#topic-12">Елементът html</a></li><li><a href="#topic-13">Елементът head</a></li><li><a href="#topic-14">Елементът title</a></li><li><a href="#topic-15">Метаданни в head</a></li><li><a href="#topic-16">Елементът body</a></li><li><a href="#topic-17">Задача.</a></li><li><a href="#topic-18">Въпроси и допълнителни задачи</a></li><li><a href="#topic-19">Пълен минимален HTML документ</a></li><li><a href="#topic-20">Основни понятия</a></li><li><a href="#topic-21">Онлайн инструменти и полезни връзки</a></li></ol></details><aside class="note"><strong>Материали за упражненията.</strong> Имената на файловете и папките в задачите са от приложението към учебника. Ако учителят не ги е предоставил, създайте своя папка Site и страниците index.html, pois.html, events.html и styles.css. Използвайте собствен текст за избрани забележителности, таблица с поне три събития и изображения или медия с разрешено използване. За pois.html създайте блокове div с id="1" и id="2", class="poiBlock", със заглавие h2, изображение и вложен div class="poiText" с параграфи. За видеото добавете div id="video". Така можете да изпълните същите действия с ваши материали.</aside>
+<p>Услугата World Wide Web представлява мрежа от свързани онлайн документи, създадени с <strong>HTML</strong> (англ. HyperText Markup Language – език за маркиране на хипертекст). HTML е основният език за описание на уеб страници.</p>
+<h2 id="topic-1">1. История</h2>
+<p>HTML е разработен от Тим Бърнърс-Лий в ЦЕРН, Женева, като средство за обмен на научна и техническа документация. Работата по World Wide Web започва през 1989 г., а първото публикувано описание „HTML tags“ е от 1991 г. и съдържа 18 елемента. Първоначално езикът служи за структуриране на документи за хора без специализирани знания за оформление. По-късно се добавят възможности за мултимедия и графичен дизайн. HTML постепенно се стандартизира, а HTML5 е публикуван като препоръка през 2014 г. Днес HTML се развива като жив стандарт (Living Standard), а името HTML5 продължава да се използва за съвременния HTML. Бърнърс-Лий е британски учен, а ЦЕРН се намира в Швейцария. Първоначалният HTML има сравнително проста структура и не задава конкретно устройство за показване на документа. През 2000 г. HTML 4.01 е утвърден и като международен ISO стандарт.</p><figure><img alt="Състав на HTML елемент" decoding="async" loading="lazy" src="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax/grumpy-cat-small.png"/><figcaption>В примера отварящият таг е &lt;p&gt;, след него идва текстът, а &lt;/p&gt; затваря елемента. Заедно те образуват един параграф. <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax" rel="noopener noreferrer" target="_blank">Източник: MDN</a>.</figcaption></figure>
+<h2 id="topic-2">2. Редактор и разширение на файла</h2><p>Създаването на уеб страница с помощта на HTML може да се извърши с обикновен текстов редактор (Notepad, Notepad++) или специализирани приложения за създаване на HTML страници (BlueGriffon, Dreamweaver), като се записва в текстови файлове с разширение .html или .htm.</p>
+<p>Описанието на HTML документ се състои от специални елементи, наречени <strong>тагове</strong>.</p>
+<h2 id="topic-3">3. Тагове</h2>
+<p>Тагът (англ. <em>tag</em> – етикет) се състои от текст, заграден в ъглови скоби (например <code>&lt;html&gt;</code>), и указва на браузъра как да интерпретира последващата информация, за да бъде показана на дисплея на устройството.</p>
+<h2 id="topic-4">4. Справочник за HTML тагове</h2><p>Всеки таг има конкретно предназначение. Таблица с всички възможни тагове и тяхното предназначение можете да видите на адрес <strong><a href="http://www.w3schools.com/tags/" rel="noopener noreferrer" target="_blank">www.w3schools.com/tags/</a></strong> или като отворите файла "Web\HTML\HTML Tags.pdf" от приложените файлове.</p>
+<p>Всеки HTML елемент, с малки изключения, се описва по следния начин:</p>
+<ul>
+<li>таг за начало (отварящ) – маркира началото на HTML елемента, например <code>&lt;html&gt;</code>;</li>
+<li>съдържание;</li>
+<li>таг за край (затварящ) – маркира края на HTML елемента; за разлика от началния таг крайният има наклонена надясно черта пред името си, например <code>&lt;/html&gt;</code>.</li>
+</ul>
+<p>Ето как изглежда цялата комбинация:</p>
+<pre><code class="language-html">&lt;html&gt; … съдържание … &lt;/html&gt;
+</code></pre>
+<h2 id="topic-5">5. Влагане на HTML елементи</h2><p>Таговете могат да се влагат един в друг, като първият отворен таг се затваря последен.</p>
+<h2 id="topic-6">6. Атрибути</h2>
+<h2 id="topic-7">7. Имена и стойности на атрибутите</h2><p>Към много от таговете могат да се добавят атрибути (допълнителни характеристики), които съдържат допълнителна информация за тага. Например в тага за изображение <code>&lt;img&gt;</code></p>
+<pre><code class="language-html">&lt;img src="img_girl.jpg" width="500" height="600"&gt;
+</code></pre>
+<p>има атрибути с имена src, width, height, които имат следните стойности:</p>
+<pre><code class="language-text">src="img_girl.jpg"
+width="500"
+height="600"
+</code></pre>
+<h2 id="topic-8">8. Задължителни и допълнителни атрибути</h2><p>Атрибутите могат да бъдат задължителни и допълнителни, като това зависи от съответния таг. В горния пример тагът <code>&lt;img&gt;</code> изисква задължителен атрибут src, а атрибутите width и height могат и да не се задават. Всеки таг поддържа само определен набор от атрибути – т.е., неподдържаните атрибути обикновено нямат очаквания ефект; съществуват и общи атрибути, както и потребителски атрибути data-*. Стойността на атрибутите се огражда в кавички (" ").</p>
+<p>Пример:</p>
+<p>използване на атрибута за хипервръзка href</p>
+<pre><code class="language-html">&lt;a href="https://www.google.bg/"&gt; ………. &lt;/a&gt;
+</code></pre>
+<h2 id="topic-9">9. Справочник за атрибутите</h2><p>Списък на атрибутите, които се поддържат в HTML таговете, можете да видите на адрес <strong><a href="http://www.w3schools.com/tags/ref_attributes.asp" rel="noopener noreferrer" target="_blank">www.w3schools.com/tags/ref_attributes.asp</a></strong> или като отворите файла "Web\HTML\HTML Atributes.pdf" от приложените материали.</p>
+<h2 id="topic-10">10. Структура на HTML документ</h2>
+<p>HTML документите са съставени от две основни части: глава (<strong>head</strong>) и тяло (<strong>body</strong>).</p>
+<h2 id="topic-11">11. Декларацията DOCTYPE</h2><p>HTML документът трябва да започва с декларацията <strong><code>&lt;!DOCTYPE html&gt;</code></strong>. Това не е HTML таг, а инструкция за уеб браузъра – прилежащите му атрибути определят версията на HTML езика и какъв тип е документът. Ако документът е написан на актуалната версия на езика (HTML5), не се задават аргументи.</p>
+<p>Основните тагове, които оформят HTML документ, са:</p>
+<ul>
+<li><strong><code>&lt;html&gt;</code></strong></li>
+</ul>
+<h2 id="topic-12">12. Елементът html</h2><p>Указва на браузъра, че това е HTML документ. Отбелязва началото и края на документа и съдържа всички други негови елементи. Въвежда се след началния таг <code>&lt;!DOCTYPE html&gt;</code>.</p>
+<ul>
+<li><strong><code>&lt;head&gt;</code></strong></li>
+</ul>
+<h2 id="topic-13">13. Елементът head</h2><p>Съдържа заглавната част на файла и информация за идентифициране на HTML документа. Между неговото начало и край се поставя тагът за заглавие на документа.</p>
+<ul>
+<li><strong><code>&lt;title&gt;</code></strong></li>
+</ul>
+<h2 id="topic-14">14. Елементът title</h2><p>Съдържа заглавието на документа. Той е част от елемента head. Указаното заглавие на документ се появява при интерпретация от браузъра в заглавната линия на неговия прозорец. Текстът на заглавието не се включва и не се изобразява в полето на документа. Добре е то да бъде кратко и ясно, например около 40 – 50 знака; това не е техническо ограничение и да описва най-точно съдържанието на страницата.</p>
+<h2 id="topic-15">15. Метаданни в head</h2><p>Освен заглавието на страницата, между таговете head се поставят и специалните метатагове, описващи съдържанието на страницата или указващи някакво поведение на браузъра, търсещите машини, кеширащите системи и други.</p>
+<ul>
+<li><strong><code>&lt;body&gt;</code></strong></li>
+</ul>
+<h2 id="topic-16">16. Елементът body</h2><p>Включва основното съдържание на документа – текст, хипервръзки, изображения, таблици и др. Това е тялото на документа, където се разполага изобразяваната от браузъра информация.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Заглавие на документа&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+Съдържание на документа
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="topic-17">17. Задача.</h2><p class="task"><strong>Задача. Отворете в редактора Notepad++ файла events.html от папка "Site" от приложените материали. Като спазвате основните изисквания за структурата на един HTML документ, добавете таговете <code>&lt;head&gt;</code>, <code>&lt;title&gt;</code>, <code>&lt;body&gt;</code>. Заглавието и съдържанието на документа вземете от файла struktura.docx от папката "Site\Resources". Запишете файла и проверете какъв е резултатът, като го отворите в браузъра.</strong></p>
+<h2 id="topic-18">18. Въпроси и допълнителни задачи</h2>
+<ol>
+<li>Какво представлява тагът?</li>
+<li>Кои са основните структурни части на HTML документите?</li>
+<li>Какво се включва в тага <strong><code>&lt;body&gt;</code></strong>?</li>
+</ol>
+<h2 id="topic-19">19. Пълен минимален HTML документ</h2><pre><code>&lt;!doctype html&gt;
+&lt;html lang="bg"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Предстоящи събития в Карлово&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Предстоящи събития&lt;/h1&gt;
+  &lt;p&gt;Тук ще добавим програмата на събитията.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>UTF-8 позволява правилно изписване на кирилица. Атрибутът lang указва езика. Елементите img, br, input, meta и link са празни елементи и нямат затварящ таг.</p><h2 id="topic-20">20. Основни понятия</h2>
+<p><strong>HTML</strong> (HyperText Markup Language) – стандартен маркиращ език за създаване на документи, които да се визуализират в уеб браузър.</p>
+<p><strong>HTML елемент</strong> – основен структурен компонент в HTML документа. Описва се с отварящ и затварящ HTML таг и включва цялото съдържание между тях.</p>
+<p><strong>HTML таг</strong> – етикет, заграден в ъглови скоби (<code>&lt; &gt;</code>). Таговете указват на браузъра как да интерпретира информацията, описана в HTML документа, като определят началото и края на описанието на HTML елементите, както и тяхното съдържание, вид и атрибути.</p>
+<p><strong>HTML атрибут</strong> – задава основни или допълнителни характеристики на HTML елемента. Описва се в отварящия таг, най-често като двойка <em>атрибут=стойност</em>.</p>
+<h2 id="topic-21">21. Онлайн инструменти и полезни връзки</h2><ul><li><a href="https://notepad-plus-plus.org/" rel="noopener noreferrer" target="_blank">Notepad++</a></li><li><a href="https://validator.w3.org/nu/" rel="noopener noreferrer" target="_blank">Nu HTML Checker</a></li></ul></main><footer>По учебника по уеб дизайн, страници 26–27. Съдържанието е организирано за ученици; техническите уточнения и външните изображения допълват темите.</footer></body></html>

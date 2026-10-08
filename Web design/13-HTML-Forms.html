@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 13: Основи на HTML. Създаване на форми (Упражнение)</title><meta name="description" content="Урок 13: Основи на HTML. Създаване на форми (Упражнение) — обяснения, примери и задачи за ученици."><style>body{font-family:Arial,sans-serif;line-height:1.65;max-width:1000px;margin:auto;padding:28px;color:#222;background:#fff}h1{color:#244b73;border-bottom:3px solid #244b73;padding-bottom:12px;line-height:1.25}h2{color:#315f8d;margin-top:32px;line-height:1.35}h3{color:#315f8d}p{margin:12px 0}li{margin:7px 0}.task,.note{background:#eef4f9;border-left:5px solid #315f8d;padding:14px 18px;margin:18px 0}.task{background:#f1f7ee;border-color:#557b39}pre{background:#f3f5f7;border:1px solid #d8e0e8;border-radius:5px;padding:16px;overflow-x:auto;line-height:1.5;font-size:.95em}code{font-family:Consolas,monospace;overflow-wrap:anywhere}pre code{overflow-wrap:normal}table{border-collapse:collapse;max-width:100%;display:block;overflow-x:auto;margin:18px 0}td,th{border:1px solid #bdcbd8;padding:9px;text-align:left}th{background:#eef4f9}figure{margin:24px 0;padding:16px;border:1px solid #d8e0e8;background:#fafcff}figure img{display:block;max-width:100%;height:auto;margin:auto;max-height:600px;object-fit:contain}figcaption{font-size:.92em;color:#455568;margin-top:12px}nav{margin-bottom:20px;display:flex;flex-wrap:wrap;gap:16px}a{color:#244b73}footer{margin-top:32px;border-top:1px solid #ddd;padding-top:16px;font-size:.9em;color:#555}.contents{background:#f4f7fa;padding:16px 24px}.contents ol{columns:2;column-gap:36px}.contents li{break-inside:avoid}section{scroll-margin-top:16px}@media(max-width:600px){body{padding:18px}h1{font-size:1.7em}.contents ol{columns:1}}@media print{nav,.contents{display:none}body{max-width:none;padding:0}h2{break-after:avoid}pre,figure,.task{break-inside:avoid}a{color:#222}}</style></head><body><nav aria-label="Навигация"><a href="index.html">← Всички уроци по уеб дизайн</a><a href="12-HTML-Tables-Lists-Audio-and-Video.html">← Урок 12</a><a href="14-CSS-Visual-Design.html">Урок 14 →</a></nav><main><h1>Урок 13: Основи на HTML. Създаване на форми (Упражнение)</h1><details class="contents"><summary>Теми в урока</summary><ol><li><a href="#topic-1">Граници на формата</a></li><li><a href="#topic-2">Input и неговият тип</a></li><li><a href="#topic-3">Поле за текст</a></li><li><a href="#topic-4">Етикетът label</a></li><li><a href="#topic-5">Поле за отметка</a></li><li><a href="#topic-6">Какви данни изпраща отметката</a></li><li><a href="#topic-7">Радиобутон</a></li><li><a href="#topic-8">Важно</a></li><li><a href="#topic-9">Падащо меню</a></li><li><a href="#topic-10">Множествен избор и размер на списъка</a></li><li><a href="#topic-11">Текстова област</a></li><li><a href="#topic-12">Начален текст в textarea</a></li><li><a href="#topic-13">Превъртане на текстова област</a></li><li><a href="#topic-14">Поле за въвеждане на парола</a></li><li><a href="#topic-15">Поле за качване на файлове</a></li><li><a href="#topic-16">Бутон за изпращане (изтриване) на данни</a></li><li><a href="#topic-17">Методите GET и POST</a></li><li><a href="#topic-18">Задача.</a></li><li><a href="#topic-19">Какво става след изпращане на формата</a></li><li><a href="#topic-20">Онлайн инструменти и полезни връзки</a></li></ol></details><aside class="note"><strong>Материали за упражненията.</strong> Имената на файловете и папките в задачите са от приложението към учебника. Ако учителят не ги е предоставил, създайте своя папка Site и страниците index.html, pois.html, events.html и styles.css. Използвайте собствен текст за избрани забележителности, таблица с поне три събития и изображения или медия с разрешено използване. За pois.html създайте блокове div с id="1" и id="2", class="poiBlock", със заглавие h2, изображение и вложен div class="poiText" с параграфи. За видеото добавете div id="video". Така можете да изпълните същите действия с ваши материали.</aside>
+<p>Формите (формуляри) представляват част от документ, позволяваща на потребителя да въвежда информация за последваща обработка от системата. Във формите се използват различни елементи (контроли, етикети и др.), в които може да се избере или въведе определена информация, да се отбележат предложените възможности.</p>
+<h2 id="topic-1">1. Граници на формата</h2><p>Всяка форма започва с отварящ таг <strong><code>&lt;form&gt;</code></strong> и завършва със затварящ таг <strong><code>&lt;/form&gt;</code></strong>. Цялото съдържание на формата е заключено между тези два тага.</p><figure><img alt="Скица на контактна форма" decoding="async" loading="lazy" src="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Your_first_form/form-sketch-low.jpg"/><figcaption>Полетата за име, имейл и съобщение имат етикети, а бутонът изпраща формата. Първо планирайте нужните данни и след това изберете съответните HTML елементи. <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Your_first_form" rel="noopener noreferrer" target="_blank">Източник: MDN</a>.</figcaption></figure>
+<h2 id="topic-2">2. Input и неговият тип</h2><p>Повечето елементи на формите се въвеждат чрез тага <strong><code>&lt;input&gt;</code></strong>, който може да съдържа няколко атрибута, най-важният от които е <em>type</em>. Атрибутът <em>type</em> указва вида на елемента в конкретния случай.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;input type="text" /&gt;
+&lt;input type="hidden" /&gt;
+&lt;input type="password" /&gt;
+&lt;/form&gt;
+</code></pre>
+<h2 id="topic-3">3. Поле за текст</h2>
+<p>Почти всяка форма съдържа поле за въвеждане на текст. На страницата тези полета се показват като правоъгълници, в които може да се въвежда текст. За да се зададе поле за въвеждане на текст във форма, трябва да се въведе атрибутът type на тага input и да му се зададе стойност text:</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;input type="text" /&gt;
+</code></pre>
+<p>В този случай на страницата ще се изобрази текстово поле, което по подразбиране има дължина 20 символа. Препоръчително е освен атрибута <em>type</em>, в тага <strong>input</strong> да се използват и следните атрибути:</p>
+<ul>
+<li>Атрибута <em>name</em>, който приема като стойност името за полето.</li>
+<li>Атрибутът <em>size</em> задава дължината на текстовото поле в брой символи (например size="40"). Ако не се използва този атрибут, дължината на текстовото поле по подразбиране ще бъде 20 символа.</li>
+<li>Чрез атрибута <em>value</em> може да се зададе текст, който да се вижда в текстовото поле, преди още клиентът да е въвел някаква информация.</li>
+<li>Чрез атрибута <em>maxlength</em> може да въведете ограничение на броя на изписваните в текстовото поле символи. Например ако зададете maxlength="15", в текстовото поле няма да бъде възможно да се въведат повече от 15 символа (букви, цифри и други).</li>
+</ul>
+<h2 id="topic-4">4. Етикетът label</h2><p>За да въведете текст, който да обяснява на потребителя предназначението на съответното поле, използвайте елемента <strong><code>&lt;label&gt;</code></strong>. Той създава етикет, свързан с полето чрез неговото <em>id</em>, зададено в атрибута <em>for</em>.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;label for="Name"&gt;Вашето име:&lt;/label&gt;
+&lt;input type="text" name="Name" id="Name"
+  size="30" maxlength="35" /&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Примерът създава форма с 1 текстово поле с етикет "Вашето име". То има дължина 30 знака и ограничение за въвеждане на повече от 35 символа.</p>
+<h2 id="topic-5">5. Поле за отметка</h2>
+<p>Полетата за отметки се използват във формите, за да може посетителят на страницата да избере едновременно няколко възможности. Създават се няколко елемента <strong><code>&lt;input&gt;</code></strong>, на които се задава атрибут <em>type</em> със стойност <em>checkbox</em>. На всеки се присвоява двойка атрибути <em>name</em> и <em>value</em>.</p>
+<h2 id="topic-6">6. Какви данни изпраща отметката</h2><p>Полетата, които потребителят отметне, ще изпратят към сървъра съответната комбинация name=value.</p>
+<p>Използваме елемента <strong><code>&lt;label&gt;</code></strong> за описание на полето.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;input type="checkbox" id="device1"
+  name="device1" value="Phone"&gt;
+&lt;label for="device1"&gt; Телефон&lt;/label&gt;&lt;br&gt;
+&lt;input type="checkbox" id="device2"
+  name="device2" value="Tablet"&gt;
+&lt;label for="device2"&gt; Таблет&lt;/label&gt;&lt;br&gt;
+&lt;input type="checkbox" id="device3"
+  name="device3" value="Laptop"&gt;
+&lt;label for="device3"&gt; Лаптоп&lt;/label&gt;
+&lt;/form&gt;
+</code></pre>
+<p>В примера създаваме форма за въпроса "Какви IT устройства използвате?" с три отговора, които могат да бъдат избрани едновременно. Тя ще изпрати от 0 до 3 стойности във формат name=value, напр.</p>
+<p>device1=Phone&amp;device3=Laptop</p>
+<h2 id="topic-7">7. Радиобутон</h2>
+<p>Радиобутоните се използват за избор между няколко възможности, като позволяват да се избере само една. За да се изработи радиобутон, на атрибута <em>type</em> от елемента <strong><code>&lt;input&gt;</code></strong> се задава стойност <em>radio</em>. На атрибута <em>name</em> на всички елементи от групата радиобутони се задава една и съща стойност. Останалите атрибути са като при полетата за маркиране. Радиобутоните изпращат само една двойка name=value.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;input type="radio" id="device1"
+  name="device" value="Phone"&gt;
+&lt;label for="device1"&gt; Телефон&lt;/label&gt;&lt;br&gt;
+&lt;input type="radio" id="device2"
+  name="device" value="Tablet"&gt;
+&lt;label for="device2"&gt; Таблет&lt;/label&gt;&lt;br&gt;
+&lt;input type="radio" id="device3"
+  name="device" value="Laptop"&gt;
+&lt;label for="device3"&gt; Лаптоп&lt;/label&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Този път създаваме форма за въпроса "Какъв подарък искате?" с три отговора, като можете да изберете само един от тях. Тя ще изпрати само една стойност във формат name=value, напр. device=Phone. Забележете, че атрибутите id винаги са уникални. В случая се използват за връзка с <strong><code>&lt;label&gt;</code></strong>.</p>
+<h2 id="topic-8">8. Важно</h2>
+<p>При използване на елементите <strong>form</strong>, <strong>select</strong>, <strong>option</strong>, <strong>textarea</strong> изпускането на затварящия таг ще доведе до сериозни обърквания и грешки.</p>
+<h2 id="topic-9">9. Падащо меню</h2>
+<p>Елементът <strong><code>&lt;select&gt;</code></strong> се използва за създаване на списък, от който потребителят избира една или няколко стойности (падащо меню). Задължителен атрибут е <em>name</em>. Той определя под какво име избраните стойности ще се изпратят към сървъра.</p>
+<p>Тагът <strong><code>&lt;select&gt;</code></strong> загражда нужния брой елементи <strong><code>&lt;option&gt;</code></strong>, които съставят списъка. Техните атрибути <em>value</em> задават стойностите, които ще бъдат върнати, а текстът, затворен между таговете <strong><code>&lt;option&gt;</code></strong> и <strong><code>&lt;/option&gt;</code></strong>, ще се визуализира в падащото меню</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+Кой е любимият ви цвят? &lt;br /&gt;
+&lt;select name="ChooseOne"&gt;
+&lt;option value="Red"&gt;червен&lt;/option&gt;
+&lt;option value="Blue"&gt;син&lt;/option&gt;
+&lt;option value="Green"&gt;зелен&lt;/option&gt;
+&lt;/select&gt;
+&lt;/form&gt;
+</code></pre>
+<h2 id="topic-10">10. Множествен избор и размер на списъка</h2><p>Падащите менюта дават възможност както за единичен, така и за множествен избор. За да бъде възможно да се маркира повече от едно поле от падащото меню, в тага <strong>select</strong> е нужно да се въведе атрибутът <em>multiple</em>. Атрибутът <em>size</em> задава броя на видимите опции. По подразбиране е 1. При по-голяма стойност менюто ще се покаже като списък с лента за превъртане.</p>
+<h2 id="topic-11">11. Текстова област</h2>
+<p>Ако желаете да предоставите възможност за по-подробно мнение или коментар, трябва да използвате многоредово поле за въвеждане на текст. Многоредовите полета се въвеждат чрез тага <strong><code>&lt;textarea&gt;</code></strong>. Атрибутите на тага са:</p>
+<ul>
+<li>Атрибутът <em>name</em>, определящ названието, под което ще се съхранява и обработва тази част от формата.</li>
+<li>Атрибутът <em>rows</em>, на който се присвоява като стойност някаква цифра, указваща височина на полето в брой редове.</li>
+<li>Атрибутът <em>cols</em>, на който се присвоява като стойност някаква цифра, указваща ширината на полето в брой символи (цифри, букви и др.).</li>
+</ul>
+<h2 id="topic-12">12. Начален текст в textarea</h2><p>Ако искате да зададете текст, който да се покаже в полето, трябва да го изпишете между отварящия и затварящия таг.</p>
+<p>Ако желаете да поясните предназначението на многоредовото поле, изпишете текста преди тага <strong><code>&lt;textarea&gt;</code></strong>, най-добре в елемент <strong><code>&lt;label&gt;</code></strong>.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;label for="text1"&gt;Вашият коментар:&lt;/label&gt;
+&lt;textarea name="Comentar" id="text1"
+  cols="40" rows="12"&gt;Моят коментар е
+  &lt;/textarea&gt;
+&lt;/form&gt;.
+</code></pre>
+<p>Това е пример за форма с текстова област с име Comentar, с дължина 40 символа и височина 12 реда. Указващият текст към полето да бъде "Вашият коментар:", а вътре в самото поле да се вижда текстът "Моят коментар е".</p>
+<h2 id="topic-13">13. Превъртане на текстова област</h2><p>Ако коментарът е дълъг и не се събере във видимата част на полето, отстрани ще се появи лента за превъртане.</p>
+<h2 id="topic-14">14. Поле за въвеждане на парола</h2>
+<p>За да изработите поле за въвеждане на парола, трябва да зададете на атрибута <em>type</em> от тага <strong>input</strong> стойността <em>password</em>.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;label for="pass"&gt;Въведете парола:&lt;/label&gt;
+&lt;input type="password" id="pass"
+  name="parola" /&gt;
+&lt;/form&gt;
+</code></pre>
+<h2 id="topic-15">15. Поле за качване на файлове</h2>
+<p>За да изработите поле за качване на файлове, трябва да зададете на атрибута <em>type</em> от тага <strong>input</strong> стойността <em>file</em>. С атрибута <em>name</em> се задава име, под което данните ще се изпратят към сървъра. Може да се използва и атрибутът <em>multiple</em> за качване на няколко файла едновременно. След изписване на кода в прозореца на браузъра се изобразява поле и бутон с надпис <strong>Browse</strong>. При натискане върху бутона се появява прозорец с файловете от компютъра, от който той избира нужния за прехвърляне файл.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;input type="file" name="UploadFile"
+  size="25" /&gt;
+&lt;/form&gt;
+</code></pre>
+<h2 id="topic-16">16. Бутон за изпращане (изтриване) на данни</h2>
+<p>За изпращане и обработка на попълнените данни в дадена форма се използва бутонът "Submit". Обикновено този бутон може да се види в края на формата. За да изработите бутон за изпращане на данни, трябва да зададете на атрибута <em>type</em> от тага <strong>input</strong> стойността <em>submit</em>.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;form&gt;
+&lt;input type="submit" value="Submit" /&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Аналогично е изработването на бутон "Reset", чрез който формата се изчиства и се изтриват попълнените вече данни. За целта трябва да зададете на атрибута <em>type</em> от тага <strong>input</strong> стойността <em>reset</em>.</p>
+<p>Други атрибути на <strong><code>&lt;form&gt;</code></strong>:</p>
+<p><em>method</em> – определя метода за изпращане на формата<br/><em>action</em> – задава URL адрес, на който да се изпрати, по подразбиране е адресът на формата<br/><em>name</em> – определя името на формата</p>
+<p>Други атрибути на <strong><code>&lt;input&gt;</code></strong>:</p>
+<p><em>type=image</em> – определя външно изображение като бутон за изпращане<br/><em>type=hidden</em> – определя скрито поле<br/><em>value</em> – задава начална стойност на полето<br/><em>name</em> – определя името на полето при изпращане на данните</p>
+<h2 id="topic-17">17. Методите GET и POST</h2><p>Формата се изпраща на URL адреса, посочен в атрибута ѝ <em>action</em> по два метода: <strong>GET</strong> и <strong>POST</strong>. Първият добавя данните от полетата към URL адреса като списък във формат <em>име=стойност</em>, разделени със знака &amp;. Това е лесно за проследяване и запомняне като отметка в браузъра, но не е подходящо за чувствителна информация, а практическите ограничения за дължината на адреса зависят от браузъра, сървъра и междинните системи. Методът <strong>POST</strong> вмъква данните в тялото на HTTP заявката. Така те не се виждат в полето за адрес на браузъра но сървърът може да задава ограничения за размера на заявката; за защита на данните и двата метода трябва да се използват през HTTPS.</p>
+<h2 id="topic-18">18. Задача.</h2><p class="task"><strong>Задача. Отворете редактора BlueGriffon и създайте файл с име form.html, който да представлява регистрационна форма със следните данни: Име (текстово поле), Години (падащо меню), Пол (радиобутон), Потребител (текстово поле), Парола (поле за парола), Имейл (текстово поле), Бутон за изпращане (Submit).</strong></p>
+<h2 id="topic-19">19. Какво става след изпращане на формата</h2><p>HTML създава полетата, но записването на регистрацията изисква сървърна програма на адреса от action. POST не шифрова данните — за това е нужен HTTPS. Полето password скрива символите на екрана, но също не шифрова преноса. Reset връща началните стойности на полетата и не винаги ги прави празни. За качване на файлове използвайте method="post" и enctype="multipart/form-data". Name е нужен, за да се изпрати стойността на полето; select без name все пак може да се показва.</p><p>Size задава приблизителната видима ширина, а maxlength ограничава броя на въведените символи. За възраст може да използвате подходящи option стойности или input type="number"; за електронна поща — input type="email".</p><h2 id="topic-20">20. Онлайн инструменти и полезни връзки</h2><ul><li><a href="https://validator.w3.org/nu/" rel="noopener noreferrer" target="_blank">Nu HTML Checker</a></li></ul></main><footer>По учебника по уеб дизайн, страници 32–33. Съдържанието е организирано за ученици; техническите уточнения и външните изображения допълват темите.</footer></body></html>

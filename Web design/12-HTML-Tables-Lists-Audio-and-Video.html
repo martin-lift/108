@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 12: Основи на HTML. Тагове за таблица, списъци, аудио, видео (Упражнение)</title><meta name="description" content="Урок 12: Основи на HTML. Тагове за таблица, списъци, аудио, видео (Упражнение) — обяснения, примери и задачи за ученици."><style>body{font-family:Arial,sans-serif;line-height:1.65;max-width:1000px;margin:auto;padding:28px;color:#222;background:#fff}h1{color:#244b73;border-bottom:3px solid #244b73;padding-bottom:12px;line-height:1.25}h2{color:#315f8d;margin-top:32px;line-height:1.35}h3{color:#315f8d}p{margin:12px 0}li{margin:7px 0}.task,.note{background:#eef4f9;border-left:5px solid #315f8d;padding:14px 18px;margin:18px 0}.task{background:#f1f7ee;border-color:#557b39}pre{background:#f3f5f7;border:1px solid #d8e0e8;border-radius:5px;padding:16px;overflow-x:auto;line-height:1.5;font-size:.95em}code{font-family:Consolas,monospace;overflow-wrap:anywhere}pre code{overflow-wrap:normal}table{border-collapse:collapse;max-width:100%;display:block;overflow-x:auto;margin:18px 0}td,th{border:1px solid #bdcbd8;padding:9px;text-align:left}th{background:#eef4f9}figure{margin:24px 0;padding:16px;border:1px solid #d8e0e8;background:#fafcff}figure img{display:block;max-width:100%;height:auto;margin:auto;max-height:600px;object-fit:contain}figcaption{font-size:.92em;color:#455568;margin-top:12px}nav{margin-bottom:20px;display:flex;flex-wrap:wrap;gap:16px}a{color:#244b73}footer{margin-top:32px;border-top:1px solid #ddd;padding-top:16px;font-size:.9em;color:#555}.contents{background:#f4f7fa;padding:16px 24px}.contents ol{columns:2;column-gap:36px}.contents li{break-inside:avoid}section{scroll-margin-top:16px}@media(max-width:600px){body{padding:18px}h1{font-size:1.7em}.contents ol{columns:1}}@media print{nav,.contents{display:none}body{max-width:none;padding:0}h2{break-after:avoid}pre,figure,.task{break-inside:avoid}a{color:#222}}</style></head><body><nav aria-label="Навигация"><a href="index.html">← Всички уроци по уеб дизайн</a><a href="11-HTML-Text-Links-and-Images.html">← Урок 11</a><a href="13-HTML-Forms.html">Урок 13 →</a></nav><main><h1>Урок 12: Основи на HTML. Тагове за таблица, списъци, аудио, видео (Упражнение)</h1><details class="contents"><summary>Теми в урока</summary><ol><li><a href="#topic-1">Тагове за таблица</a></li><li><a href="#topic-2">Обединяване на клетки</a></li><li><a href="#topic-3">Оформление на таблицата с CSS</a></li><li><a href="#topic-4">Задача 1.</a></li><li><a href="#topic-5">Тагове за списъци</a></li><li><a href="#topic-6">Начало на номерацията</a></li><li><a href="#topic-7">Обратна номерация</a></li><li><a href="#topic-8">Вид на номерацията</a></li><li><a href="#topic-9">Неподреден списък</a></li><li><a href="#topic-10">Задача 2.</a></li><li><a href="#topic-11">Таг за аудио</a></li><li><a href="#topic-12">Атрибути за аудио</a></li><li><a href="#topic-13">Няколко аудиоизточника</a></li><li><a href="#topic-14">Таг за видео</a></li><li><a href="#topic-15">Видео в няколко формата</a></li><li><a href="#topic-16">Атрибути за видео</a></li><li><a href="#topic-17">Задача 3.</a></li><li><a href="#topic-18">Съвременен код за таблица и мултимедия</a></li><li><a href="#topic-19">Онлайн инструменти и полезни връзки</a></li></ol></details><aside class="note"><strong>Материали за упражненията.</strong> Имената на файловете и папките в задачите са от приложението към учебника. Ако учителят не ги е предоставил, създайте своя папка Site и страниците index.html, pois.html, events.html и styles.css. Използвайте собствен текст за избрани забележителности, таблица с поне три събития и изображения или медия с разрешено използване. За pois.html създайте блокове div с id="1" и id="2", class="poiBlock", със заглавие h2, изображение и вложен div class="poiText" с параграфи. За видеото добавете div id="video". Така можете да изпълните същите действия с ваши материали.</aside>
+<h2 id="topic-1">1. Тагове за таблица</h2>
+<p>Тагове за таблица:</p><figure><img alt="Примерна таблица с имена и възраст" decoding="async" loading="lazy" src="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/HTML_table_basics/numbers-table.png"/><figcaption>Всеки ред свързва име и възраст, а колоните съдържат еднотипни данни. При HTML реализацията определете кои клетки са заглавни и кои съдържат данни. <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/HTML_table_basics" rel="noopener noreferrer" target="_blank">Източник: MDN</a>.</figcaption></figure>
+<p><strong><code>&lt;table&gt;</code></strong> – създава таблица<br/><strong><code>&lt;tr&gt;</code></strong> – създава ред в таблица<br/><strong><code>&lt;td&gt;</code></strong> – създава клетка в ред от таблица<br/><strong><code>&lt;caption&gt;</code></strong> – заглавие на таблица<br/><strong><code>&lt;th&gt;</code></strong> – заглавие на колона в таблица</p>
+<h2 id="topic-2">2. Обединяване на клетки</h2><p>Клетките в таблицата имат атрибути:</p>
+<p><em>colspan</em> – определя броя на колоните, които клетката трябва да обхване<br/><em>rowspan</em> – определя броя на редовете, които клетката трябва да обхване</p>
+<h2 id="topic-3">3. Оформление на таблицата с CSS</h2><p>Вместо следващите атрибути в HTML5 се използва CSS:</p>
+<ul><li><em>border</em> – определя рамката на таблицата</li><li><em>cellspacing</em> – определя разстоянието между клетките</li><li><em>cellpadding</em> – определя отстъпа на текста в клетката</li><li><em>height</em> – определя височината на таблицата, реда или колоната</li><li><em>width</em> – определя дължината на таблицата или колоната</li><li><em>align</em> – подравнява таблица, ред или клетка</li><li><em>bgcolor</em> – задава фонов цвят на таблица, ред или клетка</li></ul>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;th&gt;Колона 1&lt;/th&gt;
+&lt;th&gt;Колона 2&lt;/th&gt;
+&lt;th&gt;Колона 3&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ред 1, колона 1&lt;/td&gt;
+&lt;td&gt;ред 1, колона 2&lt;/td&gt;
+&lt;td&gt;ред 1, колона 3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ред 2, колона 1&lt;/td&gt;
+&lt;td&gt;ред 2, колона 2&lt;/td&gt;
+&lt;td&gt;ред 2, колона 3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Колона 1</th>
+<th>Колона 2</th>
+<th>Колона 3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ред 1, колона 1</td>
+<td>ред 1, колона 2</td>
+<td>ред 1, колона 3</td>
+</tr>
+<tr>
+<td>ред 2, колона 1</td>
+<td>ред 2, колона 2</td>
+<td>ред 2, колона 3</td>
+</tr>
+</tbody></table>
+<h2 id="topic-4">4. Задача 1.</h2><p class="task"><strong>Задача 1. Отворете файла events.html. В него създайте таблица в подходящия блок (div), като използвате данните от файла "Site\Resources\Karlovo_tablitsa.docx". За целта може да създадете първо един празен ред (<code>&lt;tr&gt;</code>) с 2 колони (<code>&lt;td&gt;</code>), като след това го размножите, за да получите нужните редове. Запишете файла и го проверете.</strong></p>
+<h2 id="topic-5">5. Тагове за списъци</h2>
+<p>Списъците могат да бъдат с номерация (подредени) и със символи (неподредени). Подредените списъци започват с тага <code>&lt;ol&gt;</code>, а всеки елемент на списъка – с тага <code>&lt;li&gt;</code>:</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;ol&gt;
+&lt;li&gt;Едно&lt;/li&gt;
+&lt;li&gt;Две&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<ol>
+<li>Едно</li>
+<li>Две</li>
+</ol>
+<h2 id="topic-6">6. Начало на номерацията</h2><p>Атрибутът <em>start</em> задава началото на номерацията, а присвоената му стойност показва началото на номерацията.</p>
+<pre><code class="language-html">&lt;ol start="3"&gt;
+&lt;li&gt;Едно&lt;/li&gt;
+&lt;li&gt;Две&lt;/li&gt;
+&lt;li&gt;Три&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<ol start="3">
+<li>Едно</li>
+<li>Две</li>
+<li>Три</li>
+</ol>
+<h2 id="topic-7">7. Обратна номерация</h2><p>Атрибутът <em>reversed</em> указва, че подреждането ще е в низходящ ред, а присвоената му стойност показва началото на номерацията:</p>
+<pre><code class="language-html">&lt;ol reversed start="4"&gt;
+&lt;li&gt;Едно&lt;/li&gt;
+&lt;li&gt;Две&lt;/li&gt;
+&lt;li&gt;Три&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<ol reversed="" start="4"><li>Едно</li><li>Две</li><li>Три</li></ol>
+<h2 id="topic-8">8. Вид на номерацията</h2><p>Атрибутът <em>type</em> задава вида на номерацията (букви или цифри), например 1, a, A, i, I:</p>
+<pre><code class="language-html">&lt;ol type="I"&gt;
+&lt;li&gt;Едно&lt;/li&gt;
+&lt;li&gt;Две&lt;/li&gt;
+&lt;li&gt;Три&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<p>I. Едно<br/>II. Две<br/>III. Три</p>
+<h2 id="topic-9">9. Неподреден списък</h2><p>Неподредените списъци започват с тага <code>&lt;ul&gt;</code>, а всеки елемент на списъка – с тага <code>&lt;li&gt;</code>:</p>
+<pre><code class="language-html">&lt;ul&gt;
+&lt;li&gt; Едно &lt;/li&gt;
+&lt;li&gt; Две &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<ul>
+<li>Едно</li>
+<li>Две</li>
+</ul>
+<h2 id="topic-10">10. Задача 2.</h2><p class="task"><strong>Задача 2. Отворете файла pois.html от папката "Site". Преобразувайте последните два параграфа от текста за първия обект (<code>&lt;div id="1"&gt;</code>) в неподреден списък. Запишете файла и го проверете.</strong></p>
+<h2 id="topic-11">11. Таг за аудио</h2>
+<p>Таг за аудио – <strong><code>&lt;audio&gt;</code></strong>. Използва се за вграждане на звукови файлове. Елементът audio възпроизвежда звук; записът, синтезът и разпознаването на реч изискват други уеб API и програмна логика. Той осигурява контроли (възпроизвеждане, пауза, сила на звука), които може да изглеждат различно в различните браузъри и операционни системи.</p>
+<h2 id="topic-12">12. Атрибути за аудио</h2><p>Основните атрибути, използвани с тага <strong>audio</strong>:</p>
+<p><em>src</em> – път (URL) към файла<br/><em>preload</em> – предварително зареждане на файл<br/><em>autoplay</em> – автоматично възпроизвеждане на файл<br/><em>loop</em> – циклично възпроизвеждане<br/><em>muted</em> – без звук по подразбиране при стартирането<br/><em>controls</em> – контроли за управление на звук</p>
+<h2 id="topic-13">13. Няколко аудиоизточника</h2><p>Тагът <strong>audio</strong> може да съдържа един или повече аудиоизточници, представени с помощта на атрибута <em>src</em> или тага <code>&lt;source&gt;</code>, като браузърът избира подходящия.</p>
+<p>Пример:</p>
+<pre><code class="language-html">&lt;audio controls&gt;
+&lt;source src= "music.mp3"/&gt;
+&lt;source src= "music.ogg"/&gt;
+&lt;source src= "music.flac"/&gt;
+&lt;/audio&gt;
+</code></pre>
+<h2 id="topic-14">14. Таг за видео</h2>
+<p>Таг за видео – <strong><code>&lt;video&gt;</code></strong>. Използва се за вграждане на видеофайлове.</p>
+<p>Източникът на видеофайла може да бъде зададен по два начина. По-краткият е даден в пример 1.</p>
+<h2 id="topic-15">15. Видео в няколко формата</h2><p>Различните браузъри поддържат много на брой видеоформати. Чрез използване на тага <strong><code>&lt;source&gt;</code></strong> (пример 2) има възможност за изброяване на файлове с различни медийни формати, като браузърът автоматично пробва подред да зареди всеки файл. Както е съставен пример 2 – ако браузърът не успее да възпроизведе никой от трите видеофайла, ще изпише съобщението под тях.</p>
+<h2 id="topic-16">16. Атрибути за видео</h2><p>Основните атрибути, използвани с тага video:</p>
+<ul><li><em>src</em> – път (URL) към файла</li><li><em>preload</em> – предварително зареждане на файл</li><li><em>autoplay</em> – автоматично възпроизвеждане на файл</li><li><em>controls</em> – контроли за управление на възпроизвеждането</li><li><em>poster</em> – показва изображение на мястото на видеоклипа, преди да започне възпроизвеждането</li><li><em>type</em> – указва типа на видеото (MIME). Може да включва и списък с кодеци, които помагат на браузъра да определи дали може да декодира файла.</li><li><em>loop</em> – циклично възпроизвеждане</li><li><em>autoplay</em> – автоматично стартиране на видеото със зареждане на страницата</li><li><em>muted</em> – без звук по подразбиране при стартирането</li><li><em>height, width</em> – размери на видеоелемента (видеоплейъра)</li></ul>
+<p>Пример 1:</p>
+<pre><code class="language-html">&lt;video controls width="640" src="movie.mp4"&gt;
+&lt;/video&gt;
+</code></pre>
+<p>Пример 2:</p>
+<pre><code class="language-html">&lt;video poster="movie.jpg" controls
+  height="640" width="480"&gt;
+&lt;source src="movie.mp4"
+  type="video/mp4"/&gt;
+&lt;source src="movie.webm"
+  type="video/webm"/&gt;
+&lt;source src="movie.ogv"
+  type="video/ogg"/&gt;
+Your browser does not support this
+  video type!
+&lt;/video&gt;
+</code></pre>
+<h2 id="topic-17">17. Задача 3.</h2><p class="task"><strong>Задача 3. Отворете файла index.html от папката "Site". Потърсете таг <code>&lt;div id="video"&gt;</code> и вътре добавете видеофайла "rosa.mp4" от подпапката "video".</strong></p>
+<ul>
+<li>Използвайте атрибута <strong>poster</strong> за указване на начално изображение на видеоелемента, като използвате файла "poster.png" от папката на видеото.</li>
+<li>Изпробвайте различни стойност за атрибута <strong>width</strong>, например "600". Какви пътища ще зададете? Запишете файла и го изпробвайте.</li>
+</ul>
+<h2 id="topic-18">18. Съвременен код за таблица и мултимедия</h2><p>Старото border="1" в примерната таблица показва идеята за рамка. За нов код използвайте CSS: table { border-collapse: collapse; } и td, th { border: 1px solid #444; padding: 8px; }. Атрибутът type за видеоформат се поставя в source. Автоматичното възпроизвеждане със звук често е блокирано от браузъра; осигурявайте controls. За видео с реч добавяйте субтитри чрез track, а за аудио — текстов препис.</p><h2 id="topic-19">19. Онлайн инструменти и полезни връзки</h2><ul><li><a href="https://validator.w3.org/nu/" rel="noopener noreferrer" target="_blank">Nu HTML Checker</a></li></ul></main><footer>По учебника по уеб дизайн, страници 30–31. Съдържанието е организирано за ученици; техническите уточнения и външните изображения допълват темите.</footer></body></html>
