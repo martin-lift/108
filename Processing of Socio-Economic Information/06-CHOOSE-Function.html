@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 06: Функция CHOOSE</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f5f5fa;color:#202236;font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:24px 18px 70px}header{background:#32245f;color:white;padding:42px max(18px,calc((100vw - 864px)/2));}header p{margin:0;color:#ded6ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.2;margin:.4em 0}h2{font-size:1.55rem;line-height:1.3;color:#40317d;margin:0 0 12px}h3{font-size:1.1rem;margin:1.2em 0 .3em}section{background:white;border:1px solid #e4e1ef;border-radius:14px;padding:24px 28px;margin:20px 0}p{margin:.5em 0 1em}li{margin:.35em 0}.note{border-left:4px solid #7955c9;background:#f3efff;padding:10px 16px;border-radius:5px}.task{background:#faf7ff;border-left:4px solid #7955c9;padding:14px 18px;margin-top:14px}nav a{display:inline-block;margin:0 12px 8px 0;color:#49358e}code{background:#f0edf6;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}footer{font-size:.85em;color:#666;text-align:center}@media(max-width:600px){section{padding:19px 17px}body{font-size:16px}}
+</style>
+</head>
+<body>
+<header>
+<p>Обработка на социално-икономическа информация · Урок 06</p>
+<h1>Функция CHOOSE</h1>
+<p>Избор на стойност от списък чрез индекс</p>
+</header>
+<main>
+<nav aria-label="Навигация">
+<a href="index.html">Всички уроци</a>
+<a href="05-Logical-Functions.html">Урок 05</a>
+<a href="#choose">CHOOSE</a>
+<a href="#syntax">Синтаксис</a>
+<a href="#example1">Пример 1</a>
+<a href="#example2">Пример 2</a>
+<a href="#tasks">Задачи</a>
+</nav>
+
+<section id="choose">
+<h2>1. Какво прави функцията CHOOSE?</h2>
+<p>Функцията <strong>CHOOSE</strong> използва индекс — число, с което намира и връща определена стойност от списък с данни или действия.</p>
+<p>Връща се стойността, чиято позиция в списъка е равна на зададения индекс.</p>
+<p>CHOOSE често се комбинира с други формули и функции, когато според даден номер трябва да се избере един от няколко различни резултата.</p>
+</section>
+
+<section id="syntax">
+<h2>2. Синтаксис</h2>
+<p><code>=CHOOSE(индекс_число; стойност1; стойност2; ...)</code></p>
+<ul>
+<li><strong>индекс_число (Index_num)</strong> определя кой елемент от списъка да бъде върнат;</li>
+<li>индексът трябва да е число между <strong>1 и 254</strong>, формула или препратка към клетка, която съдържа число между 1 и 254;</li>
+<li><strong>стойност1, стойност2, ...</strong> са елементите, между които се избира;</li>
+<li>аргументите могат да бъдат числа, препратки към клетки, имена, формули, функции или текст.</li>
+</ul>
+<div class="note"><strong>Важно:</strong> Индекс 1 връща първата стойност, индекс 2 — втората, индекс 3 — третата и т.н.</div>
+</section>
+
+<section id="example1">
+<h2>3. Пример: избор на ден от седмицата</h2>
+<p>В клетки A2:A8 са записани дните от понеделник до неделя.</p>
+<p><code>=CHOOSE(3;A2;A3;A4;A5;A6;A7;A8)</code></p>
+<p>Индексът е 3, затова функцията връща третата стойност от списъка — клетка A4, в която е записано <strong>„Сряда“</strong>.</p>
+</section>
+
+<section id="example2">
+<h2>4. CHOOSE като част от друга функция</h2>
+<p>CHOOSE може да участва като аргумент в друга функция.</p>
+<p><code>=SUM(A2:CHOOSE(3;A3;A4;A5;A6))</code></p>
+<p>В този пример CHOOSE връща третата стойност от списъка с аргументи — клетка A5. Така диапазонът за функцията SUM става <code>A2:A5</code>.</p>
+<p>Ако стойностите в A2:A5 са 10, 20, 30 и 40, резултатът е <strong>100</strong>.</p>
+</section>
+
+<section id="ideas">
+<h2>5. Кога е полезна функцията CHOOSE?</h2>
+<ul>
+<li>за избор на текстов етикет според номер;</li>
+<li>за преобразуване на рейтинг в процент;</li>
+<li>за избор на различна формула или диапазон;</li>
+<li>за създаване на модели, в които един индекс управлява няколко възможни резултата.</li>
+</ul>
+</section>
+
+<section id="tasks">
+<h2>6. Въпроси и задачи</h2>
+
+<div class="task">
+<h3>Задача 1. Стипендия</h3>
+<p>Създайте електронна таблица със списък от ученици и определете кои от тях получават стипендия.</p>
+<p>Условие за стипендия:</p>
+<ul>
+<li>доход по-нисък от <strong>300 лв.</strong>;</li>
+<li>успех по-висок от <strong>5,00</strong>.</li>
+</ul>
+<p>В колона „Стипендия“ изписвайте <strong>120 лв.</strong> за учениците, които отговарят и на двете условия, и <strong>0 лв.</strong> за останалите.</p>
+<p>Използвайте функцията <strong>AND</strong> като условие във функцията <strong>IF</strong>.</p>
+</div>
+
+<div class="task">
+<h3>Задача 2. Отстъпка при продажба</h3>
+<p>Създайте таблица за продажба на стоки от склад. Добавете колони за:</p>
+<ul>
+<li>единична цена;</li>
+<li>количество;</li>
+<li>стойност на единичната отстъпка;</li>
+<li>стойност на общата отстъпка;</li>
+<li>обща сума.</li>
+</ul>
+<p>Отстъпката се получава, ако количеството е <strong>по-голямо от 100</strong>. Размерът на отстъпката е <strong>15% от единичната цена</strong>.</p>
+</div>
+
+<h3>Проверете знанията си</h3>
+<ol>
+<li>Какво определя аргументът индекс_число?</li>
+<li>Какъв резултат връща CHOOSE при индекс 4?</li>
+<li>Може ли CHOOSE да връща текст?</li>
+<li>Може ли CHOOSE да се използва вътре в друга функция?</li>
+</ol>
+</section>
+
+<footer>Урок 06 · Обработка на социално-икономическа информация</footer>
+</main>
+</body>
+</html>
