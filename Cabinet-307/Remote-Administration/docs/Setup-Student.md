@@ -2,7 +2,7 @@
 
 **Цел:** еднократна локална подготовка на ученически Windows 11 Education PC за отдалечено управление.
 
-**Параметри:** задължителен `-Number` от 1 до 27; опционален **рисков** `-AllowFullRemoteToken`; поддържа `-WhatIf` и потвърждения.
+**Въвеждане:** стартирайте без параметър за номер; при подканата `Number:` въведете номера на компютъра и натиснете Enter. Опционалният **рисков** флаг `-AllowFullRemoteToken` остава наличен; поддържат се `-WhatIf` и потвърждения.
 
 ## Стартиране
 
@@ -11,9 +11,11 @@
 ```powershell
 Set-Location C:\307
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
-.\Setup-Student.ps1 -Number 1 -WhatIf
-.\Setup-Student.ps1 -Number 1
+.\Setup-Student.ps1 -WhatIf
+.\Setup-Student.ps1
 ```
+
+При всяко стартиране PowerShell ще поиска номер чрез подканата `Number:`. Въведете номера на съответния компютър и натиснете Enter.
 
 `Process` има временен ефект за текущия PowerShell процес и наследяващите го дъщерни процеси; след затваряне на прозореца настройката отпада. Не променя трайно политиката за потребителя или машината. `Bypass` премахва проверките и предупрежденията на execution policy в тази сесия: използвайте само прегледан скрипт от доверен източник и затворете прозореца след работа. Това не дава администраторски права и не е граница на сигурността. Организационната Group Policy има приоритет; при блокиране проверете `Get-ExecutionPolicy -List` и следвайте политиката на организацията. [Microsoft: Execution policies](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-5.1).
 
@@ -36,9 +38,9 @@ Get-Content C:\ProgramData\Cabinet307\Setup-Student-status.json -Raw | ConvertFr
 
 Журналът расте при всяко реално изпълнение; архивирайте го според местните правила. Не публикувайте диагностичните файлове в GitHub.
 
-**Пример (проверка):** `.\Setup-Student.ps1 -Number 1 -WhatIf`
+**Пример (проверка):** `.\Setup-Student.ps1 -WhatIf`
 
-**Пример (реално):** `.\Setup-Student.ps1 -Number 1` от локален PowerShell като администратор.
+**Пример (реално):** `.\Setup-Student.ps1` от локален PowerShell като администратор.
 
 **Действия:** проверява наличие и административна група на `108SU` или `108 SU`; отказва при двата акаунта или липса на двата; преименува `108 SU` на `108SU` (не променя SID, парола, профилна папка); активира WinRM с `-SkipNetworkProfileCheck` при Public профил; задава име `307-Student-XX`, с необходим рестарт. Запазва ограничено начално състояние при първото стартиране.
 
