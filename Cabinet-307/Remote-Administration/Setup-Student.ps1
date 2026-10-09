@@ -2,10 +2,21 @@
 #Requires -RunAsAdministrator
 [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
 param(
-  [Parameter(Mandatory=$true)][ValidateRange(1,27)][int]$Number,
+  [ValidateRange(1,27)][int]$Number,
   [switch]$AllowFullRemoteToken
 )
 $ErrorActionPreference = 'Stop'
+if (-not $PSBoundParameters.ContainsKey('Number')) {
+  do {
+    $inputNumber = Read-Host 'Enter student computer number'
+    $parsedNumber = 0
+    $validNumber = [int]::TryParse($inputNumber, [ref]$parsedNumber) -and
+      $parsedNumber -ge 1 -and $parsedNumber -le 27
+    if (-not $validNumber) { Write-Warning 'Invalid student computer number. Please try again.' }
+  } until ($validNumber)
+  $Number = $parsedNumber
+}
+Write-Host 'Each student computer must have a unique name. Use a different number for each computer.'
 $target = '307-Student-{0:D2}' -f $Number
 $dir = Join-Path $env:ProgramData 'Cabinet307'
 $backupFile = Join-Path $dir 'Student-before-setup.json'
