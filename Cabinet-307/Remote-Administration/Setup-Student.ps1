@@ -16,7 +16,7 @@ if (-not $PSBoundParameters.ContainsKey('Number')) {
   } until ($validNumber)
   $Number = $parsedNumber
 }
-Write-Host 'Each student computer must have a unique name. Use a different number for each computer.'
+Write-Host 'Each student computer must have a unique number. Do not reuse a number assigned to another computer.'
 $target = '307-Student-{0:D2}' -f $Number
 $dir = Join-Path $env:ProgramData 'Cabinet307'
 $backupFile = Join-Path $dir 'Student-before-setup.json'
