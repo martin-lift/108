@@ -20,5 +20,9 @@ $merged = @(($current + $names) | Select-Object -Unique)
 $newValue = $merged -join ','
 if ($newValue -ne $old) { Set-Item -Path $path -Value $newValue -Force }
 Write-Host "WinRM client ready. TrustedHosts entry count: $($merged.Count)"
+Write-Host 'TrustedHosts entries:'
+foreach ($trustedHost in $merged) {
+    Write-Host ("  {0}" -f $trustedHost)
+}
 Write-Host "Original list saved (first run): $backupPath"
 Write-Warning 'TrustedHosts is NOT host authentication. Use only on a controlled network.'
