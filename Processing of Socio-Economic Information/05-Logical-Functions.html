@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 05: Логически функции IF, AND, OR и NOT</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f5f5fa;color:#202236;font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:24px 18px 70px}header{background:#32245f;color:white;padding:42px max(18px,calc((100vw - 864px)/2));}header p{margin:0;color:#ded6ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.2;margin:.4em 0}h2{font-size:1.55rem;line-height:1.3;color:#40317d;margin:0 0 12px}h3{font-size:1.1rem;margin:1.2em 0 .3em}section{background:white;border:1px solid #e4e1ef;border-radius:14px;padding:24px 28px;margin:20px 0}p{margin:.5em 0 1em}li{margin:.35em 0}table{width:100%;border-collapse:collapse;font-size:.94em}th,td{border:1px solid #ddd9e9;padding:9px;text-align:left}th{background:#efeafa}.scroll{overflow-x:auto}.note{border-left:4px solid #7955c9;background:#f3efff;padding:10px 16px;border-radius:5px}.task{background:#faf7ff;border-left:4px solid #7955c9;padding:14px 18px;margin-top:14px}nav a{display:inline-block;margin:0 12px 8px 0;color:#49358e}code{background:#f0edf6;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}footer{font-size:.85em;color:#666;text-align:center}@media(max-width:600px){section{padding:19px 17px}body{font-size:16px}}
+</style>
+</head>
+<body>
+<header>
+<p>Обработка на социално-икономическа информация · Урок 05</p>
+<h1>Логически функции IF, AND, OR и NOT</h1>
+<p>Проверка на условия и вземане на решения в електронни таблици</p>
+</header>
+<main>
+<nav aria-label="Навигация">
+<a href="index.html">Всички уроци</a>
+<a href="04-Creating-Charts.html">Урок 04</a>
+<a href="#logic">Логически условия</a>
+<a href="#if">IF</a>
+<a href="#nested">Вложен IF</a>
+<a href="#and">AND</a>
+<a href="#or">OR</a>
+<a href="#not">NOT</a>
+<a href="#practice">Задачи</a>
+</nav>
+
+<section id="logic">
+<h2>1. Логически условия</h2>
+<p>Логическите и условните функции са мощно средство за анализ на данни и вземане на решения. Те проверяват зададени условия и връщат резултат според това дали условието е изпълнено.</p>
+<p>Логическото условие има една от две стойности:</p>
+<ul>
+<li><strong>TRUE</strong> — истина;</li>
+<li><strong>FALSE</strong> — лъжа.</li>
+</ul>
+<p>В условията най-често се използват операторите за сравнение:</p>
+<div class="scroll">
+<table>
+<thead><tr><th>Оператор</th><th>Значение</th></tr></thead>
+<tbody>
+<tr><td><code>&gt;</code></td><td>по-голямо</td></tr>
+<tr><td><code>&lt;</code></td><td>по-малко</td></tr>
+<tr><td><code>=</code></td><td>равно</td></tr>
+<tr><td><code>&gt;=</code></td><td>по-голямо или равно</td></tr>
+<tr><td><code>&lt;=</code></td><td>по-малко или равно</td></tr>
+<tr><td><code>&lt;&gt;</code></td><td>различно</td></tr>
+</tbody>
+</table>
+</div>
+<p>При по-сложни проверки логическите условия могат да се комбинират чрез <strong>AND</strong> (И), <strong>OR</strong> (ИЛИ) и <strong>NOT</strong> (НЕ).</p>
+</section>
+
+<section id="if">
+<h2>2. Функцията IF</h2>
+<p><strong>IF</strong> е една от най-често използваните функции в Excel. Тя проверява логическо условие и връща един резултат, ако условието е вярно, и друг резултат, ако е невярно.</p>
+<p><strong>Синтаксис:</strong></p>
+<p><code>=IF(условие; стойност ако е вярно; стойност ако е грешно)</code></p>
+<p>Условието може да съдържа константи, адреси на клетки, оператори за сравнение и други функции.</p>
+
+<h3>Пример 1 — текстов резултат</h3>
+<p><code>=IF(D1=1;"Да";"Не")</code></p>
+<p>Ако D1 е равно на 1, резултатът е „Да“. В противен случай резултатът е „Не“.</p>
+
+<h3>Пример 2 — числов резултат</h3>
+<p><code>=IF(D1="Да";5;10)</code></p>
+<p>Ако в D1 е записано „Да“, функцията връща 5. В противен случай връща 10.</p>
+
+<div class="note"><strong>Важно:</strong> Текстът във формулите се огражда в кавички. Логическите стойности TRUE и FALSE не се ограждат в кавички.</div>
+</section>
+
+<section id="budget">
+<h2>3. IF при проверка на бюджет</h2>
+<p>Нека в колона B са записани <strong>бюджетни суми</strong>, а в колона C — <strong>реално похарчени суми</strong>.</p>
+
+<div class="task">
+<h3>Задача 1. В рамките или извън бюджета</h3>
+<p>В колона D покажете дали всяка дейност е в рамките на бюджета.</p>
+<p><code>=IF(C2&gt;B2;"Извън бюджета";"В рамките на бюджета")</code></p>
+<p>Ако похарчената сума е по-голяма от предвидената, се показва „Извън бюджета“. В противен случай се показва „В рамките на бюджета“.</p>
+</div>
+
+<div class="task">
+<h3>Задача 2. Надхвърлена сума</h3>
+<p>В колона E изчислете с колко е надхвърлен бюджетът. Ако няма надхвърляне, покажете 0.</p>
+<p><code>=IF(C2&gt;B2;C2-B2;0)</code></p>
+</div>
+</section>
+
+<section id="nested">
+<h2>4. Влагане на няколко функции IF</h2>
+<p>Функциите IF могат да се влагат една в друга, когато трябва да се направят няколко последователни проверки.</p>
+
+<h3>Пример</h3>
+<p><code>=IF(A1&lt;0;-10;IF(A1&gt;0;10;0))</code></p>
+<ul>
+<li>ако A1 е по-малко от 0 → резултатът е -10;</li>
+<li>ако A1 е по-голямо от 0 → резултатът е 10;</li>
+<li>ако A1 е равно на 0 → резултатът е 0.</li>
+</ul>
+
+<div class="task">
+<h3>Задача 3. Преобразуване на резултат в буквена оценка</h3>
+<p>Преобразувайте резултата от теста в буквена оценка според следните условия:</p>
+<ul>
+<li>над 89 точки → A;</li>
+<li>над 79 точки → B;</li>
+<li>над 69 точки → C;</li>
+<li>над 59 точки → D;</li>
+<li>в противен случай → F.</li>
+</ul>
+<p>Ако резултатът е в клетка B2, формулата е:</p>
+<p><code>=IF(B2&gt;89;"A";IF(B2&gt;79;"B";IF(B2&gt;69;"C";IF(B2&gt;59;"D";"F"))))</code></p>
+</div>
+</section>
+
+<section id="and">
+<h2>5. Функцията AND</h2>
+<p><strong>AND</strong> (логическо „И“) проверява дали <strong>всички</strong> условия са изпълнени.</p>
+<p><strong>Синтаксис:</strong> <code>=AND(условие1; условие2; ...)</code></p>
+<ul>
+<li>връща <strong>TRUE</strong>, ако всички условия са верни;</li>
+<li>връща <strong>FALSE</strong>, ако поне едно условие е невярно.</li>
+</ul>
+
+<h3>Пример</h3>
+<p><code>=AND(A1&gt;1;A2&lt;50)</code></p>
+<p>Резултатът е TRUE само ако A1 е по-голямо от 1 <strong>и едновременно</strong> A2 е по-малко от 50.</p>
+
+<h3>AND в комбинация с IF</h3>
+<p><code>=IF(AND(A1&gt;1;A1&lt;50);A1;"Стойността е извън диапазона")</code></p>
+<p>Ако A1 е между 1 и 50, се показва самата стойност. В противен случай се показва съобщение.</p>
+</section>
+
+<section id="or">
+<h2>6. Функцията OR</h2>
+<p><strong>OR</strong> (логическо „ИЛИ“) проверява дали <strong>поне едно</strong> от условията е изпълнено.</p>
+<p><strong>Синтаксис:</strong> <code>=OR(условие1; условие2; ...)</code></p>
+<ul>
+<li>връща <strong>TRUE</strong>, ако поне едно условие е вярно;</li>
+<li>връща <strong>FALSE</strong>, само ако всички условия са неверни.</li>
+</ul>
+
+<h3>Пример</h3>
+<p><code>=OR(A1&gt;1;A2&lt;50)</code></p>
+<p>Резултатът е TRUE, ако A1 е по-голямо от 1 <strong>или</strong> A2 е по-малко от 50, или и двете условия са изпълнени.</p>
+
+<h3>OR в комбинация с IF</h3>
+<p><code>=IF(OR(A1&lt;1;A2&gt;100);A3;"Стойността е извън диапазона")</code></p>
+<p>IF може да използва OR като условие и да избира резултат според общата логическа стойност.</p>
+</section>
+
+<section id="not">
+<h2>7. Функцията NOT</h2>
+<p><strong>NOT</strong> (логическо „НЕ“) обръща логическата стойност на условието.</p>
+<p><strong>Синтаксис:</strong> <code>=NOT(условие)</code></p>
+<ul>
+<li>ако условието е FALSE, NOT връща TRUE;</li>
+<li>ако условието е TRUE, NOT връща FALSE.</li>
+</ul>
+
+<h3>Пример</h3>
+<p><code>=NOT(A1&gt;100)</code></p>
+<p>Ако A1 е 120, условието <code>A1&gt;100</code> е TRUE и NOT го обръща на FALSE. Ако A1 е 50, условието е FALSE и NOT връща TRUE.</p>
+
+<h3>NOT заедно с AND и IF</h3>
+<p><code>=IF(AND(NOT(A1&lt;1);NOT(A1&gt;100));A1;"Стойността е извън диапазона")</code></p>
+<p>Тук стойността се показва само когато A1 не е по-малко от 1 и не е по-голямо от 100 — тоест когато е в диапазона от 1 до 100.</p>
+</section>
+
+<section id="compare">
+<h2>8. AND, OR и NOT — кога коя функция?</h2>
+<div class="scroll">
+<table>
+<thead><tr><th>Функция</th><th>Въпрос</th><th>TRUE кога?</th></tr></thead>
+<tbody>
+<tr><td><strong>AND</strong></td><td>Изпълнени ли са всички условия?</td><td>Всички са верни.</td></tr>
+<tr><td><strong>OR</strong></td><td>Изпълнено ли е поне едно условие?</td><td>Поне едно е вярно.</td></tr>
+<tr><td><strong>NOT</strong></td><td>Искаме ли обратното на дадено условие?</td><td>Първоначалното условие е невярно.</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note"><strong>Практически съвет:</strong> Преди да напишете сложна формула, формулирайте условието с думи. Например: „покажи стойността, ако е по-голяма от 1 И по-малка от 50“.</p>
+</section>
+
+<section id="practice">
+<h2>9. Упражнения</h2>
+<div class="task">
+<h3>Упражнение 1</h3>
+<p>В A1 въведете число. С IF покажете „Положително“, „Отрицателно“ или „Нула“.</p>
+</div>
+<div class="task">
+<h3>Упражнение 2</h3>
+<p>В A1 въведете възраст, а в B1 — дали ученикът има разрешение („Да“/„Не“). С AND проверете дали възрастта е поне 16 години и има разрешение.</p>
+</div>
+<div class="task">
+<h3>Упражнение 3</h3>
+<p>Проверете дали число е извън диапазона от 10 до 100, като използвате OR.</p>
+</div>
+<div class="task">
+<h3>Упражнение 4</h3>
+<p>С NOT проверете дали клетка A1 <strong>не</strong> съдържа стойност по-голяма от 100.</p>
+</div>
+
+<h3>Проверете знанията си</h3>
+<ol>
+<li>Какви два резултата може да има едно логическо условие?</li>
+<li>Какво връща IF, когато условието е вярно?</li>
+<li>Кога AND връща TRUE?</li>
+<li>Кога OR връща FALSE?</li>
+<li>Какво прави NOT?</li>
+<li>Защо се използват вложени IF функции?</li>
+</ol>
+</section>
+
+<footer>Урок 05 · Обработка на социално-икономическа информация</footer>
+</main>
+</body>
+</html>
