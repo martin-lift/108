@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 07: Упражнение – логически функции</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f5f5fa;color:#202236;font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:24px 18px 70px}header{background:#32245f;color:white;padding:42px max(18px,calc((100vw - 864px)/2));}header p{margin:0;color:#ded6ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.2;margin:.4em 0}h2{font-size:1.55rem;line-height:1.3;color:#40317d;margin:0 0 12px}h3{font-size:1.1rem;margin:1.2em 0 .3em}section{background:white;border:1px solid #e4e1ef;border-radius:14px;padding:24px 28px;margin:20px 0}p{margin:.5em 0 1em}li{margin:.35em 0}table{width:100%;border-collapse:collapse;font-size:.94em}th,td{border:1px solid #ddd9e9;padding:9px;text-align:left}th{background:#efeafa}.scroll{overflow-x:auto}.note{border-left:4px solid #7955c9;background:#f3efff;padding:10px 16px;border-radius:5px}.task{background:#faf7ff;border-left:4px solid #7955c9;padding:14px 18px;margin-top:14px}nav a{display:inline-block;margin:0 12px 8px 0;color:#49358e}code{background:#f0edf6;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}footer{font-size:.85em;color:#666;text-align:center}@media(max-width:600px){section{padding:19px 17px}body{font-size:16px}}
+</style>
+</head>
+<body>
+<header>
+<p>Обработка на социално-икономическа информация · Урок 07</p>
+<h1>Упражнение: логически функции</h1>
+<p>Практически задачи с IF, AND, OR и CHOOSE</p>
+</header>
+<main>
+<nav aria-label="Навигация">
+<a href="index.html">Всички уроци</a>
+<a href="06-CHOOSE-Function.html">Урок 06</a>
+<a href="#task1">Комисиона</a>
+<a href="#task2">Бонус</a>
+<a href="#task3">Търговска комисиона</a>
+<a href="#task4">Годишен бонус</a>
+<a href="#task5">Стипендии</a>
+</nav>
+
+<section>
+<h2>Цел на упражнението</h2>
+<p>В този урок ще приложите изучените логически функции в практически задачи. Работете самостоятелно и създавайте формулите според условията.</p>
+<p class="note"><strong>Използвайте:</strong> IF за избор между резултати, AND когато всички условия трябва да са изпълнени, OR когато е достатъчно поне едно условие, и CHOOSE при избор на стойност според числов индекс.</p>
+</section>
+
+<section id="task1">
+<h2>Задача 1. Комисиона според реализирани продажби</h2>
+<p>Създайте електронна таблица, в която да изчислите комисионата в левове и комисионата в проценти за реализирани продажби.</p>
+<p>Процентът на комисионата зависи от размера на продажбата:</p>
+<div class="scroll">
+<table>
+<thead><tr><th>Продажба</th><th>Комисиона %</th></tr></thead>
+<tbody>
+<tr><td>2 000 лв.</td><td>5,0%</td></tr>
+<tr><td>3 500 лв.</td><td>7,5%</td></tr>
+<tr><td>5 000 лв.</td><td>10,0%</td></tr>
+<tr><td>7 500 лв.</td><td>12,5%</td></tr>
+<tr><td>10 000 лв.</td><td>15,0%</td></tr>
+<tr><td>12 500 лв.</td><td>17,5%</td></tr>
+<tr><td>15 000 лв.</td><td>20,0%</td></tr>
+</tbody>
+</table>
+</div>
+<p>Използвайте следните продажби за проверка на модела:</p>
+<p><strong>3 700; 2 400; 11 745; 12 568; 9 582; 8 956; 7 896; 14 897; 6 897 лв.</strong></p>
+<p>Използвайте <strong>вложени функции IF</strong>, за да определите процента, а след това изчислете комисионата в левове.</p>
+</section>
+
+<section id="task2">
+<h2>Задача 2. Бонус на търговец</h2>
+<p>Създайте таблица, в която да изчислите бонуса, който определен търговец получава.</p>
+<p>Добавете следните колони:</p>
+<ul>
+<li>име на продавач;</li>
+<li>общо продажби;</li>
+<li>брой клиенти;</li>
+<li>бонус %;</li>
+<li>бонус в лева.</li>
+</ul>
+<p>Продавачът получава бонус само ако:</p>
+<ul>
+<li>общите продажби са <strong>по-големи от 10 000 лв.</strong>;</li>
+<li>броят на клиентите е <strong>поне 10</strong>.</li>
+</ul>
+<p>Бонусът в левове се изчислява като сумата на продажбите се умножи по бонуса в проценти.</p>
+<p>Продавачите, които не отговарят на условията, получават <strong>0 лв.</strong></p>
+<p>Използвайте <strong>AND</strong> като аргумент за условие във функцията <strong>IF</strong>.</p>
+</section>
+
+<section id="task3">
+<h2>Задача 3. Търговска комисиона</h2>
+<p>Използвайте таблицата от Задача 2 и изчислете търговската комисиона.</p>
+<p>Добавете две нови колони:</p>
+<ul>
+<li>комисиона %;</li>
+<li>комисиона в лева.</li>
+</ul>
+<p>Продавачите получават комисиона, ако е изпълнено поне едно от условията:</p>
+<ul>
+<li>общите продажби са <strong>по-големи от 7 500 лв.</strong>;</li>
+<li>броят на клиентите е <strong>по-голям от 10</strong>.</li>
+</ul>
+<p>Тези, които не отговарят на условията, получават <strong>0 лв.</strong></p>
+<p>Използвайте <strong>OR</strong> като аргумент за условие във функцията <strong>IF</strong>. За процента на комисионата използвайте правилата от Задача 1.</p>
+</section>
+
+<section id="task4">
+<h2>Задача 4. Годишен бонус според рейтинг</h2>
+<p>Създайте таблица със служители, годишна заплата и рейтинг. Изчислете годишния бонус според рейтинга.</p>
+<p>Преобразувайте рейтинга в процент чрез функцията <strong>CHOOSE</strong>:</p>
+<div class="scroll">
+<table>
+<thead><tr><th>Рейтинг</th><th>Бонус</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>4%</td></tr>
+<tr><td>2</td><td>6%</td></tr>
+<tr><td>3</td><td>8%</td></tr>
+<tr><td>4</td><td>10%</td></tr>
+</tbody>
+</table>
+</div>
+<p>След това изчислете годишния бонус като процент от годишната заплата.</p>
+</section>
+
+<section id="task5">
+<h2>Задача 5. Стипендии за ученици</h2>
+<p>Създайте електронна таблица с данни за <strong>15 ученици</strong>. Включете поне:</p>
+<ul>
+<li>име;</li>
+<li>възраст;</li>
+<li>среден успех за последния учебен срок;</li>
+<li>размер на стипендията.</li>
+</ul>
+<p>Задайте примерна <strong>минимална работна заплата (МРЗ) 610 лв.</strong></p>
+
+<h3>Условия</h3>
+<ul>
+<li>навършилите <strong>16 години</strong> получават стипендия <strong>50% от МРЗ</strong>, ако средният успех за последния срок е поне <strong>Много добър (4,50)</strong>;</li>
+<li>навършилите <strong>17 години</strong> получават стипендия <strong>60% от МРЗ</strong>, ако средният успех е поне <strong>Много добър (5,00)</strong>;</li>
+<li>навършилите <strong>18 години</strong> получават стипендия <strong>70% от МРЗ</strong>, ако средният успех е поне <strong>Отличен (5,50)</strong>;</li>
+<li>учениците, които са навършили <strong>14 години</strong> и имат отличен успех за последния срок, получават допълнителна стипендия в размер на <strong>20% от МРЗ</strong>.</li>
+</ul>
+<p>Учениците, които не отговарят на условията, трябва да получават <strong>0 лв.</strong></p>
+<p class="note">Използвайте комбинации от IF, AND и при нужда вложени IF функции.</p>
+</section>
+
+<section>
+<h2>Финална проверка</h2>
+<ol>
+<li>Къде използвахте вложен IF?</li>
+<li>В коя задача е необходим AND?</li>
+<li>В коя задача е необходим OR?</li>
+<li>Защо CHOOSE е подходящ за рейтинга от 1 до 4?</li>
+<li>Проверихте ли формулите и за случаи, в които условията не са изпълнени?</li>
+</ol>
+</section>
+
+<footer>Урок 07 · Упражнение · Обработка на социално-икономическа информация</footer>
+</main>
+</body>
+</html>
