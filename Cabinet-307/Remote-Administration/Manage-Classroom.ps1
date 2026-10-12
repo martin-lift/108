@@ -7,7 +7,8 @@ param(
   [Parameter(ParameterSetName='Selected')]
   [ValidateRange(1,27)][int[]]$Numbers,
   [Parameter(ParameterSetName='All',Mandatory=$true)][switch]$All,
-  [Parameter(Mandatory=$true)][scriptblock]$ScriptBlock
+  [Parameter(Mandatory=$true)][scriptblock]$ScriptBlock,
+  [object[]]$ArgumentList = @()
 )
 $ErrorActionPreference = 'Stop'
 if ($All) { $Numbers = @(1..27) }
@@ -31,21 +32,29 @@ elseif (-not $PSBoundParameters.ContainsKey('Numbers')) {
   $Numbers = @($selectedNumbers.ToArray() | Select-Object -Unique)
 }
 $credentialInput = Get-Credential -UserName '108SU' -Message 'Shared LOCAL admin password for classroom'
+$current = 0
 $report = foreach ($number in $Numbers) {
   $name = '307-Student-{0:D2}' -f $number
   $destination = "$name.local"
+  $current++
+  Write-Host ("[{0}/{1}] Checking {2}..." -f $current, $Numbers.Count, $destination)
   if (-not $PSCmdlet.ShouldProcess($destination,'Execute supplied remote script block')) {
+    Write-Host ("  SKIPPED: {0}" -f $name)
     [pscustomobject]@{ Computer=$name; Status='Skipped'; Output='' }
     continue
   }
   $credential = [pscredential]::new("$name\108SU",$credentialInput.Password)
   try {
-    $response = Invoke-Command -ComputerName $destination -Credential $credential -ScriptBlock $ScriptBlock -ErrorAction Stop
-    [pscustomobject]@{ Computer=$name; Status='OK'; Output=($response | Out-String).Trim() }
+    $response = Invoke-Command -ComputerName $destination -Credential $credential -ScriptBlock $ScriptBlock -ArgumentList $ArgumentList -ErrorAction Stop
+    $outputText = ($response | Out-String).Trim()
+    Write-Host ("  OK: {0}" -f $name) -ForegroundColor Green
+    if ($outputText) { Write-Host $outputText }
+    [pscustomobject]@{ Computer=$name; Status='OK'; Output=$outputText }
   } catch {
+    Write-Host ("  ERROR: {0}: {1}" -f $name, $_.Exception.Message) -ForegroundColor Red
     [pscustomobject]@{ Computer=$name; Status='ERROR'; Output=$_.Exception.Message }
   }
 }
-$report | Format-Table -AutoSize -Wrap
-# Keep report available to callers in addition to the console display.
+Write-Host "Completed. Summary:"
+# Return structured results once for display or export.
 $report
