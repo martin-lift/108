@@ -103,7 +103,7 @@ while ($true) {
     Write-Host '1. Start WinRM and check the teacher computer'
     Write-Host '2. Check the names of all 27 student computers'
     Write-Host '3. Show Wi-Fi connection and filters on a selected computer'
-    Write-Host '4. Restrict a selected computer to school Wi-Fi'
+    Write-Host '4. Restrict a selected computer to school Wi-Fi (default: Students)'
     Write-Host '5. Remove restrictions on other Wi-Fi networks'
     Write-Host '6. Send a file to a student computer'
     Write-Host '7. Receive a file from a student computer'
