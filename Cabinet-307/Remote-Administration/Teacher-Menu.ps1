@@ -130,8 +130,14 @@ while ($true) {
                 if ($null -ne $number) {
                     Start-Service WinRM -ErrorAction Stop
                     & $manager -Numbers $number -ScriptBlock {
-                        netsh wlan show interfaces
-                        if ($LASTEXITCODE -ne 0) { throw 'Wi-Fi interface check failed.' }
+                        Get-NetConnectionProfile | Select-Object Name, InterfaceAlias, NetworkCategory, IPv4Connectivity | Format-Table -AutoSize | Out-String
+                        Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -notlike '127.*' } | Select-Object InterfaceAlias, IPAddress | Format-Table -AutoSize | Out-String
+                        $wlanDetails = netsh wlan show interfaces 2>&1
+                        $wlanExitCode = $LASTEXITCODE
+                        $wlanDetails | Out-String
+                        if ($wlanExitCode -ne 0) {
+                            'Wi-Fi details are unavailable. Windows may require location permission. Network profiles and IP addresses are shown above; the profile name is not guaranteed to be the SSID. Filter checks will continue.'
+                        }
                         netsh wlan show filters
                         if ($LASTEXITCODE -ne 0) { throw 'Wi-Fi filter check failed.' }
                     } | Format-Table -AutoSize -Wrap | Out-Host
@@ -142,12 +148,18 @@ while ($true) {
                 if ($null -ne $number) {
                     Start-Service WinRM -ErrorAction Stop
                     & $manager -Numbers $number -ScriptBlock {
-                        netsh wlan show interfaces
-                        if ($LASTEXITCODE -ne 0) { throw 'Wi-Fi interface check failed.' }
+                        Get-NetConnectionProfile | Select-Object Name, InterfaceAlias, NetworkCategory, IPv4Connectivity | Format-Table -AutoSize | Out-String
+                        Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -notlike '127.*' } | Select-Object InterfaceAlias, IPAddress | Format-Table -AutoSize | Out-String
+                        $wlanDetails = netsh wlan show interfaces 2>&1
+                        $wlanExitCode = $LASTEXITCODE
+                        $wlanDetails | Out-String
+                        if ($wlanExitCode -ne 0) {
+                            'Wi-Fi details are unavailable. Windows may require location permission. Network profiles and IP addresses are shown above; the profile name is not guaranteed to be the SSID. Filter checks will continue.'
+                        }
                         netsh wlan show filters
                         if ($LASTEXITCODE -ne 0) { throw 'Wi-Fi filter check failed.' }
                     } | Format-Table -AutoSize -Wrap | Out-Host
-                    Write-Host 'Check the output above: the computer must be connected to the network you are allowing.'
+                    Write-Host 'Verify the actual connected Wi-Fi SSID before continuing. If Wi-Fi details are unavailable, check it locally on the student computer.'
                     Write-Host 'Other existing Allow entries remain allowed. USB internet connections are not blocked.'
                     $ssid = Read-Host 'Exact school Wi-Fi name (Enter = Students)'
                     if ([string]::IsNullOrWhiteSpace($ssid)) { $ssid = 'Students' }
