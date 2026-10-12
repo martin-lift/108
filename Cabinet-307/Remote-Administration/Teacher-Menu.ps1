@@ -43,10 +43,10 @@ function Copy-ClassroomFile {
         $defaultDestination = Join-Path $PSScriptRoot ($name + '-' + $fileName)
     }
     Write-Host ("Default destination: {0}" -f $defaultDestination)
-    $destination = (Read-Host 'Full destination file path (Enter = default)').Trim().Trim('"')
+    $destination = (Read-Host 'Destination folder or full file path (Enter = default)').Trim().Trim('"')
     if ([string]::IsNullOrWhiteSpace($destination)) { $destination = $defaultDestination }
-    if ($destination -notmatch '^[A-Za-z]:\\' -or -not [IO.Path]::GetFileName($destination)) {
-        throw 'Specify an absolute destination file path including its file name.'
+    if ($destination -notmatch '^[A-Za-z]:\\') {
+        throw 'Specify an absolute destination folder or file path.'
     }
     Write-Host ("{0}: {1} -> {2} ({3})" -f $Direction, $source, $destination, $name)
     Start-Service WinRM -ErrorAction Stop
@@ -60,12 +60,15 @@ function Copy-ClassroomFile {
         (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash
     }
     $inspectDestination = {
-        param([string]$Path)
+        param([string]$Path, [string]$SourceFileName)
         $ErrorActionPreference = 'Stop'
+        if (Test-Path -LiteralPath $Path -PathType Container) {
+            $Path = Join-Path -Path $Path -ChildPath $SourceFileName
+        }
         $parent = [IO.Path]::GetDirectoryName($Path)
         if (-not (Test-Path -LiteralPath $parent -PathType Container)) { throw "Destination folder does not exist: $parent" }
-        if (Test-Path -LiteralPath $Path -PathType Container) { throw 'The destination must be a file path, not a folder.' }
-        Test-Path -LiteralPath $Path
+        if (Test-Path -LiteralPath $Path -PathType Container) { throw 'A subfolder has the same name as the source file. Choose another destination.' }
+        [pscustomobject]@{ Path = $Path; Exists = (Test-Path -LiteralPath $Path) }
     }
     try {
         Write-Host ("Connecting to {0}..." -f $name)
@@ -74,12 +77,14 @@ function Copy-ClassroomFile {
         if ($actualName -ine $name) { throw "Unexpected remote computer: $actualName" }
         if ($Direction -eq 'Send') {
             $sourceHash = & $inspectFile $source
-            $exists = Invoke-Command -Session $session -ScriptBlock $inspectDestination -ArgumentList $destination
+            $destinationInfo = Invoke-Command -Session $session -ScriptBlock $inspectDestination -ArgumentList $destination, $fileName
         } else {
             $sourceHash = Invoke-Command -Session $session -ScriptBlock $inspectFile -ArgumentList $source
-            $exists = & $inspectDestination $destination
+            $destinationInfo = & $inspectDestination $destination $fileName
         }
-        if ($exists -and (Read-Host 'Destination file already exists. Type REPLACE to overwrite it') -cne 'REPLACE') {
+        $destination = $destinationInfo.Path
+        Write-Host ("Destination file: {0}" -f $destination)
+        if ($destinationInfo.Exists -and (Read-Host 'Destination file already exists. Type REPLACE to overwrite it') -cne 'REPLACE') {
             Write-Host 'Copy cancelled. The existing file was not replaced.'
             return
         }
