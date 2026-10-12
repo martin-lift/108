@@ -49,7 +49,6 @@ function Copy-ClassroomFile {
         throw 'Specify an absolute destination file path including its file name.'
     }
     Write-Host ("{0}: {1} -> {2} ({3})" -f $Direction, $source, $destination, $name)
-    if ((Read-Host 'Type YES to continue') -ine 'YES') { return }
     Start-Service WinRM -ErrorAction Stop
     $credential = Get-Credential -UserName "$name\108SU" -Message "Local administrator password for $name"
     if ($null -eq $credential) { return }
