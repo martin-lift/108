@@ -218,6 +218,102 @@ function Remove-ClassroomWifiRestrictions {
         $failures | Format-Table Computer, Status, Reason -AutoSize -Wrap | Out-Host
     }
 }
+function Stop-ClassroomComputers {
+    while ($true) {
+        $choice = Read-Host 'Do you want to shut down all student computers? (A = all, S = selected, Enter = cancel)'
+        if ([string]::IsNullOrWhiteSpace($choice)) { return }
+        $choice = $choice.Trim().ToUpperInvariant()
+        if ($choice -eq 'A') {
+            $numbers = @(1..27)
+            break
+        }
+        if ($choice -eq 'S') {
+            $numbers = @(Get-StudentNumbers)
+            if ($numbers.Count -eq 0) { return }
+            break
+        }
+        Write-Host 'Enter A for all computers, S to select computers, or press Enter to cancel.'
+    }
+    Write-Host ("Shutdown targets: {0}" -f ($numbers -join ', '))
+    Write-Host 'Save student work before continuing. Open applications may delay or block normal shutdown.'
+    Start-Service WinRM -ErrorAction Stop
+    $credentialInput = Get-ClassroomCredential
+    if ($null -eq $credentialInput) { return }
+    $sessionOption = New-PSSessionOption -OpenTimeout 15000 -OperationTimeout 30000
+    $teacherName = $env:COMPUTERNAME
+    $command = {
+        param([string]$ExpectedName, [string]$TeacherName)
+        $ErrorActionPreference = 'Stop'
+        if ($env:COMPUTERNAME -ieq $TeacherName) { throw 'Refusing to shut down the teacher computer.' }
+        if ($env:COMPUTERNAME -ine $ExpectedName) {
+            throw "Unexpected remote computer: $env:COMPUTERNAME (expected $ExpectedName). Shutdown was not requested."
+        }
+        # A positive /t implicitly forces applications to close; use /t 0 without /f.
+        $details = & "$env:SystemRoot\System32\shutdown.exe" /s /t 0 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            throw ("Windows rejected the shutdown request (exit code {0}): {1}" -f $LASTEXITCODE, ($details | Out-String).Trim())
+        }
+        'SHUTDOWN_REQUEST_ACCEPTED'
+    }
+    $problems = @()
+    $requested = 0
+    $current = 0
+    foreach ($number in $numbers) {
+        $current++
+        $name = '307-Student-{0:D2}' -f $number
+        $destination = "$name.local"
+        Write-Host ("[{0}/{1}] Requesting shutdown of {2}... " -f $current, $numbers.Count, $destination) -NoNewline
+        $session = $null
+        $job = $null
+        $confirmationMissing = $false
+        $phase = 'Login'
+        try {
+            $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
+            $session = New-PSSession -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ErrorAction Stop
+            $phase = 'Operation'
+            $job = Invoke-Command -Session $session -ScriptBlock $command -ArgumentList $name, $teacherName -AsJob -ErrorAction Stop
+            $completed = Wait-Job -Job $job -Timeout 5 -ErrorAction Stop
+            if ($null -eq $completed) {
+                $confirmationMissing = $true
+                throw 'No shutdown confirmation arrived within 5 seconds.'
+            }
+            $response = @(Receive-Job -Job $job -ErrorAction Stop)
+            if ($job.State -ne 'Completed' -or @($response | Where-Object { $_ -ceq 'SHUTDOWN_REQUEST_ACCEPTED' }).Count -ne 1) {
+                $confirmationMissing = $true
+                throw 'The remote command did not confirm that Windows accepted the shutdown request.'
+            }
+            $requested++
+            Write-Host 'REQUESTED' -ForegroundColor Green
+        } catch {
+            $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
+            $reason = ($_.Exception.Message -replace '\s+', ' ').Trim()
+            $transportFailure = $false
+            $exception = $_.Exception
+            while ($null -ne $exception) {
+                if ($exception -is [System.Management.Automation.Remoting.PSRemotingTransportException]) { $transportFailure = $true }
+                $exception = $exception.InnerException
+            }
+            if ($phase -eq 'Operation' -and ($confirmationMissing -or $transportFailure -or $session.State -in 'Broken','Disconnected')) {
+                $status = 'UNKNOWN'
+                $reason = 'Shutdown could not be confirmed. The computer may be shutting down; check its power state before retrying. ' + $reason
+            }
+            $color = if ($status -eq 'UNKNOWN') { 'Yellow' } else { 'Red' }
+            Write-Host $status -ForegroundColor $color
+            $problems += [pscustomobject]@{ Computer=$name; Status=$status; Reason=$reason }
+        } finally {
+            if ($null -ne $job) {
+                if ($job.State -notin 'Completed','Failed','Stopped') { Stop-Job -Job $job -ErrorAction SilentlyContinue }
+                Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
+            }
+            if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
+        }
+    }
+    Write-Host ("Shutdown requests accepted: {0}/{1}." -f $requested, $numbers.Count)
+    Write-Host 'REQUESTED means Windows accepted the request; it does not confirm that the computer has powered off.'
+    if ($problems.Count -gt 0) {
+        $problems | Format-Table Computer, Status, Reason -AutoSize -Wrap | Out-Host
+    }
+}
 function Copy-ClassroomFile {
     param([ValidateSet('Send','Receive')][string]$Direction)
     $number = Get-StudentNumber
@@ -310,6 +406,7 @@ while ($true) {
     Write-Host '8. Send a file to a student computer'
     Write-Host '9. Receive a file from a student computer'
     Write-Host '10. Check Wi-Fi restrictions on selected computers (Students)'
+    Write-Host '11. Shut down student computers (all or selected)'
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
     if ($choice -eq '0') { break }
@@ -392,7 +489,8 @@ while ($true) {
                     & $checker -Numbers $numbers -SchoolSSID 'Students' | Out-Null
                 }
             }
-            default { Write-Host 'Choose a number from 0 to 10.' }
+            '11' { Stop-ClassroomComputers }
+            default { Write-Host 'Choose a number from 0 to 11.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null
