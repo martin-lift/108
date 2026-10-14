@@ -325,7 +325,7 @@ while ($true) {
                 $number = Get-StudentNumber
                 if ($null -ne $number) {
                     Start-Service WinRM -ErrorAction Stop
-                    & $manager -Numbers $number -ScriptBlock {
+                    & $manager -Numbers $number -Confirm:$false -ScriptBlock {
                         Get-NetConnectionProfile | Select-Object Name, InterfaceAlias, NetworkCategory, IPv4Connectivity | Format-Table -AutoSize | Out-String
                         Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -notlike '127.*' } | Select-Object InterfaceAlias, IPAddress | Format-Table -AutoSize | Out-String
                         $wlanDetails = netsh wlan show interfaces 2>&1
