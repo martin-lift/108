@@ -52,6 +52,44 @@ function Test-ClassroomComputers {
         $failures | Format-Table Computer, Reason -AutoSize -Wrap | Out-Host
     }
 }
+function Set-AllClassroomWifi {
+    Start-Service WinRM -ErrorAction Stop
+    $ssid = Read-Host 'Exact school Wi-Fi name (Enter = Students)'
+    if ([string]::IsNullOrWhiteSpace($ssid)) { $ssid = 'Students' }
+    if ($ssid.Contains('"') -or $ssid.Contains("`r") -or $ssid.Contains("`n")) { throw 'Invalid network name.' }
+    $credentialInput = Get-Credential -UserName '108SU' -Message 'Shared LOCAL admin password for classroom'
+    if ($null -eq $credentialInput) { return }
+    $failures = @()
+    $sessionOption = New-PSSessionOption -OpenTimeout 15000
+    $command = {
+        param([string]$AllowedSSID, [string]$ExpectedName)
+        $ErrorActionPreference = 'Stop'
+        if ($env:COMPUTERNAME -ine $ExpectedName) { throw "Unexpected remote computer: $env:COMPUTERNAME (expected $ExpectedName)." }
+        $details = netsh wlan add filter permission=allow "ssid=$AllowedSSID" networktype=infrastructure 2>&1
+        if ($LASTEXITCODE -ne 0) { throw ("Allow filter failed; no deny filters were added. " + ($details | Out-String).Trim()) }
+        $details = netsh wlan add filter permission=denyall networktype=infrastructure 2>&1
+        if ($LASTEXITCODE -ne 0) { throw ("Infrastructure restriction failed; the Allow filter may already be active. " + ($details | Out-String).Trim()) }
+        $details = netsh wlan add filter permission=denyall networktype=adhoc 2>&1
+        if ($LASTEXITCODE -ne 0) { throw ("Ad hoc restriction failed; infrastructure restriction may already be active. " + ($details | Out-String).Trim()) }
+    }
+    foreach ($number in 1..27) {
+        $name = '307-Student-{0:D2}' -f $number
+        $destination = "$name.local"
+        Write-Host ("[{0}/27] Restricting {1}... " -f $number, $destination) -NoNewline
+        try {
+            $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
+            Invoke-Command -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ScriptBlock $command -ArgumentList $ssid, $name -ErrorAction Stop | Out-Null
+            Write-Host 'OK' -ForegroundColor Green
+        } catch {
+            Write-Host 'ERROR' -ForegroundColor Red
+            $failures += [pscustomobject]@{ Computer = $name; Reason = ($_.Exception.Message -replace '\s+', ' ').Trim() }
+        }
+    }
+    if ($failures.Count -gt 0) {
+        Write-Host ''
+        $failures | Format-Table Computer, Reason -AutoSize -Wrap | Out-Host
+    }
+}
 function Copy-ClassroomFile {
     param([ValidateSet('Send','Receive')][string]$Direction)
     $number = Get-StudentNumber
@@ -134,9 +172,10 @@ while ($true) {
     Write-Host '2. Check the names of all 27 student computers'
     Write-Host '3. Show Wi-Fi connection and filters on a selected computer'
     Write-Host '4. Restrict a selected computer to school Wi-Fi (default: Students)'
-    Write-Host '5. Remove restrictions on other Wi-Fi networks'
-    Write-Host '6. Send a file to a student computer'
-    Write-Host '7. Receive a file from a student computer'
+    Write-Host '5. Restrict All computers 01-27 to school Wi-Fi (default: Students)'
+    Write-Host '6. Remove restrictions on other Wi-Fi networks'
+    Write-Host '7. Send a file to a student computer'
+    Write-Host '8. Receive a file from a student computer'
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
     if ($choice -eq '0') { break }
@@ -200,7 +239,8 @@ while ($true) {
                     }
                 }
             }
-            '5' {
+            '5' { Set-AllClassroomWifi }
+            '6' {
                 $number = Get-StudentNumber
                 if ($null -ne $number) {
                     $confirmation = Read-Host ("Type YES to remove Wi-Fi restrictions on computer {0}" -f $number)
@@ -217,9 +257,9 @@ while ($true) {
                     }
                 }
             }
-            '6' { Copy-ClassroomFile -Direction Send }
-            '7' { Copy-ClassroomFile -Direction Receive }
-            default { Write-Host 'Choose a number from 0 to 7.' }
+            '7' { Copy-ClassroomFile -Direction Send }
+            '8' { Copy-ClassroomFile -Direction Receive }
+            default { Write-Host 'Choose a number from 0 to 8.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null
