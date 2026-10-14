@@ -8,6 +8,12 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 if ($PSCmdlet.ParameterSetName -eq 'All') { $Numbers = @(1..27) }
+$credentialHelper = Join-Path $PSScriptRoot 'Credential-Helper.ps1'
+if (-not (Test-Path -LiteralPath $credentialHelper -PathType Leaf)) {
+    throw 'Credential-Helper.ps1 is missing. Download it into the same folder as this script.'
+}
+. $credentialHelper
+
 function Get-WifiRestrictionStatus {
     param([object[]]$Filters, [string]$ExpectedSSID)
     $expectedHex = [BitConverter]::ToString([Text.Encoding]::UTF8.GetBytes($ExpectedSSID))
@@ -132,8 +138,7 @@ namespace Cabinet307 {
     [Cabinet307.WifiFilterReader]::Read()
 }
 Start-Service WinRM -ErrorAction Stop
-Write-Host 'Check keyboard layout: use English (ENG) for the password.'
-$credentialInput = Get-Credential -UserName '108SU' -Message 'LOCAL admin password for classroom Wi-Fi checks'
+$credentialInput = Get-ClassroomCredential
 if ($null -eq $credentialInput) { return }
 $report = @()
 $sessionOption = New-PSSessionOption -OpenTimeout 15000
