@@ -17,6 +17,12 @@ if (-not (Test-Path -LiteralPath $manager)) {
     Read-Host 'Press Enter to close' | Out-Null
     exit 1
 }
+$credentialHelper = Join-Path $PSScriptRoot 'Credential-Helper.ps1'
+if (-not (Test-Path -LiteralPath $credentialHelper -PathType Leaf)) {
+    throw 'Credential-Helper.ps1 is missing. Download it into the same folder as this script.'
+}
+. $credentialHelper
+
 function Get-StudentNumber {
     while ($true) {
         $answer = Read-Host 'Student computer number (1-27; Enter = cancel)'
@@ -28,7 +34,7 @@ function Get-StudentNumber {
 }
 function Test-ClassroomComputers {
     Start-Service WinRM -ErrorAction Stop
-    $credentialInput = Get-Credential -UserName '108SU' -Message 'Shared LOCAL admin password for classroom'
+    $credentialInput = Get-ClassroomCredential
     if ($null -eq $credentialInput) { return }
     $failures = @()
     $sessionOption = New-PSSessionOption -OpenTimeout 15000
@@ -101,7 +107,7 @@ function Set-AllClassroomWifi {
     $ssid = Read-Host 'Exact school Wi-Fi name (Enter = Students)'
     if ([string]::IsNullOrWhiteSpace($ssid)) { $ssid = 'Students' }
     if ($ssid.Contains('"') -or $ssid.Contains("`r") -or $ssid.Contains("`n")) { throw 'Invalid network name.' }
-    $credentialInput = Get-Credential -UserName '108SU' -Message 'Shared LOCAL admin password for classroom'
+    $credentialInput = Get-ClassroomCredential
     if ($null -eq $credentialInput) { return }
     $failures = @()
     $sessionOption = New-PSSessionOption -OpenTimeout 15000
@@ -151,7 +157,7 @@ function Remove-ClassroomWifiRestrictions {
         $numbers = @($number)
     }
     Start-Service WinRM -ErrorAction Stop
-    $credentialInput = Get-Credential -UserName '108SU' -Message 'LOCAL admin password for selected classroom computers'
+    $credentialInput = Get-ClassroomCredential
     if ($null -eq $credentialInput) { return }
     $failures = @()
     $sessionOption = New-PSSessionOption -OpenTimeout 15000
@@ -218,7 +224,7 @@ function Copy-ClassroomFile {
     }
     Write-Host ("{0}: {1} -> {2} ({3})" -f $Direction, $source, $destination, $name)
     Start-Service WinRM -ErrorAction Stop
-    $credential = Get-Credential -UserName "$name\108SU" -Message "Local administrator password for $name"
+    $credential = Get-ClassroomCredential -UserName "$name\108SU"
     if ($null -eq $credential) { return }
     $session = $null
     $inspectFile = {
