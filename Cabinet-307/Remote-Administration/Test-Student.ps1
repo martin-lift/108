@@ -5,6 +5,42 @@ param(
   [ValidateRange(1,60)][int]$NetworkTimeoutSeconds = 5,
   [ValidateRange(1,120)][int]$OpenTimeoutSeconds = 15
 )
+function Test-WifiLoginError {
+    param([System.Management.Automation.ErrorRecord]$Record)
+    # Used only for errors while opening the session, never for a remote read error.
+    $exception = $Record.Exception
+    while ($null -ne $exception) {
+        foreach ($property in @('ErrorCode','HResult')) {
+            if ($exception.PSObject.Properties[$property]) {
+                $code = [int64]$exception.$property -band 4294967295L
+                if ($code -in 5,1326,1909,1331,1330,1385,2147942405L,2147943726L,2147944309L,2147943731L,2147943730L,2147943785L,2148074252L) { return $true }
+            }
+        }
+        $exception = $exception.InnerException
+    }
+    if ($Record.FullyQualifiedErrorId -match 'AccessDenied|LogonFailure|AuthenticationFailed|InvalidCredential') { return $true }
+    $Record.Exception.Message -match 'Access is denied|user name or password is incorrect|logon failure|authentication failed|account.*(locked|disabled)|\u041e\u0442\u043a\u0430\u0437\u0430\u043d \u0434\u043e\u0441\u0442\u044a\u043f|\u0414\u043e\u0441\u0442\u044a\u043f\u044a\u0442 \u0435 \u043e\u0442\u043a\u0430\u0437\u0430\u043d|\u043d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u043d\u0430.*\u043f\u0430\u0440\u043e\u043b\u0430'
+}
+function Get-ClassroomErrorStatus {
+    param([System.Management.Automation.ErrorRecord]$Record, [string]$Phase)
+    if ($Phase -eq 'Login') {
+        if (Test-WifiLoginError -Record $Record) { return 'LOGIN_ERROR' }
+        $message = $Record.Exception.Message
+        $exception = $Record.Exception
+        while ($null -ne $exception) {
+            if ($exception -is [Net.Sockets.SocketException]) {
+                if ($exception.SocketErrorCode -in 'HostNotFound','NoData','TryAgain') { return 'NAME_ERROR' }
+                if ($exception.SocketErrorCode -in 'TimedOut','ConnectionRefused','NetworkUnreachable','HostUnreachable','ConnectionReset') { return 'CONNECTION_ERROR' }
+            }
+            $exception = $exception.InnerException
+        }
+        if ($message -match 'name cannot be resolved|could not be resolved|No such host|host.*not found|Name resolution|DNS.*(fail|error)|resolve.*(fail|error)') { return 'NAME_ERROR' }
+        if ($message -match 'timed out|timeout|cannot connect|could not connect|connection.*(failed|refused|closed)|unreachable|WinRM cannot complete the operation|client cannot connect') { return 'CONNECTION_ERROR' }
+        return 'ERROR'
+    }
+    if ($Phase -eq 'Operation') { return 'OPERATION_ERROR' }
+    'ERROR'
+}
 $ErrorActionPreference = 'Stop'
 if (-not $PSBoundParameters.ContainsKey('Number')) {
   do {
@@ -114,7 +150,11 @@ try {
   Show-Result 'PASS' 'Remote configuration was read successfully.'
   Write-Host "SUCCESS: remote execution on $destination"
 } catch {
-  Show-Result 'FAIL' $_.Exception.Message
+  $phase = 'Operation'
+  if ($step -eq 2 -or $step -eq 3 -or $step -eq 5) { $phase = 'Login' }
+  if ($step -eq 1) { $phase = 'Local' }
+  $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
+  Show-Result $status $_.Exception.Message
   for ($remaining = $step + 1; $remaining -le 7; $remaining++) {
     Write-Host ("[{0}/7] SKIPPED: a required earlier step failed." -f $remaining)
   }
