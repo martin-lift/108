@@ -169,37 +169,34 @@ while ($true) {
             '4' {
                 $number = Get-StudentNumber
                 if ($null -ne $number) {
-                    Start-Service WinRM -ErrorAction Stop
-                    & $manager -Numbers $number -ScriptBlock {
-                        Get-NetConnectionProfile | Select-Object Name, InterfaceAlias, NetworkCategory, IPv4Connectivity | Format-Table -AutoSize | Out-String
-                        Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -notlike '127.*' } | Select-Object InterfaceAlias, IPAddress | Format-Table -AutoSize | Out-String
-                        $wlanDetails = netsh wlan show interfaces 2>&1
-                        $wlanExitCode = $LASTEXITCODE
-                        $wlanDetails | Out-String
-                        if ($wlanExitCode -ne 0) {
-                            'Wi-Fi details are unavailable. Windows may require location permission. Network profiles and IP addresses are shown above; the profile name is not guaranteed to be the SSID. Filter checks will continue.'
-                        }
-                        netsh wlan show filters
-                        if ($LASTEXITCODE -ne 0) { throw 'Wi-Fi filter check failed.' }
-                    } | Format-Table -AutoSize -Wrap | Out-Host
-                    Write-Host 'Verify the actual connected Wi-Fi SSID before continuing. If Wi-Fi details are unavailable, check it locally on the student computer.'
-                    Write-Host 'Other existing Allow entries remain allowed. USB internet connections are not blocked.'
-                    $ssid = Read-Host 'Exact school Wi-Fi name (Enter = Students)'
-                    if ([string]::IsNullOrWhiteSpace($ssid)) { $ssid = 'Students' }
-                    if ($ssid.Contains('"') -or $ssid.Contains("`r") -or $ssid.Contains("`n")) { throw 'Invalid network name.' }
-                    $confirmation = Read-Host ("Type YES to restrict computer {0} to '{1}'" -f $number, $ssid)
-                    if ($confirmation -ieq 'YES') {
+                    try {
+                        Start-Service WinRM -ErrorAction Stop
+                        $ssid = Read-Host 'Exact school Wi-Fi name (Enter = Students)'
+                        if ([string]::IsNullOrWhiteSpace($ssid)) { $ssid = 'Students' }
+                        if ($ssid.Contains('"') -or $ssid.Contains("`r") -or $ssid.Contains("`n")) { throw 'Invalid network name.' }
+                        Write-Host ("Applying Wi-Fi filters on computer {0} for '{1}'..." -f $number, $ssid)
+                        Write-Host 'Other existing Allow entries remain allowed. USB internet connections are not blocked.'
                         $command = {
                             param([string]$AllowedSSID)
-                            netsh wlan add filter permission=allow "ssid=$AllowedSSID" networktype=infrastructure
-                            if ($LASTEXITCODE -ne 0) { throw 'Allow filter failed; no deny filters were added.' }
-                            netsh wlan add filter permission=denyall networktype=infrastructure
-                            if ($LASTEXITCODE -ne 0) { throw 'Infrastructure restriction failed.' }
-                            netsh wlan add filter permission=denyall networktype=adhoc
-                            if ($LASTEXITCODE -ne 0) { throw 'Ad hoc restriction failed; infrastructure restriction may already be active.' }
+                            $ErrorActionPreference = 'Stop'
+                            $details = netsh wlan add filter permission=allow "ssid=$AllowedSSID" networktype=infrastructure 2>&1
+                            if ($LASTEXITCODE -ne 0) { throw ("Allow filter failed; no deny filters were added. " + ($details | Out-String).Trim()) }
+                            $details = netsh wlan add filter permission=denyall networktype=infrastructure 2>&1
+                            if ($LASTEXITCODE -ne 0) { throw ("Infrastructure restriction failed; the Allow filter may already be active. " + ($details | Out-String).Trim()) }
+                            $details = netsh wlan add filter permission=denyall networktype=adhoc 2>&1
+                            if ($LASTEXITCODE -ne 0) { throw ("Ad hoc restriction failed; infrastructure restriction may already be active. " + ($details | Out-String).Trim()) }
                             netsh wlan show filters
+                            if ($LASTEXITCODE -ne 0) { throw 'Filters were applied, but reading the resulting filter list failed.' }
                         }
-                        & $manager -Numbers $number -ScriptBlock $command -ArgumentList @($ssid) | Format-Table -AutoSize -Wrap | Out-Host
+                        $results = @(& $manager -Numbers $number -ScriptBlock $command -ArgumentList @($ssid) -Confirm:$false)
+                        if ($results.Count -ne 1 -or $results[0].Status -ne 'OK') {
+                            $reason = ($results | ForEach-Object { $_.Output }) -join '; '
+                            if (-not $reason) { $reason = 'The operation did not return a successful result.' }
+                            throw $reason
+                        }
+                        Write-Host ("SUCCESS: Wi-Fi filters applied on computer {0} for '{1}'." -f $number, $ssid) -ForegroundColor Green
+                    } catch {
+                        Write-Host ("FAILED: Computer {0}: {1}" -f $number, $_.Exception.Message) -ForegroundColor Red
                     }
                 }
             }
