@@ -10,6 +10,12 @@ param(
   [Parameter(Mandatory=$true)][scriptblock]$ScriptBlock,
   [object[]]$ArgumentList = @()
 )
+$credentialHelper = Join-Path $PSScriptRoot 'Credential-Helper.ps1'
+if (-not (Test-Path -LiteralPath $credentialHelper -PathType Leaf)) {
+    throw 'Credential-Helper.ps1 is missing. Download it into the same folder as this script.'
+}
+. $credentialHelper
+
 function Test-WifiLoginError {
     param([System.Management.Automation.ErrorRecord]$Record)
     # Used only for errors while opening the session, never for a remote read error.
@@ -67,7 +73,8 @@ elseif (-not $PSBoundParameters.ContainsKey('Numbers')) {
   } until ($validNumbers)
   $Numbers = @($selectedNumbers.ToArray() | Select-Object -Unique)
 }
-$credentialInput = Get-Credential -UserName '108SU' -Message 'Shared LOCAL admin password for classroom'
+$credentialInput = Get-ClassroomCredential
+if ($null -eq $credentialInput) { return }
 $current = 0
 $report = foreach ($number in $Numbers) {
   $name = '307-Student-{0:D2}' -f $number
