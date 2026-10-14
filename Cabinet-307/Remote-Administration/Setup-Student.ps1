@@ -143,7 +143,9 @@ try {
   Set-SetupStage 'RenameAccount'
   if ($spaced) {
     if ($PSCmdlet.ShouldProcess($env:COMPUTERNAME,'Rename local user 108 SU to 108SU')) {
+      Write-Host "Renaming local user '108 SU' to '108SU'..."
       Rename-LocalUser -Name '108 SU' -NewName '108SU'
+      Write-Host "SUCCESS: Local user '108 SU' was renamed to '108SU'." -ForegroundColor Green
       Write-ActionResult 'RenameAccount' $true
     } else { Write-ActionResult 'RenameAccount' $false }
   } else { Write-Host 'Account name is already 108SU.' }
