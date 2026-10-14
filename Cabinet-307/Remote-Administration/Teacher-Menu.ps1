@@ -32,6 +32,25 @@ function Get-StudentNumber {
         Write-Host 'Enter a number from 1 to 27.'
     }
 }
+function Get-StudentNumbers {
+    while ($true) {
+        $answer = Read-Host 'Student computer numbers (1-27; separated by commas or spaces; Enter = cancel)'
+        if ([string]::IsNullOrWhiteSpace($answer)) { return }
+        $parts = @($answer.Trim() -split '[,\s]+' | Where-Object { $_ })
+        $valid = $parts.Count -gt 0
+        $numbers = New-Object 'System.Collections.Generic.List[int]'
+        foreach ($part in $parts) {
+            $number = 0
+            if (-not [int]::TryParse($part, [ref]$number) -or $number -lt 1 -or $number -gt 27) {
+                $valid = $false
+                break
+            }
+            if (-not $numbers.Contains($number)) { $numbers.Add($number) }
+        }
+        if ($valid) { return $numbers.ToArray() }
+        Write-Host 'Enter numbers from 1 to 27, separated by commas or spaces (for example: 1, 3, 5).'
+    }
+}
 function Test-ClassroomComputers {
     Start-Service WinRM -ErrorAction Stop
     $credentialInput = Get-ClassroomCredential
@@ -285,7 +304,7 @@ while ($true) {
     Write-Host '1. Start WinRM and check the teacher computer'
     Write-Host '2. Check the names of all 27 student computers'
     Write-Host '3. Show Wi-Fi connection and filters on a selected computer'
-    Write-Host '4. Restrict a selected computer to school Wi-Fi (default: Students)'
+    Write-Host '4. Restrict selected computers to school Wi-Fi (default: Students)'
     Write-Host '5. Restrict All computers 01-27 to school Wi-Fi (default: Students)'
     Write-Host '6. Remove restrictions on other Wi-Fi networks for all computers'
     Write-Host '7. Remove restrictions on other Wi-Fi networks for a selected computer'
@@ -322,14 +341,14 @@ while ($true) {
                 }
             }
             '4' {
-                $number = Get-StudentNumber
-                if ($null -ne $number) {
+                $numbers = @(Get-StudentNumbers)
+                if ($numbers.Count -gt 0) {
                     try {
                         Start-Service WinRM -ErrorAction Stop
                         $ssid = Read-Host 'Exact school Wi-Fi name (Enter = Students)'
                         if ([string]::IsNullOrWhiteSpace($ssid)) { $ssid = 'Students' }
                         if ($ssid.Contains('"') -or $ssid.Contains("`r") -or $ssid.Contains("`n")) { throw 'Invalid network name.' }
-                        Write-Host ("Applying Wi-Fi filters on computer {0} for '{1}'..." -f $number, $ssid)
+                        Write-Host ("Applying Wi-Fi filters on computers {0} for '{1}'..." -f ($numbers -join ', '), $ssid)
                         Write-Host 'Other existing Allow entries remain allowed. USB internet connections are not blocked.'
                         $command = {
                             param([string]$AllowedSSID)
@@ -343,18 +362,21 @@ while ($true) {
                             netsh wlan show filters
                             if ($LASTEXITCODE -ne 0) { throw 'Filters were applied, but reading the resulting filter list failed.' }
                         }
-                        $failureStatus = 'ERROR'
-                        $results = @(& $manager -Numbers $number -ScriptBlock $command -ArgumentList @($ssid) -Confirm:$false)
-                        if ($results.Count -ne 1 -or $results[0].Status -ne 'OK') {
-                            if ($results.Count -eq 1) { $failureStatus = $results[0].Status }
-                            $reason = ($results | ForEach-Object { $_.Output }) -join '; '
-                            if (-not $reason) { $reason = 'The operation did not return a successful result.' }
-                            throw $reason
+                        $results = @(& $manager -Numbers $numbers -ScriptBlock $command -ArgumentList @($ssid) -Confirm:$false)
+                        if ($results.Count -eq 0) {
+                            Write-Host 'Operation cancelled. No computer results were returned.'
                         }
-                        Write-Host ("SUCCESS: Wi-Fi filters applied on computer {0} for '{1}'." -f $number, $ssid) -ForegroundColor Green
+                        foreach ($result in $results) {
+                            if ($result.Status -eq 'OK') {
+                                Write-Host ("SUCCESS: Wi-Fi filters applied on {0} for '{1}'." -f $result.Computer, $ssid) -ForegroundColor Green
+                            } else {
+                                $reason = $result.Output
+                                if (-not $reason) { $reason = 'The operation did not return a successful result.' }
+                                Write-Host ("{0}: {1}: {2}" -f $result.Status, $result.Computer, $reason) -ForegroundColor Red
+                            }
+                        }
                     } catch {
-                        if (-not $failureStatus) { $failureStatus = 'ERROR' }
-                        Write-Host ("{0}: Computer {1}: {2}" -f $failureStatus, $number, $_.Exception.Message) -ForegroundColor Red
+                        Write-Host ("ERROR: Selected computers {0}: {1}" -f ($numbers -join ', '), $_.Exception.Message) -ForegroundColor Red
                     }
                 }
             }
