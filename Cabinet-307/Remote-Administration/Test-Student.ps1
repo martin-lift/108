@@ -5,6 +5,12 @@ param(
   [ValidateRange(1,60)][int]$NetworkTimeoutSeconds = 5,
   [ValidateRange(1,120)][int]$OpenTimeoutSeconds = 15
 )
+$credentialHelper = Join-Path $PSScriptRoot 'Credential-Helper.ps1'
+if (-not (Test-Path -LiteralPath $credentialHelper -PathType Leaf)) {
+    throw 'Credential-Helper.ps1 is missing. Download it into the same folder as this script.'
+}
+. $credentialHelper
+
 function Test-WifiLoginError {
     param([System.Management.Automation.ErrorRecord]$Record)
     # Used only for errors while opening the session, never for a remote read error.
@@ -65,6 +71,8 @@ function Start-Step([int]$Number, [string]$Description) {
 function Show-Result([string]$Status, [string]$Message) {
   Write-Host ("[{0}/7] {1}: {2} ({3:N1}s)" -f $step, $Status, $Message, $timer.Elapsed.TotalSeconds)
 }
+$credential = Get-ClassroomCredential -UserName "$name\108SU"
+if ($null -eq $credential) { return }
 Write-Host "Target: $destination. No configuration changes will be made."
 try {
   Start-Step 1 'Check local WinRM client and TrustedHosts'
@@ -119,9 +127,7 @@ try {
     Write-Warning $_.Exception.Message
   }
 
-  Start-Step 5 'Request credentials and open a PowerShell session'
-  $credential = Get-Credential -UserName "$name\108SU" -Message "Local administrator of $name"
-  if ($null -eq $credential) { throw 'Credential entry was cancelled.' }
+  Start-Step 5 'Open a PowerShell session with locally checked credentials'
   $options = New-PSSessionOption -OpenTimeout ($OpenTimeoutSeconds * 1000)
   $session = New-PSSession -ComputerName $destination -Credential $credential -Authentication Negotiate -SessionOption $options -ErrorAction Stop
   Show-Result 'PASS' 'Authenticated PowerShell session opened.'
