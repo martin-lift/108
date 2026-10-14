@@ -36,20 +36,28 @@ function Test-ClassroomComputers {
         $name = '307-Student-{0:D2}' -f $number
         $destination = "$name.local"
         Write-Host ("[{0}/27] Checking {1}... " -f $number, $destination) -NoNewline
+        $session = $null
+        $phase = 'Login'
         try {
             $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
-            $actualName = Invoke-Command -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ScriptBlock { $env:COMPUTERNAME } -ErrorAction Stop
+            $session = New-PSSession -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ErrorAction Stop
+            $phase = 'Operation'
+            $phase = 'Operation'
+        $actualName = Invoke-Command -Session $session -ScriptBlock { $env:COMPUTERNAME } -ErrorAction Stop
             if ([string]$actualName -ine $name) { throw "Unexpected remote computer name: $actualName (expected $name)." }
             Write-Host 'OK' -ForegroundColor Green
         } catch {
-            Write-Host 'ERROR' -ForegroundColor Red
+            $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
+            Write-Host $status -ForegroundColor Red
             $reason = ($_.Exception.Message -replace '\s+', ' ').Trim()
-            $failures += [pscustomobject]@{ Computer = $name; Reason = $reason }
+            $failures += [pscustomobject]@{ Computer = $name; Status = $status; Reason = $reason }
+        } finally {
+            if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
         }
     }
     if ($failures.Count -gt 0) {
         Write-Host ''
-        $failures | Format-Table Computer, Reason -AutoSize -Wrap | Out-Host
+        $failures | Format-Table Computer, Status, Reason -AutoSize -Wrap | Out-Host
     }
 }
 function Test-WifiLoginError {
@@ -67,6 +75,26 @@ function Test-WifiLoginError {
     }
     if ($Record.FullyQualifiedErrorId -match 'AccessDenied|LogonFailure|AuthenticationFailed|InvalidCredential') { return $true }
     $Record.Exception.Message -match 'Access is denied|user name or password is incorrect|logon failure|authentication failed|account.*(locked|disabled)|\u041e\u0442\u043a\u0430\u0437\u0430\u043d \u0434\u043e\u0441\u0442\u044a\u043f|\u0414\u043e\u0441\u0442\u044a\u043f\u044a\u0442 \u0435 \u043e\u0442\u043a\u0430\u0437\u0430\u043d|\u043d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u043d\u0430.*\u043f\u0430\u0440\u043e\u043b\u0430'
+}
+function Get-ClassroomErrorStatus {
+    param([System.Management.Automation.ErrorRecord]$Record, [string]$Phase)
+    if ($Phase -eq 'Login') {
+        if (Test-WifiLoginError -Record $Record) { return 'LOGIN_ERROR' }
+        $message = $Record.Exception.Message
+        $exception = $Record.Exception
+        while ($null -ne $exception) {
+            if ($exception -is [Net.Sockets.SocketException]) {
+                if ($exception.SocketErrorCode -in 'HostNotFound','NoData','TryAgain') { return 'NAME_ERROR' }
+                if ($exception.SocketErrorCode -in 'TimedOut','ConnectionRefused','NetworkUnreachable','HostUnreachable','ConnectionReset') { return 'CONNECTION_ERROR' }
+            }
+            $exception = $exception.InnerException
+        }
+        if ($message -match 'name cannot be resolved|could not be resolved|No such host|host.*not found|Name resolution|DNS.*(fail|error)|resolve.*(fail|error)') { return 'NAME_ERROR' }
+        if ($message -match 'timed out|timeout|cannot connect|could not connect|connection.*(failed|refused|closed)|unreachable|WinRM cannot complete the operation|client cannot connect') { return 'CONNECTION_ERROR' }
+        return 'ERROR'
+    }
+    if ($Phase -eq 'Operation') { return 'OPERATION_ERROR' }
+    'ERROR'
 }
 function Set-AllClassroomWifi {
     Start-Service WinRM -ErrorAction Stop
@@ -97,12 +125,11 @@ function Set-AllClassroomWifi {
         try {
             $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
             $session = New-PSSession -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ErrorAction Stop
-            $phase = 'Apply'
+            $phase = 'Operation'
             Invoke-Command -Session $session -ScriptBlock $command -ArgumentList $ssid, $name -ErrorAction Stop | Out-Null
             Write-Host 'OK' -ForegroundColor Green
         } catch {
-            $status = 'ERROR'
-            if ($phase -eq 'Login' -and (Test-WifiLoginError -Record $_)) { $status = 'LOGIN_ERROR' }
+            $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
             Write-Host $status -ForegroundColor Red
             $failures += [pscustomobject]@{ Computer = $name; Status = $status; Reason = ($_.Exception.Message -replace '\s+', ' ').Trim() }
         } finally {
@@ -146,18 +173,25 @@ function Remove-ClassroomWifiRestrictions {
         $name = '307-Student-{0:D2}' -f $number
         $destination = "$name.local"
         Write-Host ("[{0}/{1}] Removing restrictions on {2}... " -f $current, $numbers.Count, $destination) -NoNewline
+        $session = $null
+        $phase = 'Login'
         try {
             $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
-            Invoke-Command -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ScriptBlock $command -ArgumentList $name -ErrorAction Stop | Out-Null
+            $session = New-PSSession -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ErrorAction Stop
+            $phase = 'Operation'
+            Invoke-Command -Session $session -ScriptBlock $command -ArgumentList $name -ErrorAction Stop | Out-Null
             Write-Host 'OK' -ForegroundColor Green
         } catch {
-            Write-Host 'ERROR' -ForegroundColor Red
-            $failures += [pscustomobject]@{ Computer = $name; Reason = ($_.Exception.Message -replace '\s+', ' ').Trim() }
+            $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
+            Write-Host $status -ForegroundColor Red
+            $failures += [pscustomobject]@{ Computer = $name; Status = $status; Reason = ($_.Exception.Message -replace '\s+', ' ').Trim() }
+        } finally {
+            if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
         }
     }
     if ($failures.Count -gt 0) {
         Write-Host ''
-        $failures | Format-Table Computer, Reason -AutoSize -Wrap | Out-Host
+        $failures | Format-Table Computer, Status, Reason -AutoSize -Wrap | Out-Host
     }
 }
 function Copy-ClassroomFile {
@@ -204,6 +238,7 @@ function Copy-ClassroomFile {
         if (Test-Path -LiteralPath $Path -PathType Container) { throw 'A subfolder has the same name as the source file. Choose another destination.' }
         [pscustomobject]@{ Path = $Path; Exists = (Test-Path -LiteralPath $Path) }
     }
+    $phase = 'Login'
     try {
         Write-Host ("Connecting to {0}..." -f $name)
         $session = New-PSSession -ComputerName "$name.local" -Credential $credential -SessionOption (New-PSSessionOption -OpenTimeout 15000) -ErrorAction Stop
@@ -232,8 +267,11 @@ function Copy-ClassroomFile {
         }
         if ($sourceHash -ne $destinationHash) { throw 'File verification failed. The destination content differs from the source.' }
         Write-Host ("SUCCESS: File copied and verified: {0}" -f $destination) -ForegroundColor Green
+    } catch {
+        $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
+        Write-Host ("{0}: {1}: {2}" -f $status, $name, $_.Exception.Message) -ForegroundColor Red
     } finally {
-        if ($null -ne $session) { Remove-PSSession -Session $session }
+        if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
     }
 }
 while ($true) {
@@ -299,15 +337,18 @@ while ($true) {
                             netsh wlan show filters
                             if ($LASTEXITCODE -ne 0) { throw 'Filters were applied, but reading the resulting filter list failed.' }
                         }
+                        $failureStatus = 'ERROR'
                         $results = @(& $manager -Numbers $number -ScriptBlock $command -ArgumentList @($ssid) -Confirm:$false)
                         if ($results.Count -ne 1 -or $results[0].Status -ne 'OK') {
+                            if ($results.Count -eq 1) { $failureStatus = $results[0].Status }
                             $reason = ($results | ForEach-Object { $_.Output }) -join '; '
                             if (-not $reason) { $reason = 'The operation did not return a successful result.' }
                             throw $reason
                         }
                         Write-Host ("SUCCESS: Wi-Fi filters applied on computer {0} for '{1}'." -f $number, $ssid) -ForegroundColor Green
                     } catch {
-                        Write-Host ("FAILED: Computer {0}: {1}" -f $number, $_.Exception.Message) -ForegroundColor Red
+                        if (-not $failureStatus) { $failureStatus = 'ERROR' }
+                        Write-Host ("{0}: Computer {1}: {2}" -f $failureStatus, $number, $_.Exception.Message) -ForegroundColor Red
                     }
                 }
             }
