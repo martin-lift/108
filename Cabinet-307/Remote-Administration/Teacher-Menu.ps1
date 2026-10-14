@@ -52,6 +52,22 @@ function Test-ClassroomComputers {
         $failures | Format-Table Computer, Reason -AutoSize -Wrap | Out-Host
     }
 }
+function Test-WifiLoginError {
+    param([System.Management.Automation.ErrorRecord]$Record)
+    # Used only for errors while opening the session, never for a remote read error.
+    $exception = $Record.Exception
+    while ($null -ne $exception) {
+        foreach ($property in @('ErrorCode','HResult')) {
+            if ($exception.PSObject.Properties[$property]) {
+                $code = [int64]$exception.$property -band 4294967295L
+                if ($code -in 5,1326,1909,1331,1330,1385,2147942405L,2147943726L,2147944309L,2147943731L,2147943730L,2147943785L,2148074252L) { return $true }
+            }
+        }
+        $exception = $exception.InnerException
+    }
+    if ($Record.FullyQualifiedErrorId -match 'AccessDenied|LogonFailure|AuthenticationFailed|InvalidCredential') { return $true }
+    $Record.Exception.Message -match 'Access is denied|user name or password is incorrect|logon failure|authentication failed|account.*(locked|disabled)|\u041e\u0442\u043a\u0430\u0437\u0430\u043d \u0434\u043e\u0441\u0442\u044a\u043f|\u0414\u043e\u0441\u0442\u044a\u043f\u044a\u0442 \u0435 \u043e\u0442\u043a\u0430\u0437\u0430\u043d|\u043d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u043d\u0430.*\u043f\u0430\u0440\u043e\u043b\u0430'
+}
 function Set-AllClassroomWifi {
     Start-Service WinRM -ErrorAction Stop
     $ssid = Read-Host 'Exact school Wi-Fi name (Enter = Students)'
@@ -76,18 +92,26 @@ function Set-AllClassroomWifi {
         $name = '307-Student-{0:D2}' -f $number
         $destination = "$name.local"
         Write-Host ("[{0}/27] Restricting {1}... " -f $number, $destination) -NoNewline
+        $session = $null
+        $phase = 'Login'
         try {
             $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
-            Invoke-Command -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ScriptBlock $command -ArgumentList $ssid, $name -ErrorAction Stop | Out-Null
+            $session = New-PSSession -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ErrorAction Stop
+            $phase = 'Apply'
+            Invoke-Command -Session $session -ScriptBlock $command -ArgumentList $ssid, $name -ErrorAction Stop | Out-Null
             Write-Host 'OK' -ForegroundColor Green
         } catch {
-            Write-Host 'ERROR' -ForegroundColor Red
-            $failures += [pscustomobject]@{ Computer = $name; Reason = ($_.Exception.Message -replace '\s+', ' ').Trim() }
+            $status = 'ERROR'
+            if ($phase -eq 'Login' -and (Test-WifiLoginError -Record $_)) { $status = 'LOGIN_ERROR' }
+            Write-Host $status -ForegroundColor Red
+            $failures += [pscustomobject]@{ Computer = $name; Status = $status; Reason = ($_.Exception.Message -replace '\s+', ' ').Trim() }
+        } finally {
+            if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
         }
     }
     if ($failures.Count -gt 0) {
         Write-Host ''
-        $failures | Format-Table Computer, Reason -AutoSize -Wrap | Out-Host
+        $failures | Format-Table Computer, Status, Reason -AutoSize -Wrap | Out-Host
     }
 }
 function Remove-ClassroomWifiRestrictions {
