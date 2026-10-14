@@ -223,6 +223,7 @@ while ($true) {
     Write-Host '7. Remove restrictions on other Wi-Fi networks for a selected computer'
     Write-Host '8. Send a file to a student computer'
     Write-Host '9. Receive a file from a student computer'
+    Write-Host '10. Check Wi-Fi restrictions on all computers (Students)'
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
     if ($choice -eq '0') { break }
@@ -291,7 +292,12 @@ while ($true) {
             '7' { Remove-ClassroomWifiRestrictions }
             '8' { Copy-ClassroomFile -Direction Send }
             '9' { Copy-ClassroomFile -Direction Receive }
-            default { Write-Host 'Choose a number from 0 to 9.' }
+            '10' {
+                $checker = Join-Path $PSScriptRoot 'Check-WifiRestrictions.ps1'
+                if (-not (Test-Path -LiteralPath $checker -PathType Leaf)) { throw 'Check-WifiRestrictions.ps1 is missing. Download it into the same folder as the menu.' }
+                & $checker -All -SchoolSSID 'Students' | Out-Null
+            }
+            default { Write-Host 'Choose a number from 0 to 10.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null
