@@ -66,11 +66,11 @@ function Set-AllClassroomWifi {
         $ErrorActionPreference = 'Stop'
         if ($env:COMPUTERNAME -ine $ExpectedName) { throw "Unexpected remote computer: $env:COMPUTERNAME (expected $ExpectedName)." }
         $details = netsh wlan add filter permission=allow "ssid=$AllowedSSID" networktype=infrastructure 2>&1
-        if ($LASTEXITCODE -ne 0) { throw ("Allow filter failed; no deny filters were added. " + ($details | Out-String).Trim()) }
+        if ($LASTEXITCODE -ne 0 -and (($details | Out-String) -notmatch 'This filter already exists in the same list on the system\.')) { throw ("Allow filter failed; no deny filters were added. " + ($details | Out-String).Trim()) }
         $details = netsh wlan add filter permission=denyall networktype=infrastructure 2>&1
-        if ($LASTEXITCODE -ne 0) { throw ("Infrastructure restriction failed; the Allow filter may already be active. " + ($details | Out-String).Trim()) }
+        if ($LASTEXITCODE -ne 0 -and (($details | Out-String) -notmatch 'This filter already exists in the same list on the system\.')) { throw ("Infrastructure restriction failed; the Allow filter may already be active. " + ($details | Out-String).Trim()) }
         $details = netsh wlan add filter permission=denyall networktype=adhoc 2>&1
-        if ($LASTEXITCODE -ne 0) { throw ("Ad hoc restriction failed; infrastructure restriction may already be active. " + ($details | Out-String).Trim()) }
+        if ($LASTEXITCODE -ne 0 -and (($details | Out-String) -notmatch 'This filter already exists in the same list on the system\.')) { throw ("Ad hoc restriction failed; infrastructure restriction may already be active. " + ($details | Out-String).Trim()) }
     }
     foreach ($number in 1..27) {
         $name = '307-Student-{0:D2}' -f $number
@@ -266,11 +266,11 @@ while ($true) {
                             param([string]$AllowedSSID)
                             $ErrorActionPreference = 'Stop'
                             $details = netsh wlan add filter permission=allow "ssid=$AllowedSSID" networktype=infrastructure 2>&1
-                            if ($LASTEXITCODE -ne 0) { throw ("Allow filter failed; no deny filters were added. " + ($details | Out-String).Trim()) }
+                            if ($LASTEXITCODE -ne 0 -and (($details | Out-String) -notmatch 'This filter already exists in the same list on the system\.')) { throw ("Allow filter failed; no deny filters were added. " + ($details | Out-String).Trim()) }
                             $details = netsh wlan add filter permission=denyall networktype=infrastructure 2>&1
-                            if ($LASTEXITCODE -ne 0) { throw ("Infrastructure restriction failed; the Allow filter may already be active. " + ($details | Out-String).Trim()) }
+                            if ($LASTEXITCODE -ne 0 -and (($details | Out-String) -notmatch 'This filter already exists in the same list on the system\.')) { throw ("Infrastructure restriction failed; the Allow filter may already be active. " + ($details | Out-String).Trim()) }
                             $details = netsh wlan add filter permission=denyall networktype=adhoc 2>&1
-                            if ($LASTEXITCODE -ne 0) { throw ("Ad hoc restriction failed; infrastructure restriction may already be active. " + ($details | Out-String).Trim()) }
+                            if ($LASTEXITCODE -ne 0 -and (($details | Out-String) -notmatch 'This filter already exists in the same list on the system\.')) { throw ("Ad hoc restriction failed; infrastructure restriction may already be active. " + ($details | Out-String).Trim()) }
                             netsh wlan show filters
                             if ($LASTEXITCODE -ne 0) { throw 'Filters were applied, but reading the resulting filter list failed.' }
                         }
