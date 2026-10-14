@@ -26,6 +26,32 @@ function Get-StudentNumber {
         Write-Host 'Enter a number from 1 to 27.'
     }
 }
+function Test-ClassroomComputers {
+    Start-Service WinRM -ErrorAction Stop
+    $credentialInput = Get-Credential -UserName '108SU' -Message 'Shared LOCAL admin password for classroom'
+    if ($null -eq $credentialInput) { return }
+    $failures = @()
+    $sessionOption = New-PSSessionOption -OpenTimeout 15000
+    foreach ($number in 1..27) {
+        $name = '307-Student-{0:D2}' -f $number
+        $destination = "$name.local"
+        Write-Host ("[{0}/27] Checking {1}... " -f $number, $destination) -NoNewline
+        try {
+            $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
+            $actualName = Invoke-Command -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ScriptBlock { $env:COMPUTERNAME } -ErrorAction Stop
+            if ([string]$actualName -ine $name) { throw "Unexpected remote computer name: $actualName (expected $name)." }
+            Write-Host 'OK' -ForegroundColor Green
+        } catch {
+            Write-Host 'ERROR' -ForegroundColor Red
+            $reason = ($_.Exception.Message -replace '\s+', ' ').Trim()
+            $failures += [pscustomobject]@{ Computer = $name; Reason = $reason }
+        }
+    }
+    if ($failures.Count -gt 0) {
+        Write-Host ''
+        $failures | Format-Table Computer, Reason -AutoSize -Wrap | Out-Host
+    }
+}
 function Copy-ClassroomFile {
     param([ValidateSet('Send','Receive')][string]$Direction)
     $number = Get-StudentNumber
@@ -121,10 +147,7 @@ while ($true) {
                 Get-Service WinRM | Format-Table Status, Name, DisplayName | Out-Host
                 Get-Item WSMan:\localhost\Client\TrustedHosts | Format-List Name, Value | Out-Host
             }
-            '2' {
-                Start-Service WinRM -ErrorAction Stop
-                & $manager -All -ScriptBlock { hostname } | Format-Table -AutoSize -Wrap | Out-Host
-            }
+            '2' { Test-ClassroomComputers }
             '3' {
                 $number = Get-StudentNumber
                 if ($null -ne $number) {
