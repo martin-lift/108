@@ -52,6 +52,26 @@ function Test-WifiLoginError {
     if ($Record.FullyQualifiedErrorId -match 'AccessDenied|LogonFailure|AuthenticationFailed|InvalidCredential') { return $true }
     $Record.Exception.Message -match 'Access is denied|user name or password is incorrect|logon failure|authentication failed|account.*(locked|disabled)|\u041e\u0442\u043a\u0430\u0437\u0430\u043d \u0434\u043e\u0441\u0442\u044a\u043f|\u0414\u043e\u0441\u0442\u044a\u043f\u044a\u0442 \u0435 \u043e\u0442\u043a\u0430\u0437\u0430\u043d|\u043d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u043d\u0430.*\u043f\u0430\u0440\u043e\u043b\u0430'
 }
+function Get-ClassroomErrorStatus {
+    param([System.Management.Automation.ErrorRecord]$Record, [string]$Phase)
+    if ($Phase -eq 'Login') {
+        if (Test-WifiLoginError -Record $Record) { return 'LOGIN_ERROR' }
+        $message = $Record.Exception.Message
+        $exception = $Record.Exception
+        while ($null -ne $exception) {
+            if ($exception -is [Net.Sockets.SocketException]) {
+                if ($exception.SocketErrorCode -in 'HostNotFound','NoData','TryAgain') { return 'NAME_ERROR' }
+                if ($exception.SocketErrorCode -in 'TimedOut','ConnectionRefused','NetworkUnreachable','HostUnreachable','ConnectionReset') { return 'CONNECTION_ERROR' }
+            }
+            $exception = $exception.InnerException
+        }
+        if ($message -match 'name cannot be resolved|could not be resolved|No such host|host.*not found|Name resolution|DNS.*(fail|error)|resolve.*(fail|error)') { return 'NAME_ERROR' }
+        if ($message -match 'timed out|timeout|cannot connect|could not connect|connection.*(failed|refused|closed)|unreachable|WinRM cannot complete the operation|client cannot connect') { return 'CONNECTION_ERROR' }
+        return 'ERROR'
+    }
+    if ($Phase -eq 'Operation') { return 'OPERATION_ERROR' }
+    'ERROR'
+}
 $readFilters = {
     param([string]$ExpectedName)
     $ErrorActionPreference = 'Stop'
@@ -128,20 +148,19 @@ foreach ($number in $Numbers) {
     try {
         $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
         $session = New-PSSession -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ErrorAction Stop
-        $phase = 'Read'
+        $phase = 'Operation'
         $filters = @(Invoke-Command -Session $session -ScriptBlock $readFilters -ArgumentList $name -ErrorAction Stop)
         $result = Get-WifiRestrictionStatus -Filters $filters -ExpectedSSID $SchoolSSID
         $row = [pscustomobject]@{ Computer=$name; Status=$result.Status; Reason=$result.Reason }
     } catch {
-        $status = 'ERROR'
-        if ($phase -eq 'Login' -and (Test-WifiLoginError -Record $_)) { $status = 'LOGIN_ERROR' }
+        $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
         $row = [pscustomobject]@{ Computer=$name; Status=$status; Reason=($_.Exception.Message -replace '\s+', ' ').Trim() }
     } finally {
         if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
     }
     $color = 'Yellow'
     if ($row.Status -eq 'RESTRICTED') { $color = 'Green' }
-    if ($row.Status -in 'LOGIN_ERROR','ERROR') { $color = 'Red' }
+    if ($row.Status -in 'LOGIN_ERROR','NAME_ERROR','CONNECTION_ERROR','OPERATION_ERROR','ERROR') { $color = 'Red' }
     Write-Host $row.Status -ForegroundColor $color
     $report += $row
 }
