@@ -218,15 +218,50 @@ function Remove-ClassroomWifiRestrictions {
         $failures | Format-Table Computer, Status, Reason -AutoSize -Wrap | Out-Host
     }
 }
-function Stop-ClassroomComputers {
+function Get-ClassroomPowerJobResult {
+    param($Item, [string]$Action, [switch]$Expired)
+    $receiveErrors = @()
+    try {
+        $response = @(Receive-Job -Job $Item.Job -ErrorAction SilentlyContinue -ErrorVariable receiveErrors)
+    } catch {
+        return [pscustomobject]@{ Computer=$Item.Name; Status='UNKNOWN'; Reason=("Unable to read the {0} confirmation. Check the computer before retrying. {1}" -f $Action.ToLowerInvariant(), $_.Exception.Message) }
+    }
+    $messages = @($response | Where-Object { $_.Computer -ceq $Item.Name -and $_.Action -ceq $Action })
+    $accepted = @($messages | Where-Object { $_.Kind -ceq 'Accepted' })
+    $rejected = @($messages | Where-Object { $_.Kind -ceq 'Rejected' })
+    $verified = @($messages | Where-Object { $_.Kind -ceq 'Verified' })
+    if ($accepted.Count -eq 1) {
+        return [pscustomobject]@{ Computer=$Item.Name; Status='REQUESTED'; Reason='Windows accepted the request.' }
+    }
+    if ($rejected.Count -gt 0) {
+        return [pscustomobject]@{ Computer=$Item.Name; Status='OPERATION_ERROR'; Reason=($rejected[0].Reason -replace '\s+', ' ').Trim() }
+    }
+    if (-not $Expired -and $verified.Count -eq 0 -and $receiveErrors.Count -gt 0) {
+        $record = $receiveErrors[0]
+        $status = Get-ClassroomErrorStatus -Record $record -Phase 'Login'
+        $reason = ($record.Exception.Message -replace '\s+', ' ').Trim()
+        if ($status -in 'NAME_ERROR','LOGIN_ERROR') {
+            return [pscustomobject]@{ Computer=$Item.Name; Status=$status; Reason=$reason }
+        }
+        # A lost connection can also mean the requested power action has already begun.
+        return [pscustomobject]@{ Computer=$Item.Name; Status='UNKNOWN'; Reason=("No reliable power-action confirmation was received. Check the computer before retrying. " + $reason) }
+    }
+    $reason = if ($Expired) { 'No confirmation arrived within the shared 10-second wait.' } else { 'The remote command ended without confirming acceptance.' }
+    [pscustomobject]@{ Computer=$Item.Name; Status='UNKNOWN'; Reason=("$reason The computer may already be processing the request; check it before retrying.") }
+}
+function Write-ClassroomPowerResult {
+    param($Result, [int]$Position, [int]$Total)
+    $color = if ($Result.Status -eq 'REQUESTED') { 'Green' } elseif ($Result.Status -eq 'UNKNOWN') { 'Yellow' } else { 'Red' }
+    Write-Host ("[{0}/{1}] {2}... {3}" -f $Position, $Total, $Result.Computer, $Result.Status) -ForegroundColor $color
+}
+function Invoke-ClassroomPowerAction {
+    param([Parameter(Mandatory=$true)][ValidateSet('Restart','Shutdown')][string]$Action)
+    $verb = if ($Action -eq 'Restart') { 'restart' } else { 'shut down' }
     while ($true) {
-        $choice = Read-Host 'Do you want to shut down all student computers? (A = all, S = selected, Enter = cancel)'
+        $choice = Read-Host ("Do you want to {0} all student computers? (A = all, S = selected, Enter = cancel)" -f $verb)
         if ([string]::IsNullOrWhiteSpace($choice)) { return }
         $choice = $choice.Trim().ToUpperInvariant()
-        if ($choice -eq 'A') {
-            $numbers = @(1..27)
-            break
-        }
+        if ($choice -eq 'A') { $numbers = @(1..27); break }
         if ($choice -eq 'S') {
             $numbers = @(Get-StudentNumbers)
             if ($numbers.Count -eq 0) { return }
@@ -234,82 +269,80 @@ function Stop-ClassroomComputers {
         }
         Write-Host 'Enter A for all computers, S to select computers, or press Enter to cancel.'
     }
-    Write-Host ("Shutdown targets: {0}" -f ($numbers -join ', '))
-    Write-Host 'Save student work before continuing. Open applications may delay or block normal shutdown.'
+    Write-Host ("{0} targets: {1}" -f $Action, ($numbers -join ', '))
+    Write-Host ("Save student work before continuing. Open applications may delay or block {0}." -f $Action.ToLowerInvariant())
     Start-Service WinRM -ErrorAction Stop
     $credentialInput = Get-ClassroomCredential
     if ($null -eq $credentialInput) { return }
-    $sessionOption = New-PSSessionOption -OpenTimeout 15000 -OperationTimeout 30000
+    $sessionOption = New-PSSessionOption -OpenTimeout 10000 -OperationTimeout 10000
     $teacherName = $env:COMPUTERNAME
     $command = {
-        param([string]$ExpectedName, [string]$TeacherName)
+        param([string]$ExpectedName, [string]$TeacherName, [ValidateSet('Restart','Shutdown')][string]$Action)
         $ErrorActionPreference = 'Stop'
-        if ($env:COMPUTERNAME -ieq $TeacherName) { throw 'Refusing to shut down the teacher computer.' }
-        if ($env:COMPUTERNAME -ine $ExpectedName) {
-            throw "Unexpected remote computer: $env:COMPUTERNAME (expected $ExpectedName). Shutdown was not requested."
-        }
-        # A positive /t implicitly forces applications to close; use /t 0 without /f.
-        $details = & "$env:SystemRoot\System32\shutdown.exe" /s /t 0 2>&1
-        if ($LASTEXITCODE -ne 0) {
-            throw ("Windows rejected the shutdown request (exit code {0}): {1}" -f $LASTEXITCODE, ($details | Out-String).Trim())
-        }
-        'SHUTDOWN_REQUEST_ACCEPTED'
-    }
-    $problems = @()
-    $requested = 0
-    $current = 0
-    foreach ($number in $numbers) {
-        $current++
-        $name = '307-Student-{0:D2}' -f $number
-        $destination = "$name.local"
-        Write-Host ("[{0}/{1}] Requesting shutdown of {2}... " -f $current, $numbers.Count, $destination) -NoNewline
-        $session = $null
-        $job = $null
-        $confirmationMissing = $false
-        $phase = 'Login'
         try {
-            $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
-            $session = New-PSSession -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ErrorAction Stop
-            $phase = 'Operation'
-            $job = Invoke-Command -Session $session -ScriptBlock $command -ArgumentList $name, $teacherName -AsJob -ErrorAction Stop
-            $completed = Wait-Job -Job $job -Timeout 5 -ErrorAction Stop
-            if ($null -eq $completed) {
-                $confirmationMissing = $true
-                throw 'No shutdown confirmation arrived within 5 seconds.'
+            if ($env:COMPUTERNAME -ieq $TeacherName) { throw 'Refusing to restart or shut down the teacher computer.' }
+            if ($env:COMPUTERNAME -ine $ExpectedName) {
+                throw "Unexpected remote computer: $env:COMPUTERNAME (expected $ExpectedName). No power action was requested."
             }
-            $response = @(Receive-Job -Job $job -ErrorAction Stop)
-            if ($job.State -ne 'Completed' -or @($response | Where-Object { $_ -ceq 'SHUTDOWN_REQUEST_ACCEPTED' }).Count -ne 1) {
-                $confirmationMissing = $true
-                throw 'The remote command did not confirm that Windows accepted the shutdown request.'
+            [pscustomobject]@{ Kind='Verified'; Computer=$ExpectedName; Action=$Action }
+            $operation = if ($Action -eq 'Restart') { '/r' } else { '/s' }
+            # A positive /t implicitly forces applications to close; use /t 0 without /f.
+            $details = & "$env:SystemRoot\System32\shutdown.exe" $operation /t 0 2>&1
+            if ($LASTEXITCODE -ne 0) {
+                throw ("Windows rejected the {0} request (exit code {1}): {2}" -f $Action.ToLowerInvariant(), $LASTEXITCODE, ($details | Out-String).Trim())
             }
-            $requested++
-            Write-Host 'REQUESTED' -ForegroundColor Green
+            [pscustomobject]@{ Kind='Accepted'; Computer=$ExpectedName; Action=$Action }
         } catch {
-            $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
-            $reason = ($_.Exception.Message -replace '\s+', ' ').Trim()
-            $transportFailure = $false
-            $exception = $_.Exception
-            while ($null -ne $exception) {
-                if ($exception -is [System.Management.Automation.Remoting.PSRemotingTransportException]) { $transportFailure = $true }
-                $exception = $exception.InnerException
-            }
-            if ($phase -eq 'Operation' -and ($confirmationMissing -or $transportFailure -or $session.State -in 'Broken','Disconnected')) {
-                $status = 'UNKNOWN'
-                $reason = 'Shutdown could not be confirmed. The computer may be shutting down; check its power state before retrying. ' + $reason
-            }
-            $color = if ($status -eq 'UNKNOWN') { 'Yellow' } else { 'Red' }
-            Write-Host $status -ForegroundColor $color
-            $problems += [pscustomobject]@{ Computer=$name; Status=$status; Reason=$reason }
-        } finally {
-            if ($null -ne $job) {
-                if ($job.State -notin 'Completed','Failed','Stopped') { Stop-Job -Job $job -ErrorAction SilentlyContinue }
-                Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
-            }
-            if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
+            [pscustomobject]@{ Kind='Rejected'; Computer=$ExpectedName; Action=$Action; Reason=$_.Exception.Message }
         }
     }
-    Write-Host ("Shutdown requests accepted: {0}/{1}." -f $requested, $numbers.Count)
-    Write-Host 'REQUESTED means Windows accepted the request; it does not confirm that the computer has powered off.'
+    $submitted = New-Object 'System.Collections.Generic.List[object]'
+    $report = New-Object 'System.Collections.Generic.List[object]'
+    Write-Host ("Sending {0} requests in parallel..." -f $Action.ToLowerInvariant())
+    try {
+        foreach ($number in $numbers) {
+            $name = '307-Student-{0:D2}' -f $number
+            try {
+                $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
+                # AsJob opens each connection in the background; no per-target wait here.
+                $job = Invoke-Command -ComputerName "$name.local" -Credential $credential -SessionOption $sessionOption -ScriptBlock $command -ArgumentList $name, $teacherName, $Action -AsJob -ErrorAction Stop
+                $submitted.Add([pscustomobject]@{ Name=$name; Job=$job })
+            } catch {
+                $row = [pscustomobject]@{ Computer=$name; Status=(Get-ClassroomErrorStatus -Record $_ -Phase 'Login'); Reason=($_.Exception.Message -replace '\s+', ' ').Trim() }
+                $report.Add($row)
+                Write-ClassroomPowerResult -Result $row -Position $report.Count -Total $numbers.Count
+            }
+        }
+        $pending = New-Object 'System.Collections.Generic.List[object]'
+        foreach ($item in $submitted) { $pending.Add($item) }
+        $timer = [Diagnostics.Stopwatch]::StartNew()
+        while ($pending.Count -gt 0 -and $timer.Elapsed.TotalSeconds -lt 10) {
+            foreach ($item in @($pending.ToArray())) {
+                if ($item.Job.State -in 'Completed','Failed','Stopped') {
+                    $row = Get-ClassroomPowerJobResult -Item $item -Action $Action
+                    $report.Add($row)
+                    Write-ClassroomPowerResult -Result $row -Position $report.Count -Total $numbers.Count
+                    $null = $pending.Remove($item)
+                }
+            }
+            if ($pending.Count -gt 0 -and $timer.Elapsed.TotalSeconds -lt 10) { Start-Sleep -Milliseconds 100 }
+        }
+        foreach ($item in $pending) {
+            $expired = $item.Job.State -notin 'Completed','Failed','Stopped'
+            $row = Get-ClassroomPowerJobResult -Item $item -Action $Action -Expired:$expired
+            $report.Add($row)
+            Write-ClassroomPowerResult -Result $row -Position $report.Count -Total $numbers.Count
+        }
+    } finally {
+        $jobs = @($submitted | ForEach-Object { $_.Job })
+        $activeJobs = @($jobs | Where-Object { $_.State -notin 'Completed','Failed','Stopped' })
+        if ($activeJobs.Count -gt 0) { Stop-Job -Job $activeJobs -ErrorAction SilentlyContinue }
+        if ($jobs.Count -gt 0) { Remove-Job -Job $jobs -Force -ErrorAction SilentlyContinue }
+    }
+    $acceptedCount = @($report | Where-Object { $_.Status -eq 'REQUESTED' }).Count
+    Write-Host ("{0} requests accepted: {1}/{2}." -f $Action, $acceptedCount, $numbers.Count)
+    Write-Host 'REQUESTED means Windows accepted the request; it does not confirm that the computer has finished restarting or shutting down.'
+    $problems = @($report | Where-Object { $_.Status -ne 'REQUESTED' })
     if ($problems.Count -gt 0) {
         $problems | Format-Table Computer, Status, Reason -AutoSize -Wrap | Out-Host
     }
@@ -406,7 +439,8 @@ while ($true) {
     Write-Host '8. Send a file to a student computer'
     Write-Host '9. Receive a file from a student computer'
     Write-Host '10. Check Wi-Fi restrictions on selected computers (Students)'
-    Write-Host '11. Shut down student computers (all or selected)'
+    Write-Host '11. Restart student computers (all or selected)'
+    Write-Host '12. Shut down student computers (all or selected)'
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
     if ($choice -eq '0') { break }
@@ -489,8 +523,9 @@ while ($true) {
                     & $checker -Numbers $numbers -SchoolSSID 'Students' | Out-Null
                 }
             }
-            '11' { Stop-ClassroomComputers }
-            default { Write-Host 'Choose a number from 0 to 11.' }
+            '11' { Invoke-ClassroomPowerAction -Action Restart }
+            '12' { Invoke-ClassroomPowerAction -Action Shutdown }
+            default { Write-Host 'Choose a number from 0 to 12.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null
