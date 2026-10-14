@@ -90,6 +90,52 @@ function Set-AllClassroomWifi {
         $failures | Format-Table Computer, Reason -AutoSize -Wrap | Out-Host
     }
 }
+function Remove-ClassroomWifiRestrictions {
+    param([switch]$All)
+    if ($All) {
+        $numbers = @(1..27)
+    } else {
+        $number = Get-StudentNumber
+        if ($null -eq $number) { return }
+        $numbers = @($number)
+    }
+    Start-Service WinRM -ErrorAction Stop
+    $credentialInput = Get-Credential -UserName '108SU' -Message 'LOCAL admin password for selected classroom computers'
+    if ($null -eq $credentialInput) { return }
+    $failures = @()
+    $sessionOption = New-PSSessionOption -OpenTimeout 15000
+    $command = {
+        param([string]$ExpectedName)
+        $ErrorActionPreference = 'Stop'
+        if ($env:COMPUTERNAME -ine $ExpectedName) { throw "Unexpected remote computer: $env:COMPUTERNAME (expected $ExpectedName)." }
+        $infrastructureDetails = netsh wlan delete filter permission=denyall networktype=infrastructure 2>&1
+        $infrastructureResult = $LASTEXITCODE
+        $adhocDetails = netsh wlan delete filter permission=denyall networktype=adhoc 2>&1
+        $adhocResult = $LASTEXITCODE
+        if ($infrastructureResult -ne 0 -or $adhocResult -ne 0) {
+            throw ("Some deny-all filters could not be removed or were not present. Infrastructure: " + ($infrastructureDetails | Out-String).Trim() + " Ad hoc: " + ($adhocDetails | Out-String).Trim())
+        }
+    }
+    $current = 0
+    foreach ($number in $numbers) {
+        $current++
+        $name = '307-Student-{0:D2}' -f $number
+        $destination = "$name.local"
+        Write-Host ("[{0}/{1}] Removing restrictions on {2}... " -f $current, $numbers.Count, $destination) -NoNewline
+        try {
+            $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
+            Invoke-Command -ComputerName $destination -Credential $credential -SessionOption $sessionOption -ScriptBlock $command -ArgumentList $name -ErrorAction Stop | Out-Null
+            Write-Host 'OK' -ForegroundColor Green
+        } catch {
+            Write-Host 'ERROR' -ForegroundColor Red
+            $failures += [pscustomobject]@{ Computer = $name; Reason = ($_.Exception.Message -replace '\s+', ' ').Trim() }
+        }
+    }
+    if ($failures.Count -gt 0) {
+        Write-Host ''
+        $failures | Format-Table Computer, Reason -AutoSize -Wrap | Out-Host
+    }
+}
 function Copy-ClassroomFile {
     param([ValidateSet('Send','Receive')][string]$Direction)
     $number = Get-StudentNumber
@@ -173,9 +219,10 @@ while ($true) {
     Write-Host '3. Show Wi-Fi connection and filters on a selected computer'
     Write-Host '4. Restrict a selected computer to school Wi-Fi (default: Students)'
     Write-Host '5. Restrict All computers 01-27 to school Wi-Fi (default: Students)'
-    Write-Host '6. Remove restrictions on other Wi-Fi networks'
-    Write-Host '7. Send a file to a student computer'
-    Write-Host '8. Receive a file from a student computer'
+    Write-Host '6. Remove restrictions on other Wi-Fi networks for all computers'
+    Write-Host '7. Remove restrictions on other Wi-Fi networks for a selected computer'
+    Write-Host '8. Send a file to a student computer'
+    Write-Host '9. Receive a file from a student computer'
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
     if ($choice -eq '0') { break }
@@ -240,26 +287,11 @@ while ($true) {
                 }
             }
             '5' { Set-AllClassroomWifi }
-            '6' {
-                $number = Get-StudentNumber
-                if ($null -ne $number) {
-                    $confirmation = Read-Host ("Type YES to remove Wi-Fi restrictions on computer {0}" -f $number)
-                    if ($confirmation -ieq 'YES') {
-                        Start-Service WinRM -ErrorAction Stop
-                        & $manager -Numbers $number -ScriptBlock {
-                            netsh wlan delete filter permission=denyall networktype=infrastructure
-                            $infrastructureResult = $LASTEXITCODE
-                            netsh wlan delete filter permission=denyall networktype=adhoc
-                            $adhocResult = $LASTEXITCODE
-                            netsh wlan show filters
-                            if ($infrastructureResult -ne 0 -or $adhocResult -ne 0) { throw 'Some deny filters could not be removed or were not present; review the displayed filters.' }
-                        } | Format-Table -AutoSize -Wrap | Out-Host
-                    }
-                }
-            }
-            '7' { Copy-ClassroomFile -Direction Send }
-            '8' { Copy-ClassroomFile -Direction Receive }
-            default { Write-Host 'Choose a number from 0 to 8.' }
+            '6' { Remove-ClassroomWifiRestrictions -All }
+            '7' { Remove-ClassroomWifiRestrictions }
+            '8' { Copy-ClassroomFile -Direction Send }
+            '9' { Copy-ClassroomFile -Direction Receive }
+            default { Write-Host 'Choose a number from 0 to 9.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null
