@@ -171,9 +171,8 @@ function Remove-ClassroomWifiRestrictions {
     if ($All) {
         $numbers = @(1..27)
     } else {
-        $number = Get-StudentNumber
-        if ($null -eq $number) { return }
-        $numbers = @($number)
+        $numbers = @(Get-StudentNumbers)
+        if ($numbers.Count -eq 0) { return }
     }
     Start-Service WinRM -ErrorAction Stop
     $credentialInput = Get-ClassroomCredential
@@ -307,7 +306,7 @@ while ($true) {
     Write-Host '4. Restrict selected computers to school Wi-Fi (default: Students)'
     Write-Host '5. Restrict All computers 01-27 to school Wi-Fi (default: Students)'
     Write-Host '6. Remove restrictions on other Wi-Fi networks for all computers'
-    Write-Host '7. Remove restrictions on other Wi-Fi networks for a selected computer'
+    Write-Host '7. Remove restrictions on other Wi-Fi networks for selected computers'
     Write-Host '8. Send a file to a student computer'
     Write-Host '9. Receive a file from a student computer'
     Write-Host '10. Check Wi-Fi restrictions on all computers (Students)'
