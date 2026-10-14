@@ -22,3 +22,25 @@ The student computer must be reachable by its `307-Student-XX.local` name, with 
 ## Validation
 
 PowerShell syntax was checked. File sending, receiving, overwrite cancellation, hash comparison, and session cleanup were exercised using simulated remoting; real classroom file transfer still requires a trial on one student computer.
+
+## Read-only Wi-Fi restriction audit (menu action 10)
+
+Download `Check-WifiRestrictions.ps1` into the same folder as `Teacher-Menu.ps1`. Action 10 checks all 27 computers for the expected SSID `Students`, without changing remote network settings. It reads the four WLAN filter lists through [WlanGetFilterList](https://learn.microsoft.com/en-us/windows/win32/api/wlanapi/nf-wlanapi-wlangetfilterlist), avoiding localized netsh text and Wi-Fi scan/location permissions. A native read may still fail due to permissions, unavailable WLAN services, or application-control policy; these failures are reported.
+
+- RESTRICTED: the local filters allow only the expected infrastructure SSID and contain deny-all rules for infrastructure and ad hoc networks.
+- UNRESTRICTED: no deny filters are present. An allow entry by itself does not restrict other networks.
+- PARTIAL: a required filter is missing, an additional network is allowed, the school SSID is blocked, or Group Policy filters require separate evaluation.
+- LOGIN_ERROR: the session-opening error indicates refused authentication/access. This does not prove that only the password is wrong; account state and access rights can also cause refusal.
+- ERROR: other connection, hostname verification, or filter-reading failures. Access denied during the filter read is ERROR, because the session has already opened.
+
+All targets are attempted even after LOGIN_ERROR. There are no Yes/All confirmation prompts. A single credential prompt is preceded by an English keyboard-layout reminder. Each target gets one status line; the final table shows all results other than RESTRICTED with reasons. USB tethering and SSID impersonation are outside this filter audit.
+
+Standalone examples:
+
+```powershell
+.\Check-WifiRestrictions.ps1 -All
+.\Check-WifiRestrictions.ps1 -Numbers 9
+.\Check-WifiRestrictions.ps1 -Numbers 1,9,11 -SchoolSSID Students
+```
+
+Standalone calls also return structured results for export; action 10 suppresses the duplicate object display. The native reader compiles in memory in the remote session and does not install files or change WLAN policy. Syntax, native helper compilation, restriction classifications, continued processing after login/network failures, and session cleanup were checked locally with simulated remoting. Real classroom execution still requires a trial.
