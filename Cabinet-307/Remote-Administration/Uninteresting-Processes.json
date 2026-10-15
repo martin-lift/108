@@ -1,0 +1,271 @@
+{
+  "SchemaVersion": 1,
+  "Revision": "2026-10-15.1",
+  "Purpose": "Reviewed background processes omitted from classroom process reports. Exact names, case-insensitive. This is a reporting filter, not a security allowlist.",
+  "UninterestingProcesses": [
+    {
+      "Name": "AggregatorHost.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "AppActions.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "audiodg.exe",
+      "Reason": "Audio driver/service"
+    },
+    {
+      "Name": "conhost.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "CrossDeviceResume.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "csrss.exe",
+      "Reason": "Windows kernel/session/service host"
+    },
+    {
+      "Name": "ctfmon.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "DAX3API.exe",
+      "Reason": "Audio driver/service"
+    },
+    {
+      "Name": "DefenderSessionHelper.exe",
+      "Reason": "Windows security/antimalware background process"
+    },
+    {
+      "Name": "dllhost.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "dwm.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "ElevocAudioManager.exe",
+      "Reason": "Audio driver/service"
+    },
+    {
+      "Name": "ElevocControlService.exe",
+      "Reason": "Audio driver/service"
+    },
+    {
+      "Name": "explorer.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "fontdrvhost.exe",
+      "Reason": "Windows kernel/session/service host"
+    },
+    {
+      "Name": "IntelAudioService.exe",
+      "Reason": "Audio driver/service"
+    },
+    {
+      "Name": "IntelCpHDCPSvc.exe",
+      "Reason": "Intel hardware/graphics/platform service"
+    },
+    {
+      "Name": "IntelGraphicsSoftware.Service.exe",
+      "Reason": "Intel hardware/graphics/platform service"
+    },
+    {
+      "Name": "ipf_helper.exe",
+      "Reason": "Intel hardware/graphics/platform service"
+    },
+    {
+      "Name": "ipf_uf.exe",
+      "Reason": "Intel hardware/graphics/platform service"
+    },
+    {
+      "Name": "ipfsvc.exe",
+      "Reason": "Intel hardware/graphics/platform service"
+    },
+    {
+      "Name": "jhi_service.exe",
+      "Reason": "Intel hardware/graphics/platform service"
+    },
+    {
+      "Name": "LockApp.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "LsaIso.exe",
+      "Reason": "Windows security/antimalware background process"
+    },
+    {
+      "Name": "lsass.exe",
+      "Reason": "Windows security/antimalware background process"
+    },
+    {
+      "Name": "Memory Compression",
+      "Reason": "Windows kernel/session/service host"
+    },
+    {
+      "Name": "MicrosoftEdgeUpdate.exe",
+      "Reason": "Microsoft update/sync background process"
+    },
+    {
+      "Name": "MicrosoftStartFeedProvider.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "MoNotificationUx.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "MpDefenderCoreService.exe",
+      "Reason": "Windows security/antimalware background process"
+    },
+    {
+      "Name": "MsMpEng.exe",
+      "Reason": "Windows security/antimalware background process"
+    },
+    {
+      "Name": "NgcIso.exe",
+      "Reason": "Windows security/antimalware background process"
+    },
+    {
+      "Name": "NisSrv.exe",
+      "Reason": "Windows security/antimalware background process"
+    },
+    {
+      "Name": "OfficeClickToRun.exe",
+      "Reason": "Microsoft update/sync background process"
+    },
+    {
+      "Name": "OneDrive.exe",
+      "Reason": "Microsoft update/sync background process"
+    },
+    {
+      "Name": "OneDrive.Sync.Service.exe",
+      "Reason": "Microsoft update/sync background process"
+    },
+    {
+      "Name": "PresentMonService.exe",
+      "Reason": "Intel hardware/graphics/platform service"
+    },
+    {
+      "Name": "Registry",
+      "Reason": "Windows kernel/session/service host"
+    },
+    {
+      "Name": "RtkAudUService64.exe",
+      "Reason": "Audio driver/service"
+    },
+    {
+      "Name": "RuntimeBroker.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "SearchHost.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "SearchIndexer.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "SearchProtocolHost.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "Secure System",
+      "Reason": "Windows security/antimalware background process"
+    },
+    {
+      "Name": "SecurityHealthService.exe",
+      "Reason": "Windows security/antimalware background process"
+    },
+    {
+      "Name": "SecurityHealthSystray.exe",
+      "Reason": "Windows security/antimalware background process"
+    },
+    {
+      "Name": "services.exe",
+      "Reason": "Windows kernel/session/service host"
+    },
+    {
+      "Name": "ShellHost.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "sihost.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "smss.exe",
+      "Reason": "Windows kernel/session/service host"
+    },
+    {
+      "Name": "spoolsv.exe",
+      "Reason": "Windows printing/network/administration service"
+    },
+    {
+      "Name": "StartMenuExperienceHost.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "svchost.exe",
+      "Reason": "Windows kernel/session/service host"
+    },
+    {
+      "Name": "System",
+      "Reason": "Windows kernel/session/service host"
+    },
+    {
+      "Name": "System Idle Process",
+      "Reason": "Windows kernel/session/service host"
+    },
+    {
+      "Name": "taskhostw.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "UserOOBEBroker.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "WidgetBoard.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "WidgetService.exe",
+      "Reason": "Windows desktop/search/input/widget background process"
+    },
+    {
+      "Name": "wininit.exe",
+      "Reason": "Windows kernel/session/service host"
+    },
+    {
+      "Name": "winlogon.exe",
+      "Reason": "Windows kernel/session/service host"
+    },
+    {
+      "Name": "wlanext.exe",
+      "Reason": "Windows printing/network/administration service"
+    },
+    {
+      "Name": "WmiPrvSE.exe",
+      "Reason": "Windows printing/network/administration service"
+    },
+    {
+      "Name": "WMIRegistrationService.exe",
+      "Reason": "Intel hardware/graphics/platform service"
+    },
+    {
+      "Name": "wsmprovhost.exe",
+      "Reason": "Windows printing/network/administration service"
+    },
+    {
+      "Name": "WUDFHost.exe",
+      "Reason": "Windows kernel/session/service host"
+    }
+  ]
+}

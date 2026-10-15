@@ -427,6 +427,53 @@ function Copy-ClassroomFile {
         if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
     }
 }
+function ConvertFrom-ClassroomProcessFilter {
+    param([string]$Json)
+    $config = $Json | ConvertFrom-Json -ErrorAction Stop
+    if ($config.SchemaVersion -ne 1 -or $null -eq $config.UninterestingProcesses -or
+        $config.UninterestingProcesses -isnot [array] -or [string]::IsNullOrWhiteSpace([string]$config.Revision)) {
+        throw 'Unsupported or incomplete process filter.'
+    }
+    $names = @{}
+    foreach ($entry in $config.UninterestingProcesses) {
+        if ($entry.Name -isnot [string] -or [string]::IsNullOrWhiteSpace($entry.Name) -or
+            $entry.Name.Length -gt 260 -or $entry.Name -match '[\x00-\x1f*?\[\]\\/]' -or
+            $entry.Name -cne $entry.Name.Trim() -or $names.ContainsKey($entry.Name)) {
+            throw 'The process filter contains an invalid or duplicate exact name.'
+        }
+        $names[$entry.Name] = $true
+    }
+    [pscustomobject]@{ Names = $names; Revision = [string]$config.Revision; Source = '' }
+}
+function Get-ClassroomProcessFilter {
+    $cachePath = Join-Path $PSScriptRoot 'Uninteresting-Processes.json'
+    $url = 'https://raw.githubusercontent.com/martin-lift/108/main/Cabinet-307/Remote-Administration/Uninteresting-Processes.json'
+    try {
+        # Only JSON data is downloaded. No downloaded scripts or expressions are executed.
+        $download = Invoke-WebRequest -Uri $url -UseBasicParsing -TimeoutSec 10 -ErrorAction Stop
+        $filter = ConvertFrom-ClassroomProcessFilter -Json ([string]$download.Content)
+        $filter.Source = 'GitHub'
+        try {
+            [string]$download.Content | Set-Content -LiteralPath $cachePath -Encoding UTF8 -ErrorAction Stop
+        } catch {
+            Write-Host 'FILTER_WARNING: The current GitHub filter is in use, but its local cache could not be saved.' -ForegroundColor Yellow
+        }
+        return $filter
+    } catch {
+        Write-Host 'FILTER_WARNING: The current GitHub filter could not be downloaded or validated. Trying the local copy.' -ForegroundColor Yellow
+    }
+    try {
+        if (Test-Path -LiteralPath $cachePath -PathType Leaf) {
+            $filter = ConvertFrom-ClassroomProcessFilter -Json (Get-Content -LiteralPath $cachePath -Raw -ErrorAction Stop)
+            $filter.Source = 'Local copy (GitHub unavailable)'
+            return $filter
+        }
+    } catch {
+        Write-Host 'FILTER_WARNING: The local process filter is invalid or unreadable.' -ForegroundColor Yellow
+    }
+    Write-Host 'FILTER_WARNING: No usable filter is available. All processes will be included in this report.' -ForegroundColor Yellow
+    [pscustomobject]@{ Names = @{}; Revision = 'none'; Source = 'None - complete inventory' }
+}
 function Show-ClassroomProcesses {
     $number = Get-StudentNumber
     if ($null -eq $number) { return }
@@ -446,6 +493,8 @@ function Show-ClassroomProcesses {
         # Capture every PID before reading optional file metadata. Do not collect command lines.
         $processes = @(Get-CimInstance -ClassName Win32_Process -Property Name,ProcessId,ParentProcessId,SessionId,ExecutablePath,CreationDate -ErrorAction Stop)
         if ($processes.Count -eq 0) { throw 'Windows returned an empty process inventory.' }
+        $parentNames = @{}
+        foreach ($item in $processes) { $parentNames[[uint32]$item.ProcessId] = $item }
         $fileDetails = @{}
         foreach ($process in $processes) {
             $path = [string]$process.ExecutablePath
@@ -477,12 +526,21 @@ function Show-ClassroomProcesses {
             if ($null -ne $process.CreationDate) {
                 try { $startedAtUtc = ([datetime]$process.CreationDate).ToUniversalTime().ToString('o') } catch { }
             }
+            $parentName = ''
+            $parent = $parentNames[[uint32]$process.ParentProcessId]
+            # A parent PID may already have been reused by a newer process.
+            if ($null -ne $parent -and $process.ParentProcessId -ne $process.ProcessId -and
+                $null -ne $parent.CreationDate -and $null -ne $process.CreationDate -and
+                $parent.CreationDate -le $process.CreationDate) {
+                $parentName = [string]$parent.Name
+            }
             [pscustomobject]@{
                 Computer = $env:COMPUTERNAME
                 CapturedAtUtc = $capturedAtUtc
                 Name = [string]$process.Name
                 PID = [uint32]$process.ProcessId
                 ParentPID = [uint32]$process.ParentProcessId
+                ParentName = $parentName
                 SessionId = [uint32]$process.SessionId
                 StartedAtUtc = $startedAtUtc
                 Description = $description
@@ -498,14 +556,28 @@ function Show-ClassroomProcesses {
         $phase = 'Operation'
         $processes = @(Invoke-Command -Session $session -ScriptBlock $readProcesses -ArgumentList $name -ErrorAction Stop | Sort-Object Name, PID)
         if ($processes.Count -eq 0) { throw 'No process inventory was received.' }
-        Write-Host ("`n{0}: {1} processes (all names and PIDs; no filtering)." -f $name, $processes.Count) -ForegroundColor Cyan
-        $processes | Format-Table Name, PID -AutoSize -Wrap | Out-Host
     } catch {
         $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
         Write-Host ("{0}: {1}: {2}" -f $status, $name, $_.Exception.Message) -ForegroundColor Red
         return
     } finally {
         if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
+    }
+    $totalCount = $processes.Count
+    $capturedAtUtc = $processes[0].CapturedAtUtc
+    $filter = Get-ClassroomProcessFilter
+    $processes = @($processes | Where-Object { -not $filter.Names.ContainsKey([string]$_.Name) })
+    $excludedCount = $totalCount - $processes.Count
+    foreach ($process in $processes) {
+        if ($filter.Names.ContainsKey([string]$process.ParentName)) {
+            $process.ParentName = '[excluded background process]'
+        }
+    }
+    Write-Host ("`n{0}: {1} processes for review; {2} background processes excluded; {3} total." -f $name, $processes.Count, $excludedCount, $totalCount) -ForegroundColor Cyan
+    if ($processes.Count -gt 0) {
+        $processes | Format-Table Name, PID -AutoSize -Wrap | Out-Host
+    } else {
+        Write-Host 'No processes remain for review after applying the background-process filter.'
     }
     # Write the report only on the teacher computer, after closing the remote session.
     try {
@@ -514,11 +586,17 @@ function Show-ClassroomProcesses {
         $reportName = 'Processes-{0}-{1}-{2}.txt' -f $name, (Get-Date -Format 'yyyyMMdd-HHmmss'), ([guid]::NewGuid().ToString('N').Substring(0,8))
         $reportPath = Join-Path $reportDirectory $reportName
         $reportLines = @(
-            'CLASSROOM 307 - COMPLETE PROCESS INVENTORY'
+            'CLASSROOM 307 - PROCESS REVIEW REPORT'
             ('Computer: {0}' -f $name)
-            ('Captured at (UTC): {0}' -f $processes[0].CapturedAtUtc)
-            ('Process count: {0}' -f $processes.Count)
-            'All processes are included, even when optional metadata is unavailable.'
+            ('Captured at (UTC): {0}' -f $capturedAtUtc)
+            ('Total process count: {0}' -f $totalCount)
+            ('Excluded background process count: {0}' -f $excludedCount)
+            ('Reported process count: {0}' -f $processes.Count)
+            ('Filter revision: {0}' -f $filter.Revision)
+            ('Filter source: {0}' -f $filter.Source)
+            'Reviewed background process names are omitted. All other names are retained, even when optional metadata is unavailable.'
+            'Remaining processes require review; their presence does not establish that a game is running.'
+            'Parent names are from this snapshot; unavailable/exited parents have no name. Excluded parent names are redacted.'
             'Company/description are file metadata, not verified publisher identities.'
             'PIDs are a snapshot and can change or be reused after a process exits.'
             ''
@@ -531,6 +609,7 @@ function Show-ClassroomProcesses {
                 'Name: {0}' -f $process.Name
                 'PID: {0}' -f $process.PID
                 'Parent PID: {0}' -f $process.ParentPID
+                'Parent name: {0}' -f $process.ParentName
                 'Session ID: {0}' -f $process.SessionId
                 'Started at (UTC): {0}' -f $process.StartedAtUtc
                 'Description: {0}' -f $process.Description
@@ -560,7 +639,7 @@ while ($true) {
     Write-Host '10. Check Wi-Fi restrictions on selected computers (Students)'
     Write-Host '11. Restart student computers (all or selected)'
     Write-Host '12. Shut down student computers (all or selected)'
-    Write-Host '13. List all processes on a selected computer and save a report'
+    Write-Host '13. Review processes on a selected computer (hide reviewed background processes)'
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
     if ($choice -eq '0') { break }
@@ -651,6 +730,3 @@ while ($true) {
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null
 }
-
-
-
