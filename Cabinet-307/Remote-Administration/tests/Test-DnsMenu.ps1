@@ -25,7 +25,7 @@ foreach ($functionName in @('Get-ClassroomDnsCommand','Invoke-ClassroomDnsAction
 $switches=@($ast.FindAll({param($node) $node -is [Management.Automation.Language.SwitchStatementAst]},$true))
 $menuSwitch=$switches[-1]
 $labels=@($menuSwitch.Clauses | ForEach-Object { $_.Item1.Value })
-Assert (($labels -join ',') -eq ((1..18) -join ',')) 'Menu actions 1 through 18 are unique and ordered'
+Assert (($labels -join ',') -eq ((1..19) -join ',')) 'Menu actions 1 through 19 are unique and ordered'
 Assert ($menuSwitch.Clauses[14].Item2.Extent.Text -match 'SetTeacher') '15 sets teacher DNS'
 Assert ($menuSwitch.Clauses[15].Item2.Extent.Text -match 'Action Restore') '16 restores DNS'
 
@@ -45,6 +45,7 @@ function Reset-Scenario([string]$Name, [string]$Static='') {
     $script:SetCalls=New-Object 'System.Collections.Generic.List[object]'
     $script:Failure=''
     $script:FlushFailure=$false
+    $script:FlushCalls=0
     $script:BackupWriteFailure=$false
 }
 function Get-NetAdapter { param([switch]$Physical,$ErrorAction) $script:Adapters }
@@ -70,7 +71,7 @@ function Set-DnsClientServerAddress {
     }
 }
 function Set-Acl { param($LiteralPath,$AclObject,$ErrorAction) }
-function Clear-DnsClientCache { param($ErrorAction) if($script:FlushFailure){throw 'Flush failed'} }
+function Clear-DnsClientCache { param($ErrorAction) $script:FlushCalls++; if($script:FlushFailure){throw 'Flush failed'} }
 function Set-Content {
     param($LiteralPath,$Encoding,[Parameter(ValueFromPipeline=$true)]$Value)
     process {
@@ -87,8 +88,12 @@ try {
     $result=Invoke-Remote
     Assert ($result.Status -eq 'OK' -and $script:Static -eq '192.168.31.37') 'Teacher DNS applied'
     Assert $script:SetCalls[0].Validate 'Teacher DNS responsiveness is validated on the student'
+    Assert ($script:FlushCalls -eq 1 -and $result.Notes -like '*Windows DNS cache cleared*') 'Successful teacher DNS change clears and confirms the cache'
     Assert ($result.Notes -like '*IPv6*') 'Other configured DNS is reported'
     $backupBefore=[IO.File]::ReadAllText((Backup-Path))
+    $result=Invoke-Remote 'ClearCache' ''
+    Assert ($result.Status -eq 'OK' -and $script:FlushCalls -eq 2) 'Standalone cache clearing returns confirmation'
+    Assert ($script:SetCalls.Count -eq 1 -and $script:Static -eq '192.168.31.37' -and [IO.File]::ReadAllText((Backup-Path)) -ceq $backupBefore) 'Cache-only action preserves DNS settings and the restore backup'
     $null=Invoke-Remote 'SetTeacher' '192.168.31.38'
     Assert ([IO.File]::ReadAllText((Backup-Path)) -ceq $backupBefore) 'Repeated application never overwrites original backup'
     $script:Adapters[0].Name='Renamed WiFi'; $script:Adapters[0].ifIndex=18; $script:Adapters[0].Status='Disconnected'
@@ -117,6 +122,16 @@ try {
     Expect-Failure { Invoke-Remote } 'DNS_CHANGE_ROLLED_BACK:*'
     Assert ($script:Static -eq '') 'Unreachable teacher DNS preserves DHCP'
     Assert (Test-Path -LiteralPath (Backup-Path)) 'Recovery snapshot remains available'
+
+    Reset-Scenario 'cache-only';$script:Adapters=@();$script:FlushFailure=$true
+    Expect-Failure {Invoke-Remote 'ClearCache' ''} '*Flush failed*'
+    Assert ($script:SetCalls.Count -eq 0 -and -not(Test-Path (Backup-Path))) 'Cache failure neither modifies DNS nor creates a restore backup'
+    $script:FlushFailure=$false
+    $null=Invoke-Remote 'ClearCache' ''
+    Assert ($script:FlushCalls -eq 2) 'Cache clearing does not depend on an active Wi-Fi adapter'
+    $env:COMPUTERNAME='307-TEACHER'
+    Expect-Failure {Invoke-Remote 'ClearCache' ''} '*Unexpected remote computer*'
+    Assert ($script:FlushCalls -eq 2) 'Wrong target cannot clear the teacher cache'
 
     Reset-Scenario 'partial' '192.168.28.2'
     $script:Failure='Partial'
@@ -237,6 +252,16 @@ try {
     Reset-Menu @('S','A')
     Invoke-ClassroomDnsAction Restore
     Assert ($script:Invoked[0][0] -eq 'Automatic') 'Automatic DNS is an explicit choice'
+    foreach($scope in @('A','S')) {
+        Reset-Menu @($scope);$script:Listening=$false
+        Invoke-ClassroomDnsAction ClearCache
+        $expectedCount=if($scope -eq 'A'){27}else{2}
+        Assert ($script:Invoked.Count -eq $expectedCount -and $script:Closed.Count -eq $expectedCount -and $script:Credentials -eq 1) 'Cache clearing shares all/selected targeting and session cleanup'
+        Assert ($script:Invoked[0][0] -eq 'ClearCache' -and $script:Invoked[0][1] -eq '') 'Cache clearing requires no teacher DNS address or running DNS server'
+    }
+    Reset-Menu @('')
+    Invoke-ClassroomDnsAction ClearCache
+    Assert ($script:Credentials -eq 0 -and $script:Opened.Count -eq 0) 'Cache scope cancellation does not connect'
     Reset-Menu @('S','C')
     Invoke-ClassroomDnsAction SetTeacher
     Assert ($script:Opened.Count -eq 0) 'Cancel address choice makes no connection'

@@ -772,16 +772,23 @@ function Show-ClassroomProcesses {
     }
 }
 function Get-ClassroomDnsCommand {
-    # Self-contained for Windows PowerShell 5.1 remoting. Only Wi-Fi IPv4 DNS is changed.
+    # Self-contained for Windows PowerShell 5.1 remoting. Cache clearing is system-wide;
+    # DNS server configuration changes are limited to physical Wi-Fi IPv4.
     {
         param(
-            [ValidateSet('SetTeacher','RestoreSaved','Automatic')][string]$Action,
+            [ValidateSet('SetTeacher','RestoreSaved','Automatic','ClearCache')][string]$Action,
             [string]$TeacherAddress,
             [string]$ExpectedName
         )
         $ErrorActionPreference = 'Stop'
         if ($ExpectedName -notmatch '^307-Student-(0[1-9]|1[0-9]|2[0-7])$' -or $env:COMPUTERNAME -ine $ExpectedName) {
             throw "Unexpected remote computer: $env:COMPUTERNAME (expected $ExpectedName)."
+        }
+        if ($Action -eq 'ClearCache') {
+            Clear-DnsClientCache -ErrorAction Stop
+            return [pscustomobject]@{
+                Computer=$ExpectedName; Action=$Action; Status='OK'; Notes='Windows DNS cache cleared.'
+            }
         }
         function ConvertTo-DnsIPv4([string]$Address) {
             $parsed = $null
@@ -914,7 +921,10 @@ function Get-ClassroomDnsCommand {
                 try { Move-Item -LiteralPath $backupPath -Destination $archive -ErrorAction Stop }
                 catch { $notes.Add('DNS changed successfully, but the backup could not be archived: ' + $_.Exception.Message) }
             }
-            try { Clear-DnsClientCache -ErrorAction Stop }
+            try {
+                Clear-DnsClientCache -ErrorAction Stop
+                $notes.Add('Windows DNS cache cleared.')
+            }
             catch { $notes.Add('DNS changed successfully, but clearing the Windows DNS cache failed.') }
             try {
                 $ipv6 = @(Get-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -AddressFamily IPv6 -ErrorAction Stop | ForEach-Object { $_.ServerAddresses })
@@ -929,9 +939,11 @@ function Get-ClassroomDnsCommand {
 }
 
 function Invoke-ClassroomDnsAction {
-    param([ValidateSet('SetTeacher','Restore')][string]$Action)
+    param([ValidateSet('SetTeacher','Restore','ClearCache')][string]$Action)
     $scopePrompt = if ($Action -eq 'SetTeacher') {
         'Use teacher DNS on all student computers? (A = all, S = selected, Enter = cancel)'
+    } elseif ($Action -eq 'ClearCache') {
+        'Clear Windows DNS cache on all student computers? (A = all, S = selected, Enter = cancel)'
     } else {
         'Restore DNS on all student computers? (A = all, S = selected, Enter = cancel)'
     }
@@ -953,7 +965,7 @@ function Invoke-ClassroomDnsAction {
         if (-not $answer) { return }
         if ($answer -notin 'B','A') { throw 'Choose B or A.' }
         $remoteAction = if ($answer -eq 'B') { 'RestoreSaved' } else { 'Automatic' }
-    } else {
+    } elseif ($Action -eq 'SetTeacher') {
         $localAddresses = @(Get-NetIPAddress -AddressFamily IPv4 -AddressState Preferred -ErrorAction Stop | Where-Object {
             $_.IPAddress -notlike '127.*' -and $_.IPAddress -notlike '169.254.*' -and $_.IPAddress -ne '0.0.0.0'
         })
@@ -974,8 +986,13 @@ function Invoke-ClassroomDnsAction {
         $listening = @(Get-NetUDPEndpoint -LocalPort 53 -ErrorAction SilentlyContinue | Where-Object { $_.LocalAddress -in $teacherAddress,'0.0.0.0' })
         if ($listening.Count -eq 0) { throw "No DNS server is listening on $teacherAddress`:53 (UDP). Start AdGuard Home first. No student DNS settings were changed." }
     }
-    Write-Host ("Wi-Fi IPv4 DNS: {0}; computers: {1}; teacher DNS: {2}" -f $remoteAction, ($numbers -join ', '), $teacherAddress)
-    Write-Host 'Browser Secure DNS and IPv6 settings are separate; this action does not enforce website filtering.'
+    if ($Action -eq 'ClearCache') {
+        Write-Host ('Clear Windows DNS cache on computers: '+($numbers -join ', '))
+        Write-Host 'DNS server settings, browser data and open browser connections are unchanged.'
+    } else {
+        Write-Host ("Wi-Fi IPv4 DNS: {0}; computers: {1}; teacher DNS: {2}" -f $remoteAction, ($numbers -join ', '), $teacherAddress)
+        Write-Host 'Browser Secure DNS and IPv6 settings are separate; this action does not enforce website filtering.'
+    }
     Start-Service WinRM -ErrorAction Stop
     $credentialInput = Get-ClassroomCredential
     if ($null -eq $credentialInput) { return }
@@ -987,7 +1004,8 @@ function Invoke-ClassroomDnsAction {
         $session = $null
         $phase = 'Login'
         $confirmationMissing = $false
-        Write-Host ("Updating DNS on {0}..." -f $name)
+        $operation = if ($Action -eq 'ClearCache') {'Clearing Windows DNS cache'} else {'Updating DNS'}
+        Write-Host ("{0} on {1}..." -f $operation, $name)
         try {
             $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
             $session = New-PSSession -ComputerName "$name.local" -Credential $credential -SessionOption $sessionOption -ErrorAction Stop
@@ -995,7 +1013,7 @@ function Invoke-ClassroomDnsAction {
             $response = @(Invoke-Command -Session $session -ScriptBlock $command -ArgumentList $remoteAction,$teacherAddress,$name -ErrorAction Stop)
             if ($response.Count -ne 1 -or $response[0].Computer -ine $name -or $response[0].Action -ne $remoteAction -or $response[0].Status -ne 'OK') {
                 $confirmationMissing = $true
-                throw 'No valid DNS change confirmation was received. Check the target before retrying.'
+                throw 'No valid DNS operation confirmation was received. Check the target before retrying.'
             }
             $results += $response[0]
         } catch {
@@ -1006,7 +1024,9 @@ function Invoke-ClassroomDnsAction {
                 $exception = $_.Exception
                 while ($null -ne $exception) {
                     if ($exception -is [Management.Automation.Remoting.PSRemotingTransportException]) {
-                        $status = 'UNKNOWN'; $reason = 'Connection lost; DNS may have changed. Check this PC before retrying. ' + $reason; break
+                        $status = 'UNKNOWN'
+                        $reason = 'Connection lost; the DNS operation may have completed. Check this PC before retrying. ' + $reason
+                        break
                     }
                     $exception = $exception.InnerException
                 }
@@ -1016,7 +1036,11 @@ function Invoke-ClassroomDnsAction {
             if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
         }
     }
-    $results | Format-Table Computer,Status,Adapter,Mode,DnsServers,Notes -AutoSize -Wrap | Out-Host
+    if ($Action -eq 'ClearCache') {
+        $results | Format-Table Computer,Status,Notes -AutoSize -Wrap | Out-Host
+    } else {
+        $results | Format-Table Computer,Status,Adapter,Mode,DnsServers,Notes -AutoSize -Wrap | Out-Host
+    }
 }
 
 function Start-ClassroomAdGuard {
@@ -1076,6 +1100,7 @@ while ($true) {
     Write-Host '16. Restore DNS on students'' computers (saved settings or automatic)'
     Write-Host '17. Start AdGuard Home on the teacher computer'
     Write-Host '18. Open AdGuard Home control panel'
+    Write-Host '19. Clear Windows DNS cache on student computers (all or selected)'
     Write-Host ''
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
@@ -1167,7 +1192,8 @@ while ($true) {
             '16' { Invoke-ClassroomDnsAction -Action Restore }
             '17' { Start-ClassroomAdGuard }
             '18' { Start-Process -FilePath 'http://127.0.0.1:3000/' -ErrorAction Stop }
-            default { Write-Host 'Choose a number from 0 to 18.' }
+            '19' { Invoke-ClassroomDnsAction -Action ClearCache }
+            default { Write-Host 'Choose a number from 0 to 19.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null

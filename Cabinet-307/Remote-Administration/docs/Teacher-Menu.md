@@ -27,6 +27,12 @@ Groups are separated by a blank line. The current numbering is:
 13. Start WinRM and check the teacher computer
 14. Check the names of all 27 student computers
 
+15. Use teacher DNS on students' computers (Wi-Fi IPv4)
+16. Restore DNS on students' computers (saved settings or automatic)
+17. Start AdGuard Home on the teacher computer
+18. Open AdGuard Home control panel
+19. Clear Windows DNS cache on student computers (all or selected)
+
 0. Exit
 ```
 
@@ -35,6 +41,14 @@ Groups are separated by a blank line. The current numbering is:
 Choose computer 1-27 and enter an absolute source file path, such as `C:\307\task.pdf`. For receiving, the source path is on the student computer. Enter an existing destination folder, a full destination file path, or accept the default. When a folder is selected, the source file name is appended automatically in either transfer direction. The destination folder must already exist. Enter the selected computer's local 108SU password. An existing destination file requires the exact confirmation REPLACE. Copies are verified with SHA-256, and the remote session is closed even on failure. A failed copy can leave a partial destination file; there is no automatic rollback of an overwritten file.
 
 The student computer must be reachable by its `307-Student-XX.local` name, with WinRM configured and the teacher TrustedHosts entry present. The menu verifies the remote computer name before file transfer. It does not show student screens.
+
+## Windows DNS cache (menu action 19)
+
+Choose A for all 27 student computers, S to enter selected numbers, or Enter to cancel. The shared administrator password is requested once. Each student is checked by name before `Clear-DnsClientCache` runs through WinRM. A result table shows success or the reason for failure for every target; an unavailable computer does not stop the others. Missing confirmation or a lost connection is reported as UNKNOWN. Sessions are closed after each attempt.
+
+This clears the Windows DNS resolver cache for the whole student computer, without changing DNS servers, IP settings, recovery backups, browser history, cookies or passwords. It does not close browsers or existing connections. AdGuard Home does not need to be running for this action, and no restart is required.
+
+Actions 15 and 16 also clear the Windows DNS cache after a successful DNS change. Their result notes explicitly confirm cache clearing or report a cache-clearing failure while retaining the successfully applied DNS settings. See [DNS and AdGuard](DNS-AdGuard.md).
 
 ## Validation
 
