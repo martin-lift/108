@@ -4,14 +4,31 @@ Download `Start-Teacher.cmd`, `Teacher-Menu.ps1`, `Credential-Helper.ps1`, and t
 
 ## Actions
 
-1. Start WinRM and display the teacher service and TrustedHosts.
-2. Read computer names from all 27 targets, with immediate per-computer progress. Unreachable computers can still delay the sequence.
-3. Show Wi-Fi interfaces and filters on a selected computer.
-4. Allow the entered school SSID (default: Students), then deny other infrastructure and ad hoc networks. Check the displayed current connection first. Other existing Allow entries remain allowed. Type YES to confirm. This does not block USB tethering or provide strong network authentication by SSID.
-5. Remove the infrastructure and ad hoc deny-all filters after confirmation. Allow entries remain. If remote access is lost, run the removal commands locally as administrator.
-6. Send one file to a student computer. Default destination: its public desktop, visible to all users.
-7. Receive one file from a student computer. Default destination: the menu folder, with the computer name prefixed to the file name.
-0. Exit.
+Groups are separated by a blank line. The current numbering is:
+
+```text
+1. Shut down student computers (all or selected)
+2. Restart student computers (all or selected)
+
+3. Restrict All computers 01-27 to school Wi-Fi (default: Students)
+4. Remove restrictions on other Wi-Fi networks for all computers
+
+5. Restrict selected computers to school Wi-Fi (default: Students)
+6. Remove restrictions on other Wi-Fi networks for selected computers
+7. Show Wi-Fi connection and filters on a selected computer
+8. Check Wi-Fi restrictions on selected computers (Students)
+
+9. List processes on a selected computer and save a report (all or filtered)
+10. Stop processes on a selected computer by exact name or substring
+
+11. Send a file to a student computer
+12. Receive a file from a student computer
+
+13. Start WinRM and check the teacher computer
+14. Check the names of all 27 student computers
+
+0. Exit
+```
 
 ## File transfers
 
@@ -23,9 +40,9 @@ The student computer must be reachable by its `307-Student-XX.local` name, with 
 
 PowerShell syntax was checked. File sending, receiving, overwrite cancellation, hash comparison, and session cleanup were exercised using simulated remoting; real classroom file transfer still requires a trial on one student computer.
 
-## Read-only Wi-Fi restriction audit (menu action 10)
+## Read-only Wi-Fi restriction audit (menu action 8)
 
-Download `Check-WifiRestrictions.ps1` into the same folder as `Teacher-Menu.ps1`. Action 10 checks all 27 computers for the expected SSID `Students`, without changing remote network settings. It reads the four WLAN filter lists through [WlanGetFilterList](https://learn.microsoft.com/en-us/windows/win32/api/wlanapi/nf-wlanapi-wlangetfilterlist), avoiding localized netsh text and Wi-Fi scan/location permissions. A native read may still fail due to permissions, unavailable WLAN services, or application-control policy; these failures are reported.
+Download `Check-WifiRestrictions.ps1` into the same folder as `Teacher-Menu.ps1`. Action 8 checks the selected computers for the expected SSID `Students`, without changing remote network settings. It reads the four WLAN filter lists through [WlanGetFilterList](https://learn.microsoft.com/en-us/windows/win32/api/wlanapi/nf-wlanapi-wlangetfilterlist), avoiding localized netsh text and Wi-Fi scan/location permissions. A native read may still fail due to permissions, unavailable WLAN services, or application-control policy; these failures are reported.
 
 - RESTRICTED: the local filters allow only the expected infrastructure SSID and contain deny-all rules for infrastructure and ad hoc networks.
 - UNRESTRICTED: no deny filters are present. An allow entry by itself does not restrict other networks.
@@ -49,7 +66,7 @@ Standalone calls also return structured results for export; action 10 suppresses
 
 Keep `Credential-Helper.ps1` in the same folder as the menu and the standalone scripts. Each remote operation uses it to validate the entered password locally before connecting. Rejected credentials stop the operation; account and policy errors have separate explanations. After the local check passes, failures on individual remote targets continue to be reported without stopping the remaining targets. Local actions do not require this check. The helper does not save passwords.
 
-## Process review (menu action 13)
+## Process review (menu action 9)
 
 Select one student computer (1-27), then choose a report type. Enter or F selects interesting processes only (the default); A selects a complete inventory; 0 cancels. The menu reads its process snapshot, displays names and PIDs, and saves a UTF-8 TXT report under `Reports` beside the menu. The report includes available file description, company, executable path, start time, session ID, parent PID and parent name. Parent names are resolved within the snapshot; an absent or newer parent PID has no name.
 
@@ -64,7 +81,7 @@ The existing name, path, description, company, session and time fields are enoug
 
 A full inventory skips the background filter and its download, includes all process names and parent names, and records `Full inventory` in the report header. Each use asks again, with the filtered view selected by pressing Enter.
 
-## Stop processes (menu action 14)
+## Stop processes (menu action 10)
 
 Select one student computer, choose E for an exact name or S for a literal substring, and enter the search text. Matching is case-insensitive. Exact mode accepts `msedge` and `msedge.exe`; substring `edge` matches any executable name containing that text. Substrings are not regular expressions or wildcards. An empty computer, match mode or search text cancels.
 

@@ -773,50 +773,36 @@ function Show-ClassroomProcesses {
 }
 while ($true) {
     Write-Host "`nCLASSROOM 307 - TEACHER MENU" -ForegroundColor Cyan
-    Write-Host '1. Start WinRM and check the teacher computer'
-    Write-Host '2. Check the names of all 27 student computers'
-    Write-Host '3. Show Wi-Fi connection and filters on a selected computer'
-    Write-Host '4. Restrict selected computers to school Wi-Fi (default: Students)'
-    Write-Host '5. Restrict All computers 01-27 to school Wi-Fi (default: Students)'
-    Write-Host '6. Remove restrictions on other Wi-Fi networks for all computers'
-    Write-Host '7. Remove restrictions on other Wi-Fi networks for selected computers'
-    Write-Host '8. Send a file to a student computer'
-    Write-Host '9. Receive a file from a student computer'
-    Write-Host '10. Check Wi-Fi restrictions on selected computers (Students)'
-    Write-Host '11. Restart student computers (all or selected)'
-    Write-Host '12. Shut down student computers (all or selected)'
-    Write-Host '13. List processes on a selected computer and save a report (all or filtered)'
-    Write-Host '14. Stop processes on a selected computer by exact name or substring'
+    Write-Host '1. Shut down student computers (all or selected)'
+    Write-Host '2. Restart student computers (all or selected)'
+    Write-Host ''
+    Write-Host '3. Restrict All computers 01-27 to school Wi-Fi (default: Students)'
+    Write-Host '4. Remove restrictions on other Wi-Fi networks for all computers'
+    Write-Host ''
+    Write-Host '5. Restrict selected computers to school Wi-Fi (default: Students)'
+    Write-Host '6. Remove restrictions on other Wi-Fi networks for selected computers'
+    Write-Host '7. Show Wi-Fi connection and filters on a selected computer'
+    Write-Host '8. Check Wi-Fi restrictions on selected computers (Students)'
+    Write-Host ''
+    Write-Host '9. List processes on a selected computer and save a report (all or filtered)'
+    Write-Host '10. Stop processes on a selected computer by exact name or substring'
+    Write-Host ''
+    Write-Host '11. Send a file to a student computer'
+    Write-Host '12. Receive a file from a student computer'
+    Write-Host ''
+    Write-Host '13. Start WinRM and check the teacher computer'
+    Write-Host '14. Check the names of all 27 student computers'
+    Write-Host ''
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
     if ($choice -eq '0') { break }
     try {
         switch ($choice) {
-            '1' {
-                Start-Service WinRM -ErrorAction Stop
-                Get-Service WinRM | Format-Table Status, Name, DisplayName | Out-Host
-                Get-Item WSMan:\localhost\Client\TrustedHosts | Format-List Name, Value | Out-Host
-            }
-            '2' { Test-ClassroomComputers }
-            '3' {
-                $number = Get-StudentNumber
-                if ($null -ne $number) {
-                    Start-Service WinRM -ErrorAction Stop
-                    & $manager -Numbers $number -Confirm:$false -ScriptBlock {
-                        Get-NetConnectionProfile | Select-Object Name, InterfaceAlias, NetworkCategory, IPv4Connectivity | Format-Table -AutoSize | Out-String
-                        Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -notlike '127.*' } | Select-Object InterfaceAlias, IPAddress | Format-Table -AutoSize | Out-String
-                        $wlanDetails = netsh wlan show interfaces 2>&1
-                        $wlanExitCode = $LASTEXITCODE
-                        $wlanDetails | Out-String
-                        if ($wlanExitCode -ne 0) {
-                            'Wi-Fi details are unavailable. Windows may require location permission. Network profiles and IP addresses are shown above; the profile name is not guaranteed to be the SSID. Filter checks will continue.'
-                        }
-                        netsh wlan show filters
-                        if ($LASTEXITCODE -ne 0) { throw 'Wi-Fi filter check failed.' }
-                    } | Format-Table -AutoSize -Wrap | Out-Host
-                }
-            }
-            '4' {
+            '1' { Invoke-ClassroomPowerAction -Action Shutdown }
+            '2' { Invoke-ClassroomPowerAction -Action Restart }
+            '3' { Set-AllClassroomWifi }
+            '4' { Remove-ClassroomWifiRestrictions -All }
+            '5' {
                 $numbers = @(Get-StudentNumbers)
                 if ($numbers.Count -gt 0) {
                     try {
@@ -856,12 +842,26 @@ while ($true) {
                     }
                 }
             }
-            '5' { Set-AllClassroomWifi }
-            '6' { Remove-ClassroomWifiRestrictions -All }
-            '7' { Remove-ClassroomWifiRestrictions }
-            '8' { Copy-ClassroomFile -Direction Send }
-            '9' { Copy-ClassroomFile -Direction Receive }
-            '10' {
+            '6' { Remove-ClassroomWifiRestrictions }
+            '7' {
+                $number = Get-StudentNumber
+                if ($null -ne $number) {
+                    Start-Service WinRM -ErrorAction Stop
+                    & $manager -Numbers $number -Confirm:$false -ScriptBlock {
+                        Get-NetConnectionProfile | Select-Object Name, InterfaceAlias, NetworkCategory, IPv4Connectivity | Format-Table -AutoSize | Out-String
+                        Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -notlike '127.*' } | Select-Object InterfaceAlias, IPAddress | Format-Table -AutoSize | Out-String
+                        $wlanDetails = netsh wlan show interfaces 2>&1
+                        $wlanExitCode = $LASTEXITCODE
+                        $wlanDetails | Out-String
+                        if ($wlanExitCode -ne 0) {
+                            'Wi-Fi details are unavailable. Windows may require location permission. Network profiles and IP addresses are shown above; the profile name is not guaranteed to be the SSID. Filter checks will continue.'
+                        }
+                        netsh wlan show filters
+                        if ($LASTEXITCODE -ne 0) { throw 'Wi-Fi filter check failed.' }
+                    } | Format-Table -AutoSize -Wrap | Out-Host
+                }
+            }
+            '8' {
                 $numbers = @(Get-StudentNumbers)
                 if ($numbers.Count -gt 0) {
                     $checker = Join-Path $PSScriptRoot 'Check-WifiRestrictions.ps1'
@@ -869,10 +869,16 @@ while ($true) {
                     & $checker -Numbers $numbers -SchoolSSID 'Students' | Out-Null
                 }
             }
-            '11' { Invoke-ClassroomPowerAction -Action Restart }
-            '12' { Invoke-ClassroomPowerAction -Action Shutdown }
-            '13' { Show-ClassroomProcesses }
-            '14' { Stop-ClassroomProcesses }
+            '9' { Show-ClassroomProcesses }
+            '10' { Stop-ClassroomProcesses }
+            '11' { Copy-ClassroomFile -Direction Send }
+            '12' { Copy-ClassroomFile -Direction Receive }
+            '13' {
+                Start-Service WinRM -ErrorAction Stop
+                Get-Service WinRM | Format-Table Status, Name, DisplayName | Out-Host
+                Get-Item WSMan:\localhost\Client\TrustedHosts | Format-List Name, Value | Out-Host
+            }
+            '14' { Test-ClassroomComputers }
             default { Write-Host 'Choose a number from 0 to 14.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
