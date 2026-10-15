@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+ <Styles>
+  <Style ss:ID="Header"><Font ss:Bold="1" ss:Color="#FFFFFF"/><Interior ss:Color="#32245F" ss:Pattern="Solid"/></Style>
+  <Style ss:ID="Sub"><Font ss:Bold="1" ss:Color="#32245F"/><Interior ss:Color="#EDE7F6" ss:Pattern="Solid"/></Style>
+  <Style ss:ID="Input"><Interior ss:Color="#FFF7E6" ss:Pattern="Solid"/></Style>
+  <Style ss:ID="Answer"><Font ss:Bold="1"/><Interior ss:Color="#F3EFFF" ss:Pattern="Solid"/></Style>
+  <Style ss:ID="Percent"><NumberFormat ss:Format="0%"/></Style>
+  <Style ss:ID="Money"><NumberFormat ss:Format='0.00 "лв."'/></Style>
+ </Styles>
+
+ <Worksheet ss:Name="Инструкции"><Table>
+  <Row><Cell ss:StyleID="Header"><Data ss:Type="String">Урок 06 – Функция CHOOSE: упражнения</Data></Cell></Row>
+  <Row/><Row><Cell><Data ss:Type="String">Всеки работен лист съдържа една задача. Попълвайте клетките за резултат с формули, използващи CHOOSE.</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Лист</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Тема</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Задача 1</Data></Cell><Cell><Data ss:Type="String">Избор на ден от седмицата</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Задача 2</Data></Cell><Cell><Data ss:Type="String">CHOOSE като част от SUM</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Задача 3</Data></Cell><Cell><Data ss:Type="String">Рейтинг → бонус %</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Задача 4</Data></Cell><Cell><Data ss:Type="String">Месец → тримесечие</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Задача 5</Data></Cell><Cell><Data ss:Type="String">Категория → отстъпка %</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Задача 6</Data></Cell><Cell><Data ss:Type="String">Регион → цена за доставка</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Задача 7</Data></Cell><Cell><Data ss:Type="String">Избор на статистическа функция</Data></Cell></Row>
+ </Table></Worksheet>
+
+ <Worksheet ss:Name="Задача 1"><Table>
+  <Row><Cell ss:StyleID="Header"><Data ss:Type="String">Задача 1 – Избор на ден от седмицата</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Индекс</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Ден</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">1</Data></Cell><Cell><Data ss:Type="String">Понеделник</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">2</Data></Cell><Cell><Data ss:Type="String">Вторник</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">3</Data></Cell><Cell><Data ss:Type="String">Сряда</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">4</Data></Cell><Cell><Data ss:Type="String">Четвъртък</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">5</Data></Cell><Cell><Data ss:Type="String">Петък</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">6</Data></Cell><Cell><Data ss:Type="String">Събота</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">7</Data></Cell><Cell><Data ss:Type="String">Неделя</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Избран индекс</Data></Cell><Cell ss:StyleID="Input"><Data ss:Type="Number">3</Data></Cell></Row>
+  <Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Резултат</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+ </Table></Worksheet>
+
+ <Worksheet ss:Name="Задача 2"><Table>
+  <Row><Cell ss:StyleID="Header"><Data ss:Type="String">Задача 2 – CHOOSE като част от SUM</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Ред</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Стойност</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">1</Data></Cell><Cell><Data ss:Type="Number">10</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">2</Data></Cell><Cell><Data ss:Type="Number">20</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">3</Data></Cell><Cell><Data ss:Type="Number">30</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">4</Data></Cell><Cell><Data ss:Type="Number">40</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">5</Data></Cell><Cell><Data ss:Type="Number">50</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">6</Data></Cell><Cell><Data ss:Type="Number">60</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">До кой ред да се сумира</Data></Cell><Cell ss:StyleID="Input"><Data ss:Type="Number">4</Data></Cell></Row>
+  <Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Сума</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+ </Table></Worksheet>
+
+ <Worksheet ss:Name="Задача 3"><Table>
+  <Row><Cell ss:StyleID="Header"><Data ss:Type="String">Задача 3 – Рейтинг → бонус</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Рейтинг</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Бонус %</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">1</Data></Cell><Cell ss:StyleID="Percent"><Data ss:Type="Number">0.04</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">2</Data></Cell><Cell ss:StyleID="Percent"><Data ss:Type="Number">0.06</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">3</Data></Cell><Cell ss:StyleID="Percent"><Data ss:Type="Number">0.08</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">4</Data></Cell><Cell ss:StyleID="Percent"><Data ss:Type="Number">0.10</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Служител</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Рейтинг</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Бонус %</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Анна</Data></Cell><Cell><Data ss:Type="Number">3</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="String">Борис</Data></Cell><Cell><Data ss:Type="Number">1</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="String">Виктор</Data></Cell><Cell><Data ss:Type="Number">4</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="String">Гергана</Data></Cell><Cell><Data ss:Type="Number">2</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="String">Даниел</Data></Cell><Cell><Data ss:Type="Number">3</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+ </Table></Worksheet>
+
+ <Worksheet ss:Name="Задача 4"><Table>
+  <Row><Cell ss:StyleID="Header"><Data ss:Type="String">Задача 4 – Месец → тримесечие</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Случай</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Месец №</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Тримесечие</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">1</Data></Cell><Cell><Data ss:Type="Number">2</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="Number">2</Data></Cell><Cell><Data ss:Type="Number">5</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="Number">3</Data></Cell><Cell><Data ss:Type="Number">8</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="Number">4</Data></Cell><Cell><Data ss:Type="Number">11</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="Number">5</Data></Cell><Cell><Data ss:Type="Number">12</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+ </Table></Worksheet>
+
+ <Worksheet ss:Name="Задача 5"><Table>
+  <Row><Cell ss:StyleID="Header"><Data ss:Type="String">Задача 5 – Категория → отстъпка</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Продукт</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Цена</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Категория код</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Отстъпка %</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Цена след отстъпка</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Тетрадка</Data></Cell><Cell ss:StyleID="Money"><Data ss:Type="Number">4.5</Data></Cell><Cell><Data ss:Type="Number">2</Data></Cell><Cell ss:StyleID="Answer"/><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="String">Раница</Data></Cell><Cell ss:StyleID="Money"><Data ss:Type="Number">68</Data></Cell><Cell><Data ss:Type="Number">3</Data></Cell><Cell ss:StyleID="Answer"/><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="String">Флаш памет</Data></Cell><Cell ss:StyleID="Money"><Data ss:Type="Number">24</Data></Cell><Cell><Data ss:Type="Number">1</Data></Cell><Cell ss:StyleID="Answer"/><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="String">Калкулатор</Data></Cell><Cell ss:StyleID="Money"><Data ss:Type="Number">39.9</Data></Cell><Cell><Data ss:Type="Number">4</Data></Cell><Cell ss:StyleID="Answer"/><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="String">Слушалки</Data></Cell><Cell ss:StyleID="Money"><Data ss:Type="Number">52</Data></Cell><Cell><Data ss:Type="Number">3</Data></Cell><Cell ss:StyleID="Answer"/><Cell ss:StyleID="Answer"/></Row>
+ </Table></Worksheet>
+
+ <Worksheet ss:Name="Задача 6"><Table>
+  <Row><Cell ss:StyleID="Header"><Data ss:Type="String">Задача 6 – Регион → цена за доставка</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Поръчка</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Стойност</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Регион код</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Доставка</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Крайна сума</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">P-101</Data></Cell><Cell ss:StyleID="Money"><Data ss:Type="Number">45</Data></Cell><Cell><Data ss:Type="Number">1</Data></Cell><Cell ss:StyleID="Answer"/><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="String">P-102</Data></Cell><Cell ss:StyleID="Money"><Data ss:Type="Number">82</Data></Cell><Cell><Data ss:Type="Number">3</Data></Cell><Cell ss:StyleID="Answer"/><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="String">P-103</Data></Cell><Cell ss:StyleID="Money"><Data ss:Type="Number">19.5</Data></Cell><Cell><Data ss:Type="Number">2</Data></Cell><Cell ss:StyleID="Answer"/><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="String">P-104</Data></Cell><Cell ss:StyleID="Money"><Data ss:Type="Number">150</Data></Cell><Cell><Data ss:Type="Number">1</Data></Cell><Cell ss:StyleID="Answer"/><Cell ss:StyleID="Answer"/></Row>
+  <Row><Cell><Data ss:Type="String">P-105</Data></Cell><Cell ss:StyleID="Money"><Data ss:Type="Number">63</Data></Cell><Cell><Data ss:Type="Number">3</Data></Cell><Cell ss:StyleID="Answer"/><Cell ss:StyleID="Answer"/></Row>
+ </Table></Worksheet>
+
+ <Worksheet ss:Name="Задача 7"><Table>
+  <Row><Cell ss:StyleID="Header"><Data ss:Type="String">Задача 7 – Избор на статистическа функция</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Месец</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Продажби</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Януари</Data></Cell><Cell><Data ss:Type="Number">1200</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Февруари</Data></Cell><Cell><Data ss:Type="Number">1500</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Март</Data></Cell><Cell><Data ss:Type="Number">1350</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Април</Data></Cell><Cell><Data ss:Type="Number">1680</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Май</Data></Cell><Cell><Data ss:Type="Number">1420</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="String">Юни</Data></Cell><Cell><Data ss:Type="Number">1750</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Индекс</Data></Cell><Cell ss:StyleID="Sub"><Data ss:Type="String">Операция</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">1</Data></Cell><Cell><Data ss:Type="String">SUM</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">2</Data></Cell><Cell><Data ss:Type="String">AVERAGE</Data></Cell></Row>
+  <Row><Cell><Data ss:Type="Number">3</Data></Cell><Cell><Data ss:Type="String">MAX</Data></Cell></Row>
+  <Row/><Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Избран индекс</Data></Cell><Cell ss:StyleID="Input"><Data ss:Type="Number">2</Data></Cell></Row>
+  <Row><Cell ss:StyleID="Sub"><Data ss:Type="String">Резултат</Data></Cell><Cell ss:StyleID="Answer"/></Row>
+ </Table></Worksheet>
+</Workbook>
