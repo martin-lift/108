@@ -1,0 +1,22 @@
+{
+  "SchemaVersion": 1,
+  "Revision": "2026-10-15.1",
+  "Category": "ReviewedAllowed",
+  "Purpose": "Проверени и разрешени от учителя домейни за кабинет 307; решения за последващи анализи.",
+  "Mode": "ReviewOnly",
+  "Entries": [
+    {
+      "Domain": "ai-assistant.cat.com",
+      "MatchScope": "ExactHost",
+      "Service": "Caterpillar / Cat AI Assistant — вграден помощник за продукти и обслужване",
+      "ReviewStatus": "Confirmed",
+      "Decision": "Allow",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Reason": "Учителят изрично одобри домейна и поиска да бъде включен в списъка с проверени и разрешени, а не сред кандидатите за забранени AI домейни.",
+      "ReviewNote": "При следващи анализи не предлагайте този хост за AI забрана, освен ако учителят изрично промени решението. Одобрението се отнася само за точния хост, не за целия cat.com или всички негови поддомейни.",
+      "Sources": [
+        "https://www.cat.com/en_US/support/technology/cat-ai-assistant.html"
+      ]
+    }
+  ]
+}

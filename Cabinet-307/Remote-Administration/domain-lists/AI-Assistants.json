@@ -1,24 +1,9 @@
 {
   "SchemaVersion": 1,
-  "Revision": "2026-10-15.1",
+  "Revision": "2026-10-15.2",
   "Category": "AI-Assistants",
   "Purpose": "Домейни за AI асистенти, събрани за преглед преди евентуално ограничаване при изпит в кабинет 307.",
   "Mode": "ReviewOnly",
   "CoverageNote": "Записите се добавят след анализ на налични DNS заявки и проверка на предназначението на услугата. Това не е изчерпателен каталог на AI услуги.",
-  "Entries": [
-    {
-      "Domain": "ai-assistant.cat.com",
-      "MatchScope": "ExactHost",
-      "Service": "Caterpillar / Cat AI Assistant — вграден помощник за продукти и обслужване",
-      "ReviewStatus": "NeedsReview",
-      "ClassificationConfidence": "Medium",
-      "ObservedInAdGuard": true,
-      "Reason": "Домейнът присъства в анализирания DNS дневник. Caterpillar описва AI помощник, вграден в Cat.com. Свързването на конкретния хост с този помощник е извод от името му и съпътстващите заявки към Cat.com; необходимо е потвърждение с контролиран тест.",
-      "ReviewNote": "Не е потвърден общообразователен AI асистент. Заявките може да са автоматично зареждане на вграден компонент; не доказват отваряне на чат, изпращане на въпрос или използване за изпит. Не разширявайте записа към целия cat.com.",
-      "Sources": [
-        "https://www.cat.com/en_US/support/technology/cat-ai-assistant.html",
-        "https://ai-assistant.cat.com/"
-      ]
-    }
-  ]
+  "Entries": []
 }
