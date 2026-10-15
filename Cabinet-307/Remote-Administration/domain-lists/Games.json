@@ -1,11 +1,27 @@
 {
   "SchemaVersion": 1,
-  "Revision": "2026-10-15.3",
+  "Revision": "2026-10-15.4",
   "Category": "Games",
   "Purpose": "Домейни за игри, събрани за преглед в кабинет 307.",
   "Mode": "ReviewOnly",
-  "CoverageNote": "Roblox: потвърдени правила за roblox.com и rbxcdn.com с всички поддомейни. Friv и War Thunder: наблюдавани точни хостове за преглед. Включването се управлява ръчно в AdGuard.",
+  "CoverageNote": "Потвърдени от учителя правила за friv.com, warthunder.com, roblox.com и rbxcdn.com с всички поддомейни. Включването се управлява ръчно в AdGuard.",
   "Entries": [
+    {
+      "Domain": "friv.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Friv",
+      "Role": "GameWebsite",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "Reason": "Забрана на основния домейн и всички негови поддомейни по изрично указание на учителя.",
+      "ReviewNote": "Заменя отделно изброените хостове. Правилото действа след обновяване на включения списък в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.friv.com/"
+      ]
+    },
     {
       "Domain": "rbxcdn.com",
       "MatchScope": "DomainAndSubdomains",
@@ -39,45 +55,19 @@
       ]
     },
     {
-      "Domain": "staticfiles.warthunder.com",
-      "MatchScope": "ExactHost",
-      "Service": "War Thunder",
-      "Role": "ServiceInfrastructure",
-      "ReviewStatus": "NeedsReview",
-      "ClassificationConfidence": "High",
-      "ObservedInAdGuard": true,
-      "Reason": "Наблюдаван хост на официалния сайт или обслужващите ресурси на онлайн играта War Thunder.",
-      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
-      "Sources": [
-        "https://warthunder.com/en"
-      ]
-    },
-    {
       "Domain": "warthunder.com",
-      "MatchScope": "ExactHost",
+      "MatchScope": "DomainAndSubdomains",
       "Service": "War Thunder",
       "Role": "GameWebsite",
-      "ReviewStatus": "NeedsReview",
+      "ReviewStatus": "Confirmed",
       "ClassificationConfidence": "High",
       "ObservedInAdGuard": true,
-      "Reason": "Наблюдаван хост на официалния сайт или обслужващите ресурси на онлайн играта War Thunder.",
-      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Reason": "Забрана на основния домейн и всички негови поддомейни по изрично указание на учителя.",
+      "ReviewNote": "Заменя отделно изброените хостове. Правилото действа след обновяване на включения списък в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://warthunder.com/en"
-      ]
-    },
-    {
-      "Domain": "www.friv.com",
-      "MatchScope": "ExactHost",
-      "Service": "Friv",
-      "Role": "GameWebsite",
-      "ReviewStatus": "NeedsReview",
-      "ClassificationConfidence": "High",
-      "ObservedInAdGuard": true,
-      "Reason": "Наблюдаван точен хост на официален сайт за браузърни игри.",
-      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
-      "Sources": [
-        "https://www.friv.com/"
       ]
     }
   ]

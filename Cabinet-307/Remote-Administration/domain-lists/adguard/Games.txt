@@ -1,13 +1,12 @@
 ! Title: Classroom 307 - Games (review/test)
-! Version: 2026-10-15.3
+! Version: 2026-10-15.4
 ! Homepage: https://github.com/martin-lift/108/tree/main/Cabinet-307/Remote-Administration/domain-lists
 ! Source: Games.json
 ! Plain domains match exact hosts; ||domain^ includes the domain and all subdomains.
-! Rules: 5
+! Rules: 4
 ! Includes candidates for teacher review. Enable manually in AdGuard only when desired.
 
+||friv.com^
 ||rbxcdn.com^
 ||roblox.com^
-staticfiles.warthunder.com
-warthunder.com
-www.friv.com
+||warthunder.com^
