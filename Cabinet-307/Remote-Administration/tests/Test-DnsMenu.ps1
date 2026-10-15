@@ -231,16 +231,16 @@ try {
     Assert ($script:Opened.Count -eq 0 -and $script:Credentials -eq 0) 'Stopped DNS is detected before any student connection'
     Reset-Menu @('S','8.8.8.8')
     Expect-Failure {Invoke-ClassroomDnsAction SetTeacher} '*currently assigned to the teacher*'
-    Reset-Menu @('B'); $script:Listening=$false
+    Reset-Menu @('S','B'); $script:Listening=$false
     Invoke-ClassroomDnsAction Restore
     Assert ($script:Invoked[0][0] -eq 'RestoreSaved') 'Restore works with teacher DNS stopped'
-    Reset-Menu @('A')
+    Reset-Menu @('S','A')
     Invoke-ClassroomDnsAction Restore
     Assert ($script:Invoked[0][0] -eq 'Automatic') 'Automatic DNS is an explicit choice'
     Reset-Menu @('S','C')
     Invoke-ClassroomDnsAction SetTeacher
     Assert ($script:Opened.Count -eq 0) 'Cancel address choice makes no connection'
-    Reset-Menu @(); $script:Selected=@()
+    Reset-Menu @('S'); $script:Selected=@()
     Invoke-ClassroomDnsAction Restore
     Assert ($script:Opened.Count -eq 0) 'Cancel computer selection makes no connection'
     Reset-Menu @('S',''); $script:MenuFailure='CancelCredentials'
@@ -260,8 +260,26 @@ try {
     Reset-Menu @('wrong',' s ','')
     Invoke-ClassroomDnsAction SetTeacher
     Assert ($script:Invoked.Count -eq 2 -and $script:SelectionCalls -eq 1 -and $script:Messages -contains 'Enter A for all computers, S to select computers, or press Enter to cancel.') 'Invalid scope is retried and selected mode is normalized'
+    foreach($restoreMode in @('B','A')) {
+        Reset-Menu @(' a ',$restoreMode);$script:Listening=$false
+        Invoke-ClassroomDnsAction Restore
+        $expectedAction=if($restoreMode -eq 'B'){'RestoreSaved'}else{'Automatic'}
+        Assert ($script:Invoked.Count -eq 27 -and $script:Closed.Count -eq 27) "Restore all processes and closes exactly 27 sessions for $expectedAction"
+        Assert ($script:Credentials -eq 1 -and $script:SelectionCalls -eq 0) 'Restore all asks once for credentials and does not ask for student numbers'
+        Assert (($script:Opened -join ',') -eq ((1..27 | ForEach-Object {'307-Student-{0:D2}.local' -f $_}) -join ',')) 'Restore all covers 01 through 27 exactly once'
+        Assert (@($script:Invoked | Where-Object {$_[0] -ne $expectedAction -or $_[1] -ne ''}).Count -eq 0) "Restore all sends $expectedAction without a teacher DNS address"
+    }
+    Reset-Menu @('')
+    Invoke-ClassroomDnsAction Restore
+    Assert ($script:Opened.Count -eq 0 -and $script:Credentials -eq 0 -and $script:SelectionCalls -eq 0) 'Cancel restore scope makes no connection'
+    Reset-Menu @('A','')
+    Invoke-ClassroomDnsAction Restore
+    Assert ($script:Opened.Count -eq 0 -and $script:Credentials -eq 0) 'Cancel restore mode after choosing all makes no connection'
+    Reset-Menu @('wrong',' s ','B')
+    Invoke-ClassroomDnsAction Restore
+    Assert ($script:Invoked.Count -eq 2 -and $script:SelectionCalls -eq 1 -and $script:Invoked[0][0] -eq 'RestoreSaved') 'Restore retries invalid scope and uses selected targets'
     foreach($failure in @('LoginFailure','OperationFailure','Disconnect','NoConfirmation')) {
-        Reset-Menu @('A'); $script:MenuFailure=$failure
+        Reset-Menu @('S','A'); $script:MenuFailure=$failure
         Invoke-ClassroomDnsAction Restore
         Assert ($script:Opened.Count -eq 2 -and $script:Table.Count -eq 2 -and $script:Table[1].Status -eq 'OK') "Continue after $failure"
         $expectedClosed=if($failure -eq 'LoginFailure'){1}else{2}
