@@ -1,0 +1,52 @@
+! Title: Classroom 307 - Games (review/test)
+! Version: 2026-10-15.2
+! Homepage: https://github.com/martin-lift/108/tree/main/Cabinet-307/Remote-Administration/domain-lists
+! Source: Games.json
+! Exact hostnames only. No wildcard subdomains.
+! Rules: 44
+! Includes candidates for teacher review. Enable manually in AdGuard only when desired.
+
+accountsettings.roblox.com
+apis.rbxcdn.com
+apis.roblox.com
+assetdelivery.roblox.com
+assetgame.roblox.com
+assets.create.roblox.com
+auth.roblox.com
+avatar.roblox.com
+catalog.roblox.com
+cdn.foundation.roblox.com
+clientsettings.roblox.com
+clientsettingscdn.roblox.com
+contacts.roblox.com
+create.roblox.com
+develop.roblox.com
+economy.roblox.com
+ecsv2.roblox.com
+ephemeralcounters.api.roblox.com
+followings.roblox.com
+friends.roblox.com
+fts.rbxcdn.com
+games.roblox.com
+lms.roblox.com
+locale.roblox.com
+metrics.roblox.com
+notifications.roblox.com
+presence.roblox.com
+privatemessages.roblox.com
+prod.docsiteassets.roblox.com
+realtime-signalr.roblox.com
+sc6.rbxcdn.com
+sc7.rbxcdn.com
+setup.rbxcdn.com
+staticfiles.warthunder.com
+thumbnails.roblox.com
+tr.rbxcdn.com
+tracing.roblox.com
+translations-cdn.roblox.com
+usermoderation.roblox.com
+users.roblox.com
+voice.roblox.com
+warthunder.com
+www.friv.com
+www.roblox.com

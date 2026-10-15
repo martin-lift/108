@@ -1,0 +1,8 @@
+! Title: Classroom 307 - Reviewed and allowed
+! Version: 2026-10-15.1
+! Homepage: https://github.com/martin-lift/108/tree/main/Cabinet-307/Remote-Administration/domain-lists
+! Source: Approved-Domains.json
+! Exact hostnames only. No wildcard subdomains.
+! Rules: 1
+
+@@|ai-assistant.cat.com|
