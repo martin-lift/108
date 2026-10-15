@@ -1,164 +1,170 @@
 {
   "SchemaVersion": 1,
-  "Revision": "2026-10-15.3",
+  "Revision": "2026-10-15.4",
   "Category": "AI-Assistants",
   "Purpose": "Домейни за AI асистенти, събрани за преглед преди евентуално ограничаване при изпит в кабинет 307.",
   "Mode": "ReviewOnly",
-  "CoverageNote": "Списъкът включва известни AI услуги, добавени по искане на учителя, както и бъдещи наблюдавани кандидати. SourceBasis и ObservedInAdGuard разграничават двата източника. Това не е изчерпателен каталог.",
+  "CoverageNote": "Потвърдени от учителя правила за изброените AI услуги с всички техни поддомейни. Общите google.com и microsoft.com не се блокират. SourceBasis и ObservedInAdGuard запазват произхода на записите; списъкът не е изчерпателен каталог. Включването се управлява ръчно в AdGuard.",
   "Entries": [
     {
       "Domain": "chat.deepseek.com",
-      "MatchScope": "ExactHost",
+      "MatchScope": "DomainAndSubdomains",
       "Service": "DeepSeek Chat",
-      "ReviewStatus": "NeedsReview",
+      "ReviewStatus": "Confirmed",
       "ClassificationConfidence": "High",
       "ObservedInAdGuard": false,
       "SourceBasis": "KnownServiceAddedByTeacherRequest",
       "Reason": "Известна AI услуга или неин входен адрес, добавен по искане на учителя. Записът не твърди, че е наблюдаван в анализирания дневник.",
-      "ReviewNote": "Кандидат за ограничаване при изпит; временното включване за тест е отделно от постоянното одобрение. Само точният хост, без общи родителски домейни и без всички поддомейни.",
+      "ReviewNote": "По изрично искане на учителя: забрана на посочения домейн на AI услугата и всички негови поддомейни. Не се разширява към общите родителски домейни google.com, microsoft.com или openai.com. Включването се управлява ръчно в AdGuard.",
       "Sources": [
         "https://deepseek.com/en/news/v4-preview/"
-      ]
+      ],
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
       "Domain": "chat.mistral.ai",
-      "MatchScope": "ExactHost",
+      "MatchScope": "DomainAndSubdomains",
       "Service": "Mistral Vibe / предишен Le Chat",
-      "ReviewStatus": "NeedsReview",
+      "ReviewStatus": "Confirmed",
       "ClassificationConfidence": "High",
       "ObservedInAdGuard": false,
       "SourceBasis": "KnownServiceAddedByTeacherRequest",
       "Reason": "Известна AI услуга или неин входен адрес, добавен по искане на учителя. Записът не твърди, че е наблюдаван в анализирания дневник.",
-      "ReviewNote": "Кандидат за ограничаване при изпит; временното включване за тест е отделно от постоянното одобрение. Само точният хост, без общи родителски домейни и без всички поддомейни.",
+      "ReviewNote": "По изрично искане на учителя: забрана на посочения домейн на AI услугата и всички негови поддомейни. Не се разширява към общите родителски домейни google.com, microsoft.com или openai.com. Включването се управлява ръчно в AdGuard.",
       "Sources": [
         "https://help.mistral.ai/en/articles/682992-le-chat-is-now-vibe"
-      ]
+      ],
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
       "Domain": "chat.openai.com",
-      "MatchScope": "ExactHost",
+      "MatchScope": "DomainAndSubdomains",
       "Service": "ChatGPT — предишен адрес",
-      "ReviewStatus": "NeedsReview",
+      "ReviewStatus": "Confirmed",
       "ClassificationConfidence": "High",
       "ObservedInAdGuard": false,
       "SourceBasis": "KnownServiceAddedByTeacherRequest",
       "Reason": "Известна AI услуга или неин входен адрес, добавен по искане на учителя. Записът не твърди, че е наблюдаван в анализирания дневник.",
-      "ReviewNote": "Кандидат за ограничаване при изпит; временното включване за тест е отделно от постоянното одобрение. Само точният хост, без общи родителски домейни и без всички поддомейни.",
+      "ReviewNote": "По изрично искане на учителя: забрана на посочения домейн на AI услугата и всички негови поддомейни. Не се разширява към общите родителски домейни google.com, microsoft.com или openai.com. Включването се управлява ръчно в AdGuard.",
       "Sources": [
         "https://help.openai.com/en/articles/6825453-chatgpt-release-notes"
-      ]
+      ],
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
       "Domain": "chatgpt.com",
-      "MatchScope": "ExactHost",
+      "MatchScope": "DomainAndSubdomains",
       "Service": "ChatGPT",
-      "ReviewStatus": "NeedsReview",
+      "ReviewStatus": "Confirmed",
       "ClassificationConfidence": "High",
       "ObservedInAdGuard": false,
       "SourceBasis": "KnownServiceAddedByTeacherRequest",
       "Reason": "Известна AI услуга или неин входен адрес, добавен по искане на учителя. Записът не твърди, че е наблюдаван в анализирания дневник.",
-      "ReviewNote": "Кандидат за ограничаване при изпит; временното включване за тест е отделно от постоянното одобрение. Само точният хост, без общи родителски домейни и без всички поддомейни.",
+      "ReviewNote": "По изрично искане на учителя: забрана на посочения домейн на AI услугата и всички негови поддомейни. Не се разширява към общите родителски домейни google.com, microsoft.com или openai.com. Включването се управлява ръчно в AdGuard.",
       "Sources": [
         "https://chatgpt.com/"
-      ]
+      ],
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
       "Domain": "claude.ai",
-      "MatchScope": "ExactHost",
+      "MatchScope": "DomainAndSubdomains",
       "Service": "Claude",
-      "ReviewStatus": "NeedsReview",
+      "ReviewStatus": "Confirmed",
       "ClassificationConfidence": "High",
       "ObservedInAdGuard": false,
       "SourceBasis": "KnownServiceAddedByTeacherRequest",
       "Reason": "Известна AI услуга или неин входен адрес, добавен по искане на учителя. Записът не твърди, че е наблюдаван в анализирания дневник.",
-      "ReviewNote": "Кандидат за ограничаване при изпит; временното включване за тест е отделно от постоянното одобрение. Само точният хост, без общи родителски домейни и без всички поддомейни.",
+      "ReviewNote": "По изрично искане на учителя: забрана на посочения домейн на AI услугата и всички негови поддомейни. Не се разширява към общите родителски домейни google.com, microsoft.com или openai.com. Включването се управлява ръчно в AdGuard.",
       "Sources": [
         "https://claude.ai/"
-      ]
+      ],
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
       "Domain": "copilot.com",
-      "MatchScope": "ExactHost",
+      "MatchScope": "DomainAndSubdomains",
       "Service": "Microsoft Copilot",
-      "ReviewStatus": "NeedsReview",
+      "ReviewStatus": "Confirmed",
       "ClassificationConfidence": "High",
       "ObservedInAdGuard": false,
       "SourceBasis": "KnownServiceAddedByTeacherRequest",
       "Reason": "Известна AI услуга или неин входен адрес, добавен по искане на учителя. Записът не твърди, че е наблюдаван в анализирания дневник.",
-      "ReviewNote": "Кандидат за ограничаване при изпит; временното включване за тест е отделно от постоянното одобрение. Само точният хост, без общи родителски домейни и без всички поддомейни.",
+      "ReviewNote": "По изрично искане на учителя: забрана на посочения домейн на AI услугата и всички негови поддомейни. Не се разширява към общите родителски домейни google.com, microsoft.com или openai.com. Включването се управлява ръчно в AdGuard.",
       "Sources": [
         "https://copilot.com/"
-      ]
+      ],
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
       "Domain": "copilot.microsoft.com",
-      "MatchScope": "ExactHost",
+      "MatchScope": "DomainAndSubdomains",
       "Service": "Microsoft Copilot — адрес за пренасочване",
-      "ReviewStatus": "NeedsReview",
+      "ReviewStatus": "Confirmed",
       "ClassificationConfidence": "High",
       "ObservedInAdGuard": false,
       "SourceBasis": "KnownServiceAddedByTeacherRequest",
       "Reason": "Известна AI услуга или неин входен адрес, добавен по искане на учителя. Записът не твърди, че е наблюдаван в анализирания дневник.",
-      "ReviewNote": "Кандидат за ограничаване при изпит; временното включване за тест е отделно от постоянното одобрение. Само точният хост, без общи родителски домейни и без всички поддомейни.",
+      "ReviewNote": "По изрично искане на учителя: забрана на посочения домейн на AI услугата и всички негови поддомейни. Не се разширява към общите родителски домейни google.com, microsoft.com или openai.com. Включването се управлява ръчно в AdGuard.",
       "Sources": [
         "https://copilot.microsoft.com/"
-      ]
+      ],
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
       "Domain": "gemini.google.com",
-      "MatchScope": "ExactHost",
+      "MatchScope": "DomainAndSubdomains",
       "Service": "Google Gemini",
-      "ReviewStatus": "NeedsReview",
+      "ReviewStatus": "Confirmed",
       "ClassificationConfidence": "High",
       "ObservedInAdGuard": false,
       "SourceBasis": "KnownServiceAddedByTeacherRequest",
       "Reason": "Известна AI услуга или неин входен адрес, добавен по искане на учителя. Записът не твърди, че е наблюдаван в анализирания дневник.",
-      "ReviewNote": "Кандидат за ограничаване при изпит; временното включване за тест е отделно от постоянното одобрение. Само точният хост, без общи родителски домейни и без всички поддомейни.",
+      "ReviewNote": "По изрично искане на учителя: забрана на посочения домейн на AI услугата и всички негови поддомейни. Не се разширява към общите родителски домейни google.com, microsoft.com или openai.com. Включването се управлява ръчно в AdGuard.",
       "Sources": [
         "https://gemini.google.com/"
-      ]
+      ],
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
       "Domain": "grok.com",
-      "MatchScope": "ExactHost",
+      "MatchScope": "DomainAndSubdomains",
       "Service": "Grok",
-      "ReviewStatus": "NeedsReview",
+      "ReviewStatus": "Confirmed",
       "ClassificationConfidence": "High",
       "ObservedInAdGuard": false,
       "SourceBasis": "KnownServiceAddedByTeacherRequest",
       "Reason": "Известна AI услуга или неин входен адрес, добавен по искане на учителя. Записът не твърди, че е наблюдаван в анализирания дневник.",
-      "ReviewNote": "Кандидат за ограничаване при изпит; временното включване за тест е отделно от постоянното одобрение. Само точният хост, без общи родителски домейни и без всички поддомейни.",
+      "ReviewNote": "По изрично искане на учителя: забрана на посочения домейн на AI услугата и всички негови поддомейни. Не се разширява към общите родителски домейни google.com, microsoft.com или openai.com. Включването се управлява ръчно в AdGuard.",
       "Sources": [
         "https://grok.com/"
-      ]
+      ],
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
       "Domain": "perplexity.ai",
-      "MatchScope": "ExactHost",
+      "MatchScope": "DomainAndSubdomains",
       "Service": "Perplexity — основен домейн",
-      "ReviewStatus": "NeedsReview",
+      "ReviewStatus": "Confirmed",
       "ClassificationConfidence": "High",
       "ObservedInAdGuard": false,
       "SourceBasis": "KnownServiceAddedByTeacherRequest",
       "Reason": "Известна AI услуга или неин входен адрес, добавен по искане на учителя. Записът не твърди, че е наблюдаван в анализирания дневник.",
-      "ReviewNote": "Кандидат за ограничаване при изпит; временното включване за тест е отделно от постоянното одобрение. Само точният хост, без общи родителски домейни и без всички поддомейни.",
+      "ReviewNote": "По изрично искане на учителя: забрана на посочения домейн на AI услугата и всички негови поддомейни. Не се разширява към общите родителски домейни google.com, microsoft.com или openai.com. Включването се управлява ръчно в AdGuard.",
       "Sources": [
         "https://www.perplexity.ai/"
-      ]
-    },
-    {
-      "Domain": "www.perplexity.ai",
-      "MatchScope": "ExactHost",
-      "Service": "Perplexity",
-      "ReviewStatus": "NeedsReview",
-      "ClassificationConfidence": "High",
-      "ObservedInAdGuard": false,
-      "SourceBasis": "KnownServiceAddedByTeacherRequest",
-      "Reason": "Известна AI услуга или неин входен адрес, добавен по искане на учителя. Записът не твърди, че е наблюдаван в анализирания дневник.",
-      "ReviewNote": "Кандидат за ограничаване при изпит; временното включване за тест е отделно от постоянното одобрение. Само точният хост, без общи родителски домейни и без всички поддомейни.",
-      "Sources": [
-        "https://www.perplexity.ai/"
-      ]
+      ],
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction"
     }
   ]
 }
