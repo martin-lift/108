@@ -1063,6 +1063,7 @@ while ($true) {
     Write-Host '15. Use teacher DNS on selected computers (Wi-Fi IPv4)'
     Write-Host '16. Restore DNS on selected computers (saved settings or automatic)'
     Write-Host '17. Start AdGuard Home on the teacher computer'
+    Write-Host '18. Open AdGuard Home control panel'
     Write-Host ''
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
@@ -1153,7 +1154,8 @@ while ($true) {
             '15' { Invoke-ClassroomDnsAction -Action SetTeacher }
             '16' { Invoke-ClassroomDnsAction -Action Restore }
             '17' { Start-ClassroomAdGuard }
-            default { Write-Host 'Choose a number from 0 to 17.' }
+            '18' { Start-Process -FilePath 'http://127.0.0.1:3000/' -ErrorAction Stop }
+            default { Write-Host 'Choose a number from 0 to 18.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null

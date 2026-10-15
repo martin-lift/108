@@ -64,7 +64,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
 ## Учителски компютър: достъп и работа
 
-Менюто `Start-Teacher.cmd` включва **15 — DNS от учителския**, **16 — възстановяване на DNS** и **17 — стартиране на AdGuard Home**. За работа преди вход в Windows AdGuard се настройва еднократно като автоматична системна услуга. [Настройка и работа с DNS и AdGuard](docs/DNS-AdGuard.md).
+Менюто `Start-Teacher.cmd` включва **15 — DNS от учителския**, **16 — възстановяване на DNS**, **17 — стартиране на AdGuard Home** и **18 — отваряне на контролния панел**. Панелът се отваря и с `Open-AdGuardPanel.cmd` или прекия път `AdGuard Home.url`. За работа преди вход в Windows AdGuard се настройва еднократно като автоматична системна услуга. [Настройка и работа с DNS и AdGuard](docs/DNS-AdGuard.md).
 
 На вече настроен `307-Teacher`, от който WinRM достъпът работи, преминете направо към проверката и управлението. `Setup-Teacher.ps1` не е стъпка за всеки ученически компютър.
 
