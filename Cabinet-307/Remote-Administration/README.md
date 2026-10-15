@@ -11,6 +11,7 @@
 | [Test-Student.ps1](Test-Student.ps1) | На учителския | Проверява връзка, удостоверяване, дистанционно изпълнение | [Описание](docs/Test-Student.md) |
 | [Manage-Classroom.ps1](Manage-Classroom.ps1) | На учителския | Изпълнява избрани скрипт-блокове на отделни/всички машини | [Описание](docs/Manage-Classroom.md) |
 | [Restore-StudentDns.cmd](Restore-StudentDns.cmd) + [Restore-StudentDns.ps1](Restore-StudentDns.ps1) | Локално на ученическия, с админ права | Аварийно възстановяване на Wi-Fi IPv4 DNS без връзка с учителския | [Указания](docs/Restore-StudentDns.md) |
+| [Restore-StudentWifi.cmd](Restore-StudentWifi.cmd) + [Restore-StudentWifi.ps1](Restore-StudentWifi.ps1) | Локално на ученическия, с админ права | Аварийно премахване на Wi-Fi ограниченията без връзка с учителския; файловете са в `C:\307\Restore` | [Указания](docs/Restore-StudentWifi.md) |
 
 ## Подготовка на PowerShell
 
