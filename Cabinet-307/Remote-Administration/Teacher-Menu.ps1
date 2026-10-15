@@ -1287,6 +1287,8 @@ while ($true) {
     Write-Host '17. Start AdGuard Home on the teacher computer'
     Write-Host '18. Open AdGuard Home control panel'
     Write-Host '19. Clear Windows DNS cache on student computers (all or selected)'
+    Write-Host ''
+    Write-Host 'SCHOOL WEBSITE' -ForegroundColor Cyan
     Write-Host '20. Open school website on student computers (all or selected)'
     Write-Host ''
     Write-Host '0. Exit'
