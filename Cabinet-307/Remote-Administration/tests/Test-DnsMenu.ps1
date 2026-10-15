@@ -25,7 +25,7 @@ foreach ($functionName in @('Get-ClassroomDnsCommand','Invoke-ClassroomDnsAction
 $switches=@($ast.FindAll({param($node) $node -is [Management.Automation.Language.SwitchStatementAst]},$true))
 $menuSwitch=$switches[-1]
 $labels=@($menuSwitch.Clauses | ForEach-Object { $_.Item1.Value })
-Assert (($labels -join ',') -eq ((1..19) -join ',')) 'Menu actions 1 through 19 are unique and ordered'
+Assert (($labels -join ',') -eq ((1..20) -join ',')) 'Menu actions 1 through 20 are unique and ordered'
 Assert ($menuSwitch.Clauses[14].Item2.Extent.Text -match 'SetTeacher') '15 sets teacher DNS'
 Assert ($menuSwitch.Clauses[15].Item2.Extent.Text -match 'Action Restore') '16 restores DNS'
 

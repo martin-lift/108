@@ -1043,6 +1043,192 @@ function Invoke-ClassroomDnsAction {
     }
 }
 
+function Get-ClassroomWebsiteCommand {
+    # WinRM runs outside the student's desktop. Use their existing console token,
+    # at least privilege, and a demand-only task that is removed after the attempt.
+    {
+        param([string]$ExpectedName)
+        $ErrorActionPreference = 'Stop'
+        $url = 'https://martin-lift.github.io/108/'
+        if ($ExpectedName -notmatch '^307-Student-(0[1-9]|1[0-9]|2[0-7])$' -or $env:COMPUTERNAME -ine $ExpectedName) {
+            throw "Unexpected remote computer: $env:COMPUTERNAME (expected $ExpectedName)."
+        }
+        if (-not ('Cabinet307.WebsiteConsole' -as [type])) {
+            Add-Type -TypeDefinition @'
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+namespace Cabinet307 {
+    public class WebsiteConsoleUser {
+        public int SessionId;
+        public string UserName;
+        public string DomainName;
+        public bool Active;
+    }
+    public static class WebsiteConsole {
+        [DllImport("kernel32.dll")] static extern uint WTSGetActiveConsoleSessionId();
+        [DllImport("wtsapi32.dll", CharSet=CharSet.Unicode, SetLastError=true)]
+        static extern bool WTSQuerySessionInformationW(IntPtr server, uint session, int info, out IntPtr buffer, out uint bytes);
+        [DllImport("wtsapi32.dll")] static extern void WTSFreeMemory(IntPtr buffer);
+        static string ReadText(uint session, int info) {
+            IntPtr buffer=IntPtr.Zero;
+            uint bytes;
+            try {
+                if (!WTSQuerySessionInformationW(IntPtr.Zero, session, info, out buffer, out bytes))
+                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                return buffer == IntPtr.Zero ? "" : Marshal.PtrToStringUni(buffer);
+            } finally { if (buffer != IntPtr.Zero) WTSFreeMemory(buffer); }
+        }
+        public static WebsiteConsoleUser Read() {
+            uint id=WTSGetActiveConsoleSessionId();
+            var result=new WebsiteConsoleUser {SessionId=-1, UserName="", DomainName="", Active=false};
+            if (id == 0 || id == UInt32.MaxValue) return result;
+            result.SessionId=checked((int)id);
+            result.UserName=ReadText(id,5);
+            result.DomainName=ReadText(id,7);
+            IntPtr buffer=IntPtr.Zero;
+            uint bytes;
+            try {
+                if (!WTSQuerySessionInformationW(IntPtr.Zero,id,8,out buffer,out bytes))
+                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                result.Active=buffer != IntPtr.Zero && bytes >= 4 && Marshal.ReadInt32(buffer) == 0;
+            } finally { if (buffer != IntPtr.Zero) WTSFreeMemory(buffer); }
+            return result;
+        }
+    }
+}
+'@
+        }
+        $console = [Cabinet307.WebsiteConsole]::Read()
+        if (-not $console.Active -or $console.SessionId -le 0 -or [string]::IsNullOrWhiteSpace($console.UserName)) {
+            return [pscustomobject]@{Computer=$ExpectedName;Status='NO_USER';Url=$url;Notes='No user is logged on at the student computer console.'}
+        }
+        $domain = if ($console.DomainName) {$console.DomainName} else {$env:COMPUTERNAME}
+        $account = New-Object Security.Principal.NTAccount -ArgumentList @($domain,$console.UserName)
+        $sid = $account.Translate([Security.Principal.SecurityIdentifier]).Value
+        $payload = @'
+$ErrorActionPreference='Stop'
+try {
+    if ([Diagnostics.Process]::GetCurrentProcess().SessionId -ne __SESSION__ -or
+        [Security.Principal.WindowsIdentity]::GetCurrent().User.Value -ne '__SID__') { exit 2 }
+    Start-Process -FilePath 'https://martin-lift.github.io/108/' -ErrorAction Stop
+    exit 0
+} catch { exit 1 }
+'@
+        $payload = $payload.Replace('__SESSION__',[string]$console.SessionId).Replace('__SID__',$sid)
+        $encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($payload))
+        $scheduler = New-Object -ComObject 'Schedule.Service'
+        $scheduler.Connect()
+        $folder = $scheduler.GetFolder('\')
+        $definition = $scheduler.NewTask(0)
+        $definition.RegistrationInfo.Description = 'Classroom 307: open the school website once for the logged-on console user.'
+        $definition.Principal.UserId = $sid
+        $definition.Principal.LogonType = 3 # TASK_LOGON_INTERACTIVE_TOKEN; no password stored.
+        $definition.Principal.RunLevel = 0 # TASK_RUNLEVEL_LUA; do not elevate the browser.
+        $definition.Settings.Enabled = $true
+        $definition.Settings.AllowDemandStart = $true
+        $definition.Settings.StartWhenAvailable = $false
+        $definition.Settings.DisallowStartIfOnBatteries = $false
+        $definition.Settings.StopIfGoingOnBatteries = $false
+        $definition.Settings.Hidden = $true
+        $definition.Settings.ExecutionTimeLimit = 'PT0S'
+        $action = $definition.Actions.Create(0)
+        $action.Path = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
+        $action.Arguments = '-NoProfile -NonInteractive -WindowStyle Hidden -EncodedCommand '+$encoded
+        $taskName = 'Cabinet307-OpenWebsite-'+[guid]::NewGuid().ToString('N')
+        $registrationAttempted = $false
+        $launchAttempted = $false
+        $result = [pscustomobject]@{Computer=$ExpectedName;Status='UNKNOWN';Url=$url;Notes='Browser launch has not been confirmed.'}
+        try {
+            $registrationAttempted = $true
+            $registered = $folder.RegisterTaskDefinition($taskName,$definition,2,$sid,$null,3,'D:P(A;;GA;;;SY)(A;;GA;;;BA)')
+            $again = [Cabinet307.WebsiteConsole]::Read()
+            if (-not $again.Active -or $again.SessionId -ne $console.SessionId -or $again.UserName -ine $console.UserName -or $again.DomainName -ine $console.DomainName) {
+                $result.Status = 'SESSION_CHANGED'
+                $result.Notes = 'The logged-on user changed. Nothing was launched; select the computer again.'
+            } else {
+                $launchAttempted = $true
+                $null = $registered.RunEx($null,4,$console.SessionId,$null)
+                for ($attempt=0; $attempt -lt 60; $attempt++) {
+                    $task = $folder.GetTask($taskName)
+                    if ($task.LastRunTime.Year -gt 2000 -and $task.State -notin 2,4) {
+                        if ($task.LastTaskResult -eq 0) {
+                            $result.Status = 'LAUNCH_REQUESTED'
+                            $result.Notes = 'Windows accepted the URL in the logged-on user session. Page loading is not verified.'
+                        } else {
+                            $result.Status = 'ERROR'
+                            $result.Notes = ('Browser launcher failed with result 0x{0:X8}.' -f ([int64]$task.LastTaskResult -band 4294967295L))
+                        }
+                        break
+                    }
+                    Start-Sleep -Milliseconds 250
+                }
+            }
+        } catch {
+            $result.Status = if ($launchAttempted) {'UNKNOWN'} else {'ERROR'}
+            $result.Notes = $_.Exception.Message
+        } finally {
+            if ($registrationAttempted) {
+                try {
+                    # Cancel a still-queued request so it cannot start at a later login.
+                    $cleanupTask = $folder.GetTask($taskName)
+                    if ($cleanupTask.State -eq 2) {$cleanupTask.Stop(0)}
+                    $folder.DeleteTask($taskName,0)
+                } catch {
+                    $code = [int64]$_.Exception.HResult -band 4294967295L
+                    if ($code -ne 2147942402L) {$result.Notes += ' Temporary task cleanup could not be confirmed: '+$taskName+'. '+$_.Exception.Message}
+                }
+            }
+        }
+        $result
+    }
+}
+
+function Open-ClassroomWebsite {
+    $url = 'https://martin-lift.github.io/108/'
+    Write-Host ('Website: '+$url)
+    while ($true) {
+        $choice = Read-Host 'Open the website on all student computers? (A = all, S = selected, Enter = cancel)'
+        if ([string]::IsNullOrWhiteSpace($choice)) { return }
+        $choice = $choice.Trim().ToUpperInvariant()
+        if ($choice -eq 'A') {$numbers=@(1..27);break}
+        if ($choice -eq 'S') {$numbers=@(Get-StudentNumbers);break}
+        Write-Host 'Enter A for all computers, S to select computers, or press Enter to cancel.'
+    }
+    if ($numbers.Count -eq 0) {return}
+    Start-Service WinRM -ErrorAction Stop
+    $sharedCredential = Get-ClassroomCredential
+    if ($null -eq $sharedCredential) {return}
+    $options = New-PSSessionOption -OpenTimeout 15000 -OperationTimeout 45000
+    $command = Get-ClassroomWebsiteCommand
+    $results = @()
+    foreach ($number in $numbers) {
+        $name = '307-Student-{0:D2}' -f $number
+        $session = $null
+        $phase = 'Login'
+        $confirmationMissing = $false
+        Write-Host ('Opening website on '+$name+'...')
+        try {
+            $credential = [pscredential]::new("$name\108SU",$sharedCredential.Password)
+            $session = New-PSSession -ComputerName "$name.local" -Credential $credential -SessionOption $options -ErrorAction Stop
+            $phase = 'Operation'
+            $response = @(Invoke-Command -Session $session -ScriptBlock $command -ArgumentList $name -ErrorAction Stop)
+            if ($response.Count -ne 1 -or $response[0].Computer -ine $name -or $response[0].Url -ne $url -or $response[0].Status -notin 'LAUNCH_REQUESTED','NO_USER','SESSION_CHANGED','ERROR','UNKNOWN') {
+                $confirmationMissing = $true
+                throw 'No valid browser launch result was received. Check this computer before retrying.'
+            }
+            $results += $response[0]
+        } catch {
+            $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
+            if ($confirmationMissing -or ($phase -eq 'Operation' -and $_.Exception -is [Management.Automation.Remoting.PSRemotingTransportException])) {$status='UNKNOWN'}
+            $results += [pscustomobject]@{Computer=$name;Status=$status;Url=$url;Notes=$_.Exception.Message}
+        } finally {
+            if ($null -ne $session) {Remove-PSSession -Session $session -ErrorAction SilentlyContinue}
+        }
+    }
+    $results | Format-Table Computer,Status,Notes -AutoSize -Wrap | Out-Host
+}
+
 function Start-ClassroomAdGuard {
     $service = Get-Service -Name 'AdGuardHome' -ErrorAction SilentlyContinue
     if ($null -eq $service) { throw 'AdGuard Home is not installed as a Windows service. Run the teacher setup first.' }
@@ -1101,6 +1287,7 @@ while ($true) {
     Write-Host '17. Start AdGuard Home on the teacher computer'
     Write-Host '18. Open AdGuard Home control panel'
     Write-Host '19. Clear Windows DNS cache on student computers (all or selected)'
+    Write-Host '20. Open school website on student computers (all or selected)'
     Write-Host ''
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
@@ -1193,7 +1380,8 @@ while ($true) {
             '17' { Start-ClassroomAdGuard }
             '18' { Start-Process -FilePath 'http://127.0.0.1:3000/' -ErrorAction Stop }
             '19' { Invoke-ClassroomDnsAction -Action ClearCache }
-            default { Write-Host 'Choose a number from 0 to 19.' }
+            '20' { Open-ClassroomWebsite }
+            default { Write-Host 'Choose a number from 0 to 20.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null

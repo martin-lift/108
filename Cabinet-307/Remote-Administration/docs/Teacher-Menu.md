@@ -32,9 +32,20 @@ Groups are separated by a blank line. The current numbering is:
 17. Start AdGuard Home on the teacher computer
 18. Open AdGuard Home control panel
 19. Clear Windows DNS cache on student computers (all or selected)
+20. Open school website on student computers (all or selected)
 
 0. Exit
 ```
+
+## Open the school website (menu action 20)
+
+Opens `https://martin-lift.github.io/108/` in the default browser of the user logged on at each selected student computer's physical console. Choose A for all 27 students, S to enter selected numbers (one number is allowed), or Enter to cancel. The shared 108SU administrator password is requested once for WinRM. No student user password is requested or saved.
+
+Because WinRM does not run on the student's desktop, the remote command uses a unique, demand-only Windows task with the existing console user's interactive token and least privilege. It explicitly selects that console session, verifies the user again before launching, and checks the session and user SID in the launcher. The hidden PowerShell launcher opens the fixed URL through the user's normal browser association. The temporary task is removed after the attempt; queued attempts are cancelled. No startup/login trigger is created. If cleanup fails, its unique task name is reported for administrator review.
+
+Results: `LAUNCH_REQUESTED` means the launcher completed successfully in the user session; it does not prove that the page loaded. `NO_USER` means no console user is logged on. `SESSION_CHANGED` skips a computer whose console user changed during preparation. `ERROR` reports a launcher failure; `UNKNOWN` means completion could not be confirmed, so check before retrying. Login/connection failures are shown per computer and do not stop remaining targets. A locked session may show the browser after the user unlocks it; the menu does not unlock Windows. Windows Task Scheduler, the default browser association and remoting must be available.
+
+Validation uses simulated console sessions, Task Scheduler and WinRM, including task cleanup and failures. A real student desktop/browser trial is still required; the tests do not open browsers on student computers.
 
 ## File transfers
 
