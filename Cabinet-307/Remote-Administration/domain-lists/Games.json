@@ -1,9 +1,626 @@
 {
   "SchemaVersion": 1,
-  "Revision": "2026-10-15.1",
+  "Revision": "2026-10-15.2",
   "Category": "Games",
   "Purpose": "Домейни за игри, събрани за преглед в кабинет 307.",
   "Mode": "ReviewOnly",
-  "CoverageNote": "В първата анализирана извадка няма достатъчно доказателства за игрови домейни. Празният списък не означава, че такива услуги не се използват извън извадката.",
-  "Entries": []
+  "CoverageNote": "Наблюдавани точни хостове за Friv, Roblox и War Thunder и вероятни Roblox CDN хостове. Всички записи чакат преглед; не са правила за активно блокиране.",
+  "Entries": [
+    {
+      "Domain": "accountsettings.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "apis.rbxcdn.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox CDN",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "Medium",
+      "ObservedInAdGuard": true,
+      "Reason": "Вероятен обслужващ CDN хост на Roblox според името, публикуваните примери за ресурси и съпътстващите заявки към Roblox. За преглед преди евентуална забрана.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://devforum.roblox.com/t/all-sounds-fail-to-load-on-website-and-in-studio/527982"
+      ]
+    },
+    {
+      "Domain": "apis.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "assetdelivery.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "assetgame.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "assets.create.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "auth.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "avatar.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "catalog.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "cdn.foundation.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "clientsettings.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "clientsettingscdn.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "contacts.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "create.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "develop.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "economy.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "ecsv2.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "ephemeralcounters.api.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "followings.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "friends.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "fts.rbxcdn.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox CDN",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "Medium",
+      "ObservedInAdGuard": true,
+      "Reason": "Вероятен обслужващ CDN хост на Roblox според името, публикуваните примери за ресурси и съпътстващите заявки към Roblox. За преглед преди евентуална забрана.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://devforum.roblox.com/t/all-sounds-fail-to-load-on-website-and-in-studio/527982"
+      ]
+    },
+    {
+      "Domain": "games.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "lms.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "locale.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "metrics.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "notifications.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "presence.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "privatemessages.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "prod.docsiteassets.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "realtime-signalr.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "sc6.rbxcdn.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox CDN",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "Medium",
+      "ObservedInAdGuard": true,
+      "Reason": "Вероятен обслужващ CDN хост на Roblox според името, публикуваните примери за ресурси и съпътстващите заявки към Roblox. За преглед преди евентуална забрана.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://devforum.roblox.com/t/all-sounds-fail-to-load-on-website-and-in-studio/527982"
+      ]
+    },
+    {
+      "Domain": "sc7.rbxcdn.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox CDN",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "Medium",
+      "ObservedInAdGuard": true,
+      "Reason": "Вероятен обслужващ CDN хост на Roblox според името, публикуваните примери за ресурси и съпътстващите заявки към Roblox. За преглед преди евентуална забрана.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://devforum.roblox.com/t/all-sounds-fail-to-load-on-website-and-in-studio/527982"
+      ]
+    },
+    {
+      "Domain": "setup.rbxcdn.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox CDN",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "Medium",
+      "ObservedInAdGuard": true,
+      "Reason": "Вероятен обслужващ CDN хост на Roblox според името, публикуваните примери за ресурси и съпътстващите заявки към Roblox. За преглед преди евентуална забрана.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://devforum.roblox.com/t/all-sounds-fail-to-load-on-website-and-in-studio/527982"
+      ]
+    },
+    {
+      "Domain": "staticfiles.warthunder.com",
+      "MatchScope": "ExactHost",
+      "Service": "War Thunder",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост на официалния сайт или обслужващите ресурси на онлайн играта War Thunder.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://warthunder.com/en"
+      ]
+    },
+    {
+      "Domain": "thumbnails.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "tr.rbxcdn.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox CDN",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "Medium",
+      "ObservedInAdGuard": true,
+      "Reason": "Вероятен обслужващ CDN хост на Roblox според името, публикуваните примери за ресурси и съпътстващите заявки към Roblox. За преглед преди евентуална забрана.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://devforum.roblox.com/t/all-sounds-fail-to-load-on-website-and-in-studio/527982"
+      ]
+    },
+    {
+      "Domain": "tracing.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "translations-cdn.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "usermoderation.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "users.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "voice.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "ServiceInfrastructure",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "warthunder.com",
+      "MatchScope": "ExactHost",
+      "Service": "War Thunder",
+      "Role": "GameWebsite",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост на официалния сайт или обслужващите ресурси на онлайн играта War Thunder.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://warthunder.com/en"
+      ]
+    },
+    {
+      "Domain": "www.friv.com",
+      "MatchScope": "ExactHost",
+      "Service": "Friv",
+      "Role": "GameWebsite",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван точен хост на официален сайт за браузърни игри.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.friv.com/"
+      ]
+    },
+    {
+      "Domain": "www.roblox.com",
+      "MatchScope": "ExactHost",
+      "Service": "Roblox",
+      "Role": "GameWebsite",
+      "ReviewStatus": "NeedsReview",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "Reason": "Наблюдаван хост от домейна на игровата платформа Roblox; включва сайт, API и обслужващи компоненти.",
+      "ReviewNote": "DNS заявка показва обръщение към хоста, но не доказва игра или действие на ученик. Списъкът не включва блокиране.",
+      "Sources": [
+        "https://www.roblox.com/"
+      ]
+    }
+  ]
 }
