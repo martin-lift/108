@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 $ErrorActionPreference = 'Stop'
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if (-not $isAdmin) {
@@ -771,6 +771,273 @@ function Show-ClassroomProcesses {
         Write-Host ("REPORT_ERROR: The process list was read and displayed, but the report could not be saved: {0}" -f $_.Exception.Message) -ForegroundColor Red
     }
 }
+function Get-ClassroomDnsCommand {
+    # Self-contained for Windows PowerShell 5.1 remoting. Only Wi-Fi IPv4 DNS is changed.
+    {
+        param(
+            [ValidateSet('SetTeacher','RestoreSaved','Automatic')][string]$Action,
+            [string]$TeacherAddress,
+            [string]$ExpectedName
+        )
+        $ErrorActionPreference = 'Stop'
+        if ($ExpectedName -notmatch '^307-Student-(0[1-9]|1[0-9]|2[0-7])$' -or $env:COMPUTERNAME -ine $ExpectedName) {
+            throw "Unexpected remote computer: $env:COMPUTERNAME (expected $ExpectedName)."
+        }
+        function ConvertTo-DnsIPv4([string]$Address) {
+            $parsed = $null
+            if ($Address -notmatch '^\d{1,3}(\.\d{1,3}){3}$' -or
+                -not [Net.IPAddress]::TryParse($Address, [ref]$parsed) -or
+                $parsed.AddressFamily -ne [Net.Sockets.AddressFamily]::InterNetwork -or
+                $parsed.GetAddressBytes()[0] -in 0,127 -or $parsed.GetAddressBytes()[0] -ge 224 -or
+                $Address -like '169.254.*') { throw "Invalid DNS IPv4 address: $Address" }
+            $parsed.ToString()
+        }
+        function Read-DnsState($Adapter) {
+            $key = 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\' + ([guid]$Adapter.InterfaceGuid).ToString('B')
+            # IP DHCPEnabled does not indicate whether DNS itself is automatic.
+            $properties = Get-ItemProperty -LiteralPath $key -ErrorAction Stop
+            $static = [string]$properties.NameServer
+            $dns = @(Get-DnsClientServerAddress -InterfaceIndex $Adapter.ifIndex -AddressFamily IPv4 -ErrorAction Stop)
+            if ($dns.Count -ne 1) { throw 'Cannot identify the Wi-Fi IPv4 DNS configuration.' }
+            $servers = @()
+            $mode = 'Automatic'
+            if (-not [string]::IsNullOrWhiteSpace($static)) {
+                $mode = 'Static'
+                $servers = @($static -split '[,;\s]+' | Where-Object { $_ } | ForEach-Object { ConvertTo-DnsIPv4 $_ })
+                if (($servers -join ',') -ne (@($dns[0].ServerAddresses) -join ',')) {
+                    throw 'Configured and effective IPv4 DNS differ. Check policy/network settings before changing DNS.'
+                }
+            }
+            [pscustomobject]@{ Mode=$mode; Servers=$servers; EffectiveServers=@($dns[0].ServerAddresses); InputObject=$dns[0] }
+        }
+        function Write-DnsState($Adapter, $State, [switch]$ValidateServer) {
+            $dns = @(Get-DnsClientServerAddress -InterfaceIndex $Adapter.ifIndex -AddressFamily IPv4 -ErrorAction Stop)
+            if ($dns.Count -ne 1) { throw 'Cannot identify the Wi-Fi IPv4 DNS configuration.' }
+            # InputObject scopes the operation to IPv4; InterfaceIndex alone can target both families.
+            if ($State.Mode -eq 'Automatic') {
+                Set-DnsClientServerAddress -InputObject $dns[0] -ResetServerAddresses -ErrorAction Stop
+            } else {
+                Set-DnsClientServerAddress -InputObject $dns[0] -ServerAddresses ([string[]]$State.Servers) -Validate:$ValidateServer -ErrorAction Stop
+            }
+            $after = Read-DnsState $Adapter
+            if ($after.Mode -ne $State.Mode -or ($State.Mode -eq 'Static' -and
+                (@($after.Servers) -join ',') -ne (@($State.Servers) -join ','))) {
+                throw 'Windows did not retain the requested IPv4 DNS settings.'
+            }
+            $after
+        }
+        function Read-DnsBackup([string]$Path) {
+            $saved = Get-Content -LiteralPath $Path -Raw -ErrorAction Stop | ConvertFrom-Json -ErrorAction Stop
+            $savedGuid = [guid]::Empty
+            if ($saved.Schema -ne 1 -or $saved.Computer -ine $ExpectedName -or
+                -not [guid]::TryParse([string]$saved.AdapterGuid, [ref]$savedGuid) -or $savedGuid -eq [guid]::Empty -or
+                $saved.Mode -notin 'Automatic','Static') { throw 'The saved DNS backup is invalid or belongs to another computer.' }
+            if ($saved.Mode -eq 'Static') {
+                if (@($saved.Servers).Count -eq 0) { throw 'The saved static DNS list is empty.' }
+                $saved.Servers = @($saved.Servers | ForEach-Object { ConvertTo-DnsIPv4 ([string]$_) })
+            }
+            $saved
+        }
+        if ($Action -eq 'SetTeacher') { $TeacherAddress = ConvertTo-DnsIPv4 $TeacherAddress }
+        $directory = Join-Path $env:ProgramData 'Cabinet307\DnsControl'
+        $null = New-Item -ItemType Directory -Path $directory -Force -ErrorAction Stop
+        if ((Get-Item -LiteralPath $directory -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) {
+            throw 'The DNS backup directory must not be a link.'
+        }
+        # Keep the restore data writable only by administrators and SYSTEM.
+        $acl = New-Object Security.AccessControl.DirectorySecurity
+        $acl.SetAccessRuleProtection($true, $false)
+        foreach ($sid in @('S-1-5-18','S-1-5-32-544')) {
+            $identity = New-Object Security.Principal.SecurityIdentifier($sid)
+            $rule = New-Object Security.AccessControl.FileSystemAccessRule($identity,'FullControl','ContainerInherit,ObjectInherit','None','Allow')
+            $acl.AddAccessRule($rule)
+        }
+        Set-Acl -LiteralPath $directory -AclObject $acl -ErrorAction Stop
+        $lock = $null
+        try {
+            $lock = [IO.File]::Open((Join-Path $directory 'operation.lock'), [IO.FileMode]::OpenOrCreate, [IO.FileAccess]::ReadWrite, [IO.FileShare]::None)
+            $backupPath = Join-Path $directory 'before-teacher-dns.json'
+            $saved = $null
+            if (Test-Path -LiteralPath $backupPath -PathType Leaf) { $saved = Read-DnsBackup $backupPath }
+            $adapters = @(Get-NetAdapter -Physical -ErrorAction Stop)
+            if ($Action -eq 'RestoreSaved') {
+                if ($null -eq $saved) { throw 'No saved DNS settings. Use option 16 > A for automatic DNS (DHCP) if this PC was configured manually earlier.' }
+                $selected = @($adapters | Where-Object { ([guid]$_.InterfaceGuid) -eq ([guid]$saved.AdapterGuid) })
+            } else {
+                $selected = @($adapters | Where-Object { $_.Status -eq 'Up' -and [int]$_.NdisPhysicalMedium -in 1,9 })
+            }
+            if ($selected.Count -ne 1) { throw 'Expected one Wi-Fi adapter (or the adapter recorded in the backup). No DNS settings changed.' }
+            $adapter = $selected[0]
+            $adapterGuid = ([guid]$adapter.InterfaceGuid).ToString('D')
+            if ($saved -and ([guid]$saved.AdapterGuid) -ne ([guid]$adapterGuid)) {
+                throw 'The backup belongs to a different network adapter. Restore that backup before switching adapters.'
+            }
+            $before = Read-DnsState $adapter
+            $desired = if ($Action -eq 'SetTeacher') {
+                [pscustomobject]@{Mode='Static';Servers=@($TeacherAddress)}
+            } elseif ($Action -eq 'RestoreSaved') { $saved } else {
+                [pscustomobject]@{Mode='Automatic';Servers=@()}
+            }
+            if ($Action -eq 'SetTeacher' -and $null -eq $saved) {
+                $snapshot = [ordered]@{
+                    Schema=1; Computer=$ExpectedName; AdapterGuid=$adapterGuid; AdapterName=[string]$adapter.Name
+                    SavedAtUtc=[datetime]::UtcNow.ToString('o'); Mode=$before.Mode; Servers=@($before.Servers)
+                }
+                $temporary = Join-Path $directory ([guid]::NewGuid().ToString('N') + '.tmp')
+                try {
+                    $snapshot | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $temporary -Encoding UTF8 -ErrorAction Stop
+                    Move-Item -LiteralPath $temporary -Destination $backupPath -ErrorAction Stop
+                } finally {
+                    if (Test-Path -LiteralPath $temporary) { Remove-Item -LiteralPath $temporary -ErrorAction SilentlyContinue }
+                }
+                $saved = Read-DnsBackup $backupPath
+            }
+            # A repeated SetTeacher preserves the first snapshot, including DHCP/static mode.
+            try {
+                $after = Write-DnsState $adapter $desired -ValidateServer:($Action -eq 'SetTeacher')
+                if ($desired.Mode -eq 'Automatic' -and @($after.EffectiveServers).Count -eq 0) {
+                    throw 'The network supplied no IPv4 DNS servers after automatic DNS was selected.'
+                }
+            } catch {
+                $reason = $_.Exception.Message
+                try {
+                    $null = Write-DnsState $adapter $before
+                    throw "DNS_CHANGE_ROLLED_BACK: $reason Previous settings were restored."
+                } catch {
+                    if ($_.Exception.Message -like 'DNS_CHANGE_ROLLED_BACK:*') { throw }
+                    throw "DNS_RECOVERY_REQUIRED: $reason Rollback also failed: $($_.Exception.Message). Backup: $backupPath"
+                }
+            }
+            $notes = New-Object 'System.Collections.Generic.List[string]'
+            if ($Action -ne 'SetTeacher' -and $null -ne $saved) {
+                $archive = Join-Path $directory ('restored-' + [datetime]::UtcNow.ToString('yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N') + '.json')
+                try { Move-Item -LiteralPath $backupPath -Destination $archive -ErrorAction Stop }
+                catch { $notes.Add('DNS changed successfully, but the backup could not be archived: ' + $_.Exception.Message) }
+            }
+            try { Clear-DnsClientCache -ErrorAction Stop }
+            catch { $notes.Add('DNS changed successfully, but clearing the Windows DNS cache failed.') }
+            try {
+                $ipv6 = @(Get-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -AddressFamily IPv6 -ErrorAction Stop | ForEach-Object { $_.ServerAddresses })
+                if ($Action -eq 'SetTeacher' -and $ipv6.Count -gt 0) { $notes.Add('IPv6 DNS is also configured and remains unchanged: ' + ($ipv6 -join ', ')) }
+            } catch { $notes.Add('IPv6 DNS could not be inspected; it was not changed.') }
+            [pscustomobject]@{
+                Computer=$ExpectedName; Action=$Action; Status='OK'; Adapter=[string]$adapter.Name
+                Mode=$after.Mode; DnsServers=(@($after.EffectiveServers) -join ', '); Notes=($notes -join ' ')
+            }
+        } finally { if ($null -ne $lock) { $lock.Dispose() } }
+    }
+}
+
+function Invoke-ClassroomDnsAction {
+    param([ValidateSet('SetTeacher','Restore')][string]$Action)
+    $numbers = @(Get-StudentNumbers)
+    if ($numbers.Count -eq 0) { return }
+    $remoteAction = $Action
+    $teacherAddress = ''
+    if ($Action -eq 'Restore') {
+        Write-Host 'B. Restore the settings saved before the first use of option 15 (including automatic/static DNS)'
+        Write-Host 'A. Use automatic DNS supplied by the network (DHCP), including PCs configured manually earlier'
+        $answer = (Read-Host 'Choose B or A (Enter = cancel)').Trim().ToUpperInvariant()
+        if (-not $answer) { return }
+        if ($answer -notin 'B','A') { throw 'Choose B or A.' }
+        $remoteAction = if ($answer -eq 'B') { 'RestoreSaved' } else { 'Automatic' }
+    } else {
+        $localAddresses = @(Get-NetIPAddress -AddressFamily IPv4 -AddressState Preferred -ErrorAction Stop | Where-Object {
+            $_.IPAddress -notlike '127.*' -and $_.IPAddress -notlike '169.254.*' -and $_.IPAddress -ne '0.0.0.0'
+        })
+        $wifiIndexes = @(Get-NetAdapter -Physical -ErrorAction Stop | Where-Object {
+            $_.Status -eq 'Up' -and [int]$_.NdisPhysicalMedium -in 1,9
+        } | ForEach-Object { $_.ifIndex })
+        $candidates = @($localAddresses | Where-Object { $_.InterfaceIndex -in $wifiIndexes })
+        $defaultAddress = if ($candidates.Count -eq 1) { [string]$candidates[0].IPAddress } else { '' }
+        $localAddresses | Format-Table InterfaceAlias, IPAddress -AutoSize | Out-Host
+        $prompt = if ($defaultAddress) { "Teacher DNS IPv4 address (Enter = $defaultAddress; C = cancel)" } else { 'Teacher DNS IPv4 address from the list (Enter = cancel)' }
+        $answer = (Read-Host $prompt).Trim()
+        if ($answer -ieq 'C') { return }
+        if (-not $answer) { $answer = $defaultAddress }
+        if (-not $answer) { return }
+        if ($answer -notin @($localAddresses | ForEach-Object { $_.IPAddress })) { throw 'Choose an IPv4 address currently assigned to the teacher computer.' }
+        $teacherAddress = $answer
+        # Detect a stopped DNS service before asking for credentials or contacting students.
+        $listening = @(Get-NetUDPEndpoint -LocalPort 53 -ErrorAction SilentlyContinue | Where-Object { $_.LocalAddress -in $teacherAddress,'0.0.0.0' })
+        if ($listening.Count -eq 0) { throw "No DNS server is listening on $teacherAddress`:53 (UDP). Start AdGuard Home first. No student DNS settings were changed." }
+    }
+    Write-Host ("Wi-Fi IPv4 DNS: {0}; computers: {1}; teacher DNS: {2}" -f $remoteAction, ($numbers -join ', '), $teacherAddress)
+    Write-Host 'Browser Secure DNS and IPv6 settings are separate; this action does not enforce website filtering.'
+    Start-Service WinRM -ErrorAction Stop
+    $credentialInput = Get-ClassroomCredential
+    if ($null -eq $credentialInput) { return }
+    $command = Get-ClassroomDnsCommand
+    $sessionOption = New-PSSessionOption -OpenTimeout 15000 -OperationTimeout 60000
+    $results = @()
+    foreach ($number in $numbers) {
+        $name = '307-Student-{0:D2}' -f $number
+        $session = $null
+        $phase = 'Login'
+        $confirmationMissing = $false
+        Write-Host ("Updating DNS on {0}..." -f $name)
+        try {
+            $credential = [pscredential]::new("$name\108SU", $credentialInput.Password)
+            $session = New-PSSession -ComputerName "$name.local" -Credential $credential -SessionOption $sessionOption -ErrorAction Stop
+            $phase = 'Operation'
+            $response = @(Invoke-Command -Session $session -ScriptBlock $command -ArgumentList $remoteAction,$teacherAddress,$name -ErrorAction Stop)
+            if ($response.Count -ne 1 -or $response[0].Computer -ine $name -or $response[0].Action -ne $remoteAction -or $response[0].Status -ne 'OK') {
+                $confirmationMissing = $true
+                throw 'No valid DNS change confirmation was received. Check the target before retrying.'
+            }
+            $results += $response[0]
+        } catch {
+            $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
+            $reason = $_.Exception.Message
+            if ($confirmationMissing) { $status = 'UNKNOWN' }
+            if ($phase -eq 'Operation') {
+                $exception = $_.Exception
+                while ($null -ne $exception) {
+                    if ($exception -is [Management.Automation.Remoting.PSRemotingTransportException]) {
+                        $status = 'UNKNOWN'; $reason = 'Connection lost; DNS may have changed. Check this PC before retrying. ' + $reason; break
+                    }
+                    $exception = $exception.InnerException
+                }
+            }
+            $results += [pscustomobject]@{Computer=$name;Status=$status;Adapter='';Mode='';DnsServers='';Notes=$reason}
+        } finally {
+            if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
+        }
+    }
+    $results | Format-Table Computer,Status,Adapter,Mode,DnsServers,Notes -AutoSize -Wrap | Out-Host
+}
+
+function Start-ClassroomAdGuard {
+    $service = Get-Service -Name 'AdGuardHome' -ErrorAction SilentlyContinue
+    if ($null -eq $service) { throw 'AdGuard Home is not installed as a Windows service. Run the teacher setup first.' }
+    $service.Refresh()
+    if ($service.Status -eq 'StopPending') {
+        $service.WaitForStatus('Stopped', [timespan]::FromSeconds(20))
+        $service.Refresh()
+    }
+    if ($service.Status -eq 'Stopped') {
+        Start-Service -Name 'AdGuardHome' -ErrorAction Stop
+    } elseif ($service.Status -notin 'Running','StartPending') {
+        throw "AdGuard Home service has an unexpected state: $($service.Status)."
+    }
+    $service.WaitForStatus('Running', [timespan]::FromSeconds(20))
+    # Windows can report Running before AdGuard has opened its DNS sockets.
+    for ($attempt = 0; $attempt -lt 15; $attempt++) {
+        $details = Get-CimInstance Win32_Service -Filter "Name='AdGuardHome'" -ErrorAction Stop
+        $udp = @(Get-NetUDPEndpoint -LocalPort 53 -ErrorAction SilentlyContinue | Where-Object { $_.OwningProcess -eq $details.ProcessId })
+        $tcp = @(Get-NetTCPConnection -LocalPort 53 -State Listen -ErrorAction SilentlyContinue | Where-Object { $_.OwningProcess -eq $details.ProcessId })
+        if ($details.State -eq 'Running' -and $details.ProcessId -gt 0 -and $udp.Count -gt 0 -and $tcp.Count -gt 0) {
+            Write-Host 'AdGuard Home is running. DNS is listening on UDP and TCP port 53.' -ForegroundColor Green
+            Write-Host ('DNS address: ' + (($udp | Select-Object -ExpandProperty LocalAddress -Unique) -join ', '))
+            Write-Host 'Control panel on this teacher computer: http://127.0.0.1:3000'
+            return
+        }
+        Start-Sleep -Seconds 1
+    }
+    throw 'AdGuard Home was started, but its DNS listeners are not ready. Check the teacher network connection and the AdGuard Home log.'
+}
+
+
 while ($true) {
     Write-Host "`nCLASSROOM 307 - TEACHER MENU" -ForegroundColor Cyan
     Write-Host '1. Shut down student computers (all or selected)'
@@ -792,6 +1059,10 @@ while ($true) {
     Write-Host ''
     Write-Host '13. Start WinRM and check the teacher computer'
     Write-Host '14. Check the names of all 27 student computers'
+    Write-Host ''
+    Write-Host '15. Use teacher DNS on selected computers (Wi-Fi IPv4)'
+    Write-Host '16. Restore DNS on selected computers (saved settings or automatic)'
+    Write-Host '17. Start AdGuard Home on the teacher computer'
     Write-Host ''
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
@@ -879,7 +1150,10 @@ while ($true) {
                 Get-Item WSMan:\localhost\Client\TrustedHosts | Format-List Name, Value | Out-Host
             }
             '14' { Test-ClassroomComputers }
-            default { Write-Host 'Choose a number from 0 to 14.' }
+            '15' { Invoke-ClassroomDnsAction -Action SetTeacher }
+            '16' { Invoke-ClassroomDnsAction -Action Restore }
+            '17' { Start-ClassroomAdGuard }
+            default { Write-Host 'Choose a number from 0 to 17.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null
