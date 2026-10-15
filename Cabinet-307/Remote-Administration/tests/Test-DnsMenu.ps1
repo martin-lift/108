@@ -188,9 +188,10 @@ try {
         $script:Answers=New-Object 'System.Collections.Generic.Queue[string]'
         foreach($answer in $Answers){$script:Answers.Enqueue($answer)}
         $script:Selected=@(1,2); $script:Opened=@(); $script:Closed=@(); $script:Invoked=@(); $script:Credentials=0
+        $script:SelectionCalls=0
         $script:Listening=$true; $script:MenuFailure=''; $script:Messages=@(); $script:Table=@()
     }
-    function Get-StudentNumbers {$script:Selected}
+    function Get-StudentNumbers {$script:SelectionCalls++;$script:Selected}
     function Read-Host {param($Prompt) if($script:Answers.Count -eq 0){throw "Unexpected prompt: $Prompt"}; $script:Answers.Dequeue()}
     function Write-Host {param($Object,$ForegroundColor) $script:Messages+=[string]$Object}
     function Out-Host {param([Parameter(ValueFromPipeline=$true)]$InputObject) process{}}
@@ -221,14 +222,14 @@ try {
         [pscustomobject]@{Computer=$ArgumentList[2];Action=$ArgumentList[0];Status='OK';Adapter='WiFi';Mode='Static';DnsServers='192.168.31.37';Notes=''}
     }
     Reset-Scenario 'menu'
-    Reset-Menu @('')
+    Reset-Menu @('S','')
     Invoke-ClassroomDnsAction SetTeacher
     Assert ($script:Credentials -eq 1 -and $script:Invoked.Count -eq 2 -and $script:Closed.Count -eq 2) 'One credential prompt, two sessions cleaned up'
     Assert ($script:Invoked[0][0] -eq 'SetTeacher' -and $script:Invoked[0][1] -eq '192.168.31.37') 'Teacher address is detected and sent'
-    Reset-Menu @(''); $script:Listening=$false
+    Reset-Menu @('S',''); $script:Listening=$false
     Expect-Failure {Invoke-ClassroomDnsAction SetTeacher} '*Start AdGuard Home first*'
     Assert ($script:Opened.Count -eq 0 -and $script:Credentials -eq 0) 'Stopped DNS is detected before any student connection'
-    Reset-Menu @('8.8.8.8')
+    Reset-Menu @('S','8.8.8.8')
     Expect-Failure {Invoke-ClassroomDnsAction SetTeacher} '*currently assigned to the teacher*'
     Reset-Menu @('B'); $script:Listening=$false
     Invoke-ClassroomDnsAction Restore
@@ -236,15 +237,29 @@ try {
     Reset-Menu @('A')
     Invoke-ClassroomDnsAction Restore
     Assert ($script:Invoked[0][0] -eq 'Automatic') 'Automatic DNS is an explicit choice'
-    Reset-Menu @('C')
+    Reset-Menu @('S','C')
     Invoke-ClassroomDnsAction SetTeacher
     Assert ($script:Opened.Count -eq 0) 'Cancel address choice makes no connection'
     Reset-Menu @(); $script:Selected=@()
     Invoke-ClassroomDnsAction Restore
     Assert ($script:Opened.Count -eq 0) 'Cancel computer selection makes no connection'
-    Reset-Menu @(''); $script:MenuFailure='CancelCredentials'
+    Reset-Menu @('S',''); $script:MenuFailure='CancelCredentials'
     Invoke-ClassroomDnsAction SetTeacher
     Assert ($script:Opened.Count -eq 0) 'Cancel credentials makes no connection'
+    Reset-Menu @(' a ','')
+    Invoke-ClassroomDnsAction SetTeacher
+    Assert ($script:Invoked.Count -eq 27 -and $script:Opened.Count -eq 27 -and $script:Closed.Count -eq 27) 'All targets exactly 27 students and closes all sessions'
+    Assert ($script:Credentials -eq 1 -and $script:SelectionCalls -eq 0) 'All uses one credential prompt without asking for numbers'
+    Assert (($script:Opened -join ',') -eq ((1..27 | ForEach-Object {'307-Student-{0:D2}.local' -f $_}) -join ',')) 'All covers student numbers 01 through 27 exactly once'
+    Reset-Menu @('')
+    Invoke-ClassroomDnsAction SetTeacher
+    Assert ($script:Opened.Count -eq 0 -and $script:Credentials -eq 0 -and $script:SelectionCalls -eq 0) 'Cancel scope makes no selection or connection'
+    Reset-Menu @('S');$script:Selected=@()
+    Invoke-ClassroomDnsAction SetTeacher
+    Assert ($script:Opened.Count -eq 0 -and $script:Credentials -eq 0) 'Cancel selected numbers makes no connection'
+    Reset-Menu @('wrong',' s ','')
+    Invoke-ClassroomDnsAction SetTeacher
+    Assert ($script:Invoked.Count -eq 2 -and $script:SelectionCalls -eq 1 -and $script:Messages -contains 'Enter A for all computers, S to select computers, or press Enter to cancel.') 'Invalid scope is retried and selected mode is normalized'
     foreach($failure in @('LoginFailure','OperationFailure','Disconnect','NoConfirmation')) {
         Reset-Menu @('A'); $script:MenuFailure=$failure
         Invoke-ClassroomDnsAction Restore

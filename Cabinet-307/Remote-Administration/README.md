@@ -10,6 +10,7 @@
 | [Setup-Student.ps1](Setup-Student.ps1) | Локално на ученическия, с админ права | Настройва WinRM, нормализира 108 SU, преименува PC | [Описание](docs/Setup-Student.md) |
 | [Test-Student.ps1](Test-Student.ps1) | На учителския | Проверява връзка, удостоверяване, дистанционно изпълнение | [Описание](docs/Test-Student.md) |
 | [Manage-Classroom.ps1](Manage-Classroom.ps1) | На учителския | Изпълнява избрани скрипт-блокове на отделни/всички машини | [Описание](docs/Manage-Classroom.md) |
+| [Restore-StudentDns.cmd](Restore-StudentDns.cmd) + [Restore-StudentDns.ps1](Restore-StudentDns.ps1) | Локално на ученическия, с админ права | Аварийно възстановяване на Wi-Fi IPv4 DNS без връзка с учителския | [Указания](docs/Restore-StudentDns.md) |
 
 ## Подготовка на PowerShell
 

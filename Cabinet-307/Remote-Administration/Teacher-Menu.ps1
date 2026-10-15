@@ -930,7 +930,18 @@ function Get-ClassroomDnsCommand {
 
 function Invoke-ClassroomDnsAction {
     param([ValidateSet('SetTeacher','Restore')][string]$Action)
-    $numbers = @(Get-StudentNumbers)
+    if ($Action -eq 'SetTeacher') {
+        while ($true) {
+            $choice = Read-Host 'Use teacher DNS on all student computers? (A = all, S = selected, Enter = cancel)'
+            if ([string]::IsNullOrWhiteSpace($choice)) { return }
+            $choice = $choice.Trim().ToUpperInvariant()
+            if ($choice -eq 'A') { $numbers = @(1..27); break }
+            if ($choice -eq 'S') { $numbers = @(Get-StudentNumbers); break }
+            Write-Host 'Enter A for all computers, S to select computers, or press Enter to cancel.'
+        }
+    } else {
+        $numbers = @(Get-StudentNumbers)
+    }
     if ($numbers.Count -eq 0) { return }
     $remoteAction = $Action
     $teacherAddress = ''
@@ -1060,7 +1071,7 @@ while ($true) {
     Write-Host '13. Start WinRM and check the teacher computer'
     Write-Host '14. Check the names of all 27 student computers'
     Write-Host ''
-    Write-Host '15. Use teacher DNS on selected computers (Wi-Fi IPv4)'
+    Write-Host '15. Use teacher DNS on students'' computers (Wi-Fi IPv4)'
     Write-Host '16. Restore DNS on selected computers (saved settings or automatic)'
     Write-Host '17. Start AdGuard Home on the teacher computer'
     Write-Host '18. Open AdGuard Home control panel'
