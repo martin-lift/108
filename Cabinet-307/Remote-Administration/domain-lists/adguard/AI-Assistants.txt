@@ -2,7 +2,7 @@
 ! Version: 2026-10-15.3
 ! Homepage: https://github.com/martin-lift/108/tree/main/Cabinet-307/Remote-Administration/domain-lists
 ! Source: AI-Assistants.json
-! Exact hostnames only. No wildcard subdomains.
+! Plain domains match exact hosts; ||domain^ includes the domain and all subdomains.
 ! Rules: 11
 ! Includes candidates for teacher review. Enable manually in AdGuard only when desired.
 
