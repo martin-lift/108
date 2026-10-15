@@ -63,3 +63,15 @@ The existing name, path, description, company, session and time fields are enoug
 
 
 A full inventory skips the background filter and its download, includes all process names and parent names, and records `Full inventory` in the report header. Each use asks again, with the filtered view selected by pressing Enter.
+
+## Stop processes (menu action 14)
+
+Select one student computer, choose E for an exact name or S for a literal substring, and enter the search text. Matching is case-insensitive. Exact mode accepts `msedge` and `msedge.exe`; substring `edge` matches any executable name containing that text. Substrings are not regular expressions or wildcards. An empty computer, match mode or search text cancels.
+
+The menu searches all processes independently of the report exclusion list and displays every match with its name, PID, session, path, eligibility and any blocking reason. It then states how many eligible processes will be forcibly terminated on the named computer. Enter cancels; only the exact text `STOP` confirms. Unsaved work in the targeted applications can be lost. System/service processes in session 0, the management host and essential Windows desktop/session processes cannot be stopped through this action.
+
+Confirmation applies only to the displayed eligible process instances. The stop command rechecks the remote computer and each process's name, session and start time while holding its OS process handle. Reused PIDs are skipped, and newly started matching instances are not added. Only the approved processes are terminated; there is no automatic tree termination, repeat scan or retry.
+
+Per-process results distinguish `STOPPED`, `ALREADY_EXITED`, `SKIPPED_CHANGED`, `BLOCKED`, `ERROR` and `UNKNOWN`. `STOPPED` requires the process exit to be confirmed. A timeout or lost connection can leave the result unknown; inspect the computer before retrying. Sessions are closed on success, cancellation and failure.
+
+Validation: Windows PowerShell 5.1 tests cover literal/exact matching, case differences, preview cancellation, protected processes, stale identities, newly started processes, denied termination, unconfirmed exits, lost connections and cleanup using fake process objects. Process-report tests cover the default filtered mode and optional full inventory. Real classroom process termination still requires a trial on one selected application.

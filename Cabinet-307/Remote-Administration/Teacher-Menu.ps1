@@ -427,6 +427,138 @@ function Copy-ClassroomFile {
         if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
     }
 }
+function Get-ClassroomProcessStopCommand {
+    {
+        param([string]$ExpectedName, [string]$TeacherName, [ValidateSet('Preview','Stop')][string]$Mode,
+            [string]$MatchMode, [string]$Query, [object[]]$ApprovedProcesses)
+        $ErrorActionPreference = 'Stop'
+        if ($env:COMPUTERNAME -ieq $TeacherName -or $env:COMPUTERNAME -ine $ExpectedName) {
+            throw "Unexpected remote computer: $env:COMPUTERNAME (expected student $ExpectedName)."
+        }
+        function Get-StopBlockReason([int]$ProcessId, [int]$SessionId, [string]$Name) {
+            if ($ProcessId -le 4 -or $ProcessId -eq $PID -or $SessionId -le 0) {
+                return 'System/service process or remote management host'
+            }
+            if ($Name -in @('csrss','wininit','winlogon','lsass','lsaiso','smss','services','wsmprovhost','dwm','explorer','sihost','fontdrvhost','ShellHost')) {
+                return 'Protected Windows desktop/session process'
+            }
+            ''
+        }
+        if ($Mode -eq 'Preview') {
+            if ($MatchMode -notin 'E','S' -or [string]::IsNullOrWhiteSpace($Query)) { throw 'Enter a non-empty name and choose exact or substring matching.' }
+            $exactName = $Query -replace '(?i)\.exe$', ''
+            foreach ($item in Get-CimInstance -ClassName Win32_Process -Property Name,ProcessId,SessionId,ExecutablePath -ErrorAction Stop) {
+                $matchesQuery = if ($MatchMode -eq 'E') {
+                    ($item.Name -replace '(?i)\.exe$', '') -ieq $exactName
+                } else {
+                    ([string]$item.Name).IndexOf($Query, [StringComparison]::OrdinalIgnoreCase) -ge 0
+                }
+                if (-not $matchesQuery) { continue }
+                $baseName = [IO.Path]::GetFileNameWithoutExtension([string]$item.Name)
+                $row = [pscustomobject]@{
+                    Name = [string]$item.Name; PID = [int]$item.ProcessId; SessionId = [int]$item.SessionId
+                    Path = [string]$item.ExecutablePath; ProcessName = $baseName; StartTicks = ''; Eligible = $false
+                    Reason = (Get-StopBlockReason -ProcessId $item.ProcessId -SessionId $item.SessionId -Name $baseName)
+                }
+                if (-not $row.Reason) {
+                    $currentProcess = $null
+                    try {
+                        $currentProcess = Get-Process -Id $row.PID -ErrorAction SilentlyContinue
+                        if ($null -eq $currentProcess) { throw 'Process has already exited; search again.' }
+                        # Hold the handle while reading the identity; do not rely on a reusable PID.
+                        $null = $currentProcess.Handle
+                        if ($currentProcess.ProcessName -ine $baseName -or $currentProcess.SessionId -ne $row.SessionId) { throw 'Process changed during preview; search again.' }
+                        $row.StartTicks = $currentProcess.StartTime.ToUniversalTime().Ticks.ToString([Globalization.CultureInfo]::InvariantCulture)
+                        $row.ProcessName = $currentProcess.ProcessName
+                        try { $row.Path = [string]$currentProcess.Path } catch { }
+                        $row.Eligible = $true
+                    } catch { $row.Reason = $_.Exception.Message }
+                    finally { if ($null -ne $currentProcess) { $currentProcess.Dispose() } }
+                }
+                $row
+            }
+            return
+        }
+        foreach ($approved in $ApprovedProcesses) {
+            $result = [pscustomobject]@{ Name = [string]$approved.Name; PID = [int]$approved.PID; Status = 'ERROR'; Reason = '' }
+            $currentProcess = $null
+            try {
+                if (-not $approved.Eligible -or [string]::IsNullOrWhiteSpace([string]$approved.StartTicks)) { throw 'Missing approved process identity.' }
+                $currentProcess = Get-Process -Id $result.PID -ErrorAction SilentlyContinue
+                if ($null -eq $currentProcess) {
+                    $result.Status = 'ALREADY_EXITED'
+                    $result.Reason = 'The approved process is no longer running.'
+                } else {
+                    # Pin the OS process handle before rechecking identity and killing this object.
+                    $null = $currentProcess.Handle
+                    $reason = Get-StopBlockReason -ProcessId $result.PID -SessionId $currentProcess.SessionId -Name $currentProcess.ProcessName
+                    $startTicks = $currentProcess.StartTime.ToUniversalTime().Ticks.ToString([Globalization.CultureInfo]::InvariantCulture)
+                    if ($reason) {
+                        $result.Status = 'BLOCKED'; $result.Reason = $reason
+                    } elseif ($currentProcess.ProcessName -ine $approved.ProcessName -or $startTicks -cne [string]$approved.StartTicks -or $currentProcess.SessionId -ne $approved.SessionId) {
+                        $result.Status = 'SKIPPED_CHANGED'; $result.Reason = 'PID identity changed after preview. Search and confirm again.'
+                    } else {
+                        $currentProcess.Kill()
+                        if ($currentProcess.WaitForExit(5000)) {
+                            $result.Status = 'STOPPED'; $result.Reason = 'Process termination confirmed.'
+                        } else {
+                            $result.Status = 'UNKNOWN'; $result.Reason = 'Termination was requested, but exit was not confirmed within five seconds.'
+                        }
+                    }
+                }
+            } catch { $result.Reason = $_.Exception.Message }
+            finally { if ($null -ne $currentProcess) { $currentProcess.Dispose() } }
+            $result
+        }
+    }
+}
+function Stop-ClassroomProcesses {
+    $number = Get-StudentNumber
+    if ($null -eq $number) { return }
+    $name = '307-Student-{0:D2}' -f $number
+    while ($true) {
+        $matchMode = (Read-Host 'Match mode: E = exact name, S = substring, Enter = cancel').Trim().ToUpperInvariant()
+        if (-not $matchMode) { return }
+        if ($matchMode -in 'E','S') { break }
+        Write-Host 'Choose E or S.'
+    }
+    $query = (Read-Host 'Process name or literal substring (Enter = cancel)').Trim()
+    if ([string]::IsNullOrWhiteSpace($query)) { return }
+    Start-Service WinRM -ErrorAction Stop
+    $credential = Get-ClassroomCredential -UserName "$name\108SU"
+    if ($null -eq $credential) { return }
+    $session = $null
+    $phase = 'Login'
+    $stopRequested = $false
+    $command = Get-ClassroomProcessStopCommand
+    try {
+        Write-Host ("Searching processes on {0}..." -f $name)
+        $session = New-PSSession -ComputerName "$name.local" -Credential $credential -SessionOption (New-PSSessionOption -OpenTimeout 15000) -ErrorAction Stop
+        $phase = 'Operation'
+        $matchesFound = @(Invoke-Command -Session $session -ScriptBlock $command -ArgumentList @($name, $env:COMPUTERNAME, 'Preview', $matchMode, $query) -ErrorAction Stop | Sort-Object Name, PID)
+        if ($matchesFound.Count -eq 0) { Write-Host 'No matching processes found. Nothing was stopped.'; return }
+        Write-Host ("`n{0}: {1} matching processes for '{2}'" -f $name, $matchesFound.Count, $query) -ForegroundColor Cyan
+        $matchesFound | Format-Table Name, PID, SessionId, Eligible, Reason, Path -AutoSize -Wrap | Out-Host
+        $approved = @($matchesFound | Where-Object { $_.Eligible -eq $true })
+        if ($approved.Count -eq 0) { Write-Host 'None of these processes can be stopped through this menu.'; return }
+        Write-Host ("This will forcibly stop the {0} eligible process(es) shown above on {1}. Unsaved work in these applications may be lost." -f $approved.Count, $name) -ForegroundColor Yellow
+        Write-Host 'Only the displayed process instances will be targeted. Newly started matching processes are not included.'
+        if ((Read-Host ("Type STOP to confirm on {0}; Enter = cancel" -f $name)) -cne 'STOP') { Write-Host 'Cancelled. Nothing was stopped.'; return }
+        $stopRequested = $true
+        $results = @(Invoke-Command -Session $session -ScriptBlock $command -ArgumentList @($name, $env:COMPUTERNAME, 'Stop', '', '', $approved) -ErrorAction Stop)
+        $results | Format-Table Name, PID, Status, Reason -AutoSize -Wrap | Out-Host
+        if ($results.Count -ne $approved.Count) { Write-Host 'UNKNOWN: Some process results are missing. Check the computer before retrying.' -ForegroundColor Yellow }
+    } catch {
+        if ($stopRequested) {
+            Write-Host ("UNKNOWN: Stop results could not be confirmed on {0}. Check the computer before retrying. {1}" -f $name, $_.Exception.Message) -ForegroundColor Yellow
+        } else {
+            $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
+            Write-Host ("{0}: {1}: {2}" -f $status, $name, $_.Exception.Message) -ForegroundColor Red
+        }
+    } finally {
+        if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
+    }
+}
 function ConvertFrom-ClassroomProcessFilter {
     param([string]$Json)
     $config = $Json | ConvertFrom-Json -ErrorAction Stop
@@ -654,6 +786,7 @@ while ($true) {
     Write-Host '11. Restart student computers (all or selected)'
     Write-Host '12. Shut down student computers (all or selected)'
     Write-Host '13. List processes on a selected computer and save a report (all or filtered)'
+    Write-Host '14. Stop processes on a selected computer by exact name or substring'
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
     if ($choice -eq '0') { break }
@@ -739,7 +872,8 @@ while ($true) {
             '11' { Invoke-ClassroomPowerAction -Action Restart }
             '12' { Invoke-ClassroomPowerAction -Action Shutdown }
             '13' { Show-ClassroomProcesses }
-            default { Write-Host 'Choose a number from 0 to 13.' }
+            '14' { Stop-ClassroomProcesses }
+            default { Write-Host 'Choose a number from 0 to 14.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null
