@@ -427,6 +427,125 @@ function Copy-ClassroomFile {
         if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
     }
 }
+function Show-ClassroomProcesses {
+    $number = Get-StudentNumber
+    if ($null -eq $number) { return }
+    $name = '307-Student-{0:D2}' -f $number
+    Start-Service WinRM -ErrorAction Stop
+    $credential = Get-ClassroomCredential -UserName "$name\108SU"
+    if ($null -eq $credential) { return }
+    $session = $null
+    $phase = 'Login'
+    $readProcesses = {
+        param([string]$ExpectedName)
+        $ErrorActionPreference = 'Stop'
+        if ($env:COMPUTERNAME -ine $ExpectedName) {
+            throw "Unexpected remote computer: $env:COMPUTERNAME (expected $ExpectedName)."
+        }
+        $capturedAtUtc = [DateTime]::UtcNow.ToString('o')
+        # Capture every PID before reading optional file metadata. Do not collect command lines.
+        $processes = @(Get-CimInstance -ClassName Win32_Process -Property Name,ProcessId,ParentProcessId,SessionId,ExecutablePath,CreationDate -ErrorAction Stop)
+        if ($processes.Count -eq 0) { throw 'Windows returned an empty process inventory.' }
+        $fileDetails = @{}
+        foreach ($process in $processes) {
+            $path = [string]$process.ExecutablePath
+            $description = ''
+            $company = ''
+            $metadataStatus = 'Path unavailable (protected process or insufficient access)'
+            if (-not [string]::IsNullOrWhiteSpace($path)) {
+                if (-not $fileDetails.ContainsKey($path)) {
+                    $details = [pscustomobject]@{ Description = ''; Company = ''; Status = 'Metadata unavailable' }
+                    if ($path -match '^[A-Za-z]:\\') {
+                        try {
+                            $version = (Get-Item -LiteralPath $path -ErrorAction Stop).VersionInfo
+                            $details.Description = [string]$version.FileDescription
+                            $details.Company = [string]$version.CompanyName
+                            $details.Status = if ($details.Description -or $details.Company) { 'Read from file (not signature-verified)' } else { 'File has no description/company metadata' }
+                        } catch {
+                            $details.Status = 'File metadata unavailable (access denied or file no longer present)'
+                        }
+                    } else {
+                        $details.Status = 'File metadata not read for a non-local path'
+                    }
+                    $fileDetails[$path] = $details
+                }
+                $description = $fileDetails[$path].Description
+                $company = $fileDetails[$path].Company
+                $metadataStatus = $fileDetails[$path].Status
+            }
+            $startedAtUtc = ''
+            if ($null -ne $process.CreationDate) {
+                try { $startedAtUtc = ([datetime]$process.CreationDate).ToUniversalTime().ToString('o') } catch { }
+            }
+            [pscustomobject]@{
+                Computer = $env:COMPUTERNAME
+                CapturedAtUtc = $capturedAtUtc
+                Name = [string]$process.Name
+                PID = [uint32]$process.ProcessId
+                ParentPID = [uint32]$process.ParentProcessId
+                SessionId = [uint32]$process.SessionId
+                StartedAtUtc = $startedAtUtc
+                Description = $description
+                Company = $company
+                ExecutablePath = $path
+                MetadataStatus = $metadataStatus
+            }
+        }
+    }
+    try {
+        Write-Host ("Reading all processes on {0}..." -f $name)
+        $session = New-PSSession -ComputerName "$name.local" -Credential $credential -SessionOption (New-PSSessionOption -OpenTimeout 15000) -ErrorAction Stop
+        $phase = 'Operation'
+        $processes = @(Invoke-Command -Session $session -ScriptBlock $readProcesses -ArgumentList $name -ErrorAction Stop | Sort-Object Name, PID)
+        if ($processes.Count -eq 0) { throw 'No process inventory was received.' }
+        Write-Host ("`n{0}: {1} processes (all names and PIDs; no filtering)." -f $name, $processes.Count) -ForegroundColor Cyan
+        $processes | Format-Table Name, PID -AutoSize -Wrap | Out-Host
+    } catch {
+        $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
+        Write-Host ("{0}: {1}: {2}" -f $status, $name, $_.Exception.Message) -ForegroundColor Red
+        return
+    } finally {
+        if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
+    }
+    # Write the report only on the teacher computer, after closing the remote session.
+    try {
+        $reportDirectory = Join-Path $PSScriptRoot 'Reports'
+        New-Item -ItemType Directory -Path $reportDirectory -Force -ErrorAction Stop | Out-Null
+        $reportName = 'Processes-{0}-{1}-{2}.txt' -f $name, (Get-Date -Format 'yyyyMMdd-HHmmss'), ([guid]::NewGuid().ToString('N').Substring(0,8))
+        $reportPath = Join-Path $reportDirectory $reportName
+        $reportLines = @(
+            'CLASSROOM 307 - COMPLETE PROCESS INVENTORY'
+            ('Computer: {0}' -f $name)
+            ('Captured at (UTC): {0}' -f $processes[0].CapturedAtUtc)
+            ('Process count: {0}' -f $processes.Count)
+            'All processes are included, even when optional metadata is unavailable.'
+            'Company/description are file metadata, not verified publisher identities.'
+            'PIDs are a snapshot and can change or be reused after a process exits.'
+            ''
+            'NAME / PID'
+            foreach ($process in $processes) { '{0} | PID {1}' -f $process.Name, $process.PID }
+            ''
+            'DETAILS FOR REVIEW'
+            foreach ($process in $processes) {
+                ''
+                'Name: {0}' -f $process.Name
+                'PID: {0}' -f $process.PID
+                'Parent PID: {0}' -f $process.ParentPID
+                'Session ID: {0}' -f $process.SessionId
+                'Started at (UTC): {0}' -f $process.StartedAtUtc
+                'Description: {0}' -f $process.Description
+                'Company: {0}' -f $process.Company
+                'Path: {0}' -f $process.ExecutablePath
+                'Metadata: {0}' -f $process.MetadataStatus
+            }
+        )
+        $reportLines | Set-Content -LiteralPath $reportPath -Encoding UTF8 -ErrorAction Stop
+        Write-Host ("Report saved: {0}" -f $reportPath) -ForegroundColor Green
+        Write-Host 'Attach this TXT report in the chat for analysis.'
+    } catch {
+        Write-Host ("REPORT_ERROR: The process list was read and displayed, but the report could not be saved: {0}" -f $_.Exception.Message) -ForegroundColor Red
+    }
+}
 while ($true) {
     Write-Host "`nCLASSROOM 307 - TEACHER MENU" -ForegroundColor Cyan
     Write-Host '1. Start WinRM and check the teacher computer'
@@ -441,6 +560,7 @@ while ($true) {
     Write-Host '10. Check Wi-Fi restrictions on selected computers (Students)'
     Write-Host '11. Restart student computers (all or selected)'
     Write-Host '12. Shut down student computers (all or selected)'
+    Write-Host '13. List all processes on a selected computer and save a report'
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
     if ($choice -eq '0') { break }
@@ -525,7 +645,8 @@ while ($true) {
             }
             '11' { Invoke-ClassroomPowerAction -Action Restart }
             '12' { Invoke-ClassroomPowerAction -Action Shutdown }
-            default { Write-Host 'Choose a number from 0 to 12.' }
+            '13' { Show-ClassroomProcesses }
+            default { Write-Host 'Choose a number from 0 to 13.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null
