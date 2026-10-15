@@ -50,6 +50,7 @@ function Reset-Test {
     $script:Mode = ''
     $script:Answers = New-Object 'System.Collections.Generic.Queue[string]'
     $script:Answers.Enqueue('20')
+    $script:Answers.Enqueue('')
     $script:Report = New-Object 'System.Collections.Generic.List[string]'
     $script:Messages = New-Object 'System.Collections.Generic.List[string]'
     $script:CacheJson = $script:ConfigJson
@@ -119,6 +120,7 @@ function Set-Content {
 }
 Reset-Test
 Show-ClassroomProcesses
+Assert ($script:Report.Contains('Report mode: Filtered review')) 'Enter must select the filtered report by default'
 Assert ($script:Report.Contains('Total process count: 5') -and $script:Report.Contains('Reported process count: 4')) 'Wrong filtered counts'
 Assert ($script:Report.Contains('Excluded background process count: 1')) 'Excluded count missing'
 Assert (($script:Report -join "`n") -notmatch 'svchost\.exe') 'Excluded name leaked into the report'
@@ -128,6 +130,20 @@ Assert ($script:Report.Contains('msedge.exe | PID 100') -and $script:Report.Cont
 Assert ($script:Report.Contains('UnknownApp.exe | PID 102')) 'Unknown process with missing metadata was hidden'
 Assert ($script:Report.Contains('Filter source: GitHub')) 'Filter source missing'
 Assert ($script:Opened -eq 1 -and $script:Closed -eq 1) 'Session cleanup failed'
+Reset-Test
+$script:Answers.Clear()
+$script:Answers.Enqueue('20')
+$script:Answers.Enqueue('a')
+Show-ClassroomProcesses
+Assert ($script:Downloads -eq 0) 'The full inventory must not download or use the exclusion filter'
+Assert ($script:Report.Contains('Report mode: Full inventory') -and $script:Report.Contains('Reported process count: 5')) 'Full inventory lost processes'
+Assert ($script:Report.Contains('svchost.exe | PID 4') -and $script:Report.Contains('Parent name: svchost.exe')) 'Full inventory hid names or parent names'
+Reset-Test
+$script:Answers.Clear()
+$script:Answers.Enqueue('20')
+$script:Answers.Enqueue('0')
+Show-ClassroomProcesses
+Assert ($script:Opened -eq 0 -and $script:Downloads -eq 0) 'Cancelled report mode contacted the student'
 foreach ($fallbackMode in @('Offline','BadDownload','CacheWriteError')) {
     Reset-Test
     $script:Mode = $fallbackMode

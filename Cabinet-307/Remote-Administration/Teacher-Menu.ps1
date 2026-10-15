@@ -477,6 +477,13 @@ function Get-ClassroomProcessFilter {
 function Show-ClassroomProcesses {
     $number = Get-StudentNumber
     if ($null -eq $number) { return }
+    while ($true) {
+        $reportMode = (Read-Host 'Process report: Enter/F = interesting only (default), A = all processes, 0 = cancel').Trim().ToUpperInvariant()
+        if ($reportMode -eq '0') { return }
+        if (-not $reportMode) { $reportMode = 'F' }
+        if ($reportMode -in 'A','F') { break }
+        Write-Host 'Choose A for a complete inventory or F for a filtered report.'
+    }
     $name = '307-Student-{0:D2}' -f $number
     Start-Service WinRM -ErrorAction Stop
     $credential = Get-ClassroomCredential -UserName "$name\108SU"
@@ -565,7 +572,9 @@ function Show-ClassroomProcesses {
     }
     $totalCount = $processes.Count
     $capturedAtUtc = $processes[0].CapturedAtUtc
-    $filter = Get-ClassroomProcessFilter
+    $filter = if ($reportMode -eq 'A') {
+        [pscustomobject]@{ Names = @{}; Revision = 'not applied'; Source = 'Disabled - full inventory' }
+    } else { Get-ClassroomProcessFilter }
     $processes = @($processes | Where-Object { -not $filter.Names.ContainsKey([string]$_.Name) })
     $excludedCount = $totalCount - $processes.Count
     foreach ($process in $processes) {
@@ -588,13 +597,18 @@ function Show-ClassroomProcesses {
         $reportLines = @(
             'CLASSROOM 307 - PROCESS REVIEW REPORT'
             ('Computer: {0}' -f $name)
+            ('Report mode: {0}' -f $(if ($reportMode -eq 'A') { 'Full inventory' } else { 'Filtered review' }))
             ('Captured at (UTC): {0}' -f $capturedAtUtc)
             ('Total process count: {0}' -f $totalCount)
             ('Excluded background process count: {0}' -f $excludedCount)
             ('Reported process count: {0}' -f $processes.Count)
             ('Filter revision: {0}' -f $filter.Revision)
             ('Filter source: {0}' -f $filter.Source)
-            'Reviewed background process names are omitted. All other names are retained, even when optional metadata is unavailable.'
+            $(if ($reportMode -eq 'A' -or $filter.Revision -eq 'none') {
+                'All process names are included, even when optional metadata is unavailable.'
+            } else {
+                'Reviewed background process names are omitted. All other names are retained, even when optional metadata is unavailable.'
+            })
             'Remaining processes require review; their presence does not establish that a game is running.'
             'Parent names are from this snapshot; unavailable/exited parents have no name. Excluded parent names are redacted.'
             'Company/description are file metadata, not verified publisher identities.'
@@ -639,7 +653,7 @@ while ($true) {
     Write-Host '10. Check Wi-Fi restrictions on selected computers (Students)'
     Write-Host '11. Restart student computers (all or selected)'
     Write-Host '12. Shut down student computers (all or selected)'
-    Write-Host '13. Review processes on a selected computer (hide reviewed background processes)'
+    Write-Host '13. List processes on a selected computer and save a report (all or filtered)'
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
     if ($choice -eq '0') { break }
