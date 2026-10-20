@@ -1,11 +1,59 @@
 {
   "SchemaVersion": 1,
-  "Revision": "2026-10-15.4",
+  "Revision": "2026-10-20.1",
   "Category": "AI-Assistants",
   "Purpose": "Домейни за AI асистенти, събрани за преглед преди евентуално ограничаване при изпит в кабинет 307.",
   "Mode": "ReviewOnly",
-  "CoverageNote": "Потвърдени от учителя правила за изброените AI услуги с всички техни поддомейни. Общите google.com и microsoft.com не се блокират. SourceBasis и ObservedInAdGuard запазват произхода на записите; списъкът не е изчерпателен каталог. Включването се управлява ръчно в AdGuard.",
+  "CoverageNote": "Потвърдените услуги включват основния посочен домейн и всички негови поддомейни. Новите записи са проверени по публични източници при възложения анализ. Общите хостинги и непотвърдената инфраструктура се преглеждат отделно; няма автоматична забрана на общи домейни google.com, microsoft.com или github.com. Включването се управлява ръчно в AdGuard.",
   "Entries": [
+    {
+      "Domain": "aiapp.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "AI App — AI Chatbot",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава AI асистент, AI платформа или помощник за програмиране; в локалния анализ има заявки към услугата.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://aiapp.ai/"
+      ]
+    },
+    {
+      "Domain": "ask-chat.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Ask Chat AI",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава AI асистент, AI платформа или помощник за програмиране; в локалния анализ има заявки към услугата.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://ask-chat.ai/"
+      ]
+    },
+    {
+      "Domain": "chat-box.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Chatbox AI",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава AI асистент, AI платформа или помощник за програмиране; в локалния анализ има заявки към услугата.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://chat-box.ai/"
+      ]
+    },
     {
       "Domain": "chat.deepseek.com",
       "MatchScope": "DomainAndSubdomains",
@@ -53,6 +101,22 @@
       ],
       "Decision": "Block",
       "DecisionBasis": "ExplicitTeacherInstruction"
+    },
+    {
+      "Domain": "chatbot.app",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Chatbot App",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава AI асистент, AI платформа или помощник за програмиране; в локалния анализ има заявки към услугата.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://chatbot.app/en/features"
+      ]
     },
     {
       "Domain": "chatgpt.com",
@@ -119,6 +183,22 @@
       "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
+      "Domain": "duck.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Duck.ai",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава AI асистент, AI платформа или помощник за програмиране; в локалния анализ има заявки към услугата.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://duck.ai/"
+      ]
+    },
+    {
       "Domain": "gemini.google.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Google Gemini",
@@ -135,6 +215,22 @@
       "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
+      "Domain": "githubcopilot.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "GitHub Copilot API",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава AI асистент, AI платформа или помощник за програмиране; в локалния анализ има заявки към услугата.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://docs.github.com/en/copilot/reference/copilot-allowlist-reference"
+      ]
+    },
+    {
       "Domain": "grok.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Grok",
@@ -149,6 +245,38 @@
       ],
       "Decision": "Block",
       "DecisionBasis": "ExplicitTeacherInstruction"
+    },
+    {
+      "Domain": "lovable.dev",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Lovable — AI software builder",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава AI асистент, AI платформа или помощник за програмиране; в локалния анализ има заявки към услугата.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://lovable.dev/"
+      ]
+    },
+    {
+      "Domain": "openrouter.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "OpenRouter — AI models and chat",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава AI асистент, AI платформа или помощник за програмиране; в локалния анализ има заявки към услугата.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://openrouter.ai/"
+      ]
     },
     {
       "Domain": "perplexity.ai",

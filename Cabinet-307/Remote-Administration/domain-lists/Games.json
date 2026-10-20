@@ -1,11 +1,155 @@
 {
   "SchemaVersion": 1,
-  "Revision": "2026-10-15.4",
+  "Revision": "2026-10-20.1",
   "Category": "Games",
   "Purpose": "Домейни за игри, събрани за преглед в кабинет 307.",
   "Mode": "ReviewOnly",
-  "CoverageNote": "Потвърдени от учителя правила за friv.com, warthunder.com, roblox.com и rbxcdn.com с всички поддомейни. Включването се управлява ръчно в AdGuard.",
+  "CoverageNote": "Потвърдените услуги включват основния посочен домейн и всички негови поддомейни. Новите записи са проверени по публични източници при възложения анализ. Общите хостинги и непотвърдената инфраструктура се преглеждат отделно; няма автоматична забрана на общи домейни google.com, microsoft.com или github.com. Включването се управлява ръчно в AdGuard.",
   "Entries": [
+    {
+      "Domain": "67speed.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "67 Speed",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://67speed.com/"
+      ]
+    },
+    {
+      "Domain": "67speedgames.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "67 Speed Games",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://67speedgames.com/"
+      ]
+    },
+    {
+      "Domain": "ageofwargame.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Age of War",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://ageofwargame.io/"
+      ]
+    },
+    {
+      "Domain": "badparentingame.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Bad Parenting — horror game",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://badparentingame.io/"
+      ]
+    },
+    {
+      "Domain": "chess.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Chess.com",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.chess.com/"
+      ]
+    },
+    {
+      "Domain": "chessarena.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "World Chess — Chessarena",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.chessarena.com/"
+      ]
+    },
+    {
+      "Domain": "crazygames.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "CrazyGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.crazygames.com/"
+      ]
+    },
+    {
+      "Domain": "crossyroadgame.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Crossy Road Game",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://crossyroadgame.io/"
+      ]
+    },
+    {
+      "Domain": "eaglercraft.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Eaglercraft",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://eaglercraft.com/"
+      ]
+    },
     {
       "Domain": "friv.com",
       "MatchScope": "DomainAndSubdomains",
@@ -20,6 +164,198 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://www.friv.com/"
+      ]
+    },
+    {
+      "Domain": "friv4school.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Friv4School",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.friv4school.com/"
+      ]
+    },
+    {
+      "Domain": "frivclassic.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Friv Classic",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.frivclassic.com/"
+      ]
+    },
+    {
+      "Domain": "geforcenow.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "NVIDIA GeForce NOW",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.nvidia.com/en-us/geforce-now/"
+      ]
+    },
+    {
+      "Domain": "gx.games",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Opera GX.games",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://press.opera.com/2022/07/29/opera-presents-gx-games/"
+      ]
+    },
+    {
+      "Domain": "krunker.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Krunker",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://krunker.io/"
+      ]
+    },
+    {
+      "Domain": "microsoftcasualgames.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Microsoft Casual Games",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.microsoftcasualgames.com/"
+      ]
+    },
+    {
+      "Domain": "minesweeper.online",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Minesweeper Online",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://minesweeper.online/"
+      ]
+    },
+    {
+      "Domain": "motions.games",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Motions — camera games",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://motions.games/"
+      ]
+    },
+    {
+      "Domain": "neal.fun",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Neal.fun — интерактивни игри и експерименти",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://neal.fun/"
+      ]
+    },
+    {
+      "Domain": "openguessr.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "OpenGuessr",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://openguessr.com/"
+      ]
+    },
+    {
+      "Domain": "papasgames.onl",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Papa's Games",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://papasgames.onl/"
+      ]
+    },
+    {
+      "Domain": "poki.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Poki",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://poki.com/"
       ]
     },
     {
@@ -55,6 +391,86 @@
       ]
     },
     {
+      "Domain": "slopegameaz.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Slope Game AZ",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://slopegameaz.io/"
+      ]
+    },
+    {
+      "Domain": "slopeio.org",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Slope",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://slopeio.org/"
+      ]
+    },
+    {
+      "Domain": "sudoku.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Sudoku",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://sudoku.com/"
+      ]
+    },
+    {
+      "Domain": "totaljerkface.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Happy Wheels / Totaljerkface",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://totaljerkface.com/"
+      ]
+    },
+    {
+      "Domain": "twoplayergames.org",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "TwoPlayerGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.twoplayergames.org/"
+      ]
+    },
+    {
       "Domain": "warthunder.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "War Thunder",
@@ -68,6 +484,54 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://warthunder.com/en"
+      ]
+    },
+    {
+      "Domain": "worldchess.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "World Chess",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://worldchess.com/"
+      ]
+    },
+    {
+      "Domain": "y8.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Y8",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.y8.com/"
+      ]
+    },
+    {
+      "Domain": "yoplay.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "YoPlay",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игрова услуга; в локалния анализ има заявки към нея.",
+      "ReviewNote": "Добавено при възложения анализ. Обхватът следва избрания от учителя формат за домейна на услугата и поддомейните му. Заявките може да са фонови или блокирани и не доказват използване от ученик. Включването на списъка се управлява ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://yoplay.io/"
       ]
     }
   ]
