@@ -1,9 +1,9 @@
-! Title: Classroom 307 - Games (review/test)
-! Version: 2026-10-20.1
+! Title: Classroom 307 - Games and video (review/test)
+! Version: 2026-10-20.2
 ! Homepage: https://github.com/martin-lift/108/tree/main/Cabinet-307/Remote-Administration/domain-lists
 ! Source: Games.json
 ! Plain domains match exact hosts; ||domain^ includes the domain and all subdomains.
-! Rules: 33
+! Rules: 40
 ! Includes candidates for teacher review. Enable manually in AdGuard only when desired.
 
 ||67speed.com^
@@ -14,6 +14,7 @@
 ||chessarena.com^
 ||crazygames.com^
 ||crossyroadgame.io^
+||dailymotion.com^
 ||eaglercraft.com^
 ||friv.com^
 ||friv4school.com^
@@ -27,15 +28,21 @@
 ||neal.fun^
 ||openguessr.com^
 ||papasgames.onl^
+||playtube.tv^
 ||poki.com^
 ||rbxcdn.com^
 ||roblox.com^
 ||slopegameaz.io^
 ||slopeio.org^
 ||sudoku.com^
+||tiktok.com^
 ||totaljerkface.com^
+||twitch.tv^
 ||twoplayergames.org^
 ||warthunder.com^
 ||worldchess.com^
 ||y8.com^
 ||yoplay.io^
+||youtu.be^
+||youtube.com^
+||youtube-nocookie.com^

@@ -1,10 +1,10 @@
 {
   "SchemaVersion": 1,
-  "Revision": "2026-10-20.1",
+  "Revision": "2026-10-20.2",
   "Category": "Games",
-  "Purpose": "Домейни за игри, събрани за преглед в кабинет 307.",
+  "Purpose": "Домейни за игри и нежелани видео платформи в общия списък за кабинет 307, по решение на учителя.",
   "Mode": "ReviewOnly",
-  "CoverageNote": "Потвърдените услуги включват основния посочен домейн и всички негови поддомейни. Новите записи са проверени по публични източници при възложения анализ. Общите хостинги и непотвърдената инфраструктура се преглеждат отделно; няма автоматична забрана на общи домейни google.com, microsoft.com или github.com. Включването се управлява ръчно в AdGuard.",
+  "CoverageNote": "Общ списък за игри и видео платформи. Потвърдените правила обхващат посочения домейн на услугата и всички негови поддомейни. VideoPlatforms е отделно предназначение в същия файл Games.txt. Общите услуги на Google и споделените хостинги не се блокират. Включването се управлява ръчно в AdGuard.",
   "Entries": [
     {
       "Domain": "67speed.com",
@@ -132,6 +132,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://crossyroadgame.io/"
+      ]
+    },
+    {
+      "Domain": "dailymotion.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Dailymotion",
+      "Subcategory": "VideoPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "KnownVideoServiceAddedByTeacherRequest",
+      "Reason": "По изрично искане на учителя видео платформите се поддържат в същия забранителен списък като игрите. Категоризацията не означава, че услугата е игра или е вредна.",
+      "ReviewNote": "Основният посочен домейн и всички негови поддомейни. Списъкът остава за ръчно включване в AdGuard; публикуването не го активира. Вградените видеа от тази услуга също ще бъдат засегнати при включен филтър. Не се блокират общите домейни google.com, googleapis.com, googleusercontent.com или googlevideo.com.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://faq.dailymotion.com/hc/en-us/articles/360016091234-About"
       ]
     },
     {
@@ -343,6 +360,23 @@
       ]
     },
     {
+      "Domain": "playtube.tv",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "PlayTube",
+      "Subcategory": "VideoPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "KnownVideoServiceAddedByTeacherRequest",
+      "Reason": "По изрично искане на учителя видео платформите се поддържат в същия забранителен списък като игрите. Категоризацията не означава, че услугата е игра или е вредна.",
+      "ReviewNote": "Основният посочен домейн и всички негови поддомейни. Списъкът остава за ръчно включване в AdGuard; публикуването не го активира. Вградените видеа от тази услуга също ще бъдат засегнати при включен филтър. Не се блокират общите домейни google.com, googleapis.com, googleusercontent.com или googlevideo.com.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://playtube.tv/"
+      ]
+    },
+    {
       "Domain": "poki.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Poki",
@@ -439,6 +473,23 @@
       ]
     },
     {
+      "Domain": "tiktok.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "TikTok",
+      "Subcategory": "VideoPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "KnownVideoServiceAddedByTeacherRequest",
+      "Reason": "По изрично искане на учителя видео платформите се поддържат в същия забранителен списък като игрите. Категоризацията не означава, че услугата е игра или е вредна.",
+      "ReviewNote": "Основният посочен домейн и всички негови поддомейни. Списъкът остава за ръчно включване в AdGuard; публикуването не го активира. Вградените видеа от тази услуга също ще бъдат засегнати при включен филтър. Не се блокират общите домейни google.com, googleapis.com, googleusercontent.com или googlevideo.com.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://developers.tiktok.com/docs/en/about-research-api"
+      ]
+    },
+    {
       "Domain": "totaljerkface.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Happy Wheels / Totaljerkface",
@@ -452,6 +503,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://totaljerkface.com/"
+      ]
+    },
+    {
+      "Domain": "twitch.tv",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Twitch",
+      "Subcategory": "VideoPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "KnownVideoServiceAddedByTeacherRequest",
+      "Reason": "По изрично искане на учителя видео платформите се поддържат в същия забранителен списък като игрите. Категоризацията не означава, че услугата е игра или е вредна.",
+      "ReviewNote": "Основният посочен домейн и всички негови поддомейни. Списъкът остава за ръчно включване в AdGuard; публикуването не го активира. Вградените видеа от тази услуга също ще бъдат засегнати при включен филтър. Не се блокират общите домейни google.com, googleapis.com, googleusercontent.com или googlevideo.com.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.twitch.tv/p/en/about/"
       ]
     },
     {
@@ -532,6 +600,57 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://yoplay.io/"
+      ]
+    },
+    {
+      "Domain": "youtu.be",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "YouTube — кратки връзки",
+      "Subcategory": "VideoPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "KnownVideoServiceAddedByTeacherRequest",
+      "Reason": "По изрично искане на учителя видео платформите се поддържат в същия забранителен списък като игрите. Категоризацията не означава, че услугата е игра или е вредна.",
+      "ReviewNote": "Основният посочен домейн и всички негови поддомейни. Списъкът остава за ръчно включване в AdGuard; публикуването не го активира. Вградените видеа от тази услуга също ще бъдат засегнати при включен филтър. Не се блокират общите домейни google.com, googleapis.com, googleusercontent.com или googlevideo.com.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://support.google.com/youtube/answer/57741?hl=en"
+      ]
+    },
+    {
+      "Domain": "youtube-nocookie.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "YouTube — вграден плейър",
+      "Subcategory": "VideoPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "KnownVideoServiceAddedByTeacherRequest",
+      "Reason": "По изрично искане на учителя видео платформите се поддържат в същия забранителен списък като игрите. Категоризацията не означава, че услугата е игра или е вредна.",
+      "ReviewNote": "Основният посочен домейн и всички негови поддомейни. Списъкът остава за ръчно включване в AdGuard; публикуването не го активира. Вградените видеа от тази услуга също ще бъдат засегнати при включен филтър. Не се блокират общите домейни google.com, googleapis.com, googleusercontent.com или googlevideo.com.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://support.google.com/youtube/answer/171780?hl=en"
+      ]
+    },
+    {
+      "Domain": "youtube.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "YouTube",
+      "Subcategory": "VideoPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "KnownVideoServiceAddedByTeacherRequest",
+      "Reason": "По изрично искане на учителя видео платформите се поддържат в същия забранителен списък като игрите. Категоризацията не означава, че услугата е игра или е вредна.",
+      "ReviewNote": "Основният посочен домейн и всички негови поддомейни. Списъкът остава за ръчно включване в AdGuard; публикуването не го активира. Вградените видеа от тази услуга също ще бъдат засегнати при включен филтър. Не се блокират общите домейни google.com, googleapis.com, googleusercontent.com или googlevideo.com.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.youtube.com/"
       ]
     }
   ]

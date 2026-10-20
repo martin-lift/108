@@ -1,4 +1,4 @@
-# Кабинет 307 — Remote Administration
+﻿# Кабинет 307 — Remote Administration
 
 ## Цел
 Дистанционно администриране от **307-Teacher** на **27 ученически компютъра**, номерирани **307-Student-01** до **307-Student-27**, чрез Windows PowerShell Remoting / WinRM. В кабинета има и 3D принтер и интерактивна дъска — **те не са обект на тези скриптове**.
@@ -15,7 +15,7 @@
 
 ## Домейни за преглед
 
-- [Игри](domain-lists/Games.json) — отделен списък с кандидати за игрови домейни.
+- [Игри и видео](domain-lists/Games.json) — общ списък за игрови домейни и нежелани видео платформи; видео услугите са отбелязани с `Subcategory: VideoPlatforms`.
 - [AI асистенти](domain-lists/AI-Assistants.json) — отделен списък с кандидати за ограничаване при изпит.
 - [Проверени и разрешени](domain-lists/Approved-Domains.json) — изрично одобрени от учителя домейни, които не трябва да се предлагат за забрана при следващ анализ.
 
@@ -23,11 +23,13 @@
 
 За ръчно управление през AdGuard са подготвени и обикновени текстови филтри:
 
+По решение на учителя PlayTube, YouTube (включително youtu.be и youtube-nocookie.com), Dailymotion, Twitch и TikTok са в същия файл Games.txt. Това е общ списък за нежелани игри и видео, а не твърдение, че видео платформите са игри или вредни сайтове. Правилата обхващат домейните и поддомейните им; включването засяга и вградените видеа на учебни страници. Общите домейни google.com, googleapis.com, googleusercontent.com и googlevideo.com не са включени.
+
 Договореният подход е обновяване на файловете в GitHub и ръчно управление през Filters в AdGuard. Не се използва AdGuard API за включване, изключване или обновяване на тези списъци. JSON файловете пазят решенията и бележките; публикуваните TXT файлове са форматът, който AdGuard чете.
 
 | Списък | Къде се добавя в AdGuard | Адрес на файла |
 |---|---|---|
-| Игри | Filters → DNS blocklists | [Games.txt](https://raw.githubusercontent.com/martin-lift/108/main/Cabinet-307/Remote-Administration/domain-lists/adguard/Games.txt) |
+| Игри и видео | Filters → DNS blocklists | [Games.txt](https://raw.githubusercontent.com/martin-lift/108/main/Cabinet-307/Remote-Administration/domain-lists/adguard/Games.txt) |
 | AI асистенти | Filters → DNS blocklists | [AI-Assistants.txt](https://raw.githubusercontent.com/martin-lift/108/main/Cabinet-307/Remote-Administration/domain-lists/adguard/AI-Assistants.txt) |
 | Проверени и разрешени | Filters → DNS allowlists | [Approved-Domains.txt](https://raw.githubusercontent.com/martin-lift/108/main/Cabinet-307/Remote-Administration/domain-lists/adguard/Approved-Domains.txt) |
 

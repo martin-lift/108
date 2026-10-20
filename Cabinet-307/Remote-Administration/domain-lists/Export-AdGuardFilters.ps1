@@ -26,7 +26,7 @@ $allowedNames=@($approved.Entries | Where-Object {$_.Decision -eq 'Allow' -and $
 $outputDirectory=Join-Path $PSScriptRoot 'adguard'
 $null=New-Item -ItemType Directory -Path $outputDirectory -Force
 $specifications=@(
-    @{File='Games.txt';Source='Games.json';Title='Classroom 307 - Games (review/test)';List=$games;Allow=$false},
+    @{File='Games.txt';Source='Games.json';Title='Classroom 307 - Games and video (review/test)';List=$games;Allow=$false},
     @{File='AI-Assistants.txt';Source='AI-Assistants.json';Title='Classroom 307 - AI assistants (review/test)';List=$ai;Allow=$false},
     @{File='Approved-Domains.txt';Source='Approved-Domains.json';Title='Classroom 307 - Reviewed and allowed';List=$approved;Allow=$true}
 )
