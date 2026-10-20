@@ -1,4 +1,4 @@
-﻿# Mocked DNS, registry and WinRM only. Never changes a real adapter or contacts a student.
+# Mocked DNS, registry and WinRM only. Never changes a real adapter or contacts a student.
 $ErrorActionPreference = 'Stop'
 $script:Checks = 0
 function Assert($Condition, [string]$Message) {
@@ -26,8 +26,8 @@ $switches=@($ast.FindAll({param($node) $node -is [Management.Automation.Language
 $menuSwitch=$switches[-1]
 $labels=@($menuSwitch.Clauses | ForEach-Object { $_.Item1.Value })
 Assert (($labels -join ',') -eq ((1..20) -join ',')) 'Menu actions 1 through 20 are unique and ordered'
-Assert ($menuSwitch.Clauses[14].Item2.Extent.Text -match 'SetTeacher') '15 sets teacher DNS'
-Assert ($menuSwitch.Clauses[15].Item2.Extent.Text -match 'Action Restore') '16 restores DNS'
+Assert ($menuSwitch.Clauses[12].Item2.Extent.Text -match 'SetTeacher') '13 sets teacher DNS'
+Assert ($menuSwitch.Clauses[13].Item2.Extent.Text -match 'Action Restore') '14 restores DNS'
 
 $script:TestRoot=Join-Path $env:TEMP ('cabinet307-dns-test-'+[guid]::NewGuid().ToString('N'))
 $null=New-Item -ItemType Directory -Path $script:TestRoot
@@ -100,7 +100,7 @@ try {
     $result=Invoke-Remote 'RestoreSaved'
     Assert ($result.Mode -eq 'Automatic' -and $script:Static -eq '' -and $result.DnsServers -eq '192.168.28.1') 'Original automatic mode restored'
     Assert ($script:SetCalls[-1].Index -eq 18) 'Restore uses GUID after adapter rename and reindex'
-    Assert (-not (Test-Path -LiteralPath (Backup-Path))) 'Successful restore retires active backup'
+    Assert (-not (Test-Path -LiteralPath (Backup-Path))) ('Successful restore retires active backup: '+$result.Notes)
     Assert (@(Get-ChildItem (Split-Path (Backup-Path)) -Filter 'restored-*.json').Count -eq 1) 'Original snapshot is archived'
     Assert ($script:IPv6[0] -eq '2001:db8::53') 'IPv6 remains unchanged'
 
@@ -316,3 +316,4 @@ try {
     $env:COMPUTERNAME=$originalComputerName
 }
 [Console]::WriteLine("PASS: $script:Checks checks; no real DNS or WinRM changes.")
+

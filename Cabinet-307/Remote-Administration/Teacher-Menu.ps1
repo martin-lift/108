@@ -1,4 +1,4 @@
-﻿#Requires -Version 5.1
+#Requires -Version 5.1
 $ErrorActionPreference = 'Stop'
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if (-not $isAdmin) {
@@ -121,11 +121,26 @@ function Get-ClassroomErrorStatus {
     if ($Phase -eq 'Operation') { return 'OPERATION_ERROR' }
     'ERROR'
 }
-function Set-AllClassroomWifi {
+function Get-ClassroomTargetNumbers {
+    param([Parameter(Mandatory=$true)][string]$Prompt)
+    while ($true) {
+        $answer = Read-Host ("{0} (A = all, S = selected, Enter = cancel)" -f $Prompt)
+        if ([string]::IsNullOrWhiteSpace($answer)) { return }
+        switch ($answer.Trim().ToUpperInvariant()) {
+            'A' { return (1..27) }
+            'S' { return (Get-StudentNumbers) }
+            default { Write-Host 'Enter A for all computers, S to select computers, or press Enter to cancel.' }
+        }
+    }
+}
+function Set-ClassroomWifi {
+    $numbers = @(Get-ClassroomTargetNumbers -Prompt 'Restrict student computers to school Wi-Fi?')
+    if ($numbers.Count -eq 0) { return }
     Start-Service WinRM -ErrorAction Stop
     $ssid = Read-Host 'Exact school Wi-Fi name (Enter = Students)'
     if ([string]::IsNullOrWhiteSpace($ssid)) { $ssid = 'Students' }
     if ($ssid.Contains('"') -or $ssid.Contains("`r") -or $ssid.Contains("`n")) { throw 'Invalid network name.' }
+    Write-Host 'Other existing Allow entries remain allowed. USB internet connections are not blocked.'
     $credentialInput = Get-ClassroomCredential
     if ($null -eq $credentialInput) { return }
     $failures = @()
@@ -141,10 +156,12 @@ function Set-AllClassroomWifi {
         $details = netsh wlan add filter permission=denyall networktype=adhoc 2>&1
         if ($LASTEXITCODE -ne 0 -and (($details | Out-String) -notmatch 'This filter already exists in the same list on the system\.')) { throw ("Ad hoc restriction failed; infrastructure restriction may already be active. " + ($details | Out-String).Trim()) }
     }
-    foreach ($number in 1..27) {
+    $current = 0
+    foreach ($number in $numbers) {
+        $current++
         $name = '307-Student-{0:D2}' -f $number
         $destination = "$name.local"
-        Write-Host ("[{0}/27] Restricting {1}... " -f $number, $destination) -NoNewline
+        Write-Host ("[{0}/{1}] Restricting {2}... " -f $current, $numbers.Count, $destination) -NoNewline
         $session = $null
         $phase = 'Login'
         try {
@@ -167,13 +184,8 @@ function Set-AllClassroomWifi {
     }
 }
 function Remove-ClassroomWifiRestrictions {
-    param([switch]$All)
-    if ($All) {
-        $numbers = @(1..27)
-    } else {
-        $numbers = @(Get-StudentNumbers)
-        if ($numbers.Count -eq 0) { return }
-    }
+    $numbers = @(Get-ClassroomTargetNumbers -Prompt 'Remove restrictions on other Wi-Fi networks?')
+    if ($numbers.Count -eq 0) { return }
     Start-Service WinRM -ErrorAction Stop
     $credentialInput = Get-ClassroomCredential
     if ($null -eq $credentialInput) { return }
@@ -868,7 +880,7 @@ function Get-ClassroomDnsCommand {
             if (Test-Path -LiteralPath $backupPath -PathType Leaf) { $saved = Read-DnsBackup $backupPath }
             $adapters = @(Get-NetAdapter -Physical -ErrorAction Stop)
             if ($Action -eq 'RestoreSaved') {
-                if ($null -eq $saved) { throw 'No saved DNS settings. Use option 16 > A for automatic DNS (DHCP) if this PC was configured manually earlier.' }
+                if ($null -eq $saved) { throw 'No saved DNS settings. Use option 14 > A for automatic DNS (DHCP) if this PC was configured manually earlier.' }
                 $selected = @($adapters | Where-Object { ([guid]$_.InterfaceGuid) -eq ([guid]$saved.AdapterGuid) })
             } else {
                 $selected = @($adapters | Where-Object { $_.Status -eq 'Up' -and [int]$_.NdisPhysicalMedium -in 1,9 })
@@ -959,7 +971,7 @@ function Invoke-ClassroomDnsAction {
     $remoteAction = $Action
     $teacherAddress = ''
     if ($Action -eq 'Restore') {
-        Write-Host 'B. Restore the settings saved before the first use of option 15 (including automatic/static DNS)'
+        Write-Host 'B. Restore the settings saved before the first use of option 13 (including automatic/static DNS)'
         Write-Host 'A. Use automatic DNS supplied by the network (DHCP), including PCs configured manually earlier'
         $answer = (Read-Host 'Choose B or A (Enter = cancel)').Trim().ToUpperInvariant()
         if (-not $answer) { return }
@@ -1229,6 +1241,87 @@ function Open-ClassroomWebsite {
     $results | Format-Table Computer,Status,Notes -AutoSize -Wrap | Out-Host
 }
 
+function Get-ClassroomAudioCommand {
+    {
+        param([string]$ExpectedName, [string]$TeacherName, [ValidateSet('Stop','Restore')][string]$Action)
+        $ErrorActionPreference = 'Stop'
+        if ($ExpectedName -notmatch '^307-Student-(0[1-9]|1[0-9]|2[0-7])$' -or
+            $env:COMPUTERNAME -ine $ExpectedName -or $env:COMPUTERNAME -ieq $TeacherName) {
+            throw "Unexpected remote computer: $env:COMPUTERNAME (expected student $ExpectedName)."
+        }
+        $service = Get-Service -Name 'Audiosrv' -ErrorAction Stop
+        try {
+            $timeout = [timespan]::FromSeconds(10)
+            $service.Refresh()
+            if ($service.Status -eq 'StartPending') { $service.WaitForStatus('Running', $timeout) }
+            if ($service.Status -eq 'StopPending') { $service.WaitForStatus('Stopped', $timeout) }
+            $service.Refresh()
+            if ($service.Status -notin 'Running','Stopped') { throw "Unexpected Windows Audio state: $($service.Status)." }
+            $target = if ($Action -eq 'Stop') { 'Stopped' } else { 'Running' }
+            if ([string]$service.Status -ne $target) {
+                if ($Action -eq 'Stop') {
+                    # Do not force-stop dependent services or change any startup configuration.
+                    $dependents = @($service.DependentServices | Where-Object { $_.Status -ne 'Stopped' })
+                    if ($dependents.Count -gt 0) {
+                        throw ('Windows Audio has active dependent services; no services were stopped: ' + (($dependents | ForEach-Object { $_.Name }) -join ', '))
+                    }
+                    $service.Stop()
+                } else {
+                    $service.Start()
+                }
+                $service.WaitForStatus($target, $timeout)
+            }
+            $service.Refresh()
+            if ([string]$service.Status -ne $target) { throw "Windows Audio did not reach $target." }
+            $status = if ($Action -eq 'Stop') { 'AUDIO_STOPPED' } else { 'AUDIO_RUNNING' }
+            $notes = if ($Action -eq 'Stop') { 'Windows Audio is stopped (playback and microphones). Startup settings are unchanged.' } else { 'Windows Audio is running. Some applications may need playback restarted.' }
+            [pscustomobject]@{ Computer=$env:COMPUTERNAME; Action=$Action; Status=$status; Notes=$notes }
+        } finally {
+            $service.Dispose()
+        }
+    }
+}
+function Invoke-ClassroomAudioAction {
+    param([Parameter(Mandatory=$true)][ValidateSet('Stop','Restore')][string]$Action)
+    $prompt = if ($Action -eq 'Stop') { 'Stop audio on student computers?' } else { 'Restore audio on student computers?' }
+    $numbers = @(Get-ClassroomTargetNumbers -Prompt $prompt)
+    if ($numbers.Count -eq 0) { return }
+    if ($Action -eq 'Stop') { Write-Host 'Stops Windows Audio, including playback and microphones, until restored or restarted.' }
+    Start-Service WinRM -ErrorAction Stop
+    $sharedCredential = Get-ClassroomCredential
+    if ($null -eq $sharedCredential) { return }
+    $options = New-PSSessionOption -OpenTimeout 15000 -OperationTimeout 45000
+    $command = Get-ClassroomAudioCommand
+    $teacherName = $env:COMPUTERNAME
+    $expectedStatus = if ($Action -eq 'Stop') { 'AUDIO_STOPPED' } else { 'AUDIO_RUNNING' }
+    $results = @()
+    foreach ($number in $numbers) {
+        $name = '307-Student-{0:D2}' -f $number
+        $session = $null
+        $phase = 'Login'
+        $confirmationMissing = $false
+        Write-Host ("{0} audio: {1}..." -f $Action, $name)
+        try {
+            $credential = [pscredential]::new("$name\108SU", $sharedCredential.Password)
+            $session = New-PSSession -ComputerName "$name.local" -Credential $credential -SessionOption $options -ErrorAction Stop
+            $phase = 'Operation'
+            $response = @(Invoke-Command -Session $session -ScriptBlock $command -ArgumentList $name, $teacherName, $Action -ErrorAction Stop)
+            if ($response.Count -ne 1 -or $response[0].Computer -ine $name -or $response[0].Action -cne $Action -or $response[0].Status -cne $expectedStatus) {
+                $confirmationMissing = $true
+                throw 'No valid Windows Audio confirmation was received. Check this computer before retrying.'
+            }
+            $results += $response[0]
+        } catch {
+            $status = Get-ClassroomErrorStatus -Record $_ -Phase $phase
+            if ($confirmationMissing -or ($phase -eq 'Operation' -and $_.Exception -is [Management.Automation.Remoting.PSRemotingTransportException])) { $status='UNKNOWN' }
+            $results += [pscustomobject]@{ Computer=$name; Action=$Action; Status=$status; Notes=$_.Exception.Message }
+        } finally {
+            if ($null -ne $session) { Remove-PSSession -Session $session -ErrorAction SilentlyContinue }
+        }
+    }
+    $results | Format-Table Computer,Status,Notes -AutoSize -Wrap | Out-Host
+}
+
 function Start-ClassroomAdGuard {
     $service = Get-Service -Name 'AdGuardHome' -ErrorAction SilentlyContinue
     if ($null -eq $service) { throw 'AdGuard Home is not installed as a Windows service. Run the teacher setup first.' }
@@ -1265,31 +1358,32 @@ while ($true) {
     Write-Host '1. Shut down student computers (all or selected)'
     Write-Host '2. Restart student computers (all or selected)'
     Write-Host ''
-    Write-Host '3. Restrict All computers 01-27 to school Wi-Fi (default: Students)'
-    Write-Host '4. Remove restrictions on other Wi-Fi networks for all computers'
+    Write-Host '3. Restrict student computers to school Wi-Fi (all or selected; default: Students)'
+    Write-Host '4. Remove restrictions on other Wi-Fi networks (all or selected)'
+    Write-Host '5. Show Wi-Fi connection and filters on a selected computer'
+    Write-Host '6. Check Wi-Fi restrictions on selected computers (Students)'
     Write-Host ''
-    Write-Host '5. Restrict selected computers to school Wi-Fi (default: Students)'
-    Write-Host '6. Remove restrictions on other Wi-Fi networks for selected computers'
-    Write-Host '7. Show Wi-Fi connection and filters on a selected computer'
-    Write-Host '8. Check Wi-Fi restrictions on selected computers (Students)'
+    Write-Host '7. List processes on a selected computer and save a report (all or filtered)'
+    Write-Host '8. Stop processes on a selected computer by exact name or substring'
     Write-Host ''
-    Write-Host '9. List processes on a selected computer and save a report (all or filtered)'
-    Write-Host '10. Stop processes on a selected computer by exact name or substring'
+    Write-Host '9. Send a file to a student computer'
+    Write-Host '10. Receive a file from a student computer'
     Write-Host ''
-    Write-Host '11. Send a file to a student computer'
-    Write-Host '12. Receive a file from a student computer'
+    Write-Host '11. Start WinRM and check the teacher computer'
+    Write-Host '12. Check the names of all 27 student computers'
     Write-Host ''
-    Write-Host '13. Start WinRM and check the teacher computer'
-    Write-Host '14. Check the names of all 27 student computers'
-    Write-Host ''
-    Write-Host '15. Use teacher DNS on students'' computers (Wi-Fi IPv4)'
-    Write-Host '16. Restore DNS on students'' computers (saved settings or automatic)'
-    Write-Host '17. Start AdGuard Home on the teacher computer'
-    Write-Host '18. Open AdGuard Home control panel'
-    Write-Host '19. Clear Windows DNS cache on student computers (all or selected)'
+    Write-Host '13. Use teacher DNS on students'' computers (Wi-Fi IPv4)'
+    Write-Host '14. Restore DNS on students'' computers (saved settings or automatic)'
+    Write-Host '15. Start AdGuard Home on the teacher computer'
+    Write-Host '16. Open AdGuard Home control panel'
+    Write-Host '17. Clear Windows DNS cache on student computers (all or selected)'
     Write-Host ''
     Write-Host 'SCHOOL WEBSITE' -ForegroundColor Cyan
-    Write-Host '20. Open school website on student computers (all or selected)'
+    Write-Host '18. Open school website on student computers (all or selected)'
+    Write-Host ''
+    Write-Host 'AUDIO' -ForegroundColor Cyan
+    Write-Host '19. Stop audio on student computers (all or selected)'
+    Write-Host '20. Restore audio on student computers (all or selected)'
     Write-Host ''
     Write-Host '0. Exit'
     $choice = Read-Host 'Choose an action'
@@ -1298,50 +1392,9 @@ while ($true) {
         switch ($choice) {
             '1' { Invoke-ClassroomPowerAction -Action Shutdown }
             '2' { Invoke-ClassroomPowerAction -Action Restart }
-            '3' { Set-AllClassroomWifi }
-            '4' { Remove-ClassroomWifiRestrictions -All }
+            '3' { Set-ClassroomWifi }
+            '4' { Remove-ClassroomWifiRestrictions }
             '5' {
-                $numbers = @(Get-StudentNumbers)
-                if ($numbers.Count -gt 0) {
-                    try {
-                        Start-Service WinRM -ErrorAction Stop
-                        $ssid = Read-Host 'Exact school Wi-Fi name (Enter = Students)'
-                        if ([string]::IsNullOrWhiteSpace($ssid)) { $ssid = 'Students' }
-                        if ($ssid.Contains('"') -or $ssid.Contains("`r") -or $ssid.Contains("`n")) { throw 'Invalid network name.' }
-                        Write-Host ("Applying Wi-Fi filters on computers {0} for '{1}'..." -f ($numbers -join ', '), $ssid)
-                        Write-Host 'Other existing Allow entries remain allowed. USB internet connections are not blocked.'
-                        $command = {
-                            param([string]$AllowedSSID)
-                            $ErrorActionPreference = 'Stop'
-                            $details = netsh wlan add filter permission=allow "ssid=$AllowedSSID" networktype=infrastructure 2>&1
-                            if ($LASTEXITCODE -ne 0 -and (($details | Out-String) -notmatch 'This filter already exists in the same list on the system\.')) { throw ("Allow filter failed; no deny filters were added. " + ($details | Out-String).Trim()) }
-                            $details = netsh wlan add filter permission=denyall networktype=infrastructure 2>&1
-                            if ($LASTEXITCODE -ne 0 -and (($details | Out-String) -notmatch 'This filter already exists in the same list on the system\.')) { throw ("Infrastructure restriction failed; the Allow filter may already be active. " + ($details | Out-String).Trim()) }
-                            $details = netsh wlan add filter permission=denyall networktype=adhoc 2>&1
-                            if ($LASTEXITCODE -ne 0 -and (($details | Out-String) -notmatch 'This filter already exists in the same list on the system\.')) { throw ("Ad hoc restriction failed; infrastructure restriction may already be active. " + ($details | Out-String).Trim()) }
-                            netsh wlan show filters
-                            if ($LASTEXITCODE -ne 0) { throw 'Filters were applied, but reading the resulting filter list failed.' }
-                        }
-                        $results = @(& $manager -Numbers $numbers -ScriptBlock $command -ArgumentList @($ssid) -Confirm:$false)
-                        if ($results.Count -eq 0) {
-                            Write-Host 'Operation cancelled. No computer results were returned.'
-                        }
-                        foreach ($result in $results) {
-                            if ($result.Status -eq 'OK') {
-                                Write-Host ("SUCCESS: Wi-Fi filters applied on {0} for '{1}'." -f $result.Computer, $ssid) -ForegroundColor Green
-                            } else {
-                                $reason = $result.Output
-                                if (-not $reason) { $reason = 'The operation did not return a successful result.' }
-                                Write-Host ("{0}: {1}: {2}" -f $result.Status, $result.Computer, $reason) -ForegroundColor Red
-                            }
-                        }
-                    } catch {
-                        Write-Host ("ERROR: Selected computers {0}: {1}" -f ($numbers -join ', '), $_.Exception.Message) -ForegroundColor Red
-                    }
-                }
-            }
-            '6' { Remove-ClassroomWifiRestrictions }
-            '7' {
                 $number = Get-StudentNumber
                 if ($null -ne $number) {
                     Start-Service WinRM -ErrorAction Stop
@@ -1359,7 +1412,7 @@ while ($true) {
                     } | Format-Table -AutoSize -Wrap | Out-Host
                 }
             }
-            '8' {
+            '6' {
                 $numbers = @(Get-StudentNumbers)
                 if ($numbers.Count -gt 0) {
                     $checker = Join-Path $PSScriptRoot 'Check-WifiRestrictions.ps1'
@@ -1367,24 +1420,27 @@ while ($true) {
                     & $checker -Numbers $numbers -SchoolSSID 'Students' | Out-Null
                 }
             }
-            '9' { Show-ClassroomProcesses }
-            '10' { Stop-ClassroomProcesses }
-            '11' { Copy-ClassroomFile -Direction Send }
-            '12' { Copy-ClassroomFile -Direction Receive }
-            '13' {
+            '7' { Show-ClassroomProcesses }
+            '8' { Stop-ClassroomProcesses }
+            '9' { Copy-ClassroomFile -Direction Send }
+            '10' { Copy-ClassroomFile -Direction Receive }
+            '11' {
                 Start-Service WinRM -ErrorAction Stop
                 Get-Service WinRM | Format-Table Status, Name, DisplayName | Out-Host
                 Get-Item WSMan:\localhost\Client\TrustedHosts | Format-List Name, Value | Out-Host
             }
-            '14' { Test-ClassroomComputers }
-            '15' { Invoke-ClassroomDnsAction -Action SetTeacher }
-            '16' { Invoke-ClassroomDnsAction -Action Restore }
-            '17' { Start-ClassroomAdGuard }
-            '18' { Start-Process -FilePath 'http://127.0.0.1:3000/' -ErrorAction Stop }
-            '19' { Invoke-ClassroomDnsAction -Action ClearCache }
-            '20' { Open-ClassroomWebsite }
+            '12' { Test-ClassroomComputers }
+            '13' { Invoke-ClassroomDnsAction -Action SetTeacher }
+            '14' { Invoke-ClassroomDnsAction -Action Restore }
+            '15' { Start-ClassroomAdGuard }
+            '16' { Start-Process -FilePath 'http://127.0.0.1:3000/' -ErrorAction Stop }
+            '17' { Invoke-ClassroomDnsAction -Action ClearCache }
+            '18' { Open-ClassroomWebsite }
+            '19' { Invoke-ClassroomAudioAction -Action Stop }
+            '20' { Invoke-ClassroomAudioAction -Action Restore }
             default { Write-Host 'Choose a number from 0 to 20.' }
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null
 }
+

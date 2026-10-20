@@ -10,34 +10,49 @@ Groups are separated by a blank line. The current numbering is:
 1. Shut down student computers (all or selected)
 2. Restart student computers (all or selected)
 
-3. Restrict All computers 01-27 to school Wi-Fi (default: Students)
-4. Remove restrictions on other Wi-Fi networks for all computers
+3. Restrict student computers to school Wi-Fi (all or selected; default: Students)
+4. Remove restrictions on other Wi-Fi networks (all or selected)
+5. Show Wi-Fi connection and filters on a selected computer
+6. Check Wi-Fi restrictions on selected computers (Students)
 
-5. Restrict selected computers to school Wi-Fi (default: Students)
-6. Remove restrictions on other Wi-Fi networks for selected computers
-7. Show Wi-Fi connection and filters on a selected computer
-8. Check Wi-Fi restrictions on selected computers (Students)
+7. List processes on a selected computer and save a report (all or filtered)
+8. Stop processes on a selected computer by exact name or substring
 
-9. List processes on a selected computer and save a report (all or filtered)
-10. Stop processes on a selected computer by exact name or substring
+9. Send a file to a student computer
+10. Receive a file from a student computer
 
-11. Send a file to a student computer
-12. Receive a file from a student computer
+11. Start WinRM and check the teacher computer
+12. Check the names of all 27 student computers
 
-13. Start WinRM and check the teacher computer
-14. Check the names of all 27 student computers
+13. Use teacher DNS on students' computers (Wi-Fi IPv4)
+14. Restore DNS on students' computers (saved settings or automatic)
+15. Start AdGuard Home on the teacher computer
+16. Open AdGuard Home control panel
+17. Clear Windows DNS cache on student computers (all or selected)
 
-15. Use teacher DNS on students' computers (Wi-Fi IPv4)
-16. Restore DNS on students' computers (saved settings or automatic)
-17. Start AdGuard Home on the teacher computer
-18. Open AdGuard Home control panel
-19. Clear Windows DNS cache on student computers (all or selected)
-20. Open school website on student computers (all or selected)
+SCHOOL WEBSITE
+18. Open school website on student computers (all or selected)
+
+AUDIO
+19. Stop audio on student computers (all or selected)
+20. Restore audio on student computers (all or selected)
 
 0. Exit
 ```
 
-## Open the school website (menu action 20)
+## Wi-Fi restrictions (menu actions 3 and 4)
+
+Action 3 restricts student computers to the school Wi-Fi; action 4 removes the deny-all filters for other Wi-Fi networks. Both begin with A for all computers 01-27, S for selected numbers (commas or spaces), or Enter to cancel. An empty selected list cancels too. Targets are chosen before the credential prompt. Action 3 then asks for the school SSID, defaulting to `Students`. The shared password is requested once. Each remote computer name is verified before filters change; login and operation errors do not stop the remaining targets, and sessions are closed after each attempt. Existing additional Allow entries remain allowed; USB internet is outside these Wi-Fi filters.
+
+## Audio (menu actions 19 and 20)
+
+Action 19 temporarily stops Windows Audio (`Audiosrv`); action 20 starts it again. Both use A for all, S for selected numbers, or Enter to cancel, and request the shared administrator password once. Stopping this service affects playback and microphones. It does not change the service startup setting; normally a restart starts audio again. Some applications may need playback restarted after restoration. This controls service availability, not the volume or mute setting.
+
+Only a verified student computer can receive the audio action; the teacher computer is excluded. The command checks the resulting service state with a bounded wait and reports `AUDIO_STOPPED` or `AUDIO_RUNNING` only after confirmation. Repeating the same action is safe. Active dependent services are reported as an error instead of being stopped by force. Other failures are shown for each target and processing continues. Lost connections or missing confirmations are `UNKNOWN`; check that computer before retrying. Sessions are closed after every attempt.
+
+Validation: Windows PowerShell 5.1 simulations cover all/selected targets, cancellation, duplicate and invalid numbers, SSID validation, unreachable computers, credential cancellation, service transitions, repeated actions, identity checks, dependencies, denied service changes, timeouts, missing confirmations and session cleanup. No classroom audio or Wi-Fi settings were changed by these tests. Trial on one student computer is still required.
+
+## Open the school website (menu action 18)
 
 Opens `https://martin-lift.github.io/108/` in the default browser of the user logged on at each selected student computer's physical console. Choose A for all 27 students, S to enter selected numbers (one number is allowed), or Enter to cancel. The shared 108SU administrator password is requested once for WinRM. No student user password is requested or saved.
 
@@ -53,21 +68,21 @@ Choose computer 1-27 and enter an absolute source file path, such as `C:\307\tas
 
 The student computer must be reachable by its `307-Student-XX.local` name, with WinRM configured and the teacher TrustedHosts entry present. The menu verifies the remote computer name before file transfer. It does not show student screens.
 
-## Windows DNS cache (menu action 19)
+## Windows DNS cache (menu action 17)
 
 Choose A for all 27 student computers, S to enter selected numbers, or Enter to cancel. The shared administrator password is requested once. Each student is checked by name before `Clear-DnsClientCache` runs through WinRM. A result table shows success or the reason for failure for every target; an unavailable computer does not stop the others. Missing confirmation or a lost connection is reported as UNKNOWN. Sessions are closed after each attempt.
 
 This clears the Windows DNS resolver cache for the whole student computer, without changing DNS servers, IP settings, recovery backups, browser history, cookies or passwords. It does not close browsers or existing connections. AdGuard Home does not need to be running for this action, and no restart is required.
 
-Actions 15 and 16 also clear the Windows DNS cache after a successful DNS change. Their result notes explicitly confirm cache clearing or report a cache-clearing failure while retaining the successfully applied DNS settings. See [DNS and AdGuard](DNS-AdGuard.md).
+Actions 13 and 14 also clear the Windows DNS cache after a successful DNS change. Their result notes explicitly confirm cache clearing or report a cache-clearing failure while retaining the successfully applied DNS settings. See [DNS and AdGuard](DNS-AdGuard.md).
 
 ## Validation
 
 PowerShell syntax was checked. File sending, receiving, overwrite cancellation, hash comparison, and session cleanup were exercised using simulated remoting; real classroom file transfer still requires a trial on one student computer.
 
-## Read-only Wi-Fi restriction audit (menu action 8)
+## Read-only Wi-Fi restriction audit (menu action 6)
 
-Download `Check-WifiRestrictions.ps1` into the same folder as `Teacher-Menu.ps1`. Action 8 checks the selected computers for the expected SSID `Students`, without changing remote network settings. It reads the four WLAN filter lists through [WlanGetFilterList](https://learn.microsoft.com/en-us/windows/win32/api/wlanapi/nf-wlanapi-wlangetfilterlist), avoiding localized netsh text and Wi-Fi scan/location permissions. A native read may still fail due to permissions, unavailable WLAN services, or application-control policy; these failures are reported.
+Download `Check-WifiRestrictions.ps1` into the same folder as `Teacher-Menu.ps1`. Action 6 checks the selected computers for the expected SSID `Students`, without changing remote network settings. It reads the four WLAN filter lists through [WlanGetFilterList](https://learn.microsoft.com/en-us/windows/win32/api/wlanapi/nf-wlanapi-wlangetfilterlist), avoiding localized netsh text and Wi-Fi scan/location permissions. A native read may still fail due to permissions, unavailable WLAN services, or application-control policy; these failures are reported.
 
 - RESTRICTED: the local filters allow only the expected infrastructure SSID and contain deny-all rules for infrastructure and ad hoc networks.
 - UNRESTRICTED: no deny filters are present. An allow entry by itself does not restrict other networks.
@@ -85,13 +100,13 @@ Standalone examples:
 .\Check-WifiRestrictions.ps1 -Numbers 1,9,11 -SchoolSSID Students
 ```
 
-Standalone calls also return structured results for export; action 10 suppresses the duplicate object display. The native reader compiles in memory in the remote session and does not install files or change WLAN policy. Syntax, native helper compilation, restriction classifications, continued processing after login/network failures, and session cleanup were checked locally with simulated remoting. Real classroom execution still requires a trial.
+Standalone calls also return structured results for export; action 6 suppresses the duplicate object display. The native reader compiles in memory in the remote session and does not install files or change WLAN policy. Syntax, native helper compilation, restriction classifications, continued processing after login/network failures, and session cleanup were checked locally with simulated remoting. Real classroom execution still requires a trial.
 
 ## Shared credential helper
 
 Keep `Credential-Helper.ps1` in the same folder as the menu and the standalone scripts. Each remote operation uses it to validate the entered password locally before connecting. Rejected credentials stop the operation; account and policy errors have separate explanations. After the local check passes, failures on individual remote targets continue to be reported without stopping the remaining targets. Local actions do not require this check. The helper does not save passwords.
 
-## Process review (menu action 9)
+## Process review (menu action 7)
 
 Select one student computer (1-27), then choose a report type. Enter or F selects interesting processes only (the default); A selects a complete inventory; 0 cancels. The menu reads its process snapshot, displays names and PIDs, and saves a UTF-8 TXT report under `Reports` beside the menu. The report includes available file description, company, executable path, start time, session ID, parent PID and parent name. Parent names are resolved within the snapshot; an absent or newer parent PID has no name.
 
@@ -106,7 +121,7 @@ The existing name, path, description, company, session and time fields are enoug
 
 A full inventory skips the background filter and its download, includes all process names and parent names, and records `Full inventory` in the report header. Each use asks again, with the filtered view selected by pressing Enter.
 
-## Stop processes (menu action 10)
+## Stop processes (menu action 8)
 
 Select one student computer, choose E for an exact name or S for a literal substring, and enter the search text. Matching is case-insensitive. Exact mode accepts `msedge` and `msedge.exe`; substring `edge` matches any executable name containing that text. Substrings are not regular expressions or wildcards. An empty computer, match mode or search text cancels.
 
@@ -117,3 +132,4 @@ Confirmation applies only to the displayed eligible process instances. The stop 
 Per-process results distinguish `STOPPED`, `ALREADY_EXITED`, `SKIPPED_CHANGED`, `BLOCKED`, `ERROR` and `UNKNOWN`. `STOPPED` requires the process exit to be confirmed. A timeout or lost connection can leave the result unknown; inspect the computer before retrying. Sessions are closed on success, cancellation and failure.
 
 Validation: Windows PowerShell 5.1 tests cover literal/exact matching, case differences, preview cancellation, protected processes, stale identities, newly started processes, denied termination, unconfirmed exits, lost connections and cleanup using fake process objects. Process-report tests cover the default filtered mode and optional full inventory. Real classroom process termination still requires a trial on one selected application.
+

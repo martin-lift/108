@@ -154,5 +154,6 @@ foreach ($failureCase in @('WrongHost','LoginError','Disconnect','CancelCredenti
     }
 }
 $menuSwitch = $ast.Find({ param($node) $node -is [Management.Automation.Language.SwitchStatementAst] -and $node.Condition.Extent.Text -eq '$choice' }, $true)
-Assert (($menuSwitch.Clauses | Where-Object { $_.Item1.Value -eq '10' }).Item2.Extent.Text -match 'Stop-ClassroomProcesses') 'Option 10 is not connected'
+Assert (($menuSwitch.Clauses | Where-Object { $_.Item1.Value -eq '8' }).Item2.Extent.Text -match 'Stop-ClassroomProcesses') 'Option 8 is not connected'
 Write-Output "PASS: Windows PowerShell $($PSVersionTable.PSVersion), $script:Checks checks. Only fake process objects were terminated."
+
