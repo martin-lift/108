@@ -1,6 +1,6 @@
 # Teacher menu
 
-Download `Start-Teacher.cmd`, `Teacher-Menu.ps1`, `Credential-Helper.ps1`, and the current `Manage-Classroom.ps1` into the same folder, for example `C:\307`. Save the actual files using Raw / Download raw file, not the GitHub HTML page. Double-click `Start-Teacher.cmd` and approve the Windows administrator prompt. The launcher uses Windows PowerShell 5.1 and ExecutionPolicy Bypass for this process only; organization policy still takes precedence. Passwords are requested interactively and are not saved.
+Download `Start-Teacher.cmd`, `Teacher-Menu.ps1`, `Credential-Helper.ps1`, and the current `Manage-Classroom.ps1` into the same folder, for example `C:\307`. Save the actual files using Raw / Download raw file, not the GitHub HTML page. Double-click `Start-Teacher.cmd` and approve the Windows administrator prompt. The launcher uses Windows PowerShell 5.1 and ExecutionPolicy Bypass for this process only; organization policy still takes precedence. The first operation that needs credentials prompts for the shared password and validates it on the teacher computer. After a successful check, the menu keeps a `SecureString` copy only in this PowerShell process's memory and reuses it for later operations, including helper scripts called by the menu. Cancelled or rejected passwords are not cached. Exiting the menu clears and disposes the cached copy; reopening the menu requires the password again. Passwords are never written to disk. Close and reopen the menu if the shared password changes. Standalone scripts launched outside the menu still prompt normally.
 
 ## Actions
 
@@ -27,7 +27,7 @@ Groups are separated by a blank line. The current numbering is:
 13. Use teacher DNS on students' computers (Wi-Fi IPv4)
 14. Restore DNS on students' computers (saved settings or automatic)
 15. Start AdGuard Home on the teacher computer
-16. Open AdGuard Home control panel
+16. Open AdGuard Home filters
 17. Clear Windows DNS cache on student computers (all or selected)
 
 SCHOOL WEBSITE
@@ -48,9 +48,9 @@ Action 3 restricts student computers to the school Wi-Fi; action 4 removes the d
 
 Action 19 temporarily stops Windows Audio (`Audiosrv`); action 20 starts it again. Both use A for all, S for selected numbers, or Enter to cancel, and request the shared administrator password once. Stopping this service affects playback and microphones. It does not change the service startup setting; normally a restart starts audio again. Some applications may need playback restarted after restoration. This controls service availability, not the volume or mute setting.
 
-Only a verified student computer can receive the audio action; the teacher computer is excluded. The command checks the resulting service state with a bounded wait and reports `AUDIO_STOPPED` or `AUDIO_RUNNING` only after confirmation. Repeating the same action is safe. Active dependent services are reported as an error instead of being stopped by force. Other failures are shown for each target and processing continues. Lost connections or missing confirmations are `UNKNOWN`; check that computer before retrying. Sessions are closed after every attempt.
+Only a verified student computer can receive the audio action; the teacher computer is excluded. The command checks the resulting service state with a bounded wait and reports `AUDIO_STOPPED` or `AUDIO_RUNNING` only after confirmation. Repeating the same action is safe. When the Realtek companion `RtkAudioUniversalService` is active, action 19 saves its name under `%ProgramData%\Cabinet307\AudioControl\stopped-dependents.json`, stops it, then stops Windows Audio. Action 20 starts Windows Audio and restores the saved companion, then removes the recovery record after confirmation. A companion that was already stopped is left stopped. Recovery records survive partial failures and repeated stops; use action 20 after a failure to restore any services already stopped. Unknown active dependencies, including dependencies of the Realtek companion, are reported as errors before stopping services. Startup settings and name resolution are unchanged. Other failures are shown for each target and processing continues. Lost connections or missing confirmations are `UNKNOWN`; check that computer before retrying. Sessions are closed after every attempt.
 
-Validation: Windows PowerShell 5.1 simulations cover all/selected targets, cancellation, duplicate and invalid numbers, SSID validation, unreachable computers, credential cancellation, service transitions, repeated actions, identity checks, dependencies, denied service changes, timeouts, missing confirmations and session cleanup. No classroom audio or Wi-Fi settings were changed by these tests. Trial on one student computer is still required.
+Validation: Windows PowerShell 5.1 simulations cover all/selected targets, cancellation, duplicate and invalid numbers, SSID validation, unreachable computers, credential cancellation, service transitions, repeated actions, identity checks, dependencies, denied service changes, timeouts, missing confirmations and session cleanup. `tests/Test-RealtekAudio.ps1` additionally covers the Realtek stop/restore cycle, previously stopped companions, recovery after partial failures, restore retries, unknown nested dependencies, stale recovery after reboot and invalid recovery records. No classroom audio or Wi-Fi settings were changed by these tests. Trial on one student computer is still required.
 
 ## Open the school website (menu action 18)
 

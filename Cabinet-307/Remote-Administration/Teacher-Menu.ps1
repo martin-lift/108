@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 $ErrorActionPreference = 'Stop'
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if (-not $isAdmin) {
@@ -1250,33 +1250,78 @@ function Get-ClassroomAudioCommand {
             throw "Unexpected remote computer: $env:COMPUTERNAME (expected student $ExpectedName)."
         }
         $service = Get-Service -Name 'Audiosrv' -ErrorAction Stop
+        $realtek = $null
+        $timeout = [timespan]::FromSeconds(10)
+        $statePath = Join-Path $env:ProgramData 'Cabinet307\AudioControl\stopped-dependents.json'
         try {
-            $timeout = [timespan]::FromSeconds(10)
+            $saved = @()
+            if (Test-Path -LiteralPath $statePath) {
+                $state = Get-Content -LiteralPath $statePath -Raw -ErrorAction Stop | ConvertFrom-Json -ErrorAction Stop
+                if ($state.Computer -ine $ExpectedName -or $state.Version -ne 1 -or
+                    @($state.Services | Where-Object { $_ -cne 'RtkAudioUniversalService' }).Count -gt 0) {
+                    throw 'Invalid audio recovery state; no services were changed.'
+                }
+                $saved = @($state.Services)
+            }
             $service.Refresh()
             if ($service.Status -eq 'StartPending') { $service.WaitForStatus('Running', $timeout) }
             if ($service.Status -eq 'StopPending') { $service.WaitForStatus('Stopped', $timeout) }
             $service.Refresh()
             if ($service.Status -notin 'Running','Stopped') { throw "Unexpected Windows Audio state: $($service.Status)." }
-            $target = if ($Action -eq 'Stop') { 'Stopped' } else { 'Running' }
-            if ([string]$service.Status -ne $target) {
-                if ($Action -eq 'Stop') {
-                    # Do not force-stop dependent services or change any startup configuration.
-                    $dependents = @($service.DependentServices | Where-Object { $_.Status -ne 'Stopped' })
-                    if ($dependents.Count -gt 0) {
-                        throw ('Windows Audio has active dependent services; no services were stopped: ' + (($dependents | ForEach-Object { $_.Name }) -join ', '))
+            if ($Action -eq 'Stop') {
+                # Only the known Realtek audio companion is included. Never force unknown dependencies.
+                $dependents = @($service.DependentServices | Where-Object { $_.Status -ne 'Stopped' })
+                $unknown = @($dependents | Where-Object { $_.Name -ine 'RtkAudioUniversalService' })
+                if ($unknown.Count) { throw ('Unsupported active audio dependencies; no services were stopped: ' + (($unknown | ForEach-Object { $_.Name }) -join ', ')) }
+                if ($dependents.Count) {
+                    $realtek = Get-Service -Name 'RtkAudioUniversalService' -ErrorAction Stop
+                    if (@($realtek.DependentServices | Where-Object { $_.Status -ne 'Stopped' }).Count) {
+                        throw 'Realtek has active dependent services; no services were stopped.'
                     }
-                    $service.Stop()
-                } else {
-                    $service.Start()
+                    if ($realtek.Status -eq 'StartPending') { $realtek.WaitForStatus('Running', $timeout) }
+                    if ($realtek.Status -eq 'StopPending') { $realtek.WaitForStatus('Stopped', $timeout) }
+                    $realtek.Refresh()
+                    if ($realtek.Status -notin 'Running','Stopped') { throw "Unexpected Realtek state: $($realtek.Status)." }
+                    if ($realtek.Status -eq 'Running') {
+                        # Save before changing anything, including when a previous attempt partially failed.
+                        $null = New-Item -ItemType Directory -Path (Split-Path $statePath -Parent) -Force -ErrorAction Stop
+                        [pscustomobject]@{Version=1;Computer=$ExpectedName;Services=@('RtkAudioUniversalService')} |
+                            ConvertTo-Json | Set-Content -LiteralPath $statePath -Encoding UTF8 -ErrorAction Stop
+                        $realtek.Stop()
+                        $realtek.WaitForStatus('Stopped', $timeout)
+                        $realtek.Refresh()
+                        if ($realtek.Status -ne 'Stopped') { throw 'Realtek did not stop; recovery state was retained.' }
+                    }
                 }
-                $service.WaitForStatus($target, $timeout)
+                # Recheck immediately before Stop(), which otherwise also stops dependents.
+                $service.Refresh()
+                if (@($service.DependentServices | Where-Object { $_.Status -ne 'Stopped' }).Count) { throw 'Audio dependencies are still active; recovery state was retained.' }
+                if ($service.Status -ne 'Stopped') { $service.Stop() }
+                $service.WaitForStatus('Stopped', $timeout)
+            } else {
+                if ($service.Status -ne 'Running') { $service.Start() }
+                $service.WaitForStatus('Running', $timeout)
+                foreach ($dependentName in $saved) {
+                    $realtek = Get-Service -Name $dependentName -ErrorAction Stop
+                    $realtek.Refresh()
+                    if ($realtek.Status -eq 'StopPending') { $realtek.WaitForStatus('Stopped', $timeout) }
+                    if ($realtek.Status -eq 'StartPending') { $realtek.WaitForStatus('Running', $timeout) }
+                    $realtek.Refresh()
+                    if ($realtek.Status -eq 'Stopped') { $realtek.Start() }
+                    $realtek.WaitForStatus('Running', $timeout)
+                    $realtek.Refresh()
+                    if ($realtek.Status -ne 'Running') { throw 'Realtek did not start; recovery state was retained.' }
+                }
             }
+            $target = if ($Action -eq 'Stop') { 'Stopped' } else { 'Running' }
             $service.Refresh()
             if ([string]$service.Status -ne $target) { throw "Windows Audio did not reach $target." }
+            if ($Action -eq 'Restore' -and (Test-Path -LiteralPath $statePath)) { Remove-Item -LiteralPath $statePath -ErrorAction Stop }
             $status = if ($Action -eq 'Stop') { 'AUDIO_STOPPED' } else { 'AUDIO_RUNNING' }
-            $notes = if ($Action -eq 'Stop') { 'Windows Audio is stopped (playback and microphones). Startup settings are unchanged.' } else { 'Windows Audio is running. Some applications may need playback restarted.' }
+            $notes = if ($Action -eq 'Stop') { 'Windows Audio is stopped (playback and microphones). Active Realtek companion saved for restoration. Startup settings are unchanged.' } else { 'Windows Audio and any saved Realtek companion are running. Some applications may need playback restarted.' }
             [pscustomobject]@{ Computer=$env:COMPUTERNAME; Action=$Action; Status=$status; Notes=$notes }
         } finally {
+            if ($null -ne $realtek) { $realtek.Dispose() }
             $service.Dispose()
         }
     }
@@ -1353,6 +1398,8 @@ function Start-ClassroomAdGuard {
 }
 
 
+Initialize-ClassroomCredentialCache
+try {
 while ($true) {
     Write-Host "`nCLASSROOM 307 - TEACHER MENU" -ForegroundColor Cyan
     Write-Host '1. Shut down student computers (all or selected)'
@@ -1375,7 +1422,7 @@ while ($true) {
     Write-Host '13. Use teacher DNS on students'' computers (Wi-Fi IPv4)'
     Write-Host '14. Restore DNS on students'' computers (saved settings or automatic)'
     Write-Host '15. Start AdGuard Home on the teacher computer'
-    Write-Host '16. Open AdGuard Home control panel'
+    Write-Host '16. Open AdGuard Home filters'
     Write-Host '17. Clear Windows DNS cache on student computers (all or selected)'
     Write-Host ''
     Write-Host 'SCHOOL WEBSITE' -ForegroundColor Cyan
@@ -1433,7 +1480,7 @@ while ($true) {
             '13' { Invoke-ClassroomDnsAction -Action SetTeacher }
             '14' { Invoke-ClassroomDnsAction -Action Restore }
             '15' { Start-ClassroomAdGuard }
-            '16' { Start-Process -FilePath 'http://127.0.0.1:3000/' -ErrorAction Stop }
+            '16' { Start-Process -FilePath 'http://127.0.0.1:3000/#filters' -ErrorAction Stop }
             '17' { Invoke-ClassroomDnsAction -Action ClearCache }
             '18' { Open-ClassroomWebsite }
             '19' { Invoke-ClassroomAudioAction -Action Stop }
@@ -1442,5 +1489,8 @@ while ($true) {
         }
     } catch { Write-Host ("Error: {0}" -f $_.Exception.Message) -ForegroundColor Red }
     Read-Host 'Press Enter to return to the menu' | Out-Null
+}
+} finally {
+    Clear-ClassroomCredentialCache
 }
 

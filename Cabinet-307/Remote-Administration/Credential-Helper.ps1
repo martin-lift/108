@@ -36,10 +36,28 @@ namespace Cabinet307 {
     [Cabinet307.TeacherPasswordValidator]::Validate($Password)
 }
 
+function Clear-ClassroomCredentialCache {
+    $state = Get-Variable -Name Cabinet307MenuCredentialCache -Scope Global -ErrorAction SilentlyContinue
+    if ($null -ne $state) {
+        if ($null -ne $state.Value.Password) { $state.Value.Password.Dispose() }
+        Remove-Variable -Name Cabinet307MenuCredentialCache -Scope Global -ErrorAction SilentlyContinue
+    }
+}
+
+function Initialize-ClassroomCredentialCache {
+    # Only the menu enables this process-local cache. Standalone scripts still prompt.
+    Clear-ClassroomCredentialCache
+    $global:Cabinet307MenuCredentialCache = [pscustomobject]@{ Teacher=$env:COMPUTERNAME; Password=$null }
+}
+
 function Get-ClassroomCredential {
     [CmdletBinding()]
     param([string]$UserName = '108SU')
     $ErrorActionPreference = 'Stop'
+    $cache = Get-Variable -Name Cabinet307MenuCredentialCache -Scope Global -ErrorAction SilentlyContinue
+    if ($null -ne $cache -and $cache.Value.Teacher -ieq $env:COMPUTERNAME -and $null -ne $cache.Value.Password) {
+        return [pscredential]::new($UserName, $cache.Value.Password.Copy())
+    }
     $assumption = "The local 108SU account is expected to use the same password on the teacher computer and all student computers."
     try {
         $localAccount = Get-LocalUser -Name '108SU' -ErrorAction Stop
@@ -55,6 +73,10 @@ function Get-ClassroomCredential {
     Write-Host ("Checking the password for local 108SU on teacher computer '{0}'..." -f $env:COMPUTERNAME)
     $code = Invoke-TeacherCredentialValidation -Password $entered.Password
     if ($code -eq 0) {
+        if ($null -ne $cache -and $cache.Value.Teacher -ieq $env:COMPUTERNAME) {
+            $cache.Value.Password = $entered.Password.Copy()
+            $cache.Value.Password.MakeReadOnly()
+        }
         return [pscredential]::new($UserName, $entered.Password)
     }
     if ($code -eq 1326 -or $code -eq 86) {
