@@ -1,38 +1,31 @@
-<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 11: HTML – текст, хипервръзки и изображения</title><style>body{font-family:Arial,sans-serif;line-height:1.65;max-width:1000px;margin:auto;padding:28px;color:#222}h1{color:#244b73;border-bottom:3px solid #244b73;padding-bottom:12px}h2{color:#315f8d;margin-top:28px}.task,.note{padding:14px 18px;margin:18px 0;border-left:5px solid #557b39;background:#f1f7ee}.note{border-color:#315f8d;background:#eef4f9}pre{background:#f3f5f7;border:1px solid #d8e0e8;padding:14px;overflow:auto}code{font-family:Consolas,monospace}li{margin:6px 0}</style></head><body>
+<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 11: HTML – текст, хипервръзки и изображения</title><style>body{font-family:Arial,sans-serif;line-height:1.65;max-width:1000px;margin:auto;padding:28px;color:#222}h1{color:#244b73;border-bottom:3px solid #244b73;padding-bottom:12px}h2{color:#315f8d;margin-top:28px}.task,.note{padding:14px 18px;margin:18px 0;border-left:5px solid #557b39;background:#f1f7ee}.note{border-color:#315f8d;background:#eef4f9}.download{display:inline-block;padding:11px 16px;background:#244b73;color:white;text-decoration:none;border-radius:5px;font-weight:bold}pre{background:#f3f5f7;border:1px solid #d8e0e8;padding:14px;overflow:auto}code{font-family:Consolas,monospace}li{margin:6px 0}</style></head><body>
 <h1>Урок 11: Основи на HTML – текст, хипервръзки и изображения (Упражнение)</h1>
-<div class="note"><strong>Файл за работа:</strong> <a href="11-practice-karlovo.html">11-practice-karlovo.html</a>. Отворете го, запазете свое копие и изпълнявайте задачите върху него. За този урок не са необходими други файлове или папки.</div>
-
-<h2>1. Заглавия</h2><p>HTML използва <code>&lt;h1&gt;</code> до <code>&lt;h6&gt;</code>. <code>&lt;h1&gt;</code> е най-високото ниво, а останалите са подзаглавия.</p>
-<h2>2. Параграф</h2><p>За отделен параграф се използва <code>&lt;p&gt;</code>.</p>
-<h2>3. Форматиране на текст</h2><ul><li><code>&lt;strong&gt;</code> – важен текст;</li><li><code>&lt;em&gt;</code> – акцент;</li><li><code>&lt;b&gt;</code> – удебелен;</li><li><code>&lt;i&gt;</code> – курсив;</li><li><code>&lt;u&gt;</code> – подчертан;</li><li><code>&lt;del&gt;</code> – задраскан;</li><li><code>&lt;sub&gt;</code> и <code>&lt;sup&gt;</code> – долен и горен индекс.</li></ul>
-<h2>4. Нов ред</h2><p><code>&lt;br&gt;</code> преминава на нов ред без нов параграф.</p>
-<h2>5. Цитат и предварително форматиран текст</h2><p><code>&lt;blockquote&gt;</code> служи за блоков цитат, а <code>&lt;pre&gt;</code> запазва интервалите и новите редове.</p>
-<h2>6. Контейнерът div</h2><p><code>&lt;div&gt;</code> е универсален контейнер за групиране на текст, изображения и други HTML елементи.</p>
-
-<div class="task"><strong>Задача 1.</strong> Отворете <code>11-practice-karlovo.html</code> и разгледайте структурата. Намерете блоковете <code>div</code> с <code>id="1"</code>, <code>id="2"</code> и <code>id="3"</code>.</div>
-<div class="task"><strong>Задача 2.</strong> Във втория и третия блок заглавията са параграфи. Заменете ги с <code>&lt;h2&gt;</code>.</div>
-<div class="task"><strong>Задача 3.</strong> Разширете текста за Исторически музей – Карлово. Оставете го в един <code>&lt;p&gt;</code>, но добавете поне два нови реда чрез <code>&lt;br&gt;</code>. Маркирайте една важна фраза с <code>&lt;strong&gt;</code>.</div>
-
-<h2>7. Хипервръзка</h2><p>Тагът <code>&lt;a&gt;</code> създава връзка, а <code>href</code> задава адреса.</p><pre><code>&lt;a href="https://mon.bg"&gt;Връзка към МОН&lt;/a&gt;</code></pre>
-<h2>8. Относителна връзка</h2><p>Към файл в същата папка можем да използваме например <code>href="index.html"</code>.</p>
-<h2>9. Абсолютна връзка</h2><p>Към външен сайт се използва пълен URL, например <code>https://www.example.com/</code>.</p>
-<h2>10. Връзка към част от страницата</h2><p>При елемент с <code>id="2"</code> връзката <code>href="#2"</code> отвежда директно до него.</p>
-<h2>11. Отваряне в нов раздел</h2><p><code>target="_blank"</code> отваря връзката в нов раздел. За външни връзки е добра практика да се добави и <code>rel="noopener noreferrer"</code>.</p>
-
-<div class="task"><strong>Задача 4.</strong> Във втория блок намерете текста „виж на картата“. Превърнете го в хипервръзка към реалното местоположение на Исторически музей – Карлово в Google Maps. Нека картата се отваря в нов раздел. В първия блок има готов пример, който може да използвате за ориентир.</div>
-
-<h2>12. Изображение</h2><p>Изображение се добавя с <code>&lt;img&gt;</code>. Основните атрибути са <code>src</code> и <code>alt</code>.</p>
-<h2>13. Абсолютен адрес на изображение</h2><pre><code>&lt;img src="https://example.com/photo.jpg" alt="Описание"&gt;</code></pre>
-<h2>14. Относителен адрес</h2><p>Ако по-късно създадете собствен файл <code>photo.jpg</code> в същата папка, използвайте <code>src="photo.jpg"</code>. При подпапка <code>images</code>: <code>src="images/photo.jpg"</code>.</p>
-<h2>15. Alt текст</h2><p><code>alt</code> описва смисъла на изображението и е важен за достъпността и при проблем със зареждането.</p>
-<h2>16. Размер</h2><p><code>width</code> и <code>height</code> задават размери. Не нарушавайте пропорциите на изображението.</p>
+<div class="note"><strong>Работим само с един файл.</strong> Изтеглете упражнителния HTML файл, запазете го на компютъра си и го отваряйте едновременно в текстов редактор и в браузър. Всички задачи в този урок се изпълняват върху него. Не са необходими допълнителни папки, Word документи, изображения или други файлове.<p><a class="download" href="11-practice-karlovo.html" download="11-practice-karlovo.html">Изтегли файла за упражнение</a></p></div>
+<h2>1. Заглавия</h2><p>HTML използва <code>&lt;h1&gt;</code> до <code>&lt;h6&gt;</code>. <code>&lt;h1&gt;</code> е главното заглавие, а останалите означават по-ниски нива.</p>
+<h2>2. Параграф</h2><p>Отделен параграф се създава с <code>&lt;p&gt;</code>.</p>
+<h2>3. Форматиране на текст</h2><ul><li><code>&lt;strong&gt;</code> – важен текст;</li><li><code>&lt;em&gt;</code> – акцент;</li><li><code>&lt;b&gt;</code> – удебелен текст;</li><li><code>&lt;i&gt;</code> – курсив;</li><li><code>&lt;u&gt;</code> – подчертан текст;</li><li><code>&lt;del&gt;</code> – задраскан текст;</li><li><code>&lt;sub&gt;</code> и <code>&lt;sup&gt;</code> – долен и горен индекс.</li></ul>
+<h2>4. Нов ред</h2><p><code>&lt;br&gt;</code> преминава на нов ред, без да започва нов параграф.</p>
+<h2>5. Други текстови елементи</h2><p><code>&lt;blockquote&gt;</code> се използва за блоков цитат, а <code>&lt;pre&gt;</code> запазва интервалите и новите редове от HTML кода.</p>
+<h2>6. Контейнерът div</h2><p><code>&lt;div&gt;</code> е контейнер, с който групираме свързани елементи.</p>
+<div class="task"><strong>Задача 1.</strong> Отворете изтегления <code>11-practice-karlovo.html</code> в текстов редактор. Намерете трите блока за забележителности с <code>id="1"</code>, <code>id="2"</code> и <code>id="3"</code>. След това отворете същия файл в браузър и сравнете HTML кода с това, което виждате.</div>
+<div class="task"><strong>Задача 2.</strong> В блокове 2 и 3 имената на забележителностите са написани като <code>&lt;p&gt;</code>. Променете ги на <code>&lt;h2&gt;</code>. Запазете файла и презаредете страницата.</div>
+<div class="task"><strong>Задача 3.</strong> В блока за Исторически музей – Карлово допълнете съществуващия текст. Оставете текста в един параграф, добавете поне два нови реда с <code>&lt;br&gt;</code> и маркирайте важна фраза с <code>&lt;strong&gt;</code>.</div>
+<h2>7. Хипервръзка</h2><p><code>&lt;a&gt;</code> създава хипервръзка, а <code>href</code> задава нейния адрес.</p><pre><code>&lt;a href="https://mon.bg"&gt;Връзка към МОН&lt;/a&gt;</code></pre>
+<h2>8. Връзка към файл</h2><p>Когато целевият файл е в същата папка, може да използваме относителен адрес, например <code>href="index.html"</code>.</p>
+<h2>9. Връзка към външен сайт</h2><p>За външен сайт използваме пълен URL адрес.</p>
+<h2>10. Връзка към място в същата страница</h2><p>В упражнителния файл вече има елемент с <code>id="2"</code>. Връзката <code>href="#2"</code> отвежда директно до него.</p>
+<h2>11. Нов раздел</h2><p><code>target="_blank"</code> отваря връзката в нов раздел. При външни връзки може да се добави <code>rel="noopener noreferrer"</code>.</p>
+<div class="task"><strong>Задача 4.</strong> В блок 2 намерете текста „виж на картата“. Превърнете го в хипервръзка към реалното местоположение на Исторически музей – Карлово в Google Maps. Направете връзката да се отваря в нов раздел. В блок 1 има готов пример.</div>
+<h2>12. Изображение</h2><p>Изображение се добавя с <code>&lt;img&gt;</code>. Най-важните атрибути са <code>src</code> и <code>alt</code>.</p>
+<h2>13. Адрес на изображението</h2><p>В това упражнение няма отделна папка с картинки. Затова използвайте абсолютен URL към подходящо изображение в интернет, за което имате право на използване.</p><pre><code>&lt;img src="https://example.com/photo.jpg" alt="Описание на изображението"&gt;</code></pre>
+<h2>14. Какво е относителен път</h2><p>Ако в бъдещ проект имате <code>photo.jpg</code> до HTML файла, адресът е <code>src="photo.jpg"</code>. Ако изображението е в подпапка <code>images</code>, адресът е <code>src="images/photo.jpg"</code>. В настоящото упражнение не е необходимо да създавате такива файлове или папки.</p>
+<h2>15. Alt текст</h2><p><code>alt</code> описва смисъла на изображението. Той е важен за достъпността и се използва, когато изображението не може да бъде показано.</p>
+<h2>16. Размер</h2><p><code>width</code> и <code>height</code> могат да задават размерите на изображението. Внимавайте да не нарушавате пропорциите му.</p>
 <h2>17. Изображение като връзка</h2><pre><code>&lt;a href="https://example.com"&gt;
   &lt;img src="https://example.com/photo.jpg" alt="Описание"&gt;
 &lt;/a&gt;</code></pre>
-
-<div class="task"><strong>Задача 5.</strong> В блока „Упражнение с изображение“ добавете подходяща снимка на Карлово или негова забележителност чрез абсолютен URL към изображение с разрешено използване. Добавете смислен <code>alt</code>. Задайте първо <code>width="400"</code>, проверете резултата, а след това опитайте друга ширина.</div>
-<div class="task"><strong>Задача 6.</strong> Направете изображението от Задача 5 хипервръзка към уеб страница, от която посетителят може да научи повече за обекта.</div>
-
-<h2>18. Проверка</h2><p>След всяка промяна запазвайте HTML файла и го презареждайте в браузъра. Проверете дали заглавията са правилни, връзките работят и изображението има подходящ алтернативен текст.</p>
-<h2>19. Важно</h2><ul><li>Пишете таговете и атрибутите с малки букви.</li><li>Поставяйте стойностите на атрибутите в кавички.</li><li>Използвайте ясна структура и отстъпи в HTML кода.</li></ul>
+<div class="task"><strong>Задача 5.</strong> В упражнителния файл намерете блока <strong>„Упражнение с изображение“</strong>. Добавете в него снимка на Карлово или негова забележителност чрез абсолютен URL. Добавете подходящ <code>alt</code> и задайте <code>width="400"</code>. Запазете и проверете резултата.</div>
+<div class="task"><strong>Задача 6.</strong> Променете ширината на изображението и сравнете резултата. След това направете изображението хипервръзка към страница с повече информация за показания обект.</div>
+<h2>18. Проверка след всяка задача</h2><p>След промяна натиснете Save в редактора и Refresh в браузъра. Така веднага ще виждате резултата от HTML кода.</p>
+<h2>19. Важно</h2><ul><li>Пишете таговете и атрибутите с малки букви.</li><li>Поставяйте стойностите на атрибутите в кавички.</li><li>Подреждайте кода с отстъпи, за да бъде четим.</li><li>Всички упражнения от този урок се изпълняват само върху изтегления <code>11-practice-karlovo.html</code>.</li></ul>
 </body></html>
