@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Упражнение – регистрационна форма</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: auto; padding: 24px; }
+    fieldset { margin: 18px 0; }
+    input, select, textarea, button { font: inherit; }
+    textarea { max-width: 100%; }
+    #result { padding: 12px; background: #eef4f9; }
+  </style>
+</head>
+<body>
+  <h1>Регистрационна форма – упражнение</h1>
+  <p>Допълнете HTML кода според задачите в урока. Използвайте измислени данни. Формата работи локално и не изпраща данни на сървър.</p>
+
+  <form id="registration">
+    <!-- Готов пример за поле с етикет. Добавете required според задачата. -->
+    <p>
+      <label for="full-name">Име:</label>
+      <input type="text" id="full-name" name="fullName" maxlength="50">
+    </p>
+
+    <!-- 1. Добавете текстово поле „Потребител“ с етикет. -->
+
+    <!-- 2. Добавете падащо меню „Години“ (14–19) с етикет. -->
+
+    <fieldset>
+      <legend>Пол</legend>
+      <!-- 3. Добавете радиобутони с общо name="gender" и отделни етикети. -->
+    </fieldset>
+
+    <fieldset>
+      <legend>Интереси</legend>
+      <!-- 3. Добавете отметки за HTML, CSS и JavaScript с етикети. -->
+    </fieldset>
+
+    <!-- 4. Добавете полета за парола и имейл с етикети и required. -->
+
+    <!-- 5. Добавете текстова област за коментар с етикет. -->
+
+    <!-- 5. Добавете бутон submit „Провери“ и бутон reset „Изчисти“. -->
+  </form>
+
+  <p id="result" role="status">Тук ще се покаже резултатът от проверката.</p>
+
+  <!-- Готова локална проверка. Не е необходимо да променяте скрипта. -->
+  <script>
+    const form = document.getElementById('registration');
+    const result = document.getElementById('result');
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      result.textContent = 'Проверката премина успешно. Това е учебна форма — данни не са изпратени.';
+    });
+    form.addEventListener('reset', function () {
+      result.textContent = 'Формата е върната към началните стойности.';
+    });
+  </script>
+</body>
+</html>
