@@ -1,11 +1,28 @@
 {
   "SchemaVersion": 1,
-  "Revision": "2026-10-20.1",
+  "Revision": "2026-10-28.1",
   "Category": "AI-Assistants",
-  "Purpose": "Домейни за AI асистенти, събрани за преглед преди евентуално ограничаване при изпит в кабинет 307.",
+  "Purpose": "Домейни за AI асистенти, агенти и AI генератори за 3D моделиране за ограничаване при изпит в кабинет 307.",
   "Mode": "ReviewOnly",
   "CoverageNote": "Потвърдените услуги включват основния посочен домейн и всички негови поддомейни. Новите записи са проверени по публични източници при възложения анализ. Общите хостинги и непотвърдената инфраструктура се преглеждат отделно; няма автоматична забрана на общи домейни google.com, microsoft.com или github.com. Включването се управлява ръчно в AdGuard.",
   "Entries": [
+    {
+      "Domain": "3daistudio.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "3D AI Studio",
+      "Subcategory": "AI3DTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Учителят изрично включи и AI инструментите за 3D моделиране в общия AI списък за ограничаване при изпит, независимо от учебната им употреба.",
+      "ReviewNote": "Обхваща домейна и всички поддомейни. Публикуването не активира списъка в AdGuard. При включване се ограничават всички функции на този домейн, включително конверторът на MeshShift. Наблюдаваните заявки не доказват успешно използване.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.3daistudio.com/"
+      ]
+    },
     {
       "Domain": "aiapp.ai",
       "MatchScope": "DomainAndSubdomains",
@@ -20,6 +37,22 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://aiapp.ai/"
+      ]
+    },
+    {
+      "Domain": "aistudio.google.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Google AI Studio",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверена AI чат услуга или AI студио с наблюдавани адреси в възложения локален анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://aistudio.google.com/welcome"
       ]
     },
     {
@@ -119,6 +152,22 @@
       ]
     },
     {
+      "Domain": "chatday.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Chat Day",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверена AI чат услуга или AI студио с наблюдавани адреси в възложения локален анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.chatday.ai/chat"
+      ]
+    },
+    {
       "Domain": "chatgpt.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "ChatGPT",
@@ -135,6 +184,22 @@
       "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
+      "Domain": "chatwithai.app",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "AI Chat",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверена AI чат услуга или AI студио с наблюдавани адреси в възложения локален анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://chatwithai.app/"
+      ]
+    },
+    {
       "Domain": "claude.ai",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Claude",
@@ -149,6 +214,22 @@
       ],
       "Decision": "Block",
       "DecisionBasis": "ExplicitTeacherInstruction"
+    },
+    {
+      "Domain": "copilot.cloud.microsoft",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Microsoft Copilot — AI chat",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверена AI чат услуга или AI студио с наблюдавани адреси в възложения локален анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://copilot.cloud.microsoft/"
+      ]
     },
     {
       "Domain": "copilot.com",
@@ -263,6 +344,40 @@
       ]
     },
     {
+      "Domain": "meshshift.app",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "MeshShift — AI 3D генератор и конвертор",
+      "Subcategory": "AI3DTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Учителят изрично включи и AI инструментите за 3D моделиране в общия AI списък за ограничаване при изпит, независимо от учебната им употреба.",
+      "ReviewNote": "Обхваща домейна и всички поддомейни. Публикуването не активира списъка в AdGuard. При включване се ограничават всички функции на този домейн, включително конверторът на MeshShift. Наблюдаваните заявки не доказват успешно използване.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://meshshift.app/"
+      ]
+    },
+    {
+      "Domain": "meshy.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Meshy — AI 3D генератор",
+      "Subcategory": "AI3DTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Учителят изрично включи и AI инструментите за 3D моделиране в общия AI списък за ограничаване при изпит, независимо от учебната им употреба.",
+      "ReviewNote": "Обхваща домейна и всички поддомейни. Публикуването не активира списъка в AdGuard. При включване се ограничават всички функции на този домейн, включително конверторът на MeshShift. Наблюдаваните заявки не доказват успешно използване.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.meshy.ai/"
+      ]
+    },
+    {
       "Domain": "openrouter.ai",
       "MatchScope": "DomainAndSubdomains",
       "Service": "OpenRouter — AI models and chat",
@@ -293,6 +408,56 @@
       ],
       "Decision": "Block",
       "DecisionBasis": "ExplicitTeacherInstruction"
+    },
+    {
+      "Domain": "super.myninja.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "SuperNinja — NinjaTech AI",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверена AI чат услуга или AI студио с наблюдавани адреси в възложения локален анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://myninja.ai/login-with-email"
+      ]
+    },
+    {
+      "Domain": "triple3d.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Triple 3D — AI 3D генератор",
+      "Subcategory": "AI3DTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Учителят изрично включи и AI инструментите за 3D моделиране в общия AI списък за ограничаване при изпит, независимо от учебната им употреба.",
+      "ReviewNote": "Обхваща домейна и всички поддомейни. Публикуването не активира списъка в AdGuard. При включване се ограничават всички функции на този домейн, включително конверторът на MeshShift. Наблюдаваните заявки не доказват успешно използване.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://triple3d.ai/"
+      ]
+    },
+    {
+      "Domain": "tripo3d.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Tripo AI — 3D генератор",
+      "Subcategory": "AI3DTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Учителят изрично включи и AI инструментите за 3D моделиране в общия AI списък за ограничаване при изпит, независимо от учебната им употреба.",
+      "ReviewNote": "Обхваща домейна и всички поддомейни. Публикуването не активира списъка в AdGuard. При включване се ограничават всички функции на този домейн, включително конверторът на MeshShift. Наблюдаваните заявки не доказват успешно използване.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.tripo3d.ai/"
+      ]
     }
   ]
 }

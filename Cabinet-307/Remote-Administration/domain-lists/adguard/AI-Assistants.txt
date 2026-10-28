@@ -1,20 +1,25 @@
 ! Title: Classroom 307 - AI assistants (review/test)
-! Version: 2026-10-20.1
+! Version: 2026-10-28.1
 ! Homepage: https://github.com/martin-lift/108/tree/main/Cabinet-307/Remote-Administration/domain-lists
 ! Source: AI-Assistants.json
 ! Plain domains match exact hosts; ||domain^ includes the domain and all subdomains.
-! Rules: 18
+! Rules: 28
 ! Includes candidates for teacher review. Enable manually in AdGuard only when desired.
 
+||3daistudio.com^
 ||aiapp.ai^
+||aistudio.google.com^
 ||ask-chat.ai^
 ||chat.deepseek.com^
 ||chat.mistral.ai^
 ||chat.openai.com^
 ||chatbot.app^
 ||chat-box.ai^
+||chatday.ai^
 ||chatgpt.com^
+||chatwithai.app^
 ||claude.ai^
+||copilot.cloud.microsoft^
 ||copilot.com^
 ||copilot.microsoft.com^
 ||duck.ai^
@@ -22,5 +27,10 @@
 ||githubcopilot.com^
 ||grok.com^
 ||lovable.dev^
+||meshshift.app^
+||meshy.ai^
 ||openrouter.ai^
 ||perplexity.ai^
+||super.myninja.ai^
+||triple3d.ai^
+||tripo3d.ai^

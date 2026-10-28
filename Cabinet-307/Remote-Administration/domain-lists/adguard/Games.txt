@@ -1,44 +1,78 @@
 ! Title: Classroom 307 - Games and video (review/test)
-! Version: 2026-10-20.2
+! Version: 2026-10-28.1
 ! Homepage: https://github.com/martin-lift/108/tree/main/Cabinet-307/Remote-Administration/domain-lists
 ! Source: Games.json
 ! Plain domains match exact hosts; ||domain^ includes the domain and all subdomains.
-! Rules: 40
+! Rules: 74
 ! Includes candidates for teacher review. Enable manually in AdGuard only when desired.
 
+||1001games.com^
+||1games.io^
 ||67speed.com^
 ||67speedgames.com^
 ||ageofwargame.io^
+||aternos.org^
+||azgames.io^
 ||badparentingame.io^
+||belot.bg^
 ||chess.com^
 ||chessarena.com^
+||cookinggames.com^
 ||crazygames.com^
 ||crossyroadgame.io^
 ||dailymotion.com^
 ||eaglercraft.com^
+||fortnite.com^
+||freegame.com^
 ||friv.com^
 ||friv4school.com^
 ||frivclassic.com^
+||gamedistribution.com^
+||gameforge.com^
+||gamenora.com^
 ||geforcenow.com^
+||geoguesser.io^
+||geometry.games^
+||globle-game.com^
 ||gx.games^
+||hbomax.com^
 ||krunker.io^
 ||microsoftcasualgames.com^
+||minecraft.net^
 ||minesweeper.online^
+||miniplay.com^
+||minix.games^
 ||motions.games^
 ||neal.fun^
+||onlinegames.io^
 ||openguessr.com^
+||pacogames.com^
 ||papasgames.onl^
+||playgama.com^
+||playgamor.com^
 ||playtube.tv^
 ||poki.com^
+||poki.hu^
+||poopdle.games^
 ||rbxcdn.com^
 ||roblox.com^
+||slope2.online^
+||slope2game.com^
+||slope2game.io^
+||slope2-game.io^
+||slope3online.io^
+||slopegame2.com^
 ||slopegameaz.io^
 ||slopeio.org^
+||steamcommunity.com^
+||steampowered.com^
 ||sudoku.com^
 ||tiktok.com^
+||topgames.com^
 ||totaljerkface.com^
 ||twitch.tv^
 ||twoplayergames.org^
+||vimeo.com^
 ||warthunder.com^
 ||worldchess.com^
 ||y8.com^

@@ -1,11 +1,43 @@
 {
   "SchemaVersion": 1,
-  "Revision": "2026-10-20.2",
+  "Revision": "2026-10-28.1",
   "Category": "Games",
   "Purpose": "Домейни за игри и нежелани видео платформи в общия списък за кабинет 307, по решение на учителя.",
   "Mode": "ReviewOnly",
   "CoverageNote": "Общ списък за игри и видео платформи. Потвърдените правила обхващат посочения домейн на услугата и всички негови поддомейни. VideoPlatforms е отделно предназначение в същия файл Games.txt. Общите услуги на Google и споделените хостинги не се блокират. Включването се управлява ръчно в AdGuard.",
   "Entries": [
+    {
+      "Domain": "1001games.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "1001Games",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.1001games.com/"
+      ]
+    },
+    {
+      "Domain": "1games.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "1Games",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://1games.io/"
+      ]
+    },
     {
       "Domain": "67speed.com",
       "MatchScope": "DomainAndSubdomains",
@@ -55,6 +87,38 @@
       ]
     },
     {
+      "Domain": "aternos.org",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Aternos — Minecraft сървъри",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://aternos.org/"
+      ]
+    },
+    {
+      "Domain": "azgames.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "AZ Games",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://azgames.io/"
+      ]
+    },
+    {
       "Domain": "badparentingame.io",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Bad Parenting — horror game",
@@ -68,6 +132,22 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://badparentingame.io/"
+      ]
+    },
+    {
+      "Domain": "belot.bg",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Belot.BG — игри с карти и табла",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://belot.bg/"
       ]
     },
     {
@@ -100,6 +180,22 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://www.chessarena.com/"
+      ]
+    },
+    {
+      "Domain": "cookinggames.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Cooking Games",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.cookinggames.com/"
       ]
     },
     {
@@ -168,6 +264,38 @@
       ]
     },
     {
+      "Domain": "fortnite.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Fortnite",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.fortnite.com/"
+      ]
+    },
+    {
+      "Domain": "freegame.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "FreeGame",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.freegame.com/"
+      ]
+    },
+    {
       "Domain": "friv.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Friv",
@@ -216,6 +344,54 @@
       ]
     },
     {
+      "Domain": "gamedistribution.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "GameDistribution — браузърни игри",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://gamedistribution.com/aboutPage/index.html"
+      ]
+    },
+    {
+      "Domain": "gameforge.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Gameforge / Ikariam",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://gameforge.com/en-GB/play/ikariam"
+      ]
+    },
+    {
+      "Domain": "gamenora.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Gamenora",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.gamenora.com/"
+      ]
+    },
+    {
       "Domain": "geforcenow.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "NVIDIA GeForce NOW",
@@ -229,6 +405,54 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://www.nvidia.com/en-us/geforce-now/"
+      ]
+    },
+    {
+      "Domain": "geoguesser.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "GeoGuesser",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://geoguesser.io/"
+      ]
+    },
+    {
+      "Domain": "geometry.games",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Geometry Games",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://geometry.games/"
+      ]
+    },
+    {
+      "Domain": "globle-game.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Globle",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://globle-game.com/"
       ]
     },
     {
@@ -246,6 +470,23 @@
       "Sources": [
         "https://press.opera.com/2022/07/29/opera-presents-gx-games/"
       ]
+    },
+    {
+      "Domain": "hbomax.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "HBO Max — видео платформа",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Видео платформа с наблюдавани адреси; включва се в общия списък за игри и видео по решение на учителя.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://help.hbomax.com/us/Answer/Detail/000002558"
+      ],
+      "Subcategory": "VideoPlatforms"
     },
     {
       "Domain": "krunker.io",
@@ -280,6 +521,22 @@
       ]
     },
     {
+      "Domain": "minecraft.net",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Minecraft",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.minecraft.net/en-us"
+      ]
+    },
+    {
       "Domain": "minesweeper.online",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Minesweeper Online",
@@ -293,6 +550,38 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://minesweeper.online/"
+      ]
+    },
+    {
+      "Domain": "miniplay.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Miniplay",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.miniplay.com/"
+      ]
+    },
+    {
+      "Domain": "minix.games",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Minix Games",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://minix.games/"
       ]
     },
     {
@@ -328,6 +617,22 @@
       ]
     },
     {
+      "Domain": "onlinegames.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "OnlineGames.io",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.onlinegames.io/"
+      ]
+    },
+    {
       "Domain": "openguessr.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "OpenGuessr",
@@ -344,6 +649,22 @@
       ]
     },
     {
+      "Domain": "pacogames.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "PacoGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.pacogames.com/"
+      ]
+    },
+    {
       "Domain": "papasgames.onl",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Papa's Games",
@@ -357,6 +678,38 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://papasgames.onl/"
+      ]
+    },
+    {
+      "Domain": "playgama.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Playgama",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://playgama.com/"
+      ]
+    },
+    {
+      "Domain": "playgamor.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "PlayGamor",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://playgamor.com/"
       ]
     },
     {
@@ -393,6 +746,39 @@
       ]
     },
     {
+      "Domain": "poki.hu",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Poki.hu — браузърни игри",
+      "Subcategory": "BrowserGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава браузърни игри.",
+      "ReviewNote": "Обхваща домейна и всички поддомейни. Публикуването не активира списъка в AdGuard. При включване се ограничават всички функции на този домейн, включително конверторът на MeshShift. Наблюдаваните заявки не доказват успешно използване.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://poki.hu/"
+      ]
+    },
+    {
+      "Domain": "poopdle.games",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Poopdle",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.poopdle.games/"
+      ]
+    },
+    {
       "Domain": "rbxcdn.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Roblox",
@@ -422,6 +808,102 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "slope2-game.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Slope 2",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://slope2-game.io/"
+      ]
+    },
+    {
+      "Domain": "slope2.online",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Slope 2",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://slope2.online/"
+      ]
+    },
+    {
+      "Domain": "slope2game.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Slope 2",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://slope2game.com/"
+      ]
+    },
+    {
+      "Domain": "slope2game.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Slope 2",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://slope2game.io/"
+      ]
+    },
+    {
+      "Domain": "slope3online.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Slope 3",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://slope3online.io/"
+      ]
+    },
+    {
+      "Domain": "slopegame2.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Slope Game 2",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://slopegame2.com/"
       ]
     },
     {
@@ -457,6 +939,38 @@
       ]
     },
     {
+      "Domain": "steamcommunity.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Steam Community",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://steamcommunity.com/"
+      ]
+    },
+    {
+      "Domain": "steampowered.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Steam — игрова платформа",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://store.steampowered.com/"
+      ]
+    },
+    {
       "Domain": "sudoku.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Sudoku",
@@ -487,6 +1001,22 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://developers.tiktok.com/docs/en/about-research-api"
+      ]
+    },
+    {
+      "Domain": "topgames.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "TopGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри или специализирана игрова платформа с наблюдавани адреси в локалния анализ.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.topgames.com/"
       ]
     },
     {
@@ -537,6 +1067,23 @@
       "Sources": [
         "https://www.twoplayergames.org/"
       ]
+    },
+    {
+      "Domain": "vimeo.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Vimeo — видео платформа",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Видео платформа с наблюдавани адреси; включва се в общия списък за игри и видео по решение на учителя.",
+      "ReviewNote": "Допълнено при възложения анализ само на записи от 21 октомври нататък. Обхваща посочения домейн и поддомейните му; не разширява към общи родителски домейни. DNS заявките може да са фонови или филтрирани и не доказват успешно посещение или действие на ученик. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://vimeo.com/"
+      ],
+      "Subcategory": "VideoPlatforms"
     },
     {
       "Domain": "warthunder.com",
