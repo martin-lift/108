@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 08: Обобщаващо упражнение – диаграми, логически функции и CHOOSE</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f5f5fa;color:#202236;font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:24px 18px 70px}header{background:#32245f;color:white;padding:42px max(18px,calc((100vw - 864px)/2));}header p{margin:0;color:#ded6ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.2;margin:.4em 0}h2{font-size:1.55rem;line-height:1.3;color:#40317d;margin:0 0 12px}h3{font-size:1.1rem;margin:1.2em 0 .3em}section{background:white;border:1px solid #e4e1ef;border-radius:14px;padding:24px 28px;margin:20px 0}p{margin:.5em 0 1em}li{margin:.35em 0}.note{border-left:4px solid #7955c9;background:#f3efff;padding:10px 16px;border-radius:5px}.task{background:#faf7ff;border-left:4px solid #7955c9;padding:14px 18px;margin-top:14px}nav a{display:inline-block;margin:0 12px 8px 0;color:#49358e}code{background:#f0edf6;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}footer{font-size:.85em;color:#666;text-align:center}@media(max-width:600px){section{padding:19px 17px}body{font-size:16px}}
+</style>
+</head>
+<body>
+<header>
+<p>Обработка на социално-икономическа информация · Урок 08</p>
+<h1>Обобщаващо упражнение</h1>
+<p>Диаграми, IF, AND, OR, NOT и CHOOSE</p>
+</header>
+<main>
+<nav aria-label="Навигация">
+<a href="index.html">Всички уроци</a>
+<a href="05-Creating-Charts.html">Урок 04</a>
+<a href="06-Logical-Functions.html">Урок 05</a>
+<a href="07-CHOOSE-Function.html">Урок 06</a>
+<a href="#file">Excel файл</a>
+<a href="#tasks">7 задачи</a>
+</nav>
+
+<section id="file">
+<h2>Файл за работа</h2>
+<p>Свалете и отворете файла <a href="08-integrated-exercises.xlsx" download><strong>08-integrated-exercises.xlsx</strong></a>.</p>
+<p>Файлът съдържа три работни листа:</p>
+<ul>
+<li><strong>Служители</strong> – данни за продажби, клиенти, рейтинг и активност;</li>
+<li><strong>Месечни продажби</strong> – продажби по месеци и продуктови групи;</li>
+<li><strong>Рейтинг</strong> – справочна таблица за бонусите по рейтинг.</li>
+</ul>
+<p class="note"><strong>Важно:</strong> Не попълвайте резултатите ръчно. Използвайте формули и диаграми. Задачите използват знанията от предишните три урока: диаграми, логически функции и CHOOSE.</p>
+</section>
+
+<section id="tasks">
+<h2>7 задачи</h2>
+
+<div class="task" id="task1">
+<h3>Задача 1. IF – изпълнена ли е целта?</h3>
+<p>Работете в лист <strong>„Служители“</strong>. В колона <strong>G – „Статус на целта“</strong> създайте формула с <strong>IF</strong>.</p>
+<ul>
+<li>ако годишните продажби са поне <strong>10 000 лв.</strong> → „Целта е изпълнена“;</li>
+<li>в противен случай → „Под целта“.</li>
+</ul>
+<p>Копирайте формулата за всички служители.</p>
+</div>
+
+<div class="task" id="task2">
+<h3>Задача 2. AND – бонус при две едновременно изпълнени условия</h3>
+<p>В колона <strong>H – „Бонус по AND“</strong> изчислете бонус:</p>
+<ul>
+<li>годишните продажби са <strong>над 10 000 лв.</strong>;</li>
+<li>броят клиенти е <strong>поне 10</strong>.</li>
+</ul>
+<p>Ако и двете условия са изпълнени, бонусът е <strong>5% от годишните продажби</strong>. В противен случай е 0.</p>
+<p>Използвайте <strong>IF</strong> и <strong>AND</strong> в една формула.</p>
+</div>
+
+<div class="task" id="task3">
+<h3>Задача 3. OR – комисиона при поне едно изпълнено условие</h3>
+<p>В колона <strong>I – „Комисиона по OR“</strong> изчислете комисиона, ако:</p>
+<ul>
+<li>годишните продажби са <strong>над 7 500 лв.</strong>, <strong>или</strong></li>
+<li>броят клиенти е <strong>над 10</strong>.</li>
+</ul>
+<p>При изпълнено поне едно условие комисионата е <strong>3% от продажбите</strong>. Иначе е 0.</p>
+<p>Използвайте <strong>IF</strong> и <strong>OR</strong>.</p>
+</div>
+
+<div class="task" id="task4">
+<h3>Задача 4. NOT – кой служител не е активен?</h3>
+<p>В колона <strong>J – „Неактивен?“</strong> използвайте <strong>NOT</strong>, така че:</p>
+<ul>
+<li>за служител с „Да“ в колона <strong>Активен</strong> резултатът да е FALSE;</li>
+<li>за служител с „Не“ резултатът да е TRUE.</li>
+</ul>
+<p>Не използвайте IF за тази задача.</p>
+</div>
+
+<div class="task" id="task5">
+<h3>Задача 5. CHOOSE – рейтинг → бонус процент</h3>
+<p>В колона <strong>K – „Бонус % по CHOOSE“</strong> използвайте <strong>CHOOSE</strong> според рейтинга:</p>
+<ul>
+<li>рейтинг 1 → 4%;</li>
+<li>рейтинг 2 → 6%;</li>
+<li>рейтинг 3 → 8%;</li>
+<li>рейтинг 4 → 10%.</li>
+</ul>
+<p>След това в колона <strong>L – „Годишен бонус“</strong> изчислете бонуса като <strong>годишни продажби × бонус %</strong>.</p>
+<p>Сравнете получените проценти със справочния лист <strong>„Рейтинг“</strong>.</p>
+</div>
+
+<div class="task" id="task6">
+<h3>Задача 6. Линейна диаграма – продажби през годината</h3>
+<p>Отворете лист <strong>„Месечни продажби“</strong>. Създайте <strong>линейна диаграма</strong> с трите серии:</p>
+<ul>
+<li>Учебници;</li>
+<li>Канцелария;</li>
+<li>Техника.</li>
+</ul>
+<p>Хоризонталната ос трябва да показва месеците от януари до декември. Добавете заглавие <strong>„Продажби по продуктови групи през годината“</strong> и легенда.</p>
+<p>Напишете под таблицата два кратки извода: през кой месец продажбите са най-високи и коя продуктова група има най-силни продажби в края на годината.</p>
+</div>
+
+<div class="task" id="task7">
+<h3>Задача 7. Обобщаваща диаграма – бонуси на служителите</h3>
+<p>След като сте завършили Задача 5, в лист <strong>„Служители“</strong> създайте <strong>колонна диаграма</strong>, която сравнява <strong>Годишния бонус</strong> по служители.</p>
+<ul>
+<li>категории: имената на служителите;</li>
+<li>стойности: колоната <strong>Годишен бонус</strong>;</li>
+<li>заглавие: <strong>„Годишен бонус по служители“</strong>;</li>
+<li>добавете етикети със стойностите.</li>
+</ul>
+<p>Посочете кой служител има най-висок бонус и обяснете с едно изречение как рейтингът влияе върху резултата.</p>
+</div>
+</section>
+
+<section>
+<h2>Какво трябва да умеете след упражнението?</h2>
+<ul>
+<li>да избирате подходящ вид диаграма;</li>
+<li>да използвате IF за условен резултат;</li>
+<li>да комбинирате IF с AND и OR;</li>
+<li>да обръщате логическо условие чрез NOT;</li>
+<li>да използвате CHOOSE за избор според числов индекс;</li>
+<li>да свързвате формули и диаграми в общ анализ на данни.</li>
+</ul>
+</section>
+
+<footer>Урок 08 · Обобщаващо упражнение · Обработка на социално-икономическа информация</footer>
+</main>
+</body>
+</html>
