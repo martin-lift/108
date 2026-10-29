@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 08: Имена на области и приложения</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f5f5fa;color:#202236;font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:24px 18px 70px}header{background:#32245f;color:white;padding:42px max(18px,calc((100vw - 864px)/2));}header p{margin:0;color:#ded6ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.2;margin:.4em 0}h2{font-size:1.55rem;line-height:1.3;color:#40317d;margin:0 0 12px}h3{font-size:1.1rem;margin:1.2em 0 .3em}section{background:white;border:1px solid #e4e1ef;border-radius:14px;padding:24px 28px;margin:20px 0}p{margin:.5em 0 1em}li{margin:.35em 0}.note{border-left:4px solid #7955c9;background:#f3efff;padding:10px 16px;border-radius:5px}.task{background:#faf7ff;border-left:4px solid #7955c9;padding:14px 18px;margin-top:14px}nav a{display:inline-block;margin:0 12px 8px 0;color:#49358e}code{background:#f0edf6;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}footer{font-size:.85em;color:#666;text-align:center}@media(max-width:600px){section{padding:19px 17px}body{font-size:16px}}
+</style>
+</head>
+<body>
+<header>
+<p>Обработка на социално-икономическа информация · Урок 08</p>
+<h1>Имена на области и приложения</h1>
+<p>Именуване на клетки и области. Използване на имена във формули и функции.</p>
+</header>
+<main>
+<nav aria-label="Навигация">
+<a href="index.html">Всички уроци</a>
+<a href="07-Logical-Functions-Exercises.html">Урок 07</a>
+<a href="#names">Имена</a>
+<a href="#create">Създаване</a>
+<a href="#formulas">Формули</a>
+<a href="#manager">Name Manager</a>
+<a href="#practice">Упражнения</a>
+</nav>
+
+<section id="names">
+<h2>1. Какво е име на клетка или област?</h2>
+<p>В Excel клетка, диапазон от клетки, константа или формула може да получи смислено име. Вместо адрес като <code>D2:D11</code> можем да използваме име като <code>Prices</code>, а вместо абсолютна препратка към клетка с данъчна ставка — име като <code>VAT_RATE</code>.</p>
+<p>Това прави формулите по-ясни и по-лесни за поддръжка.</p>
+<div class="note"><strong>Пример:</strong> Формулата <code>=SUM(Revenues)</code> се разбира по-лесно от <code>=SUM(E2:E11)</code>.</div>
+</section>
+
+<section id="rules">
+<h2>2. Правила за именуване</h2>
+<ul>
+<li>името трябва да започва с буква, долна черта или обратна наклонена черта;</li>
+<li>не може да съдържа интервали;</li>
+<li>може да съдържа букви, цифри, точки и долни черти;</li>
+<li>не трябва да съвпада с адрес на клетка, например <code>A1</code>;</li>
+<li>добре е имената да са кратки и описателни: <code>Prices</code>, <code>Quantities</code>, <code>VAT_RATE</code>.</li>
+</ul>
+</section>
+
+<section id="create">
+<h2>3. Как се създава име?</h2>
+<h3>Чрез Name Box</h3>
+<ol>
+<li>Маркирайте клетката или диапазона.</li>
+<li>Щракнете в полето <strong>Name Box</strong> вляво от лентата за формули.</li>
+<li>Въведете името.</li>
+<li>Натиснете Enter.</li>
+</ol>
+
+<h3>Чрез Define Name</h3>
+<ol>
+<li>Маркирайте клетката или диапазона.</li>
+<li>Отворете <strong>Formulas → Define Name</strong>.</li>
+<li>Въведете име и проверете полето <strong>Refers to</strong>.</li>
+<li>Потвърдете с OK.</li>
+</ol>
+</section>
+
+<section id="formulas">
+<h2>4. Използване на имена във формули и функции</h2>
+<p>След като е създадено име, то може да се използва директно във формули.</p>
+
+<h3>Именувана клетка</h3>
+<p>Ако клетка съдържа ДДС 20% и е именувана <code>VAT_RATE</code>:</p>
+<p><code>=2500*VAT_RATE</code></p>
+
+<h3>Именуван диапазон</h3>
+<p>Ако диапазонът с приходи е именуван <code>Revenues</code>:</p>
+<p><code>=SUM(Revenues)</code></p>
+<p><code>=AVERAGE(Revenues)</code></p>
+<p><code>=MAX(Revenues)</code></p>
+
+<h3>Комбиниране на имена</h3>
+<p>Ако имаме <code>Revenues</code> и <code>Quantities</code>:</p>
+<p><code>=SUM(Revenues)/SUM(Quantities)</code></p>
+</section>
+
+<section id="manager">
+<h2>5. Name Manager</h2>
+<p>Всички създадени имена могат да се преглеждат и редактират чрез <strong>Formulas → Name Manager</strong>.</p>
+<p>Оттам можем:</p>
+<ul>
+<li>да видим към коя клетка или област сочи дадено име;</li>
+<li>да променим диапазона;</li>
+<li>да изтрием ненужно име;</li>
+<li>да проверим дали дадено име е валидно.</li>
+</ul>
+<p class="note"><strong>Важно:</strong> Ако преместите данни или добавите редове, проверете дали именуваната област все още обхваща правилните клетки.</p>
+</section>
+
+<section id="practice">
+<h2>6. Практическа работа</h2>
+<p>Свалете файла <a href="08-named-ranges-practice.xlsx" download><strong>08-named-ranges-practice.xlsx</strong></a>.</p>
+<p>Работете с листовете <strong>„Данни“</strong>, <strong>„Именувани области“</strong> и <strong>„Упражнения“</strong>.</p>
+
+<div class="task">
+<h3>Задача 1. Именувана клетка за ДДС</h3>
+<p>В лист <strong>„Упражнения“</strong> именувайте клетката със стойност 20% като <code>VAT_RATE</code>. Изчислете ДДС върху приход 2500 лв. чрез формула, използваща името.</p>
+</div>
+
+<div class="task">
+<h3>Задача 2. Именуван диапазон Prices</h3>
+<p>В лист <strong>„Данни“</strong> именувайте диапазона с единичните цени като <code>Prices</code>. Изчислете средната единична цена чрез <code>AVERAGE(Prices)</code>.</p>
+</div>
+
+<div class="task">
+<h3>Задача 3. Именуван диапазон Quantities</h3>
+<p>Именувайте колоната с количествата като <code>Quantities</code>. Изчислете общото продадено количество чрез <code>SUM(Quantities)</code>.</p>
+</div>
+
+<div class="task">
+<h3>Задача 4. Именуван диапазон Revenues</h3>
+<p>Именувайте колоната с приходите като <code>Revenues</code>. Намерете най-големия приход чрез <code>MAX(Revenues)</code>.</p>
+</div>
+
+<div class="task">
+<h3>Задача 5. Име за праг и използване в IF</h3>
+<p>Създайте име <code>DISCOUNT_LIMIT</code> за стойност 1000. В нова колона в лист <strong>„Данни“</strong> използвайте IF и името, за да покажете „Над прага“ или „Под прага“ според прихода.</p>
+</div>
+
+<div class="task">
+<h3>Задача 6. Име за бонус процент</h3>
+<p>Създайте име <code>BONUS_RATE</code> за 5%. В нова колона изчислете бонуса за всеки продукт чрез формула от вида <code>=Приход*BONUS_RATE</code>.</p>
+</div>
+
+<div class="task">
+<h3>Задача 7. Формула с няколко именувани области</h3>
+<p>Използвайте имената <code>Revenues</code> и <code>Quantities</code>, за да изчислите средния приход на една продадена единица:</p>
+<p><code>=SUM(Revenues)/SUM(Quantities)</code></p>
+<p>Запишете с едно изречение защо формулата с имена е по-разбираема от формула с адреси на клетки.</p>
+</div>
+</section>
+
+<section>
+<h2>7. Проверете знанията си</h2>
+<ol>
+<li>Каква е ползата от именуването на клетки и диапазони?</li>
+<li>Може ли име да съдържа интервал?</li>
+<li>Как се използва именуван диапазон във функция SUM?</li>
+<li>За какво служи Name Manager?</li>
+<li>Каква е разликата между име на единична клетка и име на диапазон?</li>
+</ol>
+</section>
+
+<footer>Урок 08 · Обработка на социално-икономическа информация</footer>
+</main>
+</body>
+</html>
