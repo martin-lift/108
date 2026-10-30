@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "Revision": "2026-10-28.1",
+  "Revision": "2026-10-30.1",
   "Category": "Games",
   "Purpose": "Домейни за игри и нежелани видео платформи в общия списък за кабинет 307, по решение на учителя.",
   "Mode": "ReviewOnly",
@@ -151,6 +151,23 @@
       ]
     },
     {
+      "Domain": "bloxd.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Bloxd.io",
+      "Subcategory": "BrowserGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://bloxd.io/"
+      ]
+    },
+    {
       "Domain": "chess.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Chess.com",
@@ -264,6 +281,57 @@
       ]
     },
     {
+      "Domain": "eyesthehorrorgame.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Eyes The Horror Game",
+      "Subcategory": "Games",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://eyesthehorrorgame.com/"
+      ]
+    },
+    {
+      "Domain": "final-drop.games.elanrastudios.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Final Drop — браузърна battle royale игра",
+      "Subcategory": "BrowserGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://final-drop.games.elanrastudios.com/"
+      ]
+    },
+    {
+      "Domain": "foony.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Foony — мултиплейър игри",
+      "Subcategory": "BrowserGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://foony.com/"
+      ]
+    },
+    {
       "Domain": "fortnite.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Fortnite",
@@ -344,6 +412,23 @@
       ]
     },
     {
+      "Domain": "frontwars.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "FrontWars",
+      "Subcategory": "BrowserGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://frontwars.io/"
+      ]
+    },
+    {
       "Domain": "gamedistribution.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "GameDistribution — браузърни игри",
@@ -389,6 +474,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://www.gamenora.com/"
+      ]
+    },
+    {
+      "Domain": "garticphone.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Gartic Phone",
+      "Subcategory": "BrowserGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://garticphone.com/"
       ]
     },
     {
@@ -487,6 +589,23 @@
         "https://help.hbomax.com/us/Answer/Detail/000002558"
       ],
       "Subcategory": "VideoPlatforms"
+    },
+    {
+      "Domain": "kongregate.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Kongregate — игрова платформа",
+      "Subcategory": "BrowserGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.kongregate.com/en"
+      ]
     },
     {
       "Domain": "krunker.io",
@@ -617,6 +736,23 @@
       ]
     },
     {
+      "Domain": "netflix.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Netflix — видео платформа",
+      "Subcategory": "VideoPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава видео платформа; включва се в общия списък за игри и видео по указание на учителя.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.netflix.com/"
+      ]
+    },
+    {
       "Domain": "onlinegames.io",
       "MatchScope": "DomainAndSubdomains",
       "Service": "OnlineGames.io",
@@ -630,6 +766,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://www.onlinegames.io/"
+      ]
+    },
+    {
+      "Domain": "openfront.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "OpenFront — стратегическа игра",
+      "Subcategory": "BrowserGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://wiki.openfront.io/"
       ]
     },
     {
@@ -678,6 +831,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://papasgames.onl/"
+      ]
+    },
+    {
+      "Domain": "play-cs.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Play-CS — Counter-Strike в браузъра",
+      "Subcategory": "BrowserGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://play-cs.com/en/servers"
       ]
     },
     {
@@ -779,6 +949,23 @@
       ]
     },
     {
+      "Domain": "quickdraw.withgoogle.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Quick, Draw! — игра с машинно обучение",
+      "Subcategory": "BrowserGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://quickdraw.withgoogle.com/"
+      ]
+    },
+    {
       "Domain": "rbxcdn.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Roblox",
@@ -795,6 +982,23 @@
       ]
     },
     {
+      "Domain": "riotgames.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Riot Games — игри и игрови услуги",
+      "Subcategory": "GamePlatform",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.riotgames.com/en"
+      ]
+    },
+    {
       "Domain": "roblox.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Roblox",
@@ -808,6 +1012,40 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://www.roblox.com/"
+      ]
+    },
+    {
+      "Domain": "skribbl.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Skribbl — рисуване и познаване",
+      "Subcategory": "BrowserGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://skribbl.io/"
+      ]
+    },
+    {
+      "Domain": "skribbl.org",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Skribbl.org — игрови каталог",
+      "Subcategory": "BrowserGames",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава игра или специализирана игрова услуга; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://skribbl.org/"
       ]
     },
     {

@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "Revision": "2026-10-28.1",
+  "Revision": "2026-10-30.1",
   "Category": "AI-Assistants",
   "Purpose": "Домейни за AI асистенти, агенти и AI генератори за 3D моделиране за ограничаване при изпит в кабинет 307.",
   "Mode": "ReviewOnly",
@@ -408,6 +408,57 @@
       ],
       "Decision": "Block",
       "DecisionBasis": "ExplicitTeacherInstruction"
+    },
+    {
+      "Domain": "pippit.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Pippit — AI творчески агент и генератор на видео",
+      "Subcategory": "AICreativeTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава AI агент или генератор; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.pippit.ai/"
+      ]
+    },
+    {
+      "Domain": "pippit.capcut.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Pippit — допълнителен адрес в CapCut",
+      "Subcategory": "AICreativeTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава AI агент или генератор; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://pippit.capcut.com/"
+      ]
+    },
+    {
+      "Domain": "replit.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Replit — AI Agent и среда за програмиране",
+      "Subcategory": "AICodingTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Публичната страница потвърждава AI агент или генератор; услугата е наблюдавана в новия локален анализ след изчистването.",
+      "ReviewNote": "Допълнено при възложения анализ на новия лог. Обхваща посочения домейн и всички негови поддомейни. Не разширява към общи домейни Google, CapCut, Microsoft или споделени хостинги. Включването остава ръчно през Filters в AdGuard. При Replit се ограничава и ръчното програмиране на същия домейн; при Quick, Draw! се ограничава конкретната образователна игра. DNS заявките може да са фонови или вече филтрирани и не доказват успешно посещение.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://replit.com/"
+      ]
     },
     {
       "Domain": "super.myninja.ai",
