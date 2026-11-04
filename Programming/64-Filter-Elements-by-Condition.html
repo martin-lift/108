@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Проверка на елементите на масив или списък по зададено условие</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 64</p><h1>Програмиране - Проверка на елементите на масив или списък по зададено условие</h1><p class="lead">Ще съчетаем обхождането на запазена структура с условие за всеки елемент. Подходът напомня урок 53, но данните вече са съхранени.</p><h2>1. Условие при всяка позиция</h2><p>Посещаваме всички елементи, а извеждаме само избраните. Наличието на условие не намалява броя посещения — за да знаем дали стойността отговаря, първо трябва да я проверим.</p><section class="programs"><h2>2. Изведи положителните с индексите им</h2><p>На всеки изходен ред са индексът и стойността. Нулата не е положителна.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">values = [-3, 0, 4, 7]
+for i in range(len(values)):
+    if values[i] &gt; 0:
+        print(i, values[i])</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int[] values = new int[] { -3, 0, 4, 7 };
+for (int i = 0; i &lt; values.Length; i = i + 1)
+{
+    if (values[i] &gt; 0)
+    {
+        Console.Write(i);
+        Console.Write(&quot; &quot;);
+        Console.WriteLine(values[i]);
+    }
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">2 4
+3 7</pre></section><h2>3. Когато няма съвпадение</h2><p>Само условното извеждане не показва нищо, ако няма подходящ елемент. За изрично съобщение може да използваме <strong>флаг</strong> — логическа променлива, която помни дали е настъпило събитие.</p><section class="programs"><h2>4. Покажи съобщение при липса</h2><p>Флагът започва като невярно и става вярно само при съвпадение. Проверяваме го след цялото обхождане.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">values = [-3, 0, -1]
+found = False
+for value in values:
+    if value &gt; 0:
+        print(value)
+        found = True
+if not found:
+    print(&quot;Няма положителни&quot;)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int[] values = new int[] { -3, 0, -1 };
+bool found = false;
+foreach (int value in values)
+{
+    if (value &gt; 0)
+    {
+        Console.WriteLine(value);
+        found = true;
+    }
+}
+if (!found)
+{
+    Console.WriteLine(&quot;Няма положителни&quot;);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Няма положителни</pre></section><h2>5. Различни критерии</h2><p>За стойности от 10 до 20 използвай две сравнения с И. За стойности извън интервала използвай ИЛИ. За четни използвай остатък при деление на 2. Не поставяй „Няма“ в else за всеки елемент: една неподходяща стойност не доказва, че всички са неподходящи.</p><h2>6. Самостоятелни задачи</h2><ol><li>Изведи стойностите от [0, 5] включително.</li><li>Провери празна структура с флаг за наличие.</li><li>Защо съобщението за липса е след цикъла?</li><li>Какво е различното, ако искаме индексите вместо стойностите?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Проверка value >= 0 and value <= 5 / &&.</li><li>Флагът остава невярно и се показва съобщение.</li><li>Трябва да сме проверили всички елементи.</li><li>Използваме индексен цикъл и извеждаме i.</li></ol></details><p class="note"><strong>Запомни:</strong> Разделяй проверката на всеки елемент от окончателния извод за цялата структура.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/datastructures.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/arrays">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="63-Traverse-and-Process-Elements.html">← Урок 63</a><a rel="next" href="65-Linear-Search.html">Урок 65 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

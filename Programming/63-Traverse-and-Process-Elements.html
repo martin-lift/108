@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Обработка на едномерен масив или списък чрез цикъл</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 63</p><h1>Програмиране - Обработка на едномерен масив или списък чрез цикъл</h1><p class="lead">Ще приложим едно и също действие върху всеки запазен елемент. Можем да обхождаме по индекс или направо по стойност.</p><h2>1. Кога е нужен индексът?</h2><p>Когато променяме елемент или ни трябва позицията му, обхождаме индексите от 0 до дължината минус 1. Когато само прочитаме стойности, можем да използваме <code>for value in values</code> в Python или <code>foreach (int value in values)</code> в C#.</p><p><strong>Обхождане</strong> означава последователно посещаване на елементите. foreach е новият тук C# запис: тялото се изпълнява за всяка стойност на масива в реда на позициите.</p><section class="programs"><h2>2. Промени по индекс и покажи по стойност</h2><p>Първото обхождане заменя всяка стойност с двойната. Второто само показва елементите, без да използва индекс.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">values = [3, 1, 4]
+for i in range(len(values)):
+    values[i] = values[i] * 2
+for value in values:
+    print(value)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int[] values = new int[] { 3, 1, 4 };
+for (int i = 0; i &lt; values.Length; i = i + 1)
+{
+    values[i] = values[i] * 2;
+}
+foreach (int value in values)
+{
+    Console.WriteLine(value);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">6
+2
+8</pre></section><h2>3. Променлива в цикъла или елемент?</h2><p>В Python присвояването value = value * 2 в цикъл по стойност не заменя целочисления елемент в списъка. То свързва името value с друг резултат. За промяна използвай values[i] = ... . В C# не присвояваме нова стойност на променливата от този foreach; за замяна на int елемент също използваме индексния for.</p><section class="programs"><h2>4. Сума при обхождане по стойност</h2><p>Няма нужда от позиция, защото само натрупваме сумата. За празна структура началното total остава 0.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">values = [3, -1, 4]
+total = 0
+for value in values:
+    total = total + value
+print(total)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int[] values = new int[] { 3, -1, 4 };
+int total = 0;
+foreach (int value in values)
+{
+    total = total + value;
+}
+Console.WriteLine(total);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">6</pre></section><h2>5. Едно преминаване</h2><p>Във всеки от циклите всеки елемент се посещава точно веднъж. За n елемента има n повторения. Проверявай дали границата е самата дължина, а не предварително написано число 3: така алгоритъмът остава правилен при друга дължина.</p><h2>6. Самостоятелни задачи</h2><ol><li>Замени умножението по 2 с добавяне на 5 към всеки елемент.</li><li>Изведи позиция и стойност за всяка позиция.</li><li>Кой цикъл е удобен само за сумата?</li><li>Защо промяна на value не е замяна на values[i] в Python?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Използвай values[i] = values[i] + 5.</li><li>Нужен е индексен цикъл.</li><li>Цикъл по стойност: for value / foreach.</li><li>Името и позицията в структурата са различни цели на присвояване.</li></ol></details><p class="note"><strong>Запомни:</strong> Използвай индекс, когато променяш или показваш позиция; използвай стойност, когато позицията не е нужна.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/datastructures.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/arrays">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="62-Update-Array-or-List-Elements.html">← Урок 62</a><a rel="next" href="64-Filter-Elements-by-Condition.html">Урок 64 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

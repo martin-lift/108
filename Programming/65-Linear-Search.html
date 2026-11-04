@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Търсене на стойност в масив или списък</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 65</p><h1>Програмиране - Търсене на стойност в масив или списък</h1><p class="lead">Търсенето отговаря дали дадена стойност присъства и на коя позиция я намираме. Ще проверяваме последователно от първия елемент.</p><h2>1. Линейно търсене</h2><p><strong>Линейно търсене</strong> сравнява елементите един след друг. То не изисква предварително подреждане. Ако е нужен първият индекс, можем да прекратим веднага при първото съвпадение.</p><p>Пазим position = −1 като знак „не е намерено“. −1 не е допустим неотрицателен индекс в общия модел. В Python той има специално значение при достъп, затова никога не използвай values[position], преди да провериш дали търсенето е успешно.</p><p><code>break</code> в цикъл прекратява най-близкия обгръщащ цикъл. Това е различен контекст от C# break в switch от урок 40. След прекратяването изпълнението продължава след цикъла.</p><section class="programs" data-input="[&quot;3&quot;]" data-tests="[{&quot;input&quot;: [&quot;8&quot;], &quot;expected&quot;: &quot;0&quot;}, {&quot;input&quot;: [&quot;5&quot;], &quot;expected&quot;: &quot;2&quot;}, {&quot;input&quot;: [&quot;9&quot;], &quot;expected&quot;: &quot;Не е намерено&quot;}]"><h2>2. Намери първото съвпадение</h2><p>При повторени стойности връщаме първия индекс. Индексът 0 е успешен резултат, а не липса.</p><p><strong>Въведи последователно:</strong> <code>3</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">values = [8, 3, 5, 3]
+target = int(input())
+position = -1
+for i in range(len(values)):
+    if values[i] == target:
+        position = i
+        break
+if position == -1:
+    print(&quot;Не е намерено&quot;)
+else:
+    print(position)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int[] values = new int[] { 8, 3, 5, 3 };
+int target = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int position = -1;
+for (int i = 0; i &lt; values.Length; i = i + 1)
+{
+    if (values[i] == target)
+    {
+        position = i;
+        break;
+    }
+}
+if (position == -1)
+{
+    Console.WriteLine(&quot;Не е намерено&quot;);
+}
+else
+{
+    Console.WriteLine(position);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">1</pre></section><h2>3. Колко сравнения са нужни?</h2><p>Ако първият елемент съвпадне, е нужно едно сравнение. Ако стойността липсва, посещаваме всички n елемента. При празна структура цикълът няма повторения и position остава −1.</p><p>Ако премахнем break и продължим да задаваме position при всяко съвпадение, ще получим последната позиция. Това е друга задача; уточни дали се търси първа, последна или всяка позиция.</p><h2>4. Тестове за търсене</h2><div class="table-scroll"><table><thead><tr><th>Случай</th><th>Защо е нужен</th></tr></thead><tbody><tr><td>Съвпадение на индекс 0</td><td>Нулевият индекс трябва да е успех</td></tr><tr><td>Съвпадение накрая</td><td>Проверява последната граница</td></tr><tr><td>Липсваща стойност</td><td>Нужно е пълно обхождане</td></tr><tr><td>Повторена стойност</td><td>Уточнява първо или последно съвпадение</td></tr><tr><td>Празна структура</td><td>Няма допустима позиция</td></tr></tbody></table></div><h2>5. Самостоятелни задачи</h2><ol><li>Потърси 3 в основния пример и запиши сравненията.</li><li>Промени алгоритъма да намира последното съвпадение.</li><li>Как да изведеш всички позиции без променлива за първи резултат?</li><li>Защо position = 0 не е добро начално означение за липса?</li></ol><details><summary>Отговори и насоки</summary><ol><li>8 != 3; 3 == 3; резултат 1.</li><li>Премахни break и запазвай всяко намерено i.</li><li>Извеждай i при всяко съвпадение и продължи цикъла.</li><li>0 е валиден индекс на първия елемент.</li></ol></details><p class="note"><strong>Запомни:</strong> Изясни какъв резултат търсиш и използвай отделно означение за липса. Не достъпвай масива чрез −1.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/datastructures.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/arrays">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="64-Filter-Elements-by-Condition.html">← Урок 64</a><a rel="next" href="66-Count-Matching-Elements.html">Урок 66 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

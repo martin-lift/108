@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Обработка на списък с цени и наличности. Практическа задача</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 67</p><h1>Програмиране - Обработка на списък с цени и наличности. Практическа задача</h1><p class="lead">Ще използваме няколко едномерни структури за различни данни на едни и същи стоки. Съответствието се определя от позицията.</p><h2>1. Съответстващи индекси</h2><p><strong>Паралелни структури</strong> са поредици, при които един и същ индекс описва един обект. names[i] е името, prices[i] — единичната цена, stocks[i] — наличното количество на една и съща стока. Дължините трябва да съвпадат и редът трябва да е общ.</p><p>В C# string[] е масив от текстове, както int[] е масив от цели числа. В примера цените са цели парични единици, а наличностите — неотрицателни цели бройки.</p><section class="programs"><h2>2. Намери изчерпаните стоки и стойността</h2><p>Първо проверяваме дължините. Изчерпаните стоки имат наличност 0. Общата стойност е сбор от цена по наличност; за малките учебни стойности резултатът се побира в int.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">names = [&quot;Тетрадка&quot;, &quot;Папка&quot;, &quot;Молив&quot;]
+prices = [5, 8, 3]
+stocks = [0, 2, 0]
+if (len(names) != len(prices)) or (len(names) != len(stocks)):
+    print(&quot;Различни дължини&quot;)
+else:
+    total = 0
+    for i in range(len(names)):
+        if stocks[i] == 0:
+            print(names[i], prices[i])
+        total = total + prices[i] * stocks[i]
+    print(&quot;Стойност:&quot;, total)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+string[] names = new string[]
+{
+    &quot;Тетрадка&quot;, &quot;Папка&quot;, &quot;Молив&quot;
+};
+int[] prices = new int[] { 5, 8, 3 };
+int[] stocks = new int[] { 0, 2, 0 };
+if ((names.Length != prices.Length)
+    || (names.Length != stocks.Length))
+{
+    Console.WriteLine(&quot;Различни дължини&quot;);
+}
+else
+{
+    int total = 0;
+    for (int i = 0; i &lt; names.Length; i = i + 1)
+    {
+        if (stocks[i] == 0)
+        {
+            Console.Write(names[i]);
+            Console.Write(&quot; &quot;);
+            Console.WriteLine(prices[i]);
+        }
+        total = total + prices[i] * stocks[i];
+    }
+    Console.Write(&quot;Стойност: &quot;);
+    Console.WriteLine(total);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Тетрадка 5
+Молив 3
+Стойност: 16</pre></section><h2>3. Защо еднаквите дължини не са достатъчни?</h2><p>Проверката предотвратява достъп извън края, но не доказва, че стоките са в еднакъв ред. Ако разменим само две имена, цените и наличностите вече ще бъдат приписани на други стоки. Трябва да пазим съответствието при всяка промяна.</p><h2>4. Промяна и проверка</h2><p>Ако наличността на „Тетрадка“ стане 3, променяме stocks[0], а не цената. След това преизчисляваме общата стойност чрез ново обхождане. Няма автоматична връзка, която сама да обнови вече пресметнатия total.</p><p>Можем да приложим и съставен критерий, например цена до 5 и положителна наличност. Двете проверки трябва да използват един и същ индекс.</p><h2>5. Самостоятелни задачи</h2><ol><li>Промени stocks[0] на 3 и предвиди общата стойност.</li><li>Какво става при различни дължини?</li><li>Изведи само стоки с положителна наличност и цена <= 5.</li><li>Защо не бива да подреждаш само масива names?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Стойността става 31; „Тетрадка“ вече не е изчерпана.</li><li>Показва се „Различни дължини“ без обхождане по невалидни позиции.</li><li>Условието е stocks[i] > 0 И prices[i] <= 5. За началните данни няма такива стоки.</li><li>Ще се наруши съответствието с цените и наличностите.</li></ol></details><p class="note"><strong>Запомни:</strong> Общият индекс свързва данните. Пази еднакви дължини и еднакъв смисъл на всяка позиция.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/datastructures.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/arrays">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="66-Count-Matching-Elements.html">← Урок 66</a><a href="index.html">Списък на уроците →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

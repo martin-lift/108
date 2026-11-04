@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Преброяване на елементи, отговарящи на условие. Упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 66</p><h1>Програмиране - Преброяване на елементи, отговарящи на условие. Упражнение</h1><p class="lead">При броене не спираме след първото съвпадение: трябва да видим цялата структура. Ще разграничим наличие, брой и сума.</p><h2>1. Какво увеличаваме?</h2><p>Броячът започва от 0 и се увеличава с 1 при всяко изпълнено условие. Сумата би се увеличила със стойността на елемента. Флагът би пазил само дали има поне едно съвпадение. Тези резултати не са взаимозаменяеми.</p><section class="programs" data-input="[&quot;5&quot;]" data-tests="[{&quot;input&quot;: [&quot;4&quot;], &quot;expected&quot;: &quot;3&quot;}, {&quot;input&quot;: [&quot;8&quot;], &quot;expected&quot;: &quot;0&quot;}, {&quot;input&quot;: [&quot;-2&quot;], &quot;expected&quot;: &quot;5&quot;}]"><h2>2. Брой стойности над въведен праг</h2><p>Строго над 5 е само 8. Повторените стойности се броят всяка поотделно, когато удовлетворяват условието.</p><p><strong>Въведи последователно:</strong> <code>5</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">values = [0, 5, 8, 5, -1]
+threshold = int(input())
+count = 0
+for value in values:
+    if value &gt; threshold:
+        count = count + 1
+print(count)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int[] values = new int[] { 0, 5, 8, 5, -1 };
+int threshold = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int count = 0;
+foreach (int value in values)
+{
+    if (value &gt; threshold)
+    {
+        count = count + 1;
+    }
+}
+Console.WriteLine(count);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">1</pre></section><h2>3. Проверка на брояча</h2><p>След обработване на k елемента броячът е броят съвпадения сред тези k позиции. Той не може да е отрицателен или да надхвърля k. След края резултатът е между 0 и дължината включително.</p><p>За празна структура резултатът е 0. За структура, в която всички отговарят на условието, резултатът е нейната дължина. Това са полезни контролни случаи.</p><h2>4. Нови критерии без нов алгоритъм</h2><p>За преброяване на нули смени условието с value == 0. За затворен интервал свържи двете сравнения с И. Началният брояч и начинът на увеличение остават същите.</p><p>Не използвай break след първия подходящ елемент. Това би отговорило само за наличие и броят няма да е пълен. Не нулирай count вътре в цикъла и не извеждай окончателен резултат преди края.</p><h2>5. Самостоятелни задачи</h2><ol><li>Преброй стойности >= 5 в основния масив.</li><li>Преброй нулите.</li><li>Какъв е резултатът при праг 100?</li><li>Защо две срещания на числото 5 могат да добавят две към брояча?</li></ol><details><summary>Отговори и насоки</summary><ol><li>3.</li><li>1.</li><li>0.</li><li>Броим позиции, които отговарят на условието, а не различни числови стойности.</li></ol></details><p class="note"><strong>Запомни:</strong> За точен брой провери всички елементи и увеличавай с 1 за всяко съвпадение.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/datastructures.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/arrays">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="65-Linear-Search.html">← Урок 65</a><a rel="next" href="67-Prices-and-Stock-Lists.html">Урок 67 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>
