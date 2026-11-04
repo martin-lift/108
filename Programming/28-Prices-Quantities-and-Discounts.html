@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Линейни програми за изчисляване на цени, количества и отстъпки. Упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 28</p><h1>Програмиране - Линейни програми за изчисляване на цени, количества и отстъпки. Упражнение</h1><p class="lead">В урок 25 пресмятахме обща цена от въведени стойности. Сега ще добавим процентна отстъпка и ясно оформен изход. Всички действия са последователни, затова програмите са линейни.</p>
+<h2>1. От условие към формула</h2><p>Нека quantity е броят артикули, unit_price — единичната цена, а discount_percent — процентът отстъпка. Началната сума е произведението на броя и единичната цена. Един процент означава една стотна част.</p><div class="example"><p><strong>Начална сума = брой × единична цена</strong></p><p><strong>Отстъпка = начална сума × процент / 100</strong></p><p><strong>Крайна сума = начална сума − отстъпка</strong></p><p>За 3 артикула по 12.50 и 20% отстъпка: началната сума е 37.50, отстъпката е 7.50, крайната сума е 30.00.</p></div><p>В програмния код % не означава процент — то е остатъкът от урок 27. Процент изчисляваме чрез умножение и деление на 100. В C# използваме дробни стойности и 100.0, за да избегнем нежелано целочислено деление.</p>
+<h2>2. Покажи два знака след точката</h2><p>В Python <code>format(value, ".2f")</code> създава текстов запис с два знака след десетичната точка. <code>.2</code> задава броя дробни знаци, а f избира фиксиран дробен запис. В C# използваме <code>value.ToString("F2", CultureInfo.InvariantCulture)</code>. InvariantCulture и ToString са познати от урок 25; F2 е правилото за два дробни знака.</p><p><strong>Форматирането</strong> определя показания текст. То може да закръгли показването, но не променя автоматично стойността, пазена в променливата. Междинните пресмятания запазваме като числа и форматираме при извеждане.</p><section class="programs" data-input="[&quot;3&quot;, &quot;12.5&quot;, &quot;20&quot;]" data-tests="[{&quot;input&quot;: [&quot;3&quot;, &quot;12.5&quot;, &quot;0&quot;], &quot;expected&quot;: &quot;Преди: 37.50\nОтстъпка: 0.00\nЗа плащане: 37.50&quot;}, {&quot;input&quot;: [&quot;3&quot;, &quot;12.5&quot;, &quot;100&quot;], &quot;expected&quot;: &quot;Преди: 37.50\nОтстъпка: 37.50\nЗа плащане: 0.00&quot;}, {&quot;input&quot;: [&quot;0&quot;, &quot;12.5&quot;, &quot;20&quot;], &quot;expected&quot;: &quot;Преди: 0.00\nОтстъпка: 0.00\nЗа плащане: 0.00&quot;}]"><h2>3. Изчисли крайна цена с отстъпка</h2><p>Въведи последователно брой, единична цена и процент. Броят е неотрицателно цяло число, цената е неотрицателна, а процентът е от 0 до 100. При дробна част използвай точка. Тук използваме float и double като упражнение с изучените числови типове.</p><p><strong>Въведи последователно:</strong> <code>3</code>, <code>12.5</code>, <code>20</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">quantity = int(input())
+unit_price = float(input())
+discount_percent = float(input())
+subtotal = quantity * unit_price
+discount = subtotal * discount_percent / 100
+final_total = subtotal - discount
+print(&quot;Преди:&quot;, format(subtotal, &quot;.2f&quot;))
+print(&quot;Отстъпка:&quot;, format(discount, &quot;.2f&quot;))
+print(&quot;За плащане:&quot;, format(final_total, &quot;.2f&quot;))</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+using System.Globalization;
+
+int quantity = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+double unitPrice = double.Parse(
+    Console.ReadLine() ?? &quot;&quot;,
+    NumberStyles.Float,
+    CultureInfo.InvariantCulture);
+double discountPercent = double.Parse(
+    Console.ReadLine() ?? &quot;&quot;,
+    NumberStyles.Float,
+    CultureInfo.InvariantCulture);
+double subtotal = quantity * unitPrice;
+double discount = subtotal * discountPercent / 100.0;
+double finalTotal = subtotal - discount;
+Console.Write(&quot;Преди: &quot;);
+Console.WriteLine(subtotal.ToString(
+    &quot;F2&quot;, CultureInfo.InvariantCulture));
+Console.Write(&quot;Отстъпка: &quot;);
+Console.WriteLine(discount.ToString(
+    &quot;F2&quot;, CultureInfo.InvariantCulture));
+Console.Write(&quot;За плащане: &quot;);
+Console.WriteLine(finalTotal.ToString(
+    &quot;F2&quot;, CultureInfo.InvariantCulture));</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Преди: 37.50
+Отстъпка: 7.50
+За плащане: 30.00</pre></section>
+<h2>4. Проследи пресмятането</h2><div class="table-scroll"><table><thead><tr><th>Стъпка</th><th>Получена стойност</th><th>Смисъл</th></tr></thead><tbody><tr><td>3 × 12.5</td><td>37.5</td><td>Начална сума</td></tr><tr><td>37.5 × 20 / 100</td><td>7.5</td><td>Размер на отстъпката</td></tr><tr><td>37.5 − 7.5</td><td>30</td><td>Крайна сума</td></tr><tr><td>Форматиране до два знака</td><td>30.00</td><td>Текст за показване</td></tr></tbody></table></div><p>Първо пресметни очакваното на ръка, после провери програмата. При 0% крайната сума трябва да съвпадне с началната; при 100% трябва да стане 0; при нулев брой началната и крайната сума са 0.</p>
+<h2>5. Два вида артикули</h2><p>Ако купуваме различни артикули, намираме отделните стойности и ги събираме. Формулата е quantity1 × price1 + quantity2 × price2. Умножението има по-висок приоритет от събирането, както в урок 26.</p><section class="programs"><h2>6. Събери стойностите на две покупки</h2><p>Първата покупка струва 11.00, втората — 6.00. В C# изразът е пренесен на два реда, но инструкцията завършва при ;.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">quantity1 = 2
+price1 = 5.5
+quantity2 = 3
+price2 = 2.0
+total = quantity1 * price1 + quantity2 * price2
+print(format(total, &quot;.2f&quot;))</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+using System.Globalization;
+
+int quantity1 = 2;
+double price1 = 5.5;
+int quantity2 = 3;
+double price2 = 2.0;
+double total = quantity1 * price1
+    + quantity2 * price2;
+Console.WriteLine(total.ToString(
+    &quot;F2&quot;, CultureInfo.InvariantCulture));</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">17.00</pre></section>
+<h2>7. Чести грешки</h2><ul><li>Да извадим 20 като сума вместо да пресметнем 20% от началната сума.</li><li>Да използваме % вместо деление на 100.</li><li>Да пресметнем discount_percent / 100 с два цели операнда в C# и да получим 0 при процент под 100.</li><li>Да форматираме междинна стойност в текст и после да се опитаме да я използваме като число.</li><li>Да променим входна променлива, без отново да пресметнем зависимите резултати.</li></ul><p>Както научихме в урок 24, float и double могат да пазят дроби приблизително. Двата знака в изхода са учебно оформление на резултата; те не превръщат типа в точна десетична аритметика.</p>
+<h2>8. Самостоятелни задачи</h2><ol><li>Намери крайната сума за 4 артикула по 7.50 с 10% отстъпка.</li><li>Промени програмата така, че освен крайната сума да показва и спестената сума.</li><li>За две покупки — 2 броя по 5.50 и 3 броя по 2.00 — приложи обща отстъпка 10% след събирането.</li><li>Провери примерите с 0%, 100% и нулев брой.</li><li>Защо отрицателната цена и 150% отстъпка са извън зададената тук област на входа?</li></ol><details><summary>Отговори</summary><ol><li>Начална сума 30.00, отстъпка 3.00, крайна сума 27.00.</li><li>Променливата discount вече съдържа спестената сума; изведи я с два знака.</li><li>Общо 17.00, отстъпка 1.70, крайна сума 15.30.</li><li>Резултатите трябва да следват трите гранични проверки от урока.</li><li>Условието изисква неотрицателна цена и процент в интервала 0–100. Програмата засега разчита да спазиш това.</li></ol></details><p class="note"><strong>Запомни:</strong> отделяй начална сума, размер на отстъпката и крайна сума. Пази числата за пресмятане, а форматирай само при показване.</p><details><summary>Справка</summary><p><a href="https://docs.python.org/3/library/functions.html#format">Python: format</a> · <a href="https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">C#: числови формати</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="27-Integer-Division-and-Remainder.html">← Урок 27</a><a rel="next" href="29-Input-and-Arithmetic-Exercises.html">Урок 29 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

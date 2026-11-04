@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Целочислено деление и остатък от деление. Упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 27</p><h1>Програмиране - Целочислено деление и остатък от деление. Упражнение</h1><p class="lead">В урок 26 разграничихме обикновеното и целочисленото деление. Сега ще намираме цяло частно и остатък и ще ги използваме за групиране, четност и отделяне на цифри.</p>
+<h2>1. Частно и остатък</h2><p>При неотрицателно цяло число n и положителен цял делител d можем да запишем <strong>n = q × d + r</strong>, където q е цялото частно, а остатъкът r е от 0 до d - 1. Например 29 = 4 × 6 + 5.</p><div class="table-scroll"><table><thead><tr><th>Резултат</th><th>Python</th><th>C# за int</th></tr></thead><tbody><tr><td>Цяло частно</td><td>n // d</td><td>n / d</td></tr><tr><td>Остатък</td><td>n % d</td><td>n % d</td></tr></tbody></table></div><p><code>//</code> в Python е оператор за деление със закръгляне към по-малкото цяло число. За неотрицателните числа тук той дава цялото частно. В C# целочисленото / отхвърля дробната част към нулата. <code>%</code> означава остатък, а не процент.</p><section class="programs"><h2>2. Разпредели 29 предмета в групи по 6</h2><p>Получаваме 4 пълни групи и 5 останали предмета. Проверка: 4 * 6 + 5 = 29. Делителят е положителен и не е нула.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = 29
+d = 6
+quotient = n // d
+remainder = n % d
+print(quotient)
+print(remainder)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = 29;
+int d = 6;
+int quotient = n / d;
+int remainder = n % d;
+Console.WriteLine(quotient);
+Console.WriteLine(remainder);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">4
+5</pre></section>
+<h2>3. Отрицателни числа: важна разлика</h2><p>Основните упражнения са с неотрицателни входове. Ако допуснем отрицателни числа, правилата на двата езика се различават:</p><div class="table-scroll"><table><thead><tr><th>Действие</th><th>Python</th><th>C# с цели числа</th></tr></thead><tbody><tr><td>−7, разделено целочислено на 3</td><td>-7 // 3 = -3</td><td>-7 / 3 = -2</td></tr><tr><td>Остатък</td><td>-7 % 3 = 2</td><td>-7 % 3 = -1</td></tr><tr><td>Проверка</td><td>(-3) × 3 + 2 = -7</td><td>(-2) × 3 - 1 = -7</td></tr></tbody></table></div><p>Затова не пренасяй механично правило за положителни числа към отрицателни. В Python остатъкът има знака на делителя, когато не е нула; в C# при цели числа ненулевият остатък има знака на делимото.</p>
+<h2>4. Четност и делимост</h2><p><strong>Четно</strong> е цяло число, което се дели на 2 без остатък. За нечетно неотрицателно число остатъкът при деление на 2 е 1. Сравнението <code>n % 2 == 0</code> дава логическа стойност; == е въведено в урок 24.</p><section class="programs"><h2>5. Провери дали число е четно</h2><p>14 = 7 * 2 + 0, затова условието е вярно. Нулата също е четна. Извеждаме резултата от проверката, без да използваме условна конструкция.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = 14
+is_even = n % 2 == 0
+print(is_even)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = 14;
+bool isEven = n % 2 == 0;
+Console.WriteLine(isEven);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">True</pre></section>
+<h2>6. От секунди към часове, минути и секунди</h2><p>В един час има 3600 секунди, а в минута — 60. Пълните часове са цялото частно при деление на 3600. В останалите секунди намираме пълните минути, а последният остатък е броят секунди под 60.</p><section class="programs" data-input="[&quot;3665&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;0\n0\n0&quot;}, {&quot;input&quot;: [&quot;59&quot;], &quot;expected&quot;: &quot;0\n0\n59&quot;}, {&quot;input&quot;: [&quot;3600&quot;], &quot;expected&quot;: &quot;1\n0\n0&quot;}]"><h2>7. Разложи продължителност</h2><p>Въведи неотрицателен общ брой секунди. Трите изходни реда означават часове, минути и секунди. При 3665 проверката е 1 * 3600 + 1 * 60 + 5 = 3665.</p><p><strong>Въведи последователно:</strong> <code>3665</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">total_seconds = int(input())
+hours = total_seconds // 3600
+remaining = total_seconds % 3600
+minutes = remaining // 60
+seconds = remaining % 60
+print(hours)
+print(minutes)
+print(seconds)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int totalSeconds = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int hours = totalSeconds / 3600;
+int remaining = totalSeconds % 3600;
+int minutes = remaining / 60;
+int seconds = remaining % 60;
+Console.WriteLine(hours);
+Console.WriteLine(minutes);
+Console.WriteLine(seconds);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">1
+1
+5</pre></section>
+<h2>8. Отделяне на десетични цифри</h2><p>За неотрицателно цяло n последната цифра е n % 10. Целочисленото деление на 10 премахва последната цифра. Ако искаме цифрата на десетиците, първо премахваме единиците, а после вземаме остатъка при деление на 10.</p><section class="programs"><h2>9. Намери цифрите на 473</h2><p>Примерът е за число от 0 до 999. Изходът е в ред единици, десетици, стотици. За по-дълго число n / 100 в C# или n // 100 в Python няма непременно да е една цифра.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = 473
+ones = n % 10
+tens = (n // 10) % 10
+hundreds = n // 100
+print(ones)
+print(tens)
+print(hundreds)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = 473;
+int ones = n % 10;
+int tens = (n / 10) % 10;
+int hundreds = n / 100;
+Console.WriteLine(ones);
+Console.WriteLine(tens);
+Console.WriteLine(hundreds);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">3
+7
+4</pre></section>
+<h2>10. Самостоятелни задачи</h2><ol><li>При 47 предмета и групи по 8 намери пълните групи и остатъка.</li><li>Провери четността на 0, 9 и 20 чрез остатък.</li><li>Преобразувай 7322 секунди в часове, минути и секунди.</li><li>Намери сбора на цифрите на 508, като първо ги отделиш.</li><li>Кое е грешно в твърдението „% 10 връща първата цифра“?</li></ol><details><summary>Отговори</summary><ol><li>5 групи и 7 предмета; 5 * 8 + 7 = 47.</li><li>Остатъците са 0, 1, 0: четно, нечетно, четно.</li><li>2 часа, 2 минути, 2 секунди.</li><li>5 + 0 + 8 = 13.</li><li>За неотрицателно число % 10 дава последната, тоест най-дясната десетична цифра.</li></ol></details><p class="note"><strong>Запомни:</strong> избери цялото частно за пълните групи и остатъка за останалото. Проверявай чрез n = q × d + r и спазвай областта на допустимия вход.</p><details><summary>Справка</summary><p><a href="https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations">Python: деление и остатък</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/arithmetic-operators">C#: целочислени операции</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="26-Arithmetic-Operators-and-Precedence.html">← Урок 26</a><a rel="next" href="28-Prices-Quantities-and-Discounts.html">Урок 28 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>
