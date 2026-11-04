@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Показване и скриване на подробности</title><style>* { box-sizing: border-box; }
+body { margin: 0; padding: 20px; font: 18px/1.6 Arial, sans-serif; color: #203244; background: #f5f8fa; }
+.demo { max-width: 680px; margin: auto; }
+h1 { font-size: 1.6rem; line-height: 1.25; }
+button { font: inherit; padding: .6rem 1rem; color: white; background: #254e70; border: 0; border-radius: 6px; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid #a06000; outline-offset: 3px; }
+input { display: block; width: 100%; max-width: 24rem; font: inherit; padding: .4rem; margin: .2rem 0 1rem; }
+.card { background: white; border: 1px solid #b5c9d4; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+[hidden] { display: none !important; }
+</style></head><body><main class="demo"><h1>Среща на фотографския клуб</h1>
+<p>Следващата среща е в сряда.</p>
+<button id="toggle-info" type="button" aria-controls="info" aria-expanded="false">Покажи подробности</button>
+<div id="info" class="card" hidden>
+  <h2>Какво да подготвите?</h2>
+  <p>Донесете три собствени снимки и кратко описание на всяка.</p>
+</div></main><script>const button = document.querySelector("#toggle-info");
+const info = document.querySelector("#info");
+
+function toggleInfo() {
+  info.hidden = !info.hidden;
+  button.setAttribute("aria-expanded", String(!info.hidden));
+
+  if (info.hidden) {
+    button.textContent = "Покажи подробности";
+  } else {
+    button.textContent = "Скрий подробности";
+  }
+}
+
+button.addEventListener("click", toggleInfo);</script></body></html>
