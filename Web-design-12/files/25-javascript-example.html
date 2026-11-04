@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Калкулатор за цена и отстъпка</title><style>* { box-sizing: border-box; }
+body { margin: 0; padding: 20px; font: 18px/1.6 Arial, sans-serif; color: #203244; background: #f5f8fa; }
+.demo { max-width: 680px; margin: auto; }
+h1 { font-size: 1.6rem; line-height: 1.25; }
+button { font: inherit; padding: .6rem 1rem; color: white; background: #254e70; border: 0; border-radius: 6px; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid #a06000; outline-offset: 3px; }
+input { display: block; width: 100%; max-width: 24rem; font: inherit; padding: .4rem; margin: .2rem 0 1rem; }
+.card { background: white; border: 1px solid #b5c9d4; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+[hidden] { display: none !important; }
+</style></head><body><main class="demo"><h1>Калкулатор за отстъпка</h1>
+<form id="calculator" novalidate>
+  <label for="price">Начална цена</label>
+  <input id="price" name="price" type="number" min="0" step="any" value="100" required>
+  <label for="discount">Отстъпка в проценти</label>
+  <input id="discount" name="discount" type="number" min="0" max="100" step="any" value="20" required>
+  <button type="submit">Изчисли</button>
+</form>
+<p id="result" class="card" role="status">Въведете стойности и изберете „Изчисли“.</p></main><script>const form = document.querySelector("#calculator");
+const priceInput = document.querySelector("#price");
+const discountInput = document.querySelector("#discount");
+const result = document.querySelector("#result");
+
+function calculate(event) {
+  event.preventDefault();
+  const price = priceInput.valueAsNumber;
+  const discount = discountInput.valueAsNumber;
+
+  if (!Number.isFinite(price) || price < 0) {
+    result.textContent = "Въведете валидна цена, която е поне 0.";
+    priceInput.focus();
+    return;
+  }
+  if (!Number.isFinite(discount) || discount < 0 || discount > 100) {
+    result.textContent = "Въведете отстъпка между 0 и 100.";
+    discountInput.focus();
+    return;
+  }
+
+  const saved = price * (discount / 100);
+  const finalPrice = price * (1 - discount / 100);
+  result.textContent = "Отстъпка: " + saved.toFixed(2) +
+    " ед. Крайна цена: " + finalPrice.toFixed(2) + " ед.";
+}
+
+form.addEventListener("submit", calculate);
+form.addEventListener("input", function () {
+  result.textContent = "Стойностите са променени. Изберете отново „Изчисли“.";
+});</script></body></html>
