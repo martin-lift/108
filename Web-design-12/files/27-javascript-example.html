@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Филтриране на списък по дума</title><style>* { box-sizing: border-box; }
+body { margin: 0; padding: 20px; font: 18px/1.6 Arial, sans-serif; color: #203244; background: #f5f8fa; }
+.demo { max-width: 680px; margin: auto; }
+h1 { font-size: 1.6rem; line-height: 1.25; }
+button { font: inherit; padding: .6rem 1rem; color: white; background: #254e70; border: 0; border-radius: 6px; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid #a06000; outline-offset: 3px; }
+input { display: block; width: 100%; max-width: 24rem; font: inherit; padding: .4rem; margin: .2rem 0 1rem; }
+.card { background: white; border: 1px solid #b5c9d4; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+[hidden] { display: none !important; }
+#clubs { list-style-position: inside; }
+#clubs li { padding: .4rem 0; }
+#results { font-weight: bold; }</style></head><body><main class="demo"><h1>Намери училищен клуб</h1>
+<label for="search">Търси по дума или част от име</label>
+<input id="search" type="search" aria-controls="clubs" aria-describedby="results" placeholder="Например: фотограф">
+<p id="results" role="status"></p>
+<ul id="clubs" class="card">
+  <li>Фотографски клуб</li>
+  <li>Клуб по уеб дизайн</li>
+  <li>Театрален клуб</li>
+  <li>Спортен клуб</li>
+  <li>Клуб по роботика</li>
+</ul></main><script>const searchInput = document.querySelector("#search");
+const items = document.querySelectorAll("#clubs li");
+const results = document.querySelector("#results");
+
+function filterList() {
+  const query = searchInput.value.trim().toLocaleLowerCase("bg-BG");
+  let visibleCount = 0;
+
+  for (const item of items) {
+    const text = item.textContent.toLocaleLowerCase("bg-BG");
+    const matches = text.includes(query);
+    item.hidden = !matches;
+
+    if (matches) {
+      visibleCount = visibleCount + 1;
+    }
+  }
+
+  if (visibleCount === 0) {
+    results.textContent = "Няма съвпадения. Опитайте друга дума.";
+  } else {
+    results.textContent = "Намерени записи: " + visibleCount;
+  }
+}
+
+searchInput.addEventListener("input", filterList);
+filterList();</script></body></html>
