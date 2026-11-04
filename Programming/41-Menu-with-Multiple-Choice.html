@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Създаване на програма с меню чрез многовариантен избор. Упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 41</p><h1>Програмиране - Създаване на програма с меню чрез многовариантен избор. Упражнение</h1><p class="lead">Ще създадем еднократно меню: показваме възможностите, прочитаме номер и изпълняваме едно действие. Повторението на меню изисква цикъл, който предстои.</p><h2>1. Договор между менюто и избора</h2><p>Всеки показан номер трябва да има действие. Избор 0 ще означава „край без изчисление“. Непредвиденият номер трябва да получи разбираемо съобщение. Това разграничение не бива да се скрива в математическите изрази.</p><p>Ще използваме правоъгълник със страни 3 и 5. Избор 1 намира лице, избор 2 — обиколка. Данните са зададени в кода, за да се съсредоточим върху менюто.</p><section class="programs" data-input="[&quot;1&quot;]" data-tests="[{&quot;input&quot;: [&quot;2&quot;], &quot;expected&quot;: &quot;1 - Лице\n2 - Обиколка\n0 - Край\n16&quot;}, {&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;1 - Лице\n2 - Обиколка\n0 - Край\nКрай&quot;}, {&quot;input&quot;: [&quot;9&quot;], &quot;expected&quot;: &quot;1 - Лице\n2 - Обиколка\n0 - Край\nНевалиден избор&quot;}]"><h2>2. Меню за правоъгълник</h2><p>Програмата прочита един избор, показва един резултат и приключва. Въвежданият номер не е включен в показания изход.</p><p><strong>Въведи последователно:</strong> <code>1</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">print(&quot;1 - Лице&quot;)
+print(&quot;2 - Обиколка&quot;)
+print(&quot;0 - Край&quot;)
+choice = int(input())
+a = 3
+b = 5
+match choice:
+    case 1:
+        print(a * b)
+    case 2:
+        print(2 * (a + b))
+    case 0:
+        print(&quot;Край&quot;)
+    case _:
+        print(&quot;Невалиден избор&quot;)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+Console.WriteLine(&quot;1 - Лице&quot;);
+Console.WriteLine(&quot;2 - Обиколка&quot;);
+Console.WriteLine(&quot;0 - Край&quot;);
+int choice = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int a = 3;
+int b = 5;
+switch (choice)
+{
+    case 1:
+        Console.WriteLine(a * b);
+        break;
+    case 2:
+        Console.WriteLine(2 * (a + b));
+        break;
+    case 0:
+        Console.WriteLine(&quot;Край&quot;);
+        break;
+    default:
+        Console.WriteLine(&quot;Невалиден избор&quot;);
+        break;
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">1 - Лице
+2 - Обиколка
+0 - Край
+15</pre></section><h2>3. Проследяване и разширяване</h2><p>Провери всеки номер от менюто, както и поне един непоказан номер. Ако добавиш действие, първо промени видимия списък, после добави съответния case и тест. Не използвай един номер за две различни действия.</p><p>При въвеждане на буква вместо число текущите int / Parse ще съобщят грешка. Случаят по подразбиране обработва непредвидена <strong>вече прочетена числова стойност</strong>, а не грешка при преобразуването. Това е разлика между валидност на записа и валидност на избора.</p><h2>4. Кога да прочетем допълнителните данни?</h2><p>Ако някои действия изискват различни данни, въведи ги вътре в избрания case. Ако всички изчисления използват едни и същи страни, можеш да ги прочетеш общо преди switch / match. При избор „Край“ не е нужно да изискваш ненужни величини.</p><h2>5. Самостоятелни задачи</h2><ol><li>Добави избор 3 за сбора на двете страни.</li><li>Промени програмата да прочита страните, когато е избрано изчисление.</li><li>Защо избор 9 не трябва да даде нулево лице по подразбиране?</li><li>Трябва ли менюто да се създава отново при всяко стартиране на файла?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Добави надпис и case за a + b; резултатът е 8.</li><li>Използвай вход вътре в нужните случаи или обща проверка за избор 1/2.</li><li>Номерът е невалиден, а не изчисление с резултат 0.</li><li>Кодът показва менюто при всяко изпълнение; не създаваме нов проект.</li></ol></details><p class="note"><strong>Запомни:</strong> Менюто, случаите и тестовете трябва да съвпадат. default / case _ не замества обработката на нечислов вход.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="40-Switch-and-Match.html">← Урок 40</a><a rel="next" href="42-Selection-Review-and-Practice.html">Урок 42 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

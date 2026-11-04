@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Условни конструкции и многовариантен избор. Обобщение и упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 42</p><h1>Програмиране - Условни конструкции и многовариантен избор. Обобщение и упражнение</h1><p class="lead">Ще избираме между условни конструкции и многовариантен избор според смисъла на задачата. Същият резултат може да се постигне с различни записи, но не всеки е еднакво ясен.</p><h2>1. Кой вид избор е нужен?</h2><div class="table-scroll"><table><thead><tr><th>Необходимост</th><th>Конструкция</th></tr></thead><tbody><tr><td>Действие само при вярно условие</td><td>if</td></tr><tr><td>Два взаимно изключващи се пътя</td><td>if / else</td></tr><tr><td>Няколко диапазона</td><td>if / elif / else или else if</td></tr><tr><td>Номера на команди</td><td>match / switch</td></tr><tr><td>Допълнителна проверка по избран път</td><td>Вложено if</td></tr></tbody></table></div><p>Винаги започвай с входните данни и очакваните случаи. Изборът на конструкция идва след разбирането на задачата.</p><section class="programs" data-input="[&quot;1&quot;, &quot;3&quot;]" data-tests="[{&quot;input&quot;: [&quot;1&quot;, &quot;0&quot;], &quot;expected&quot;: &quot;Нужен е положителен брой&quot;}, {&quot;input&quot;: [&quot;0&quot;, &quot;0&quot;], &quot;expected&quot;: &quot;Край&quot;}, {&quot;input&quot;: [&quot;8&quot;, &quot;2&quot;], &quot;expected&quot;: &quot;Непозната команда&quot;}]"><h2>2. От номер към описание, после проверка</h2><p>Въвеждат се два цели реда: команда и брой. При команда 1 проверяваме броя вътре в случая. Този пример винаги прочита двата реда, включително при команда 0.</p><p><strong>Въведи последователно:</strong> <code>1</code>, <code>3</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">choice = int(input())
+count = int(input())
+match choice:
+    case 1:
+        if count &gt; 0:
+            print(count * 5)
+        else:
+            print(&quot;Нужен е положителен брой&quot;)
+    case 0:
+        print(&quot;Край&quot;)
+    case _:
+        print(&quot;Непозната команда&quot;)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int choice = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int count = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+switch (choice)
+{
+    case 1:
+        if (count &gt; 0)
+        {
+            Console.WriteLine(count * 5);
+        }
+        else
+        {
+            Console.WriteLine(&quot;Нужен е положителен брой&quot;);
+        }
+        break;
+    case 0:
+        Console.WriteLine(&quot;Край&quot;);
+        break;
+    default:
+        Console.WriteLine(&quot;Непозната команда&quot;);
+        break;
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">15</pre></section><h2>3. Покритие на случаите</h2><p>За горния пример са нужни: валидна команда с положителен брой; същата команда с нула или отрицателен брой; край; непозната команда. Само тестове за положителни количества няма да проверят останалите пътища.</p><p>Състави тестова таблица преди кода. След изпълнение отбележи кой case и кой вложен клон са били посетени. Съобщението „Край“ не означава, че цялата програма непременно е прекратена на този ред: след конструкцията може да има общи инструкции.</p><h2>4. Подготовка за самостоятелно решение</h2><p>Планирай по една задача за диапазони, за конкретни номера и за две вложени проверки. Към всяка добави обикновен вход, граница, равенство и недопустима стойност, когато тези случаи имат смисъл. Изпиши очакваните резултати, преди да стартираш програмата.</p><h2>5. Самостоятелни задачи</h2><ol><li>Направи меню 1 за четност и 2 за знак на въведено число.</li><li>Класифицирай стойност в „под 10“, „от 10 до 20 включително“ и „над 20“.</li><li>Провери двете страни на правоъгълник преди лице.</li><li>За всяка от задачите посочи защо избраната конструкция е подходяща.</li></ol><details><summary>Отговори и насоки</summary><ol><li>Използвай switch / match за командата и условие вътре в случая.</li><li>Удобна е верига: x < 10; x <= 20; else.</li><li>Изисквай a > 0 и b > 0 преди умножение.</li><li>Номерата са конкретни случаи, диапазоните са неравенства, а допустимостта е логическа проверка.</li></ol></details><p class="note"><strong>Запомни:</strong> Различавай вида на избора от проверката на данните. Една програма може да съчетава switch / match с вложени условия.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="41-Menu-with-Multiple-Choice.html">← Урок 41</a><a href="index.html">Списък на уроците →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

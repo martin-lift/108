@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Решаване на практически задачи с условни конструкции. Упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 39</p><h1>Програмиране - Решаване на практически задачи с условни конструкции. Упражнение</h1><p class="lead">Ще превръщаме текстови условия за цени и категории в последователни проверки. Всички тарифи тук са зададени учебни правила.</p><h2>1. Уточни какво означава всеки диапазон</h2><p>Нека доставка на пратка с положително цяло тегло струва 5 единици до 1 кг включително, 8 единици над 1 до 5 кг включително и 12 единици над 5 кг. Първо отхвърляме нулата и отрицателните стойности. После всеки следващ клон работи само с останалите допустими данни.</p><section class="programs" data-input="[&quot;5&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;Недопустимо тегло&quot;}, {&quot;input&quot;: [&quot;1&quot;], &quot;expected&quot;: &quot;5&quot;}, {&quot;input&quot;: [&quot;2&quot;], &quot;expected&quot;: &quot;8&quot;}, {&quot;input&quot;: [&quot;6&quot;], &quot;expected&quot;: &quot;12&quot;}]"><h2>2. Избери фиксирана такса по тегло</h2><p>Това е една такса за цялата пратка, избрана по диапазон. Не умножаваме таксата по теглото.</p><p><strong>Въведи последователно:</strong> <code>5</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">weight = int(input())
+if weight &lt;= 0:
+    print(&quot;Недопустимо тегло&quot;)
+elif weight &lt;= 1:
+    print(5)
+elif weight &lt;= 5:
+    print(8)
+else:
+    print(12)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int weight = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+if (weight &lt;= 0)
+{
+    Console.WriteLine(&quot;Недопустимо тегло&quot;);
+}
+else if (weight &lt;= 1)
+{
+    Console.WriteLine(5);
+}
+else if (weight &lt;= 5)
+{
+    Console.WriteLine(8);
+}
+else
+{
+    Console.WriteLine(12);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">8</pre></section><h2>3. Когато цената е по части</h2><p>Друга задача може да има различен смисъл: първите три бройки струват по 10, а всяка следваща — по 7. За 4 бройки сумата е 3 × 10 + 1 × 7 = 37. Не прилагаме 7 върху всичките четири бройки.</p><section class="programs" data-input="[&quot;4&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;0&quot;}, {&quot;input&quot;: [&quot;3&quot;], &quot;expected&quot;: &quot;30&quot;}, {&quot;input&quot;: [&quot;5&quot;], &quot;expected&quot;: &quot;44&quot;}, {&quot;input&quot;: [&quot;-1&quot;], &quot;expected&quot;: &quot;Невалиден брой&quot;}]"><h2>4. Изчисли цена на две части</h2><p>Броят е цяло число. Нулев брой е допустим и дава нулева сума. Проверяваме и стойности непосредствено около границата 3.</p><p><strong>Въведи последователно:</strong> <code>4</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">count = int(input())
+if count &lt; 0:
+    print(&quot;Невалиден брой&quot;)
+elif count &lt;= 3:
+    print(count * 10)
+else:
+    print(30 + (count - 3) * 7)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int count = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+if (count &lt; 0)
+{
+    Console.WriteLine(&quot;Невалиден брой&quot;);
+}
+else if (count &lt;= 3)
+{
+    Console.WriteLine(count * 10);
+}
+else
+{
+    Console.WriteLine(30 + (count - 3) * 7);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">37</pre></section><h2>5. От условието към проверките</h2><p>Подчертай границите и думите „включително“, „над“, „всяка следваща“. Запиши формула за всеки клон, преди да пишеш код. След това избери дали една категория определя целия резултат или различни части от количеството се пресмятат по различен начин.</p><h2>6. Самостоятелни задачи</h2><ol><li>Разшири таблицата за тегло с 1, 2, 5 и 6.</li><li>Каква е цената на 6 бройки при втората задача?</li><li>Промени цената на следващите бройки от 7 на 8.</li><li>Защо само тест с count = 2 не открива грешка във формулата за повече от 3?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Таксите са 5, 8, 8, 12.</li><li>30 + 3 × 7 = 51.</li><li>Последният израз става 30 + (count - 3) * 8.</li><li>Този вход не достига последния клон.</li></ol></details><p class="note"><strong>Запомни:</strong> Първо уточни смисъла на тарифата и включването на границите, после избери проверките и формулите.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="38-Trace-Conditional-Programs.html">← Урок 38</a><a rel="next" href="40-Switch-and-Match.html">Урок 40 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>
