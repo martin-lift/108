@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Промяна на елементи на масив или списък. Упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 62</p><h1>Програмиране - Промяна на елементи на масив или списък. Упражнение</h1><p class="lead">Съхранените стойности могат да се променят по индекс. Достъпът от урок 60 вече ще бъде и отляво на присвояването.</p><h2>1. Нова стойност на съществуваща позиция</h2><p><code>values[index] = new_value</code> заменя елемента на дадената позиция. Дължината остава същата и останалите позиции не се разместват. Проверяваме индекса преди присвояването, както преди прочитането.</p><section class="programs" data-input="[&quot;1&quot;, &quot;99&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;, &quot;-5&quot;], &quot;expected&quot;: &quot;Променено\n-5\n20\n30&quot;}, {&quot;input&quot;: [&quot;3&quot;, &quot;99&quot;], &quot;expected&quot;: &quot;Невалиден индекс\n10\n20\n30&quot;}, {&quot;input&quot;: [&quot;-1&quot;, &quot;99&quot;], &quot;expected&quot;: &quot;Невалиден индекс\n10\n20\n30&quot;}]"><h2>2. Промени една позиция</h2><p>Винаги се прочитат два реда: индекс и нова стойност. След това показваме цялата структура, включително след невалиден индекс.</p><p><strong>Въведи последователно:</strong> <code>1</code>, <code>99</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">values = [10, 20, 30]
+index = int(input())
+new_value = int(input())
+if (index &gt;= 0) and (index &lt; len(values)):
+    values[index] = new_value
+    print(&quot;Променено&quot;)
+else:
+    print(&quot;Невалиден индекс&quot;)
+for i in range(len(values)):
+    print(values[i])</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int[] values = new int[] { 10, 20, 30 };
+int index = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int newValue = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+if ((index &gt;= 0) &amp;&amp; (index &lt; values.Length))
+{
+    values[index] = newValue;
+    Console.WriteLine(&quot;Променено&quot;);
+}
+else
+{
+    Console.WriteLine(&quot;Невалиден индекс&quot;);
+}
+for (int i = 0; i &lt; values.Length; i = i + 1)
+{
+    Console.WriteLine(values[i]);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Променено
+10
+99
+30</pre></section><h2>3. Преди и след промяната</h2><div class="table-scroll"><table><thead><tr><th>Индекс</th><th>Преди</th><th>След index = 1, нова стойност 99</th></tr></thead><tbody><tr><td>0</td><td>10</td><td>10</td></tr><tr><td>1</td><td>20</td><td>99</td></tr><tr><td>2</td><td>30</td><td>30</td></tr></tbody></table></div><p>Промяната е по позиция, а не „замени всяка стойност 20“. Ако има няколко равни елемента, това присвояване засяга само посочения индекс.</p><h2>4. Израз със старата стойност</h2><p>Можем да използваме старата стойност вдясно: values[index] = values[index] + 1. Първо се прочита старият елемент, после се записва увеличеният. Това следва същото правило като промяна на обикновена променлива.</p><p>Не използвай невалидния индекс дори само за извеждане на „стара стойност“ преди проверката. Всяка операция с тази позиция трябва да е в допустимия клон.</p><h2>5. Самостоятелни задачи</h2><ol><li>Промени последния елемент на 0.</li><li>Увеличи избрания елемент с 5 вместо да четеш нова стойност.</li><li>Какво се случва с дължината след промяна?</li><li>Защо при index = 3 няма промяна в основния пример?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Използвай индекс 2 за дадената структура.</li><li>След валидиране присвои values[index] + 5.</li><li>Остава 3.</li><li>Допустимите индекси са 0, 1 и 2.</li></ol></details><p class="note"><strong>Запомни:</strong> Присвояването по индекс заменя елемент, а не добавя позиция. Провери индекса преди всяко използване.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/datastructures.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/arrays">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="61-Input-and-Output-of-Elements.html">← Урок 61</a><a href="index.html">Списък на уроците →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

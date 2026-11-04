@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Индекси и достъп до елементите на масив или списък</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 60</p><h1>Програмиране - Индекси и достъп до елементите на масив или списък</h1><p class="lead">Ще намираме конкретна стойност по нейния индекс. В общия модел на Python списъците и C# масивите първата позиция е 0.</p><h2>1. Допустими положителни индекси</h2><p>При дължина n общите неотрицателни индекси са от 0 до n - 1. За [8, 3, 5] индексите са 0, 1 и 2. Записът values[i] означава елемента на позиция i, а не числото i.</p><section class="programs"><h2>2. Първи и последен елемент</h2><p>Последният индекс е дължината минус 1. Стойността на първия елемент е 8, а не 0.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">values = [8, 3, 5]
+print(values[0])
+print(values[len(values) - 1])</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int[] values = new int[] { 8, 3, 5 };
+Console.WriteLine(values[0]);
+Console.WriteLine(values[values.Length - 1]);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">8
+5</pre></section><h2>3. Проверка преди достъп</h2><p>Индекс, равен на дължината, е извън общата област. При празна структура няма първи или последен елемент. Трябва да проверим, преди да използваме квадратните скоби.</p><p>Python допуска и отрицателни индекси за достъп от края, например −1. C# не приема отрицателен int като такъв индекс. В тези упражнения използваме общия неотрицателен модел и изрично отхвърляме отрицателните числа.</p><section class="programs" data-input="[&quot;1&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;8&quot;}, {&quot;input&quot;: [&quot;2&quot;], &quot;expected&quot;: &quot;5&quot;}, {&quot;input&quot;: [&quot;3&quot;], &quot;expected&quot;: &quot;Невалиден индекс&quot;}, {&quot;input&quot;: [&quot;-1&quot;], &quot;expected&quot;: &quot;Невалиден индекс&quot;}]"><h2>4. Прочети индекс и го провери</h2><p>Проверката включва 0 и изключва дължината.</p><p><strong>Въведи последователно:</strong> <code>1</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">values = [8, 3, 5]
+index = int(input())
+if (index &gt;= 0) and (index &lt; len(values)):
+    print(values[index])
+else:
+    print(&quot;Невалиден индекс&quot;)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int[] values = new int[] { 8, 3, 5 };
+int index = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+if ((index &gt;= 0) &amp;&amp; (index &lt; values.Length))
+{
+    Console.WriteLine(values[index]);
+}
+else
+{
+    Console.WriteLine(&quot;Невалиден индекс&quot;);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">3</pre></section><h2>5. Позиция в описание и индекс в кода</h2><p>„Трети елемент“ в обикновения език е индекс 2. Ако потребителят въвежда номер от 1 до n, първо провери този диапазон и после извади 1. Не смесвай двете номерации в едни и същи указания.</p><h2>6. Самостоятелни задачи</h2><ol><li>Какъв е последният индекс при 7 елемента?</li><li>Коя стойност е values[2] за [8, 3, 5]?</li><li>Какви индекси има празна структура?</li><li>Превърни въведен номер на елемент от 1 до 3 в индекс.</li></ol><details><summary>Отговори и насоки</summary><ol><li>6.</li><li>5.</li><li>Няма допустим индекс за достъп.</li><li>Първо провери 1 <= position <= 3, после index = position - 1.</li></ol></details><p class="note"><strong>Запомни:</strong> Преди достъп провери 0 <= index < дължината. Последният индекс не е равен на броя елементи.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/datastructures.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/arrays">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="59-Arrays-and-Lists-Creation.html">← Урок 59</a><a rel="next" href="61-Input-and-Output-of-Elements.html">Урок 61 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

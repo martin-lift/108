@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Въвеждане и извеждане на елементи на масив или списък</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 61</p><h1>Програмиране - Въвеждане и извеждане на елементи на масив или списък</h1><p class="lead">Ще запазим n въведени стойности и едва след това ще ги покажем. Това позволява повторна работа с вече съхранените данни.</p><h2>1. Създаване преди попълване</h2><p>В Python започваме с празен списък и добавяме с <code>append(value)</code>. Методът добавя една стойност в края и увеличава дължината с 1. В C# създаваме <code>new int[n]</code>: масив с n позиции, първоначално запълнени с нули. После присвояваме входа на всяка позиция.</p><p>Създай структурата веднъж преди цикъла. Ако я създаваш отново вътре, ще изтриваш предишните данни. За n = 0 няма елементи за попълване.</p><section class="programs" data-input="[&quot;3&quot;, &quot;4&quot;, &quot;-2&quot;, &quot;7&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;Елементи:&quot;}, {&quot;input&quot;: [&quot;1&quot;, &quot;5&quot;], &quot;expected&quot;: &quot;Елементи:\n5&quot;}, {&quot;input&quot;: [&quot;-1&quot;], &quot;expected&quot;: &quot;Невалиден брой&quot;}]"><h2>2. Прочети и после покажи</h2><p>За упражненията избирай n до 100. Първият цикъл попълва, а вторият показва вече запазената поредица.</p><p><strong>Въведи последователно:</strong> <code>3</code>, <code>4</code>, <code>-2</code>, <code>7</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = int(input())
+if n &lt; 0:
+    print(&quot;Невалиден брой&quot;)
+else:
+    values = []
+    for i in range(n):
+        values.append(int(input()))
+    print(&quot;Елементи:&quot;)
+    for i in range(len(values)):
+        print(values[i])</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+if (n &lt; 0)
+{
+    Console.WriteLine(&quot;Невалиден брой&quot;);
+}
+else
+{
+    int[] values = new int[n];
+    for (int i = 0; i &lt; n; i = i + 1)
+    {
+        values[i] = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+    }
+    Console.WriteLine(&quot;Елементи:&quot;);
+    for (int i = 0; i &lt; values.Length; i = i + 1)
+    {
+        Console.WriteLine(values[i]);
+    }
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Елементи:
+4
+-2
+7</pre></section><h2>3. Защо два цикъла?</h2><p>Първото преминаване получава всички данни. Второто няма нов вход, а чете от структурата. Така можем да покажем същите данни още веднъж без потребителят да ги въвежда повторно.</p><p>В Python append не е присвояване на резултат в списъка. Не записвай values = values.append(...): методът променя списъка и не връща нов списък за това присвояване. Използвай го като отделно действие.</p><h2>4. Дължина и брой прочитания</h2><p>При Python след k добавяния дължината е k. При C# дължината е n още преди първото прочитане, но това не означава, че потребителските стойности вече са въведени. Непопълнените позиции съдържат началните нули.</p><h2>5. Самостоятелни задачи</h2><ol><li>Покажи всяка стойност два пъти, без ново четене.</li><li>Провери нулев и отрицателен брой.</li><li>Каква е разликата между append и присвояване на values[i]?</li><li>Защо условието на изходния цикъл е i < Length, а не <=?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Добави второ извеждане в изходния цикъл или повтори обхождането.</li><li>0 дава само надписа; отрицателният брой дава съобщение.</li><li>append създава нова крайна позиция; присвояването заменя съществуваща.</li><li>Индексът Length е извън границите.</li></ol></details><p class="note"><strong>Запомни:</strong> Попълването и показването са отделни задачи. Броят повторения трябва да съответства на действителната дължина.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/datastructures.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/arrays">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="60-Indexes-and-Element-Access.html">← Урок 60</a><a rel="next" href="62-Update-Array-or-List-Elements.html">Урок 62 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>
