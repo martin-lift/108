@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Проверка на данни във форма</title><style>* { box-sizing: border-box; }
+body { margin: 0; padding: 20px; font: 18px/1.6 Arial, sans-serif; color: #203244; background: #f5f8fa; }
+.demo { max-width: 680px; margin: auto; }
+h1 { font-size: 1.6rem; line-height: 1.25; }
+button { font: inherit; padding: .6rem 1rem; color: white; background: #254e70; border: 0; border-radius: 6px; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid #a06000; outline-offset: 3px; }
+input { display: block; width: 100%; max-width: 24rem; font: inherit; padding: .4rem; margin: .2rem 0 1rem; }
+.card { background: white; border: 1px solid #b5c9d4; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+[hidden] { display: none !important; }
+input[type="checkbox"] { display: inline-block; width: auto; margin: 0 .5rem 0 0; }
+[aria-invalid="true"] { outline: 2px solid #9b2525; }
+.error { border-color: #9b2525; }
+.success { border-color: #287247; }</style></head><body><main class="demo"><h1>Учебна форма за участие</h1>
+<p>Използвайте измислени данни. Формата не изпраща информация.</p>
+<form id="signup" novalidate>
+  <label for="student-name">Име за примера</label>
+  <input id="student-name" name="studentName" type="text" required aria-describedby="message">
+  <label for="email">Примерна електронна поща</label>
+  <input id="email" name="email" type="email" required aria-describedby="message">
+  <label for="agree"><input id="agree" name="agree" type="checkbox" required aria-describedby="message"> Потвърждавам участието си в учебния пример</label>
+  <p><button type="submit">Провери данните</button></p>
+</form>
+<p id="message" class="card" role="status">Попълнете трите полета.</p></main><script>const form = document.querySelector("#signup");
+const nameInput = document.querySelector("#student-name");
+const emailInput = document.querySelector("#email");
+const agreeInput = document.querySelector("#agree");
+const message = document.querySelector("#message");
+
+function showError(field, text) {
+  message.textContent = text;
+  message.classList.add("error");
+  message.classList.remove("success");
+  field.setAttribute("aria-invalid", "true");
+  field.focus();
+}
+
+function validateForm(event) {
+  event.preventDefault();
+  nameInput.removeAttribute("aria-invalid");
+  emailInput.removeAttribute("aria-invalid");
+  agreeInput.removeAttribute("aria-invalid");
+
+  if (nameInput.value.trim().length < 2) {
+    showError(nameInput, "Въведете име с поне 2 знака, различни от крайни интервали.");
+    return;
+  }
+  if (emailInput.value.trim() === "" || !emailInput.validity.valid) {
+    showError(emailInput, "Въведете примерен адрес във формат име@домейн.");
+    return;
+  }
+  if (!agreeInput.checked) {
+    showError(agreeInput, "Отбележете потвърждението за учебния пример.");
+    return;
+  }
+
+  message.classList.remove("error");
+  message.classList.add("success");
+  message.textContent = "Проверката е успешна. Това е демонстрация; данни не са изпратени.";
+}
+
+form.addEventListener("submit", validateForm);
+form.addEventListener("input", function (event) {
+  event.target.removeAttribute("aria-invalid");
+  message.classList.remove("error", "success");
+  message.textContent = "Данните са променени. Проверете ги отново.";
+});</script></body></html>
