@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Променливи. Правила за именуване и присвояване на стойности</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 23</p><h1>Програмиране - Променливи. Правила за именуване и присвояване на стойности</h1><p class="lead">В урок 17 използвахме променливи при алгоритмите, а в урок 22 извеждахме готови стойности. Сега ще съхраняваме и променяме стойности в програми на Python и C#.</p>
+<h2>1. Име, стойност и присвояване</h2><p><strong>Променлива</strong> ни позволява да използваме стойност чрез име. Например quantity ще обозначава брой тетрадки. <strong>Присвояване</strong> е задаване на стойност на променливата. В псевдокода използвахме стрелката ←, а тук използваме знака <code>=</code>.</p><p>При присвояване първо се определя стойността вдясно, после тя се свързва с името отляво. Преди да прочетеш променлива, тя трябва да има зададена стойност.</p><p>В C# <strong>деклариране</strong> означава да създадем променлива с име и тип. В следващите примери <code>int</code> означава тип за цели числа. В <code>int quantity = 3;</code> едновременно декларираме quantity и задаваме началната ѝ стойност. Това начално задаване се нарича <strong>инициализация</strong>. В Python <code>quantity = 3</code> свързва името със стойността без отделен запис на типа. Типовете ще разгледаме подробно в урок 24.</p><section class="programs"><h2>2. Изчисли чрез променливи</h2><p>Имената имат смисъл: quantity — брой, unit_price или unitPrice — единична цена, total — обща цена. Алгоритъмът и входните стойности са еднакви. Извеждаме стойността на total без кавички.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">quantity = 3
+unit_price = 2
+total = quantity * unit_price
+print(total)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int quantity = 3;
+int unitPrice = 2;
+int total = quantity * unitPrice;
+Console.WriteLine(total);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">6</pre></section>
+<h2>3. Проследи стойностите</h2><div class="table-scroll"><table><thead><tr><th>След действието</th><th>quantity</th><th>Единична цена</th><th>total</th></tr></thead><tbody><tr><td>Задаване на броя</td><td>3</td><td>Още не е зададена</td><td>Още не е зададена</td></tr><tr><td>Задаване на цената</td><td>3</td><td>2</td><td>Още не е зададена</td></tr><tr><td>Пресмятане на общата цена</td><td>3</td><td>2</td><td>6</td></tr></tbody></table></div><p>Името <code>total</code> и текстът <code>"total"</code> са различни. Първото използва запазената стойност; второто е надпис от пет букви. Ако total е 6, извеждането му без кавички показва 6.</p>
+<h2>4. Промяна на стойност</h2><p>В инструкцията <code>quantity = quantity + 1</code> използваме старата стойност, прибавяме 1 и присвояваме новата. Това не е математическото равенство quantity = quantity + 1. Както в псевдокода от урок 18, последователността е важна.</p><section class="programs"><h2>5. Увеличи броя</h2><p>В C# при повторното присвояване не пишем отново int: използваме вече декларираната променлива. В Python формата на присвояването остава същата.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">quantity = 3
+print(quantity)
+quantity = quantity + 1
+print(quantity)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int quantity = 3;
+Console.WriteLine(quantity);
+quantity = quantity + 1;
+Console.WriteLine(quantity);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">3
+4</pre></section>
+<h2>6. Присвоената стойност не е постоянно правило</h2><p>След <code>total = quantity * unit_price</code> в total се пази полученият резултат. Ако после променим quantity, total не се преизчислява сам. За новата обща цена трябва отново да изпълним пресмятането.</p><section class="programs"><h2>7. Преизчисли зависимия резултат</h2><p>Първото извеждане показва старото total = 6. След новото присвояване то става 8. И на двата езика променливата не пази формула за автоматично обновяване.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">quantity = 3
+unit_price = 2
+total = quantity * unit_price
+quantity = 4
+print(total)
+total = quantity * unit_price
+print(total)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int quantity = 3;
+int unitPrice = 2;
+int total = quantity * unitPrice;
+quantity = 4;
+Console.WriteLine(total);
+total = quantity * unitPrice;
+Console.WriteLine(total);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">6
+8</pre></section>
+<h2>8. Правила и смислени имена</h2><p><strong>Идентификатор</strong> е име, използвано в кода, например име на променлива. За нашите програми избирай латинска буква в началото и след нея латински букви, цифри или долна черта. Не започвай с цифра и не използвай интервали или тире.</p><p><strong>Ключова дума</strong> е дума със специално значение в езика, която не използваме като обикновено име. Например <code>class</code> е ключова дума и в двата езика. Различават се главни и малки букви: quantity и Quantity са различни имена.</p><div class="table-scroll"><table><thead><tr><th>Запис</th><th>Подходящ ли е?</th><th>Причина</th></tr></thead><tbody><tr><td>quantity</td><td>Да</td><td>Описва брой.</td></tr><tr><td>price2</td><td>Да</td><td>Цифрата е след първата буква.</td></tr><tr><td>unit_price</td><td>Да</td><td>Долната черта е допустима.</td></tr><tr><td>2price</td><td>Не</td><td>Започва с цифра.</td></tr><tr><td>unit-price</td><td>Не като едно име</td><td>Тирето се тълкува като знак за изваждане.</td></tr><tr><td>first name</td><td>Не</td><td>Съдържа интервал.</td></tr><tr><td>class</td><td>Не като обикновено име</td><td>Ключова дума.</td></tr></tbody></table></div><p><strong>Конвенция</strong> е приет стил на именуване, а не задължително синтактично правило. За съставни имена в Python често използваме <strong>snake_case</strong>: unit_price. За местни променливи в C# често използваме <strong>camelCase</strong>: unitPrice. И двата записа са допустими и в двата езика, но ще спазваме съответния стил.</p>
+<h2>9. Упражнения</h2><ol><li>Промени първия пример за 4 тетрадки по 3 лева. Запиши очаквания резултат преди изпълнение.</li><li>Какви стойности ще се изведат, ако във втория пример началният брой е 10?</li><li>Какво ще покаже третият пример, ако след quantity = 4 не преизчислим total?</li><li>Поправи имената: 1number, student name, total-price.</li><li>Защо извеждането на „total“ в кавички не показва общата цена?</li></ol><details><summary>Отговори</summary><ol><li>quantity = 4, единична цена 3, total = 12.</li><li>10 и 11.</li><li>Запазената стара стойност 6.</li><li>Например number1; student_name / studentName; total_price / totalPrice.</li><li>Кавичките задават текстов низ, а не прочитане на променливата.</li></ol></details><p class="note"><strong>Запомни:</strong> при = пресмятаме дясната страна и задаваме нова стойност отляво. Използвай ясни имена и проследявай кога всяка стойност се променя.</p><details><summary>Справка</summary><p><a href="https://docs.python.org/3/reference/simple_stmts.html#assignment-statements">Python: присвояване</a> · <a href="https://docs.python.org/3/reference/lexical_analysis.html#identifiers">Python: имена</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/variables">C#: променливи</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="22-Simple-Program-Structure-and-Output.html">← Урок 22</a><a rel="next" href="24-Data-Types-Numbers-Text-Booleans.html">Урок 24 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

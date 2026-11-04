@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Въвеждане на данни и преобразуване на типове</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 25</p><h1>Програмиране - Въвеждане на данни и преобразуване на типове</h1><p class="lead">Досега стойностите бяха зададени направо в кода. В този урок потребителят ще ги въвежда при изпълнение. Ще различаваме прочитането на текст от преобразуването му към число.</p>
+<h2>1. Входът идва като текст</h2><p>В Python <code>input()</code> прочита един въведен ред и връща текстов низ. В C# това прави <code>Console.ReadLine()</code>. След въвеждането натискаме Enter; знакът за край на реда не става част от върнатия текст.</p><p>Ако въведеш 12, получаваш текста „12“, а не автоматично число. За изчисление трябва <strong>преобразуване на тип</strong> — създаване на стойност от необходимия вид чрез определени правила.</p><p>В C# ReadLine може да върне <strong>null</strong> — липса на стойност, когато входът е приключил. В примерите използваме <code>?? ""</code>: ако има текст, вземи него; ако има null, използвай празен низ. Това не проверява дали текстът е валидно число. Натискането само на Enter дава празен текст и също не е число.</p><section class="programs" data-input="[&quot;Мая&quot;]"><h2>2. Прочети име</h2><p>Първо показваме какви данни очакваме. После програмата изчаква един ред и използва получения текст. В показания изход не включваме реда, който сам въвеждаш; терминалът може да го показва отделно.</p><p><strong>Въведи последователно:</strong> <code>Мая</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">print(&quot;Име:&quot;)
+name = input()
+print(&quot;Здравей,&quot;, name)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+Console.WriteLine(&quot;Име:&quot;);
+string name = Console.ReadLine() ?? &quot;&quot;;
+Console.Write(&quot;Здравей, &quot;);
+Console.WriteLine(name);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Име:
+Здравей, Мая</pre></section>
+<h2>3. От текст към цяло число</h2><p>В Python <code>int(text)</code> преобразува подходящ текст в цяло число. В C# използваме <code>int.Parse(text)</code>; името Parse означава разчитане на текстов запис по очаквани правила. Неподходящият запис предизвиква грешка, вместо автоматично да стане нула.</p><p>В записа <code>int(input())</code> първо се изпълнява вътрешното input, а след това int обработва резултата. Това е <strong>вложено извикване</strong>. В C# можем по същия начин да подадем резултата от ReadLine на Parse.</p><section class="programs" data-input="[&quot;3&quot;, &quot;2&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;, &quot;2&quot;], &quot;expected&quot;: &quot;Брой:\nЕдинична цена:\nОбщо: 0&quot;}, {&quot;input&quot;: [&quot;4&quot;, &quot;3&quot;], &quot;expected&quot;: &quot;Брой:\nЕдинична цена:\nОбщо: 12&quot;}]"><h2>4. Обща цена от въведени цели числа</h2><p>Въвеждаме неотрицателен брой и неотрицателна целочислена цена. Избираме малки стойности, така че произведението да се побере в C# int. Променливите и умножението са познати от уроци 23 и 20.</p><p><strong>Въведи последователно:</strong> <code>3</code>, <code>2</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">print(&quot;Брой:&quot;)
+quantity = int(input())
+print(&quot;Единична цена:&quot;)
+unit_price = int(input())
+total = quantity * unit_price
+print(&quot;Общо:&quot;, total)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+Console.WriteLine(&quot;Брой:&quot;);
+int quantity = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+Console.WriteLine(&quot;Единична цена:&quot;);
+int unitPrice = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int total = quantity * unitPrice;
+Console.Write(&quot;Общо: &quot;);
+Console.WriteLine(total);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Брой:
+Единична цена:
+Общо: 6</pre></section>
+<h2>5. От текст към число с дробна част</h2><p>В Python използваме <code>float(text)</code>, а в C# — <code>double.Parse(...)</code>. За общите примери ще въвеждаме десетична <strong>точка</strong>: например 2.5. Настройките за показване и разчитане на числа според езика и региона се наричат <strong>култура</strong> в .NET.</p><p>За еднакво поведение на различни компютри C# примерът задава <code>CultureInfo.InvariantCulture</code> — фиксирани правила с десетична точка. Директивата <code>using System.Globalization;</code> позволява кратките имена на тези готови средства, както using System в урок 22. <code>NumberStyles.Float</code> задава разчитане на дробно число без разделители за групиране на хилядите; така запетаята не се приема вместо точка.</p><p>При извеждането <code>area.ToString(...)</code> създава текстов запис на числовата стойност. Подаваме същата култура, за да остане точката и в резултата. Това е изрично форматиране, а не промяна на самото число.</p><section class="programs" data-input="[&quot;2.5&quot;, &quot;4.5&quot;]" data-tests="[{&quot;input&quot;: [&quot;1.5&quot;, &quot;1.5&quot;], &quot;expected&quot;: &quot;Дължина:\nШирочина:\nЛице: 2.25&quot;}]"><h2>6. Лице на правоъгълник с дробни страни</h2><p>Въведи положителни дължини с точка при дробната част. Дългите C# извиквания са пренесени на няколко реда за четимост; скобите и крайното ; запазват инструкцията цяла. При тези данни двата езика показват еднакъв запис. При други стойности представянето на цяло число с дробен тип може да е например 10.0 в Python и 10 в C# — стойността е една и съща.</p><p><strong>Въведи последователно:</strong> <code>2.5</code>, <code>4.5</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">print(&quot;Дължина:&quot;)
+length = float(input())
+print(&quot;Широчина:&quot;)
+width = float(input())
+area = length * width
+print(&quot;Лице:&quot;, area)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+using System.Globalization;
+
+Console.WriteLine(&quot;Дължина:&quot;);
+double length = double.Parse(
+    Console.ReadLine() ?? &quot;&quot;,
+    NumberStyles.Float,
+    CultureInfo.InvariantCulture);
+Console.WriteLine(&quot;Широчина:&quot;);
+double width = double.Parse(
+    Console.ReadLine() ?? &quot;&quot;,
+    NumberStyles.Float,
+    CultureInfo.InvariantCulture);
+double area = length * width;
+Console.Write(&quot;Лице: &quot;);
+Console.WriteLine(
+    area.ToString(CultureInfo.InvariantCulture));</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Дължина:
+Широчина:
+Лице: 11.25</pre></section>
+<h2>7. Какво може да се обърка?</h2><div class="table-scroll"><table><thead><tr><th>Вход</th><th>Очакван тип</th><th>Резултат от преобразуването</th></tr></thead><tbody><tr><td>12</td><td>Цяло число</td><td>Успех: числото 12</td></tr><tr><td>3.5</td><td>Цяло число чрез int(text) или int.Parse</td><td>Грешка: текстът не е запис на цяло число.</td></tr><tr><td>2.5</td><td>Дробно число по правилата на примера</td><td>Успех: стойността 2.5</td></tr><tr><td>2,5</td><td>Дробно число по правилата на примера</td><td>Грешка: използвана е запетая.</td></tr><tr><td>три или празен ред</td><td>Число</td><td>Грешка: няма подходящ числов запис.</td></tr></tbody></table></div><p>Python обикновено съобщава ValueError при невалиден числов текст; C# Parse съобщава FormatException. Това са имена на видове грешки при изпълнение. При цяло число извън диапазона на C# int може да се получи OverflowException. Подробното обработване на такива случаи ще изучим по-късно; тук наблюдавай съобщението, поправи входа и стартирай отново.</p><p><strong>Валиден запис</strong> и <strong>допустима стойност за задачата</strong> са различни неща. Например −3 е валиден запис на цяло число, но не е допустим брой тетрадки. Текущите примери разчитат да подадеш стойности от описаната област; не извършват автоматична проверка на всички условия на задачата.</p>
+<h2>8. Провери с различни входни данни</h2><p>Използвай тестовите случаи от урок 19: вход, очакван резултат и действителен резултат. За общата цена провери 3 и 2 → 6; 0 и 2 → 0; 4 и 3 → 12. За лицето провери 2.5 и 4.5 → 11.25 и 1.5 и 1.5 → 2.25. Подай и невалиден запис, за да видиш реакцията.</p><ol><li>Промени програмата за име така, че да показва „Добре дошъл, “ и въведеното име.</li><li>Създай програма на двата езика, която прочита две цели числа и извежда техния сбор. Провери 7 и 5.</li><li>Защо две прочитания на текста „12“ и „3“ не са достатъчни за числов сбор?</li><li>Каква е разликата между int("3.5") и преобразуване на текста "3.5" към float?</li><li>Защо отрицателният брой предмети изисква проверка, въпреки че преобразуването към цяло число може да успее?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Запази прочитането; промени само надписа в извеждането.</li><li>Преобразувай всяко прочитане към int, събери стойностите и изведи 12.</li><li>Те са низове; съединяването им дава „123“, а не числото 15.</li><li>Първото е невалидно преобразуване от текст към цяло; float("3.5") дава дробна числова стойност.</li><li>Типът позволява отрицателно число, но условието на задачата не го допуска.</li></ol></details><p class="note"><strong>Запомни:</strong> първо прочитаме текст, после го преобразуваме според нужния тип. Уточнявай допустимия вход и проверявай резултатите с няколко случая.</p><details><summary>Справка</summary><p><a href="https://docs.python.org/3/library/functions.html">Python: input, int и float</a> · <a href="https://learn.microsoft.com/en-us/dotnet/api/system.console.readline">C#: ReadLine</a> · <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.parse">C#: int.Parse</a> · <a href="https://learn.microsoft.com/en-us/dotnet/api/system.double.parse">C#: double.Parse</a> · <a href="https://learn.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.invariantculture">Правила за точка и запетая</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="24-Data-Types-Numbers-Text-Booleans.html">← Урок 24</a><a href="index.html">Списък на уроците →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>
