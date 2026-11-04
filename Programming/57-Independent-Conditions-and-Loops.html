@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Самостоятелно решаване на задачи с условия и цикли. Упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 57</p><h1>Програмиране - Самостоятелно решаване на задачи с условия и цикли. Упражнение</h1><p class="lead">Ще изграждаш решение от текстово условие с повторение и избор. Започни с пример на ръка и запиши какво трябва да остане вярно след всяко прочитане.</p><h2>1. Практическа задача: обработки по критерий</h2><p>Прочети n числа. Намери броя и сумата на четните. Всяка стойност се посещава веднъж, но само избраните променят резултатите. Използваме познатата проверка за четност; нулата е четна, а отрицателните четни също се включват.</p><section class="programs" data-input="[&quot;5&quot;, &quot;-2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;0&quot;, &quot;5&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;0\n0&quot;}, {&quot;input&quot;: [&quot;3&quot;, &quot;1&quot;, &quot;3&quot;, &quot;5&quot;], &quot;expected&quot;: &quot;0\n0&quot;}, {&quot;input&quot;: [&quot;2&quot;, &quot;-2&quot;, &quot;2&quot;], &quot;expected&quot;: &quot;0\n2&quot;}]"><h2>2. Сума и брой на четните</h2><p>Ограничаваме n до 100 и стойностите до интервала −1000…1000. Сборът може да е нула, въпреки че има избрани числа.</p><p><strong>Въведи последователно:</strong> <code>5</code>, <code>-2</code>, <code>3</code>, <code>4</code>, <code>0</code>, <code>5</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = int(input())
+even_sum = 0
+even_count = 0
+for i in range(n):
+    value = int(input())
+    if value % 2 == 0:
+        even_sum = even_sum + value
+        even_count = even_count + 1
+print(even_sum)
+print(even_count)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int evenSum = 0;
+int evenCount = 0;
+for (int i = 0; i &lt; n; i = i + 1)
+{
+    int value = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+    if (value % 2 == 0)
+    {
+        evenSum = evenSum + value;
+        evenCount = evenCount + 1;
+    }
+}
+Console.WriteLine(evenSum);
+Console.WriteLine(evenCount);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">2
+3</pre></section><h2>3. План за самостоятелните задачи</h2><p>Опиши входа и края на четенето. Избери променливите за обобщение и началните им стойности. Запиши условието за избор. След цикъла реши как да се показва липса на избрани данни, ако резултатът е средно, минимум или максимум.</p><p>Разделяй тестовете по смисъл. Поредица без четни и поредица с четни, чиято сума е 0, имат еднаква сума, но различни броячи. Само сравнение на сумата няма да открие грешно броене.</p><h2>4. Независими упражнения</h2><p>Състави решения на двата езика, без да копираш само имената от примера. Подбери тестове с нула повторения, равни стойности, отрицателни числа и резултат точно на избран праг. При задачи със сигнал за край осигури той да бъде подаден.</p><h2>5. Самостоятелни задачи</h2><ol><li>Прочитай до −1 и преброй допустимите стойности над 50.</li><li>За n числа намери средно само на нечетните.</li><li>За непразна поредица намери разликата между максимума и минимума.</li><li>За основния пример обясни разликата между входове [1, 3] и [−2, 2].</li></ol><details><summary>Отговори и насоки</summary><ol><li>Не брои −1; след всяка стойност прочитай следваща.</li><li>Условие value % 2 != 0; провери избрания брой преди деление.</li><li>Използвай алгоритъма от урок 51 и изведи maximum - minimum.</li><li>И двата сбора са 0; броят четни е съответно 0 и 2.</li></ol></details><p class="note"><strong>Запомни:</strong> Проверявай всяко изискване от условието с отделен смислен тест, а не само с един успешен пример.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="56-Loops-Review-and-Practice.html">← Урок 56</a><a href="index.html">Списък на уроците →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

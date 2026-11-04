@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Обработка на поредица от продажби чрез цикъл. Упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 55</p><h1>Програмиране - Обработка на поредица от продажби чрез цикъл. Упражнение</h1><p class="lead">Ще обединим сигнал за край, натрупване на оборот и условно броене. За упражнението сумите са цели парични единици.</p><h2>1. Ясен договор за вход</h2><p>Въвеждат се неотрицателни суми на продажби. −1 означава край и не е продажба. Друга отрицателна стойност е невалидна и не участва в резултатите. Нулата е допустима продажба с нулева стойност и увеличава броя.</p><p>Търсим общ оборот, брой допустими продажби и брой продажби над 100. Използвай до 100 суми от 0 до 100000, така че натрупването да се побира в C# int.</p><section class="programs" data-input="[&quot;100&quot;, &quot;150&quot;, &quot;0&quot;, &quot;-2&quot;, &quot;50&quot;, &quot;-1&quot;]" data-tests="[{&quot;input&quot;: [&quot;-1&quot;], &quot;expected&quot;: &quot;0\n0\n0&quot;}, {&quot;input&quot;: [&quot;100&quot;, &quot;101&quot;, &quot;-1&quot;], &quot;expected&quot;: &quot;201\n2\n1&quot;}]"><h2>2. Натрупай оборот и броячи</h2><p>Стойността −1 се проверява преди обработката. Новият вход е след двата клона, затова след невалидна сума също се придвижваме напред.</p><p><strong>Въведи последователно:</strong> <code>100</code>, <code>150</code>, <code>0</code>, <code>-2</code>, <code>50</code>, <code>-1</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">total = 0
+count = 0
+large_count = 0
+amount = int(input())
+while amount != -1:
+    if amount &lt; 0:
+        print(&quot;Невалидна сума&quot;)
+    else:
+        total = total + amount
+        count = count + 1
+        if amount &gt; 100:
+            large_count = large_count + 1
+    amount = int(input())
+print(total)
+print(count)
+print(large_count)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int total = 0;
+int count = 0;
+int largeCount = 0;
+int amount = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+while (amount != -1)
+{
+    if (amount &lt; 0)
+    {
+        Console.WriteLine(&quot;Невалидна сума&quot;);
+    }
+    else
+    {
+        total = total + amount;
+        count = count + 1;
+        if (amount &gt; 100)
+        {
+            largeCount = largeCount + 1;
+        }
+    }
+    amount = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+}
+Console.WriteLine(total);
+Console.WriteLine(count);
+Console.WriteLine(largeCount);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Невалидна сума
+300
+4
+1</pre></section><h2>3. Проследи какво участва</h2><p>В примера 100, 150, 0 и 50 са четири продажби с обща стойност 300. Само 150 е строго над 100. −2 води до съобщение, но не увеличава нито оборота, нито броя. −1 приключва четенето и не достига условието за невалидна сума.</p><h2>4. Разширяване със средна продажба</h2><p>Можем да използваме total и count за средна продажба, но само когато count > 0. При първи вход −1 показваме „Няма продажби“, ако задачата иска средно. Не делим на броя въведени редове, защото той включва невалидните суми и сигнала за край.</p><p>Отдели въпроса за запис на число от въпроса за допустима сума. Този пример предполага коректни целочислени записи; за нечислов текст можеш да приложиш проверката от урок 54.</p><h2>5. Самостоятелни задачи</h2><ol><li>Добави средна продажба с проверка за count = 0.</li><li>Промени прага на „поне 100“.</li><li>Провери 0, 0, −1.</li><li>Защо новото четене не трябва да е само в допустимия клон?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Изчисли total / count; в C# използвай total * 1.0 / count.</li><li>Условието става amount >= 100.</li><li>Оборот 0, брой 2, големи продажби 0.</li><li>Иначе при невалидна стойност цикълът ще остане върху нея.</li></ol></details><p class="note"><strong>Запомни:</strong> Сигналът за край, невалидният вход и допустимата продажба са различни случаи. Натрупвай само избраните данни.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="54-Repeat-Until-Valid-Input.html">← Урок 54</a><a rel="next" href="56-Loops-Review-and-Practice.html">Урок 56 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

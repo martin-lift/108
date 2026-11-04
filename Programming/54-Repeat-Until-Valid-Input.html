@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Повторно въвеждане до получаване на допустима стойност. Упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 54</p><h1>Програмиране - Повторно въвеждане до получаване на допустима стойност. Упражнение</h1><p class="lead">Еднократното съобщение за грешка не дава възможност за поправяне в същото изпълнение. Ще повтаряме заявката до положително цяло число и ще различаваме нечислов текст от недопустима числова стойност.</p><h2>1. Два вида проверка</h2><p>Първо установяваме дали текстът може да се прочете като цяло число. След това проверяваме дали числото е положително. Цикълът продължава при неуспешно преобразуване <strong>или</strong> при стойност <= 0.</p><p>В Python <code>try</code> огражда действие, което може да предизвика грешка. <code>except ValueError</code> обработва конкретно грешка от невалидно числово преобразуване. Други грешки не се скриват с този запис.</p><p>В C# <code>int.TryParse(text, out n)</code> връща bool и записва полученото число в n при успех. <code>out</code> указва, че методът задава стойност на подадената променлива. При неуспех TryParse връща false; не разчитаме тогава на n като валидни данни.</p><section class="programs" data-input="[&quot;abc&quot;, &quot;0&quot;, &quot;3&quot;]" data-tests="[{&quot;input&quot;: [&quot;1&quot;], &quot;expected&quot;: &quot;Въведи положително цяло число\nПрието: 1&quot;}, {&quot;input&quot;: [&quot;-2&quot;, &quot;4&quot;], &quot;expected&quot;: &quot;Въведи положително цяло число\nОпитай отново\nПрието: 4&quot;}, {&quot;input&quot;: [&quot;&quot;, &quot;2&quot;], &quot;expected&quot;: &quot;Въведи положително цяло число\nОпитай отново\nПрието: 2&quot;}]"><h2>2. Повтаряй до положително цяло</h2><p>Подай достатъчно редове до валиден вход. При приключване на потока без такъв вход тези начални конзолни упражнения не решават задачата за повторна заявка. Използваме стойности, които се побират в C# int.</p><p><strong>Въведи последователно:</strong> <code>abc</code>, <code>0</code>, <code>3</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = 0
+valid = False
+print(&quot;Въведи положително цяло число&quot;)
+while (not valid) or (n &lt;= 0):
+    text = input()
+    try:
+        n = int(text)
+        valid = True
+    except ValueError:
+        valid = False
+    if (not valid) or (n &lt;= 0):
+        print(&quot;Опитай отново&quot;)
+print(&quot;Прието:&quot;, n)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = 0;
+bool valid = false;
+Console.WriteLine(&quot;Въведи положително цяло число&quot;);
+while ((!valid) || (n &lt;= 0))
+{
+    string text = Console.ReadLine() ?? &quot;&quot;;
+    valid = int.TryParse(text, out n);
+    if ((!valid) || (n &lt;= 0))
+    {
+        Console.WriteLine(&quot;Опитай отново&quot;);
+    }
+}
+Console.Write(&quot;Прието: &quot;);
+Console.WriteLine(n);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Въведи положително цяло число
+Опитай отново
+Опитай отново
+Прието: 3</pre></section><h2>3. Кога спира цикълът?</h2><p>При успех valid е вярно и n е положително. И двете причини за продължаване отпадат. В началото valid е невярно, затова първото прочитане е задължително. След всяка грешка се изпълнява ново прочитане, а не повторна проверка на един и същ текст.</p><p>Python int няма същата фиксирана граница като C# int. За сравними тестове избирай общия диапазон. Не приемай, че всяка стойност, която Python може да прочете, е допустима за C#.</p><h2>4. Самостоятелни задачи</h2><ol><li>Промени допустимата област на 1–10 включително.</li><li>Защо само TryParse не проверява положителност?</li><li>Какво става с текста „три“ в двата езика?</li><li>Защо входът е вътре в цикъла?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Продължавай при неуспех или n < 1 или n > 10.</li><li>Отрицателно число също е валиден целочислен запис.</li><li>Преобразуването е неуспешно и се иска нов ред.</li><li>За да получим нови данни след всеки отказ.</li></ol></details><p class="note"><strong>Запомни:</strong> Провери и числовия запис, и областта на стойността. Повтаряй входа, докато и двете изисквания са изпълнени.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="53-Conditions-Inside-Loops.html">← Урок 53</a><a rel="next" href="55-Sequence-of-Sales.html">Урок 55 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

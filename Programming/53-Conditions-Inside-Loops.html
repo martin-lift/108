@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Съчетаване на условни и циклични конструкции</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 53</p><h1>Програмиране - Съчетаване на условни и циклични конструкции</h1><p class="lead">Ще изпълняваме едно и също условие за всяка нова стойност. Цикълът определя колко данни се посещават, а if — кои от тях се обработват допълнително.</p><h2>1. Проверка за всяка стойност</h2><p>Въвеждаме n цели числа. Търсим само тези от затворения интервал [10, 20]. Всички n числа трябва да бъдат прочетени, дори когато част от тях не отговарят на условието. Условното извеждане и увеличаването на брояча са в едно и също разклонение.</p><section class="programs" data-input="[&quot;4&quot;, &quot;9&quot;, &quot;10&quot;, &quot;20&quot;, &quot;21&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;Брой: 0&quot;}, {&quot;input&quot;: [&quot;3&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;], &quot;expected&quot;: &quot;Брой: 0&quot;}, {&quot;input&quot;: [&quot;3&quot;, &quot;15&quot;, &quot;15&quot;, &quot;10&quot;], &quot;expected&quot;: &quot;15\n15\n10\nБрой: 3&quot;}]"><h2>2. Изведи и преброй стойности в интервал</h2><p>Входът започва с неотрицателен брой. Границите 10 и 20 се включват. Последното извеждане е извън цикъла.</p><p><strong>Въведи последователно:</strong> <code>4</code>, <code>9</code>, <code>10</code>, <code>20</code>, <code>21</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = int(input())
+selected_count = 0
+for i in range(n):
+    value = int(input())
+    if (value &gt;= 10) and (value &lt;= 20):
+        print(value)
+        selected_count = selected_count + 1
+print(&quot;Брой:&quot;, selected_count)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int selectedCount = 0;
+for (int i = 0; i &lt; n; i = i + 1)
+{
+    int value = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+    if ((value &gt;= 10) &amp;&amp; (value &lt;= 20))
+    {
+        Console.WriteLine(value);
+        selectedCount = selectedCount + 1;
+    }
+}
+Console.Write(&quot;Брой: &quot;);
+Console.WriteLine(selectedCount);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">10
+20
+Брой: 2</pre></section><h2>3. Две нива на принадлежност</h2><p>Прочитането на value е в цикъла, но извън if: то трябва да се изпълнява всяка итерация. Извеждането на избрана стойност е едновременно в цикъла и в условния блок. Извеждането на общия брой е след цикъла.</p><p>В Python това са три различни нива на отстъп. В C# ги показват вложените фигурни скоби. Ако преместим крайния брой в тялото, ще виждаме междинни броячи, а при n = 0 няма да видим резултат.</p><h2>4. Избрани стойности и повторения</h2><p>Повторени стойности се обработват при всяко срещане. За 15, 15, 10 броят е 3, а не 2 различни числа. Ако задачата изисква различни стойности, това е друго условие и не се решава с този прост брояч.</p><p>За сума на избраните добави начална сума 0 преди цикъла и увеличавай сумата с value само във верния клон. Не използвай брояча вместо сумата.</p><h2>5. Самостоятелни задачи</h2><ol><li>Избери само четните числа.</li><li>Добави сума на стойностите в интервала.</li><li>Защо входът трябва да остане извън условния клон?</li><li>Какъв е изходът за 10, 9, 20, 20?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Условието е value % 2 == 0.</li><li>Инициализирай selected_total и добавяй value във верния клон.</li><li>Всяка от n стойности трябва да бъде прочетена.</li><li>10, 20, 20 и краен брой 3.</li></ol></details><p class="note"><strong>Запомни:</strong> Цикълът посещава всички данни; условието избира кои събития да се броят или кои стойности да се обработват.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="52-Trace-Loops-and-Variables.html">← Урок 52</a><a rel="next" href="54-Repeat-Until-Valid-Input.html">Урок 54 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Циклични конструкции. Обобщение и упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 56</p><h1>Програмиране - Циклични конструкции. Обобщение и упражнение</h1><p class="lead">Ще свържем основните модели: брояч на итерации, натрупване, условно броене, средна стойност и крайни стойности.</p><h2>1. Избери какво да пазиш</h2><div class="table-scroll"><table><thead><tr><th>Търсен резултат</th><th>Начално задаване</th><th>Обновяване</th></tr></thead><tbody><tr><td>Сума</td><td>0</td><td>Добавяме всяка нужната стойност</td></tr><tr><td>Брой по условие</td><td>0</td><td>Добавяме 1 при вярно условие</td></tr><tr><td>Средно</td><td>Сума и брой</td><td>Делим след проверка за ненулев брой</td></tr><tr><td>Минимум/максимум</td><td>Първата действителна стойност</td><td>Сравняваме всяка следваща</td></tr></tbody></table></div><p>Не използвай една променлива за няколко различни роли. Броят на прочетените числа и броят на положителните може да са различни.</p><section class="programs" data-input="[&quot;3&quot;, &quot;-5&quot;, &quot;2&quot;, &quot;4&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;Няма положителни&quot;}, {&quot;input&quot;: [&quot;3&quot;, &quot;-2&quot;, &quot;0&quot;, &quot;-1&quot;], &quot;expected&quot;: &quot;Няма положителни&quot;}, {&quot;input&quot;: [&quot;2&quot;, &quot;1&quot;, &quot;2&quot;], &quot;expected&quot;: &quot;1.50&quot;}]"><h2>2. Сума и средно на избрани стойности</h2><p>Подай n от 0 до 100 и стойности от −1000 до 1000. Делителят е броят избрани стойности, а не общото n.</p><p><strong>Въведи последователно:</strong> <code>3</code>, <code>-5</code>, <code>2</code>, <code>4</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = int(input())
+selected_sum = 0
+selected_count = 0
+for i in range(n):
+    value = int(input())
+    if value &gt; 0:
+        selected_sum = selected_sum + value
+        selected_count = selected_count + 1
+if selected_count == 0:
+    print(&quot;Няма положителни&quot;)
+else:
+    average = selected_sum / selected_count
+    print(format(average, &quot;.2f&quot;))</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+using System.Globalization;
+
+int n = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int selectedSum = 0;
+int selectedCount = 0;
+for (int i = 0; i &lt; n; i = i + 1)
+{
+    int value = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+    if (value &gt; 0)
+    {
+        selectedSum = selectedSum + value;
+        selectedCount = selectedCount + 1;
+    }
+}
+if (selectedCount == 0)
+{
+    Console.WriteLine(&quot;Няма положителни&quot;);
+}
+else
+{
+    double average = selectedSum * 1.0 / selectedCount;
+    Console.WriteLine(average.ToString(
+        &quot;F2&quot;, CultureInfo.InvariantCulture));
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">3.00</pre></section><h2>3. Четири въпроса към всеки цикъл</h2><p>Какво е известно преди първата проверка? Какво е вярно след всяка итерация? Коя промяна води към край? Какво означава празният случай? Тези въпроси показват липсваща инициализация, неправилен делител или безкрайно повторение.</p><p>За максимум на избраните стойности първата избрана стойност, а не непременно първата прочетена, трябва да зададе началото. Ако нито една не е избрана, няма такъв максимум. Обмисли този случай, преди да пишеш условията.</p><h2>4. Самостоятелни задачи</h2><ol><li>Преброй числата от [10, 20] в поредица от n входа.</li><li>Намери минимум и максимум на непразна поредица.</li><li>Реши сума до сигнал 0 и уточни дали 0 е данни.</li><li>Напиши тестове за средно само на положителните.</li></ol><details><summary>Отговори и насоки</summary><ol><li>Брояч 0 и увеличение при двете включени граници.</li><li>Начало от първата стойност, после n - 1 сравнения.</li><li>При сигнал 0 той не се включва като обикновена стойност.</li><li>Празна поредица, само неположителни, една положителна и смесени стойности.</li></ol></details><p class="note"><strong>Запомни:</strong> Пази различните обобщения отделно и проверявай празния случай според смисъла на резултата.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="55-Sequence-of-Sales.html">← Урок 55</a><a rel="next" href="57-Independent-Conditions-and-Loops.html">Урок 57 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>
