@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Оператори за сравнение и логически изрази</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 31</p><h1>Програмиране - Оператори за сравнение и логически изрази</h1><p class="lead">В урок 24 въведохме логическите стойности и направихме първи сравнения. След аритметичните упражнения вече можем да проверяваме твърдения за данните и изчислените резултати. В този урок извеждаме дали твърдението е вярно; още не избираме различни действия в програмата.</p>
+<h2>1. Логически израз и резултат</h2><p><strong>Логически израз</strong> е израз, който в разглежданите примери получава стойност от типа bool: вярно или невярно. Например „броят е поне 10“ може да е вярно за един вход и невярно за друг.</p><p>В Python литералите са <code>True</code> и <code>False</code>, а в C# — <code>true</code> и <code>false</code>. При използваното конзолно извеждане и двата езика показват True или False. Не бъркай този изходен текст с начина, по който записваш литерала в C# кода.</p>
+<h2>2. Шест оператора за сравнение</h2><div class="table-scroll"><table><thead><tr><th>Смисъл</th><th>Python и C#</th><th>Пример</th><th>Резултат</th></tr></thead><tbody><tr><td>Равно</td><td>==</td><td>5 == 5</td><td>Вярно</td></tr><tr><td>Различно</td><td>!=</td><td>5 != 5</td><td>Невярно</td></tr><tr><td>По-малко</td><td>&lt;</td><td>3 &lt; 5</td><td>Вярно</td></tr><tr><td>По-малко или равно</td><td>&lt;=</td><td>5 &lt;= 5</td><td>Вярно</td></tr><tr><td>По-голямо</td><td>&gt;</td><td>3 &gt; 5</td><td>Невярно</td></tr><tr><td>По-голямо или равно</td><td>&gt;=</td><td>5 &gt;= 5</td><td>Вярно</td></tr></tbody></table></div><p>Записите са еднакви в двата езика. Използвай двата отделни знака &lt;= и &gt;= в кода, а не математическите символи ≤ и ≥. За „различно“ записът е !=, а не ≠.</p><section class="programs"><h2>3. Провери шестте сравнения</h2><p>При равни числа строгите сравнения < и > са неверни, а сравненията <= и >= са верни. Редът на изходните стойности съответства на реда на инструкциите.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">a = 5
+b = 5
+print(a == b)
+print(a != b)
+print(a &lt; b)
+print(a &lt;= b)
+print(a &gt; b)
+print(a &gt;= b)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int a = 5;
+int b = 5;
+Console.WriteLine(a == b);
+Console.WriteLine(a != b);
+Console.WriteLine(a &lt; b);
+Console.WriteLine(a &lt;= b);
+Console.WriteLine(a &gt; b);
+Console.WriteLine(a &gt;= b);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">True
+False
+False
+True
+False
+True</pre></section>
+<h2>4. Присвояване и сравнение</h2><p>От урок 23 знаеш, че <code>=</code> задава стойност. При <code>quantity = 10</code> променяме quantity. При <code>quantity == 10</code> само проверяваме дали текущата стойност е 10. Самото сравнение не променя quantity.</p><p>Логическият резултат може да се пази в променлива с ясно име. В C# я декларираме като bool. В Python името получава логическата стойност от израза.</p><section class="programs" data-input="[&quot;10&quot;]" data-tests="[{&quot;input&quot;: [&quot;9&quot;], &quot;expected&quot;: &quot;False\n9&quot;}, {&quot;input&quot;: [&quot;11&quot;], &quot;expected&quot;: &quot;True\n11&quot;}, {&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;False\n0&quot;}]"><h2>5. Провери минимален брой</h2><p>Условието е „поне 10“, затова самата граница 10 трябва да се приема. Второто извеждане показва, че проверката не е променила входната стойност.</p><p><strong>Въведи последователно:</strong> <code>10</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">quantity = int(input())
+has_minimum = quantity &gt;= 10
+print(has_minimum)
+print(quantity)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int quantity = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+bool hasMinimum = quantity &gt;= 10;
+Console.WriteLine(hasMinimum);
+Console.WriteLine(quantity);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">True
+10</pre></section>
+<h2>6. Гранични случаи</h2><p><strong>Граничен случай</strong> е вход близо до стойност, при която резултатът от условието се променя. За „поне 10“ провери 9, 10 и 11. Това различава правилното >= от погрешно използваното >.</p><div class="table-scroll"><table><thead><tr><th>quantity</th><th>quantity &gt; 10</th><th>quantity &gt;= 10</th></tr></thead><tbody><tr><td>9</td><td>Невярно</td><td>Невярно</td></tr><tr><td>10</td><td>Невярно</td><td>Вярно</td></tr><tr><td>11</td><td>Вярно</td><td>Вярно</td></tr></tbody></table></div><p>Свързвай думите с точния оператор: „над 10“ означава > 10; „поне 10“ — >= 10; „под 10“ — < 10; „най-много 10“ — <= 10. Уточняването на границата е част от разбирането на задачата.</p>
+<h2>7. Сравняване на резултат от изчисление</h2><p>В логическия израз могат да участват и аритметични действия. Първо намираме числовите стойности, после ги сравняваме. Скобите могат да направят намерението по-ясно.</p><section class="programs"><h2>8. Побира ли се покупката в бюджета?</h2><p>Общата цена е 12, а 12 <= 10 е невярно. Еквивалентна проверка е (quantity * unit_price) <= budget в Python и (quantity * unitPrice) <= budget в C#. Числовата формула е позната от предишните уроци.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">quantity = 4
+unit_price = 3
+budget = 10
+total = quantity * unit_price
+fits_budget = total &lt;= budget
+print(total)
+print(fits_budget)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int quantity = 4;
+int unitPrice = 3;
+int budget = 10;
+int total = quantity * unitPrice;
+bool fitsBudget = total &lt;= budget;
+Console.WriteLine(total);
+Console.WriteLine(fitsBudget);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">12
+False</pre></section>
+<h2>9. Текст и съвместими типове</h2><p>С == и != можем да сравняваме и текстове. За обикновените низове в следващия пример главните и малките букви и интервалите имат значение. „Да“ и „да“ са различни текстове, както и „да“ и „да “ с интервал накрая.</p><section class="programs"><h2>10. Провери текстов запис</h2><p>Не се извършва автоматично изравняване на главни и малки букви. При текстов вход провери и дали потребителят не е добавил допълнителни интервали.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">answer = &quot;Да&quot;
+print(answer == &quot;Да&quot;)
+print(answer == &quot;да&quot;)
+print(answer != &quot;да&quot;)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+string answer = &quot;Да&quot;;
+Console.WriteLine(answer == &quot;Да&quot;);
+Console.WriteLine(answer == &quot;да&quot;);
+Console.WriteLine(answer != &quot;да&quot;);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">True
+False
+True</pre></section>
+<p>За числово сравнение първо преобразувай числовия текст, както в урок 25. Числото 12 и текстът "12" не са едно и също. Python връща False при равенство между тези конкретни стойности, а пряко сравнение с == между int и string в C# не е допустимо. Не използвай текстов запис вместо числова величина.</p><p>При float и double точността е ограничена, както в урок 24. След пресмятане с дроби точното равенство може да не съответства на очакването от десетичната формула. Не приемай показаните два дробни знака от форматирането като доказателство за точна вътрешна стойност.</p>
+<h2>11. Упражнения</h2><ol><li>Предвиди резултатите: 7 != 9; 7 >= 7; 7 < 7; 0 == 0.</li><li>Запиши условие за „брой най-много 20“ и провери 19, 20 и 21.</li><li>Запиши условие за „температура под 0“ и провери −1, 0 и 1.</li><li>За покупка на 5 артикула по 2 и бюджет 10 какъв е резултатът от total <= budget? А от total < budget?</li><li>Каква е разликата между count = 5 и count == 5?</li><li>Защо текстовете "007" и "7" са различни, въпреки че могат да обозначават едно и също число след подходящо преобразуване?</li></ol><details><summary>Отговори за самопроверка</summary><ol><li>True, True, False, True.</li><li>count <= 20; True, True, False.</li><li>temperature < 0; True, False, False.</li><li>Общата цена е 10; първата проверка е True, втората — False.</li><li>Първото присвоява, второто проверява текущата стойност и дава bool.</li><li>Низовете имат различни последователности от символи.</li></ol></details><p class="note"><strong>Запомни:</strong> сравнението дава логически резултат и не присвоява нова стойност на сравняваните променливи. Проверката точно на границата помага да различиш < от <= и > от >=.</p><details><summary>Справка</summary><p><a href="https://docs.python.org/3/reference/expressions.html#comparisons">Python: сравнения</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/comparison-operators">C#: сравнения за наредба</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/equality-operators">C#: равенство и неравенство</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="30-Variables-Types-Arithmetic-Test.html">← Урок 30</a><a rel="next" href="32-Logical-Operators-and-Compound-Conditions.html">Урок 32 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

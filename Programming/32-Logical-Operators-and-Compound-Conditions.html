@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Логически оператори. Съставни условия</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 32</p><h1>Програмиране - Логически оператори. Съставни условия</h1><p class="lead">В урок 31 едно сравнение отговаряше на един въпрос. Често обаче трябва да проверим няколко изисквания заедно: например число да е едновременно не по-малко от 10 и не по-голямо от 20. За това използваме логически оператори.</p>
+<h2>1. И, ИЛИ и НЕ</h2><p><strong>Съставно условие</strong> е логически израз, получен чрез свързване или отрицание на условия. В този урок работим с операнди от типа bool.</p><div class="table-scroll"><table><thead><tr><th>Действие</th><th>Python</th><th>C#</th><th>Кога е вярно?</th></tr></thead><tbody><tr><td>Логическо И</td><td>and</td><td>&amp;&amp;</td><td>Когато и двете условия са верни.</td></tr><tr><td>Логическо ИЛИ</td><td>or</td><td>||</td><td>Когато поне едно условие е вярно.</td></tr><tr><td>Логическо НЕ</td><td>not</td><td>!</td><td>Когато условието след него е невярно.</td></tr></tbody></table></div><p>„ИЛИ“ тук е включващо: ако и двете условия са верни, резултатът също е вярно. „НЕ“ има един операнд и обръща логическата му стойност.</p>
+<h2>2. Таблици на истинност</h2><p><strong>Таблица на истинност</strong> показва резултата за всички възможни съчетания на логическите стойности. Нека A и B са две условия.</p><div class="table-scroll"><table><thead><tr><th>A</th><th>B</th><th>A И B</th><th>A ИЛИ B</th></tr></thead><tbody><tr><td>False</td><td>False</td><td>False</td><td>False</td></tr><tr><td>False</td><td>True</td><td>False</td><td>True</td></tr><tr><td>True</td><td>False</td><td>False</td><td>True</td></tr><tr><td>True</td><td>True</td><td>True</td><td>True</td></tr></tbody></table></div><div class="table-scroll"><table><thead><tr><th>A</th><th>НЕ A</th></tr></thead><tbody><tr><td>False</td><td>True</td></tr><tr><td>True</td><td>False</td></tr></tbody></table></div><p>При bool операнди в тези примери Python и C# получават еднакви логически резултати. В Python and и or могат да работят и с други видове стойности и да върнат самите операнди; тук използваме само логически проверки.</p>
+<h2>3. Число в затворен интервал</h2><p><strong>Интервал</strong> е множество от числови стойности между граници. В <strong>затворен интервал</strong> границите се включват. За интервала [10, 20] условието е едновременно x >= 10 и x <= 20.</p><section class="programs" data-input="[&quot;10&quot;]" data-tests="[{&quot;input&quot;: [&quot;20&quot;], &quot;expected&quot;: &quot;True&quot;}, {&quot;input&quot;: [&quot;15&quot;], &quot;expected&quot;: &quot;True&quot;}, {&quot;input&quot;: [&quot;9&quot;], &quot;expected&quot;: &quot;False&quot;}, {&quot;input&quot;: [&quot;21&quot;], &quot;expected&quot;: &quot;False&quot;}]"><h2>4. Провери двете граници</h2><p>И двете сравнения трябва да са верни. При 10 и 20 условието е изпълнено, а при 9 и 21 — не. Скобите ясно отделят двете проверки.</p><p><strong>Въведи последователно:</strong> <code>10</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">x = int(input())
+is_inside = (x &gt;= 10) and (x &lt;= 20)
+print(is_inside)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int x = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+bool isInside = (x &gt;= 10) &amp;&amp; (x &lt;= 20);
+Console.WriteLine(isInside);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">True</pre></section>
+<p>В Python е допустим и краткият запис <code>10 <= x <= 20</code>. C# не поддържа тази верига от сравнения като проверка за интервал; там изписваме двете сравнения с &&. Общият запис чрез две проверки е удобен за сравнение на езиците.</p><p>Ако условието изисква <strong>отворен интервал</strong> (10, 20), границите не се включват: използвай x > 10 и x < 20. Тогава 10 и 20 вече дават False.</p>
+<h2>5. Поне една възможност и отрицание</h2><p>Можем да прочетем учебен текст, ако имаме печатен екземпляр или електронен достъп. Достатъчна е поне една от двете възможности; и двете едновременно също са достатъчни.</p><section class="programs"><h2>6. Съчети две възможности</h2><p>ИЛИ дава True, защото има електронен достъп. Отрицанието на получения True е False. Имената пазят смисъла на всяка логическа стойност.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">has_book = False
+has_digital_access = True
+can_read = has_book or has_digital_access
+print(can_read)
+print(not can_read)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+bool hasBook = false;
+bool hasDigitalAccess = true;
+bool canRead = hasBook || hasDigitalAccess;
+Console.WriteLine(canRead);
+Console.WriteLine(!canRead);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">True
+False</pre></section>
+<h2>7. Извън интервала</h2><p>За число извън [10, 20] е достатъчно да е под долната граница <strong>или</strong> над горната. Това е x < 10 или x > 20. Същото получаваме, като отречем цялото условие за принадлежност.</p><section class="programs"><h2>8. Провери извън границите по два начина</h2><p>При x = 21 числото е над горната граница. Ако замениш 21 с 10 или 20, и двата изходни реда трябва да станат False. Отрицанието се отнася за целия логически резултат, а не само за една от проверките.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">x = 21
+is_inside = (x &gt;= 10) and (x &lt;= 20)
+is_outside = (x &lt; 10) or (x &gt; 20)
+print(is_outside)
+print(not is_inside)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int x = 21;
+bool isInside = (x &gt;= 10) &amp;&amp; (x &lt;= 20);
+bool isOutside = (x &lt; 10) || (x &gt; 20);
+Console.WriteLine(isOutside);
+Console.WriteLine(!isInside);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">True
+True</pre></section>
+<h2>9. Скоби и приоритет</h2><p>Когато операндите вече са логически стойности, НЕ е с по-висок приоритет от И, а И — от ИЛИ. За яснота отделяй сравненията със скоби и ограждай целия израз, който отричаш: <code>not (x == 5)</code> в Python и <code>!(x == 5)</code> в C#. Приоритетът на not спрямо сравненията в Python и на ! в C# не е еднакъв, затова този изричен запис е по-ясен.</p><section class="programs"><h2>10. Различи две групирания</h2><p>Първият израз е a ИЛИ (b И c), затова дава True. Вторият изисква резултатът от (a ИЛИ b) да е едновременно верен с c; понеже c е False, резултатът е False.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">a = True
+b = False
+c = False
+print(a or b and c)
+print((a or b) and c)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+bool a = true;
+bool b = false;
+bool c = false;
+Console.WriteLine(a || b &amp;&amp; c);
+Console.WriteLine((a || b) &amp;&amp; c);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">True
+False</pre></section>
+<h2>11. Кога второто условие не се пресмята?</h2><p><strong>Съкратено изчисляване</strong> означава, че вторият операнд се пресмята само ако е нужен за резултата. При И, ако първият е False, целият резултат вече е False. При ИЛИ, ако първият е True, целият резултат вече е True.</p><p>Така работят and и or в Python и && и || в C#. В този урок не ги заменяме със знаците &amp; и |: това са други оператори с различни правила за изчисляване.</p><section class="programs" data-input="[&quot;0&quot;]" data-tests="[{&quot;input&quot;: [&quot;3&quot;], &quot;expected&quot;: &quot;True&quot;}, {&quot;input&quot;: [&quot;4&quot;], &quot;expected&quot;: &quot;True&quot;}, {&quot;input&quot;: [&quot;6&quot;], &quot;expected&quot;: &quot;False&quot;}, {&quot;input&quot;: [&quot;12&quot;], &quot;expected&quot;: &quot;False&quot;}]"><h2>12. Избягвай деление на нула в проверката</h2><p>Въведи неотрицателно цяло число. При 0 първата проверка е False и делението изобщо не се извършва. При положителна стойност се изчислява цялото частно и се сравнява с 2. Използваме правилата за деление от урок 27.</p><p><strong>Въведи последователно:</strong> <code>0</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">divisor = int(input())
+result = (divisor != 0) and (12 // divisor &gt; 2)
+print(result)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int divisor = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+bool result = (divisor != 0)
+    &amp;&amp; (12 / divisor &gt; 2);
+Console.WriteLine(result);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">False</pre></section>
+<p>Редът на проверките има значение за безопасността на това пресмятане: проверката за ненулев делител трябва да бъде първа. Тук извеждаме стойността на логическия израз, без още да пишем конструкция за избор между действия.</p>
+<h2>13. Упражнения</h2><ol><li>Запиши на двата езика условие за x в затворения интервал [0, 100]. Провери −1, 0, 100 и 101.</li><li>Промени условието за отворения интервал (0, 100). Как се променя резултатът при границите?</li><li>Предвиди: True И False; True ИЛИ False; НЕ False.</li><li>Условие за извън [0, 100] е записано като x < 0 И x > 100. Защо то не може да е вярно за едно обикновено цяло число? Поправи го.</li><li>Провери израза с делителя при 0, 3 и 6. Защо е важно кое условие е първо?</li><li>Покажи с пример, че „ИЛИ“ допуска и двете условия да са верни.</li></ol><details><summary>Отговори за самопроверка</summary><ol><li>(x >= 0) and (x <= 100); в C# замени and с &&. Резултатите са False, True, True, False.</li><li>Използвай > и <; при 0 и 100 резултатът става False.</li><li>False; True; True.</li><li>Едно число не може едновременно да е под 0 и над 100. Трябва or в Python или || в C#.</li><li>False, True, False. При нулев делител първата проверка трябва да спре изчисляването преди делението.</li><li>True or True и true || true дават вярно.</li></ol></details><p class="note"><strong>Запомни:</strong> И изисква всички свързани условия, ИЛИ — поне едно, а НЕ обръща резултата. Скобите и проверките на границите показват дали записът отговаря на смисъла на задачата.</p><details><summary>Справка</summary><p><a href="https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not">Python: логически операции</a> · <a href="https://docs.python.org/3/reference/expressions.html#comparisons">Python: свързани сравнения</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/boolean-logical-operators">C#: логически оператори</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="31-Comparison-Operators-and-Boolean-Expressions.html">← Урок 31</a><a href="index.html">Списък на уроците →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>
