@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Вложени условни конструкции</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 37</p><h1>Програмиране - Вложени условни конструкции</h1><p class="lead">Вложена условна конструкция е проверка вътре в блок на друга проверка. До вътрешната стигаме само по избрания външен път.</p><h2>1. Път до вътрешното условие</h2><p><strong>Външно условие</strong> избира по-голяма група случаи. <strong>Вътрешно условие</strong> разделя тази група допълнително. В Python второто if има още едно ниво отстъп, а в C# — свои фигурни скоби в блока. Вътрешният else принадлежи на вътрешното if.</p><section class="programs" data-input="[&quot;0&quot;]" data-tests="[{&quot;input&quot;: [&quot;3&quot;], &quot;expected&quot;: &quot;Неотрицателно нечетно&quot;}, {&quot;input&quot;: [&quot;-1&quot;], &quot;expected&quot;: &quot;Недопустимо&quot;}, {&quot;input&quot;: [&quot;8&quot;], &quot;expected&quot;: &quot;Неотрицателно четно&quot;}]"><h2>2. Първо допустимост, после четност</h2><p>За отрицателна стойност проверката за четност вътре не е нужна за тази задача и се пропуска. Нулата е допустима и четна.</p><p><strong>Въведи последователно:</strong> <code>0</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = int(input())
+if n &gt;= 0:
+    if n % 2 == 0:
+        print(&quot;Неотрицателно четно&quot;)
+    else:
+        print(&quot;Неотрицателно нечетно&quot;)
+else:
+    print(&quot;Недопустимо&quot;)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+if (n &gt;= 0)
+{
+    if (n % 2 == 0)
+    {
+        Console.WriteLine(&quot;Неотрицателно четно&quot;);
+    }
+    else
+    {
+        Console.WriteLine(&quot;Неотрицателно нечетно&quot;);
+    }
+}
+else
+{
+    Console.WriteLine(&quot;Недопустимо&quot;);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Неотрицателно четно</pre></section><h2>3. Таблица на пътищата</h2><div class="table-scroll"><table><thead><tr><th>n</th><th>n &gt;= 0</th><th>n % 2 == 0</th><th>Избран път</th></tr></thead><tbody><tr><td>-1</td><td>False</td><td>Не се проверява</td><td>Външен else</td></tr><tr><td>0</td><td>True</td><td>True</td><td>Вътрешен if</td></tr><tr><td>3</td><td>True</td><td>False</td><td>Вътрешен else</td></tr></tbody></table></div><p>„Не се проверява“ не е същото като False: изпълнението не достига тази част. При проследяване записвай само действително изпълнените проверки.</p><h2>4. Вложен избор или съставно условие?</h2><p>Ако е нужно само действие при две едновременно верни условия, И може да даде по-кратък запис. Ако са нужни различни съобщения за провала на първото и второто условие, вложените конструкции запазват разграничението.</p><p>Например при проверка на две положителни страни можем първо да проверим a, после b. Така съобщението уточнява коя страна е недопустима. Използвай толкова нива, колкото са нужни за смисъла; при много категории веригата от урок 36 често е по-четима.</p><h2>5. Към кое if принадлежи else?</h2><p>В Python това се определя от отстъпа: else е подравнен със своето if. В C# изричните скоби премахват двусмислието. Първо оформи блоковете и едва после добавяй действията в тях. Не мести else на друго ниво, без да промениш очакваните пътища.</p><h2>6. Самостоятелни задачи</h2><ol><li>Проследи програмата за −4, 1 и 2.</li><li>Провери две положителни страни с различни съобщения за грешна първа и грешна втора страна.</li><li>Може ли вътрешният if да се изпълни при n = −2?</li><li>Опиши кога съставно условие с И може да замени двете проверки.</li></ol><details><summary>Отговори и насоки</summary><ol><li>Недопустимо; неотрицателно нечетно; неотрицателно четно.</li><li>Първо a > 0, а в неговия допустим клон b > 0.</li><li>Не, външното условие е невярно.</li><li>Когато е нужно само общо действие при две верни условия и отделните причини не се извеждат.</li></ol></details><p class="note"><strong>Запомни:</strong> При вложени условия следвай действителния път и пази ясна принадлежността на всеки блок и else.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="36-Several-Conditions-in-Sequence.html">← Урок 36</a><a href="index.html">Списък на уроците →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Последователна проверка на няколко условия</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 36</p><h1>Програмиране - Последователна проверка на няколко условия</h1><p class="lead">Двата клона не са достатъчни, когато трябва да различим отрицателна стойност, нула и положителна стойност.</p><h2>1. Верига от проверки</h2><p>В Python използваме <code>if</code>, след него <code>elif</code> („иначе ако“) и по желание <code>else</code>. В C# съответният запис е <code>if</code>, <code>else if</code>, <code>else</code>. Проверяваме отгоре надолу и изпълняваме първия клон с вярно условие. Останалите условия във веригата не се проверяват.</p><p>Последният else обхваща всички случаи, които не са удовлетворили предишните проверки. Така трябва да мислим за данните, които остават след всеки отказ.</p><section class="programs" data-input="[&quot;0&quot;]" data-tests="[{&quot;input&quot;: [&quot;-2&quot;], &quot;expected&quot;: &quot;Отрицателно&quot;}, {&quot;input&quot;: [&quot;7&quot;], &quot;expected&quot;: &quot;Положително&quot;}]"><h2>2. Класифицирай по знак</h2><p>Всеки цял вход попада в точно един от трите случая.</p><p><strong>Въведи последователно:</strong> <code>0</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = int(input())
+if n &lt; 0:
+    print(&quot;Отрицателно&quot;)
+elif n == 0:
+    print(&quot;Нула&quot;)
+else:
+    print(&quot;Положително&quot;)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+if (n &lt; 0)
+{
+    Console.WriteLine(&quot;Отрицателно&quot;);
+}
+else if (n == 0)
+{
+    Console.WriteLine(&quot;Нула&quot;);
+}
+else
+{
+    Console.WriteLine(&quot;Положително&quot;);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Нула</pre></section><h2>3. Ред на праговете</h2><p>За „голямо количество“ при поне 100 и „средно“ при поне 10 проверяваме първо >= 100. Ако започнем с >= 10, стойността 120 ще попадне там и никога няма да стигне до проверката за 100. Това е логическа грешка, а не грешка в синтаксиса.</p><section class="programs" data-input="[&quot;120&quot;]" data-tests="[{&quot;input&quot;: [&quot;100&quot;], &quot;expected&quot;: &quot;Голямо&quot;}, {&quot;input&quot;: [&quot;99&quot;], &quot;expected&quot;: &quot;Средно&quot;}, {&quot;input&quot;: [&quot;10&quot;], &quot;expected&quot;: &quot;Средно&quot;}, {&quot;input&quot;: [&quot;9&quot;], &quot;expected&quot;: &quot;Малко&quot;}]"><h2>4. Подреди праговете от по-високия</h2><p>Входът е неотрицателно цяло число. Когато стигнем второто условие, вече знаем, че count е под 100.</p><p><strong>Въведи последователно:</strong> <code>120</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">count = int(input())
+if count &gt;= 100:
+    print(&quot;Голямо&quot;)
+elif count &gt;= 10:
+    print(&quot;Средно&quot;)
+else:
+    print(&quot;Малко&quot;)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int count = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+if (count &gt;= 100)
+{
+    Console.WriteLine(&quot;Голямо&quot;);
+}
+else if (count &gt;= 10)
+{
+    Console.WriteLine(&quot;Средно&quot;);
+}
+else
+{
+    Console.WriteLine(&quot;Малко&quot;);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Голямо</pre></section><h2>5. Верига или независими if?</h2><p>Няколко отделни if са отделни конструкции: възможно е да се изпълнят няколко блока. Веригата if/elif/else или if/else if/else избира само един. Изборът зависи от задачата: една категория или всички изпълнени характеристики.</p><h2>6. Самостоятелни задачи</h2><ol><li>Добави случай за недопустимо отрицателно количество преди категоризирането.</li><li>Защо 100 трябва да е „Голямо“, а 99 — „Средно“?</li><li>Какво ще стане с 120, ако >= 10 бъде първият клон?</li><li>За две независими характеристики „положително“ и „четно“ верига ли е подходяща?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Първият клон проверява count < 0.</li><li>Това са съседните стойности от двете страни на границата.</li><li>Ще бъде избран „Средно“ и веригата ще приключи.</li><li>Не, използвай две отделни if, ако и двете съобщения са нужни.</li></ol></details><p class="note"><strong>Запомни:</strong> При верига се изпълнява първият подходящ клон. Подреждай условията според техните припокривания.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="35-Validate-Input-with-Conditions.html">← Урок 35</a><a rel="next" href="37-Nested-Conditions.html">Урок 37 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

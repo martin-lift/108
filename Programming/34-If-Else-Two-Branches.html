@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Условна конструкция с две разклонения</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 34</p><h1>Програмиране - Условна конструкция с две разклонения</h1><p class="lead">В урок 33 пропускахме блока при невярно условие. Сега ще зададем и действие за този случай чрез if и else.</p><h2>1. Два взаимно изключващи се клона</h2><p><code>else</code> означава „иначе“. При вярно условие се изпълнява блокът на if, а при невярно — блокът на else. При едно преминаване през конструкцията се избира точно един клон, след което програмата продължава след двата.</p><p>В Python else е на същото ниво като if и завършва с двоеточие. В C# else е след затварящата скоба на първия блок. Не пишем второ условие след else.</p><section class="programs" data-input="[&quot;8&quot;, &quot;3&quot;]" data-tests="[{&quot;input&quot;: [&quot;2&quot;, &quot;5&quot;], &quot;expected&quot;: &quot;5&quot;}, {&quot;input&quot;: [&quot;4&quot;, &quot;4&quot;], &quot;expected&quot;: &quot;4&quot;}, {&quot;input&quot;: [&quot;-2&quot;, &quot;-5&quot;], &quot;expected&quot;: &quot;-2&quot;}]"><h2>2. По-голямото от две числа</h2><p>Алгоритъмът е познат от урок 18. При равенство се избира b, чиято стойност е същата. В C# maximum е декларирана преди конструкцията и получава стойност и по двата пътя.</p><p><strong>Въведи последователно:</strong> <code>8</code>, <code>3</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">a = int(input())
+b = int(input())
+if a &gt; b:
+    maximum = a
+else:
+    maximum = b
+print(maximum)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int a = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int b = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int maximum;
+if (a &gt; b)
+{
+    maximum = a;
+}
+else
+{
+    maximum = b;
+}
+Console.WriteLine(maximum);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">8</pre></section><h2>3. Стойност, достъпна след избора</h2><p>Ако ще използваме резултата след конструкцията, той трябва да е зададен по всеки възможен път. В C# променлива, декларирана само вътре във фигурните скоби, е достъпна само в съответния блок — това е нейната <strong>област на видимост</strong>. Затова декларираме maximum отвън и присвояваме отвътре.</p><p>В Python if не създава отделна такава област, но името все пак трябва да получи стойност преди употреба. Ако го зададем само в единия клон, другият вход може да доведе до грешка.</p><section class="programs" data-input="[&quot;0&quot;]" data-tests="[{&quot;input&quot;: [&quot;7&quot;], &quot;expected&quot;: &quot;Нечетно&quot;}, {&quot;input&quot;: [&quot;-4&quot;], &quot;expected&quot;: &quot;Четно&quot;}]"><h2>4. Четно или нечетно</h2><p>Остатъкът и проверката за равенство са въведени в предишните уроци. Не е необходимо отделно да проверяваме втори път за нечетност.</p><p><strong>Въведи последователно:</strong> <code>0</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = int(input())
+if n % 2 == 0:
+    print(&quot;Четно&quot;)
+else:
+    print(&quot;Нечетно&quot;)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+if (n % 2 == 0)
+{
+    Console.WriteLine(&quot;Четно&quot;);
+}
+else
+{
+    Console.WriteLine(&quot;Нечетно&quot;);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Четно</pre></section><h2>5. Самостоятелни задачи</h2><ol><li>Промени примера за максимум така, че да намира минимум.</li><li>За цена до бюджет, включително равна на него, покажи „Достатъчно“, иначе „Недостатъчно“.</li><li>Какъв е резултатът за a = −7, b = −3?</li><li>Защо не е достатъчно да присвоим maximum само в първия клон?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Провери a < b.</li><li>Използвай total <= budget.</li><li>Максимумът е −3.</li><li>При невярна проверка резултатът няма да е зададен.</li></ol></details><p class="note"><strong>Запомни:</strong> if/else избира един от два клона. Общото извеждане може да бъде след конструкцията, ако резултатът е зададен и в двата клона.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="33-If-One-Branch.html">← Урок 33</a><a rel="next" href="35-Validate-Input-with-Conditions.html">Урок 35 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>
