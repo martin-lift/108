@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Търсене и промяна на данни в списък. Упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 69</p><h1>Програмиране - Търсене и промяна на данни в списък. Упражнение</h1><p class="lead">Ще потърсим първото срещане на стойност и ще го заменим. Липсващата стойност трябва да остави структурата непроменена.</p><h2>1. Раздели намирането от промяната</h2><p>Входът е търсена стойност и нова стойност, всяка на отделен ред. Намираме първия индекс с линейно търсене. След цикъла проверяваме position. Само при успех заменяме точно един елемент.</p><p>Това разделяне позволява да проверим резултата преди достъпа. При position = −1 не изпълняваме values[position]. Индексът 0 означава намерен първи елемент.</p><section class="programs" data-input="[&quot;4&quot;, &quot;6&quot;]" data-tests="[{&quot;input&quot;: [&quot;9&quot;, &quot;1&quot;], &quot;expected&quot;: &quot;Индекс: 3\n4\n7\n4\n1&quot;}, {&quot;input&quot;: [&quot;5&quot;, &quot;2&quot;], &quot;expected&quot;: &quot;Не е намерено\n4\n7\n4\n9&quot;}, {&quot;input&quot;: [&quot;7&quot;, &quot;7&quot;], &quot;expected&quot;: &quot;Индекс: 1\n4\n7\n4\n9&quot;}]"><h2>2. Замени първото съвпадение</h2><p>При вход 4 и 6 се променя само индекс 0. Второто срещане на 4 остава. Присвояването по индекс работи еднакво за Python списък и C# масив.</p><p><strong>Въведи последователно:</strong> <code>4</code>, <code>6</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">values = [4, 7, 4, 9]
+target = int(input())
+replacement = int(input())
+position = -1
+for i in range(len(values)):
+    if values[i] == target:
+        position = i
+        break
+if position == -1:
+    print(&quot;Не е намерено&quot;)
+else:
+    values[position] = replacement
+    print(&quot;Индекс:&quot;, position)
+for value in values:
+    print(value)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int[] values = new int[] { 4, 7, 4, 9 };
+int target = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int replacement = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int position = -1;
+for (int i = 0; i &lt; values.Length; i = i + 1)
+{
+    if (values[i] == target)
+    {
+        position = i;
+        break;
+    }
+}
+if (position == -1)
+{
+    Console.WriteLine(&quot;Не е намерено&quot;);
+}
+else
+{
+    values[position] = replacement;
+    Console.Write(&quot;Индекс: &quot;);
+    Console.WriteLine(position);
+}
+foreach (int value in values)
+{
+    Console.WriteLine(value);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">Индекс: 0
+6
+7
+4
+9</pre></section><h2>3. Първо, последно или всички?</h2><p>За първо срещане прекратяваме с break. За последно пазим всеки намерен индекс до края и заменяме след цикъла. За всички срещания можем да заменяме направо при всяко съвпадение и да броим замените. Това са различни изисквания и водят до различни резултати при повторения.</p><h2>4. Променените данни са ново състояние</h2><p>След замяната следващо търсене работи с новите стойности. Ако заменим първото 4 с 6, следващото търсене на 4 ще намери индекс 2. Ако новата стойност е равна на старата, търсенето е успешно, но видимите стойности не се променят.</p><p>Замяната не променя дължината. При паралелните структури от урок 67 променяй правилната характеристика на намерения индекс и пази общото съответствие.</p><h2>5. Самостоятелни задачи</h2><ol><li>Замени всички срещания на 4 с 0 в началните данни.</li><li>Как да замениш само последното 4?</li><li>Какво се извежда при празна структура?</li><li>Защо условие if position е неправилно за проверка на намерен индекс в Python?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Резултатът е [0, 7, 0, 9]; броят замени е 2.</li><li>Без break намираме последния индекс 2; след успешна проверка заменяме него.</li><li>Съобщение за липса, без редове за елементи.</li><li>0 е невярно в логически контекст, а −1 е вярно. Използвай изрично position == -1 или position != -1.</li></ol></details><p class="note"><strong>Запомни:</strong> Успешно търсене и действителна промяна са различни неща. Уточни колко срещания трябва да замениш.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/datastructures.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/arrays">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="68-Arrays-Conditions-Loops-Review.html">← Урок 68</a><a rel="next" href="70-Binary-Search.html">Урок 70 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

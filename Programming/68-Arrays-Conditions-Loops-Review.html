@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Масиви, условни конструкции и цикли. Обобщение и упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 68</p><h1>Програмиране - Масиви, условни конструкции и цикли. Обобщение и упражнение</h1><p class="lead">Ще съчетаем обхождане, условие, промяна на елемент, брояч и сума в един алгоритъм.</p><h2>1. План преди кода</h2><p>Дадени са цели числа. Заменяме отрицателните с 0, преброяваме положителните и намираме сумата им. Първо уточняваме кои стойности проверяваме: в тази задача замяната на отрицателните с нула не променя положителните, затова броят и сумата им остават същите.</p><p>Нужен е индексен цикъл за замяната. Броячът и сумата се задават преди цикъла. Окончателните резултати се извеждат след него.</p><section class="programs"><h2>2. Обработи и провери резултата</h2><p>Първите четири реда показват променените елементи. Python използва len и range, а C# — Length и индексен for. Действията и редът им са еднакви.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">values = [-2, 5, 0, 8]
+count = 0
+total = 0
+for i in range(len(values)):
+    if values[i] &lt; 0:
+        values[i] = 0
+    if values[i] &gt; 0:
+        count = count + 1
+        total = total + values[i]
+for value in values:
+    print(value)
+print(&quot;Брой:&quot;, count)
+print(&quot;Сума:&quot;, total)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int[] values = new int[] { -2, 5, 0, 8 };
+int count = 0;
+int total = 0;
+for (int i = 0; i &lt; values.Length; i = i + 1)
+{
+    if (values[i] &lt; 0)
+    {
+        values[i] = 0;
+    }
+    if (values[i] &gt; 0)
+    {
+        count = count + 1;
+        total = total + values[i];
+    }
+}
+foreach (int value in values)
+{
+    Console.WriteLine(value);
+}
+Console.Write(&quot;Брой: &quot;);
+Console.WriteLine(count);
+Console.Write(&quot;Сума: &quot;);
+Console.WriteLine(total);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">0
+5
+0
+8
+Брой: 2
+Сума: 13</pre></section><h2>3. Проследяване</h2><div class="table-scroll"><table><thead><tr><th>Индекс</th><th>Преди → след</th><th>Брой след стъпката</th><th>Сума след стъпката</th></tr></thead><tbody><tr><td>0</td><td>−2 → 0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>5 → 5</td><td>1</td><td>5</td></tr><tr><td>2</td><td>0 → 0</td><td>1</td><td>5</td></tr><tr><td>3</td><td>8 → 8</td><td>2</td><td>13</td></tr></tbody></table></div><h2>4. Редът има значение</h2><p>Ако вместо отрицателните заменяме положителните с 0, проверката след замяната вече няма да ги преброи. За брой на първоначалните положителни трябва да броим преди промяната или да запазим старата стойност в променлива. Винаги уточнявай дали резултатът се отнася за началните или за променените данни.</p><h2>5. Контролни случаи</h2><div class="table-scroll"><table><thead><tr><th>Начални данни</th><th>Променени данни</th><th>Брой / сума</th></tr></thead><tbody><tr><td>Празна структура</td><td>Празна структура</td><td>0 / 0</td></tr><tr><td>−4, −1</td><td>0, 0</td><td>0 / 0</td></tr><tr><td>0</td><td>0</td><td>0 / 0</td></tr><tr><td>2, 3</td><td>2, 3</td><td>2 / 5</td></tr></tbody></table></div><h2>6. Упражнение с няколко условия</h2><p>За списък от оценки от 2 до 6 преброй оценките поне 5 и намери сумата им. След това изведи индексите на всички двойки. Използвай отделен резултат за всяка задача и провери случай без нито една подходяща оценка.</p><h2>7. Самостоятелни задачи</h2><ol><li>Добави брояч за заменените отрицателни стойности.</li><li>Промени условието за броене на неотрицателни стойности след замяната. Какво се получава?</li><li>За [2, 6, 4, 5, 2] намери броя и сумата на оценките поне 5 и индексите на двойките.</li><li>Кога обхождането по стойност е достатъчно?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Увеличавай отделен брояч в условието values[i] < 0, преди или при замяната. За примера той е 1.</li><li>Всички елементи след замяната са неотрицателни; броят е дължината, в примера 4.</li><li>Брой 2, сума 11, индекси 0 и 4.</li><li>Когато само четем стойности и не ни трябва позиция за промяна или извеждане.</li></ol></details><p class="note"><strong>Запомни:</strong> Планирай кога четеш и кога променяш елемент. Това определя смисъла на броячите и сумите.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/datastructures.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/arrays">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="67-Prices-and-Stock-Lists.html">← Урок 67</a><a rel="next" href="69-Find-and-Update-List.html">Урок 69 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

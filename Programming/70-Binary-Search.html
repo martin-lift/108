@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Търсене в подреден списък</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 70</p><h1>Програмиране - Търсене в подреден списък</h1><p class="lead">В подредени данни можем да отхвърляме големи части от възможните позиции. Ще въведем двоично търсене.</p><h2>1. Необходимо условие: възходящ ред</h2><p><strong>Възходящо подредена</strong> поредица има всеки следващ елемент по-голям или равен на предишния. <strong>Двоично търсене</strong> сравнява търсената стойност със средния елемент на оставащия участък. Ако тя е по-голяма, търсим вдясно; ако е по-малка — вляво.</p><p>Този извод е верен заради подредбата. В неподредена структура използвай линейно търсене. Двоичното търсене само по себе си не подрежда данните.</p><h2>2. Граници на оставащия участък</h2><p>low и high са включени крайни индекси. В началото low е 0, а high е дължината минус 1. Докато low ≤ high, участъкът не е празен. Средният индекс е low + половината от разликата high − low, взета като цяло число.</p><p>В Python целочисленото деление тук се записва с //, а в C# делението на две int стойности дава цял резултат с /. Разликата в този алгоритъм е неотрицателна. След неуспешно сравнение изключваме и средната позиция: low = middle + 1 или high = middle − 1.</p><section class="programs" data-input="[&quot;12&quot;]" data-tests="[{&quot;input&quot;: [&quot;2&quot;], &quot;expected&quot;: &quot;0&quot;}, {&quot;input&quot;: [&quot;23&quot;], &quot;expected&quot;: &quot;5&quot;}, {&quot;input&quot;: [&quot;9&quot;], &quot;expected&quot;: &quot;Не е намерено&quot;}, {&quot;input&quot;: [&quot;-1&quot;], &quot;expected&quot;: &quot;Не е намерено&quot;}]"><h2>3. Търсене чрез стесняване на участъка</h2><p>Всеки неуспешен опит оставя приблизително половината позиции. При празна структура high е −1 и цикълът изобщо не започва.</p><p><strong>Въведи последователно:</strong> <code>12</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">values = [2, 5, 8, 12, 16, 23]
+target = int(input())
+low = 0
+high = len(values) - 1
+position = -1
+while low &lt;= high:
+    middle = low + (high - low) // 2
+    if values[middle] == target:
+        position = middle
+        break
+    elif values[middle] &lt; target:
+        low = middle + 1
+    else:
+        high = middle - 1
+if position == -1:
+    print(&quot;Не е намерено&quot;)
+else:
+    print(position)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int[] values = new int[] { 2, 5, 8, 12, 16, 23 };
+int target = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int low = 0;
+int high = values.Length - 1;
+int position = -1;
+while (low &lt;= high)
+{
+    int middle = low + (high - low) / 2;
+    if (values[middle] == target)
+    {
+        position = middle;
+        break;
+    }
+    else if (values[middle] &lt; target)
+    {
+        low = middle + 1;
+    }
+    else
+    {
+        high = middle - 1;
+    }
+}
+if (position == -1)
+{
+    Console.WriteLine(&quot;Не е намерено&quot;);
+}
+else
+{
+    Console.WriteLine(position);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">3</pre></section><h2>4. Проследи търсене на 12</h2><div class="table-scroll"><table><thead><tr><th>low</th><th>high</th><th>middle</th><th>Стойност</th><th>Следващо действие</th></tr></thead><tbody><tr><td>0</td><td>5</td><td>2</td><td>8</td><td>low = 3</td></tr><tr><td>3</td><td>5</td><td>4</td><td>16</td><td>high = 3</td></tr><tr><td>3</td><td>3</td><td>3</td><td>12</td><td>Намерен индекс 3</td></tr></tbody></table></div><h2>5. Граници и повторения</h2><p>Условието трябва да допуска low == high: и една останала позиция заслужава проверка. При липса границите се разминават. Преместване само до middle, без +1 или −1, може да остави същия участък и цикълът да не завърши.</p><p>Ако има повторени стойности, този вариант намира някое срещане, не непременно първото. За [4, 4, 4] и цел 4 той връща индекс 1. Не го заменяй без промяна в задача, изискваща първия индекс.</p><p>Линейното търсене може да провери всички n позиции. Двоичното многократно дели участъка приблизително на две: при 8 подредени елемента са достатъчни най-много 4 сравнения със среден елемент. Предимството се заплаща с изискването за подредени данни.</p><h2>6. Самостоятелни задачи</h2><ol><li>Проследи търсенето на 9 в основния пример.</li><li>Провери едноелементна поредица [5] при цели 5 и 6.</li><li>Защо алгоритъмът не е подходящ за [8, 2, 5]?</li><li>След произволна замяна на елемент може ли веднага да продължим с двоично търсене?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Сравняваме с 8, 16 и 12; накрая low = 3, high = 2 и няма резултат.</li><li>За 5 получаваме индекс 0; за 6 — липса след едно сравнение.</li><li>Подредбата е нарушена и отхвърлянето на половина не е обосновано.</li><li>Само ако възходящият ред е запазен. Иначе използвай линейно търсене.</li></ol></details><p class="note"><strong>Запомни:</strong> Двоичното търсене изисква подредба и строго намаляващ оставащ участък.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/datastructures.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/arrays">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="69-Find-and-Update-List.html">← Урок 69</a><a rel="next" href="71-Arrays-and-Lists-Test.html">Урок 71 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>
