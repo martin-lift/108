@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Изчисляване на средна стойност на въведени числа</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 50</p><h1>Програмиране - Изчисляване на средна стойност на въведени числа</h1><p class="lead">Средното аритметично изисква едновременно сбор и брой. При празна поредица няма стойност, с която да разделим безопасно сумата.</p><h2>1. Формула и празен случай</h2><p>За n числа средното е total / n. При n = 0 делението е недопустимо и няма средна стойност. Не извеждаме 0 като заместител, защото средното 0 и липсата на данни са различни резултати.</p><p>За n > 0 прочитаме точно n стойности, натрупваме сумата и делим след цикъла. В C# умножаваме сумата по 1.0 преди делението, за да получим дробен резултат и при цели входни стойности.</p><section class="programs" data-input="[&quot;3&quot;, &quot;4&quot;, &quot;4&quot;, &quot;5&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;Няма допустим брой стойности&quot;}, {&quot;input&quot;: [&quot;1&quot;, &quot;-7&quot;], &quot;expected&quot;: &quot;-7.00&quot;}, {&quot;input&quot;: [&quot;3&quot;, &quot;-2&quot;, &quot;0&quot;, &quot;2&quot;], &quot;expected&quot;: &quot;0.00&quot;}]"><h2>2. Средно на n цели числа</h2><p>Използвай n до 100 и входни стойности от −1000 до 1000. За n <= 0 не се прочитат допълнителни числа.</p><p><strong>Въведи последователно:</strong> <code>3</code>, <code>4</code>, <code>4</code>, <code>5</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = int(input())
+if n &lt;= 0:
+    print(&quot;Няма допустим брой стойности&quot;)
+else:
+    total = 0
+    for i in range(n):
+        value = int(input())
+        total = total + value
+    average = total / n
+    print(format(average, &quot;.2f&quot;))</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+using System.Globalization;
+
+int n = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+if (n &lt;= 0)
+{
+    Console.WriteLine(&quot;Няма допустим брой стойности&quot;);
+}
+else
+{
+    int total = 0;
+    for (int i = 0; i &lt; n; i = i + 1)
+    {
+        int value = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+        total = total + value;
+    }
+    double average = total * 1.0 / n;
+    Console.WriteLine(average.ToString(
+        &quot;F2&quot;, CultureInfo.InvariantCulture));
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">4.33</pre></section><h2>3. Брой прочетени или брой избрани?</h2><p>Ако средното трябва да е само за положителните стойности, и сумата, и броят трябва да се обновяват при същото условие. Делителят тогава е броят на положителните, а не общото n. Отделно проверяваме дали този брой е 0.</p><p>Например при −5, 2, 4 общото средно е 0.33 при оформление до два знака, а средното на положителните е 3.00. Това са различни задачи с различен делител.</p><h2>4. Контролни проверки</h2><div class="table-scroll"><table><thead><tr><th>Входни стойности</th><th>Очакване</th></tr></thead><tbody><tr><td>Едно число</td><td>Средното е самото число</td></tr><tr><td>Еднакви числа</td><td>Средното е същата стойност</td></tr><tr><td>Противоположни числа с еднаква големина</td><td>Средното е 0</td></tr><tr><td>Няма стойности</td><td>Съобщение вместо деление</td></tr></tbody></table></div><p>Форматирането до два знака се прави след изчислението. Не превръщай междинната сума в текст.</p><h2>5. Самостоятелни задачи</h2><ol><li>Изчисли средното на 1 и 2.</li><li>Каква промяна е нужна за средно само на положителните?</li><li>Защо проверката n > 0 трябва да е преди делението?</li><li>Какво е средното на 5, 5, 5, 5?</li></ol><details><summary>Отговори и насоки</summary><ol><li>1.50.</li><li>Условна сума и отделен брояч; проверка на брояча преди деление.</li><li>Иначе нулевият брой би довел до невалидна операция.</li><li>5.00.</li></ol></details><p class="note"><strong>Запомни:</strong> Разделяй сбора на броя на точно същите стойности. Липсата на данни не е числово средно 0.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="49-Accumulation-and-Counting.html">← Урок 49</a><a rel="next" href="51-Streaming-Minimum-and-Maximum.html">Урок 51 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

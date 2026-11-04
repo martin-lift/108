@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Намиране на най-малка и най-голяма стойност сред последователно въведени числа</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 51</p><h1>Програмиране - Намиране на най-малка и най-голяма стойност сред последователно въведени числа</h1><p class="lead">За най-малката и най-голямата стойност не е нужно да пазим цялата поредица. Достатъчни са текущ минимум и максимум.</p><h2>1. Правилно начално задаване</h2><p><strong>Текущ минимум</strong> е най-малката стойност сред вече прочетените. Аналогично текущият максимум е най-голямата. При непразна поредица започваме и двата с първото число.</p><p>Не започвай автоматично от 0. При само отрицателни числа 0 не е правилен максимум, защото изобщо не присъства. Първата действителна стойност дава коректно начало без специални огромни граници.</p><section class="programs" data-input="[&quot;3&quot;, &quot;-9&quot;, &quot;-2&quot;, &quot;-5&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;Няма данни&quot;}, {&quot;input&quot;: [&quot;1&quot;, &quot;7&quot;], &quot;expected&quot;: &quot;7\n7&quot;}, {&quot;input&quot;: [&quot;3&quot;, &quot;4&quot;, &quot;4&quot;, &quot;4&quot;], &quot;expected&quot;: &quot;4\n4&quot;}, {&quot;input&quot;: [&quot;4&quot;, &quot;2&quot;, &quot;-3&quot;, &quot;9&quot;, &quot;0&quot;], &quot;expected&quot;: &quot;-3\n9&quot;}]"><h2>2. Минимум и максимум без масив</h2><p>След първия вход остават n - 1 числа, затова броячът започва от 1 и е под n. При n = 1 цикълът е празен.</p><p><strong>Въведи последователно:</strong> <code>3</code>, <code>-9</code>, <code>-2</code>, <code>-5</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = int(input())
+if n &lt;= 0:
+    print(&quot;Няма данни&quot;)
+else:
+    first = int(input())
+    minimum = first
+    maximum = first
+    for i in range(1, n):
+        value = int(input())
+        if value &lt; minimum:
+            minimum = value
+        if value &gt; maximum:
+            maximum = value
+    print(minimum)
+    print(maximum)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+if (n &lt;= 0)
+{
+    Console.WriteLine(&quot;Няма данни&quot;);
+}
+else
+{
+    int first = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+    int minimum = first;
+    int maximum = first;
+    for (int i = 1; i &lt; n; i = i + 1)
+    {
+        int value = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+        if (value &lt; minimum)
+        {
+            minimum = value;
+        }
+        if (value &gt; maximum)
+        {
+            maximum = value;
+        }
+    }
+    Console.WriteLine(minimum);
+    Console.WriteLine(maximum);
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">-9
+-2</pre></section><h2>3. Проследяване</h2><div class="table-scroll"><table><thead><tr><th>Нов вход</th><th>minimum</th><th>maximum</th></tr></thead><tbody><tr><td>-9</td><td>-9</td><td>-9</td></tr><tr><td>-2</td><td>-9</td><td>-2</td></tr><tr><td>-5</td><td>-9</td><td>-2</td></tr></tbody></table></div><p>След всяка итерация двете променливи обобщават всички прочетени до момента числа. Равна стойност не изисква промяна. Това не променя коректността, когато една и съща крайна стойност се среща повече от веднъж.</p><h2>4. Не обърквай стойност с брой</h2><p>Минимумът е стойност, а не позиция или брой елементи. В този алгоритъм не пазим местата на числата. Ако задачата иска колко пъти се среща максимумът, ще са нужни допълнителни правила и брояч.</p><p>При неположителен брой не прочитаме „първа стойност“, защото няма такава. Проверяваме броя, преди да използваме този начин за начално задаване.</p><h2>5. Самостоятелни задачи</h2><ol><li>Защо начално maximum = 0 е грешно при −8, −3, −7?</li><li>Проследи 5, 2, 9, 1.</li><li>Колко числа се прочитат в цикъла при n = 4?</li><li>Какви са резултатите при една стойност −6?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Ще запази несъществуващата 0 вместо −3.</li><li>Минимум 1, максимум 9.</li><li>Три; първото е прочетено преди цикъла.</li><li>И минимумът, и максимумът са −6.</li></ol></details><p class="note"><strong>Запомни:</strong> Започни от първата действителна стойност и обработи всяка следваща точно веднъж.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="50-Average-of-Input-Values.html">← Урок 50</a><a rel="next" href="52-Trace-Loops-and-Variables.html">Урок 52 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

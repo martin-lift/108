@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Натрупване на сума и преброяване чрез цикъл</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 49</p><h1>Програмиране - Натрупване на сума и преброяване чрез цикъл</h1><p class="lead">Ще обработваме поредица от стойности, без да ги пазим всички. Сума и брояч съхраняват само необходимото обобщение.</p><h2>1. Две различни роли на променливите</h2><p><strong>Натрупваща променлива</strong> пази постепенно получаван резултат. За сума започваме от 0 и добавяме всяка стойност. <strong>Брояч</strong> пази брой събития и се увеличава с 1. Не добавяме самото число към брояча, когато искаме да преброим положителните стойности.</p><p>Началните стойности се задават преди цикъла. Ако total = 0 е в тялото, натрупаното ще се изтрива при всяка итерация.</p><section class="programs" data-input="[&quot;4&quot;, &quot;3&quot;, &quot;-2&quot;, &quot;0&quot;, &quot;3&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;0\n0&quot;}, {&quot;input&quot;: [&quot;3&quot;, &quot;-2&quot;, &quot;-1&quot;, &quot;0&quot;], &quot;expected&quot;: &quot;-3\n0&quot;}, {&quot;input&quot;: [&quot;2&quot;, &quot;5&quot;, &quot;5&quot;], &quot;expected&quot;: &quot;10\n2&quot;}]"><h2>2. Сума на всички и брой положителни</h2><p>Първо въвеждаме n от 0 до 100, после n цели стойности от −1000 до 1000. Тази област пази сумата в диапазона на C# int. Изходът е сума и брой положителни.</p><p><strong>Въведи последователно:</strong> <code>4</code>, <code>3</code>, <code>-2</code>, <code>0</code>, <code>3</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = int(input())
+total = 0
+positive_count = 0
+for i in range(n):
+    value = int(input())
+    total = total + value
+    if value &gt; 0:
+        positive_count = positive_count + 1
+print(total)
+print(positive_count)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int total = 0;
+int positiveCount = 0;
+for (int i = 0; i &lt; n; i = i + 1)
+{
+    int value = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+    total = total + value;
+    if (value &gt; 0)
+    {
+        positiveCount = positiveCount + 1;
+    }
+}
+Console.WriteLine(total);
+Console.WriteLine(positiveCount);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">4
+2</pre></section><h2>3. Проследяване на пример</h2><div class="table-scroll"><table><thead><tr><th>Прочетена стойност</th><th>Сума след добавяне</th><th>Брой положителни</th></tr></thead><tbody><tr><td>3</td><td>3</td><td>1</td></tr><tr><td>-2</td><td>1</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>3</td><td>4</td><td>2</td></tr></tbody></table></div><p>Нулата влиза в сумата, но не увеличава положителния брояч. Условието > 0 е строго; >= 0 би преброило и нулата.</p><h2>4. Кое се прави винаги и кое условно?</h2><p>Сумата на всички стойности се обновява при всяко повторение. Броячът се обновява само във верния клон. Ако искаме сума само на положителните, преместим и добавянето в този клон. Имената трябва да показват различния смисъл: total срещу positive_total.</p><p>Празната поредица при n = 0 има сума 0 и брой 0. Тялото не се изпълнява и началните стойности са крайните резултати.</p><h2>5. Самостоятелни задачи</h2><ol><li>Промени брояча да брои нули.</li><li>Натрупай само положителните стойности.</li><li>Намери изхода за 2, −5, 3 при n = 3.</li><li>Защо total и positive_count не трябва да се нулират вътре?</li></ol><details><summary>Отговори и насоки</summary><ol><li>Условието е value == 0.</li><li>Добавяй value само при value > 0.</li><li>Сума 0 и два положителни елемента.</li><li>Ще се загубят резултатите от предишните итерации.</li></ol></details><p class="note"><strong>Запомни:</strong> Сумата натрупва стойности, броячът — събития. Задай началото веднъж и обновявай само на правилното място.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="48-Choose-a-Loop.html">← Урок 48</a><a rel="next" href="50-Average-of-Input-Values.html">Урок 50 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>
