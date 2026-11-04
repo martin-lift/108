@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Светла и тъмна тема</title><style>* { box-sizing: border-box; }
+body { margin: 0; padding: 20px; font: 18px/1.6 Arial, sans-serif; color: #203244; background: #f5f8fa; }
+.demo { max-width: 680px; margin: auto; }
+h1 { font-size: 1.6rem; line-height: 1.25; }
+button { font: inherit; padding: .6rem 1rem; color: white; background: #254e70; border: 0; border-radius: 6px; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid #a06000; outline-offset: 3px; }
+input { display: block; width: 100%; max-width: 24rem; font: inherit; padding: .4rem; margin: .2rem 0 1rem; }
+.card { background: white; border: 1px solid #b5c9d4; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+[hidden] { display: none !important; }
+a { color: #254e70; }
+body.dark { background: #172334; color: #f2f6fb; }
+body.dark .card { background: #26384d; border-color: #9fb7cc; }
+body.dark a { color: #b8dcff; }
+body.dark button { background: #d6e9fa; color: #172334; }</style></head><body><main class="demo"><h1>Избери удобна тема</h1>
+<button id="theme-button" type="button" aria-pressed="false">Включи тъмна тема</button>
+<article class="card" id="reading">
+  <h2>Фотографски клуб</h2>
+  <p>Светлата и тъмната тема представят едно и също съдържание с различни цветове.</p>
+  <a href="#reading">Към текста за клуба</a>
+</article></main><script>const themeButton = document.querySelector("#theme-button");
+
+function switchTheme() {
+  const darkIsActive = document.body.classList.toggle("dark");
+  themeButton.setAttribute("aria-pressed", String(darkIsActive));
+
+  if (darkIsActive) {
+    themeButton.textContent = "Включи светла тема";
+  } else {
+    themeButton.textContent = "Включи тъмна тема";
+  }
+}
+
+themeButton.addEventListener("click", switchTheme);</script></body></html>
