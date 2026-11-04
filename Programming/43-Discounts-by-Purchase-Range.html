@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Изчисляване на отстъпки според стойността на покупката. Упражнение</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 43</p><h1>Програмиране - Изчисляване на отстъпки според стойността на покупката. Упражнение</h1><p class="lead">Ще приложим последователни проверки към различни проценти на отстъпка. Правилата са учебни и се прилагат върху цялата покупка.</p><h2>1. Опиши диапазоните без празнини</h2><p>Нека сумата е неотрицателно цяло число. Под 100 няма отстъпка; от 100 до под 500 отстъпката е 5%; при поне 500 е 10%. Границите 100 и 500 принадлежат на по-високия процент. Първо отхвърляме отрицателната стойност, после проверяваме праговете в ясен ред.</p><p>Процентът определяме чрез условия, а крайната сума изчисляваме с една обща формула. Така не повтаряме изчислението в три клона и намаляваме риска от различни формули.</p><section class="programs" data-input="[&quot;200&quot;]" data-tests="[{&quot;input&quot;: [&quot;99&quot;], &quot;expected&quot;: &quot;0\n99.00&quot;}, {&quot;input&quot;: [&quot;100&quot;], &quot;expected&quot;: &quot;5\n95.00&quot;}, {&quot;input&quot;: [&quot;499&quot;], &quot;expected&quot;: &quot;5\n474.05&quot;}, {&quot;input&quot;: [&quot;500&quot;], &quot;expected&quot;: &quot;10\n450.00&quot;}, {&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;0\n0.00&quot;}, {&quot;input&quot;: [&quot;-1&quot;], &quot;expected&quot;: &quot;Недопустима сума&quot;}]"><h2>2. Избери процент и пресметни</h2><p>Входът е цяло число за началната сума. Първият изходен ред е процентът, вторият — крайната сума с два дробни знака. Форматирането е познато от урок 28.</p><p><strong>Въведи последователно:</strong> <code>200</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">subtotal = int(input())
+if subtotal &lt; 0:
+    print(&quot;Недопустима сума&quot;)
+else:
+    if subtotal &gt;= 500:
+        percent = 10
+    elif subtotal &gt;= 100:
+        percent = 5
+    else:
+        percent = 0
+    final_total = subtotal * (1 - percent / 100)
+    print(percent)
+    print(format(final_total, &quot;.2f&quot;))</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+using System.Globalization;
+
+int subtotal = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+if (subtotal &lt; 0)
+{
+    Console.WriteLine(&quot;Недопустима сума&quot;);
+}
+else
+{
+    int percent;
+    if (subtotal &gt;= 500)
+    {
+        percent = 10;
+    }
+    else if (subtotal &gt;= 100)
+    {
+        percent = 5;
+    }
+    else
+    {
+        percent = 0;
+    }
+    double finalTotal = subtotal * (1 - percent / 100.0);
+    Console.WriteLine(percent);
+    Console.WriteLine(finalTotal.ToString(
+        &quot;F2&quot;, CultureInfo.InvariantCulture));
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">5
+190.00</pre></section><h2>3. Защо проверяваме 500 преди 100?</h2><p>Всяка сума поне 500 е и поне 100. При обратен ред първото вярно условие ще даде само 5%. Тест с 200 няма да открие тази грешка, защото и двата реда на проверки дават 5% за него.</p><h2>4. Граници и точност</h2><div class="table-scroll"><table><thead><tr><th>Сума</th><th>Процент</th><th>Причина</th></tr></thead><tbody><tr><td>99</td><td>0</td><td>Под първия праг</td></tr><tr><td>100</td><td>5</td><td>Първият праг се включва</td></tr><tr><td>499</td><td>5</td><td>Под втория праг</td></tr><tr><td>500</td><td>10</td><td>Вторият праг се включва</td></tr></tbody></table></div><p>Това е процент върху цялата сума, а не отделни части по различни ставки. Както в урок 28, float и double са приблизителни типове; оформянето до два знака е показване на резултата, а не точна десетична аритметика.</p><h2>5. Самостоятелни задачи</h2><ol><li>Добави праг 1000 с отстъпка 15%. Къде трябва да стои?</li><li>Намери резултата за 600.</li><li>Добави извеждане на спестената сума.</li><li>Избери тестове около новия праг 1000.</li></ol><details><summary>Отговори и насоки</summary><ol><li>Преди проверката за 500.</li><li>10% и крайна сума 540.00.</li><li>Спестено = subtotal - final_total / finalTotal.</li><li>999, 1000 и 1001.</li></ol></details><p class="note"><strong>Запомни:</strong> Подреди припокриващите се прагове и провери точно граничните стойности. Не бъркай отстъпка върху цялата сума с тарифа по части.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="42-Selection-Review-and-Practice.html">← Урок 42</a><a rel="next" href="44-Conditional-Statements-Test.html">Урок 44 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>

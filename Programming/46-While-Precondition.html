@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Програмиране - Цикъл с предварително условие</title><link rel="stylesheet" href="lessons.css"></head><body><a class="skip" href="#lesson">Към урока</a><nav aria-label="Основна навигация"><a href="index.html">Всички уроци по Програмиране</a></nav><main id="lesson"><p class="eyebrow">Програмиране · Урок 46</p><h1>Програмиране - Цикъл с предварително условие</h1><p class="lead">При while условието се проверява преди всяка итерация, включително преди първата. Затова тялото може да не се изпълни нито веднъж.</p><h2>1. Зависимост от входа</h2><p>В урок 45 краят беше зададен в кода. Сега потребителят ще въведе неотрицателно цяло n. Ще броим от n надолу до 1. При 0 няма число за извеждане и преминаваме направо след цикъла.</p><section class="programs" data-input="[&quot;3&quot;]" data-tests="[{&quot;input&quot;: [&quot;0&quot;], &quot;expected&quot;: &quot;Готово&quot;}, {&quot;input&quot;: [&quot;1&quot;], &quot;expected&quot;: &quot;1\nГотово&quot;}]"><h2>2. Обратно броене</h2><p>Всяка итерация намалява положителното n с 1, така че в крайна сметка то достига 0.</p><p><strong>Въведи последователно:</strong> <code>3</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">n = int(input())
+while n &gt; 0:
+    print(n)
+    n = n - 1
+print(&quot;Готово&quot;)</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int n = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+while (n &gt; 0)
+{
+    Console.WriteLine(n);
+    n = n - 1;
+}
+Console.WriteLine(&quot;Готово&quot;);</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">3
+2
+1
+Готово</pre></section><h2>3. Проверката е преди тялото</h2><p>При n = 1 проверката е вярна, показваме 1 и намаляваме до 0. Едва след това отново проверяваме. Втората проверка е невярна, затова не показваме 0. Ако задачата иска и нулата, условието и броят повторения трябва да бъдат променени съзнателно.</p><section class="programs" data-input="[&quot;6&quot;]" data-tests="[{&quot;input&quot;: [&quot;1&quot;], &quot;expected&quot;: &quot;&quot;}, {&quot;input&quot;: [&quot;2&quot;], &quot;expected&quot;: &quot;2&quot;}, {&quot;input&quot;: [&quot;5&quot;], &quot;expected&quot;: &quot;2\n4&quot;}]"><h2>4. Изведи четни числа до граница</h2><p>Входът е неотрицателна граница. Стъпката 2 прескача нечетните стойности. При граница под 2 няма изходни редове.</p><p><strong>Въведи последователно:</strong> <code>6</code>. След всяка стойност натисни Enter.</p><div class="code-grid"><div><h3>Python</h3><pre><code data-language="python">limit = int(input())
+i = 2
+while i &lt;= limit:
+    print(i)
+    i = i + 2</code></pre></div><div><h3>C#</h3><pre><code data-language="csharp">using System;
+
+int limit = int.Parse(Console.ReadLine() ?? &quot;&quot;);
+int i = 2;
+while (i &lt;= limit)
+{
+    Console.WriteLine(i);
+    i = i + 2;
+}</code></pre></div></div><p><strong>Изход на двете програми:</strong></p><pre class="output">2
+4
+6</pre></section><h2>5. Промяна на входната променлива</h2><p>В обратното броене използвахме самото n и след цикъла то е 0. Ако първоначалният вход е нужен по-късно, запази го и използвай отделен брояч. Във втория пример limit остава непроменено, а се променя i.</p><p>Не поставяй празна точка и запетая след while в C#: това би отделило празно тяло от желания блок. Използвай еднакво ясно оформление на всеки цикъл.</p><h2>6. Самостоятелни задачи</h2><ol><li>Направи обратно броене, което включва 0.</li><li>Проследи четната редица при limit = 7.</li><li>Запази първоначалното n в отделна променлива.</li><li>Кое доказва, че обратното броене приключва?</li></ol><details><summary>Отговори и насоки</summary><ol><li>При неотрицателен вход използвай условие n >= 0 и намалявай n.</li><li>2, 4, 6; след тях i става 8 и проверката е невярна.</li><li>Използвай i = n и променяй i, а не n.</li><li>Неотрицателната стойност намалява към границата с фиксирана положителна стъпка.</li></ol></details><p class="note"><strong>Запомни:</strong> Условието се проверява преди всяко повторение. Нулата итерации е нормален случай, който трябва да се тества.</p><details><summary>Справка за конструкциите</summary><p><a href="https://docs.python.org/3/tutorial/controlflow.html">Python: официална документация</a> · <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements">C#: официална документация</a></p></details><nav class="lesson-nav" aria-label="Навигация между уроците"><a rel="prev" href="45-Loops-and-Repeated-Actions.html">← Урок 45</a><a rel="next" href="47-Counter-Controlled-For.html">Урок 47 →</a></nav></main><footer>Програмиране · 11. клас</footer></body></html>
