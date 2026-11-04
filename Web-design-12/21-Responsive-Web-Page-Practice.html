@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 21: Адаптивна уеб страница — упражнение</title><link rel="stylesheet" href="style.css"></head>
+<body><a class="skip" href="#main">Към съдържанието</a><header><div class="eyebrow">Уеб дизайн · 12. клас · Урок 21 · Упражнение</div><h1>Адаптивна уеб страница — упражнение</h1><p>Променете готова страница така, че да се използва удобно на телефон и компютър.</p></header>
+<main id="main"><nav class="toplinks course-navigation" aria-label="Учебни раздели"><a href="../index.html">Всички предмети</a><a href="index.html">Уеб дизайн — 12. клас</a><a href="../Web-design-Textbook/index.html">Учебник и материали</a></nav><section><h2>След урока ще можете да:</h2><ul><li>откривате фиксирани размери, които затрудняват тесния екран;</li><li>използвате viewport, гъвкава ширина и изображения;</li><li>прилагате проста медийна заявка и проверявате подредбата.</li></ul></section><nav aria-label="Съдържание на урока"><h2>В този урок</h2><ol><li><a href="#recall">Припомнете си адаптивния дизайн</a></li><li><a href="#start">Начален файл и откриване на проблемите</a></li><li><a href="#viewport">Добавете viewport</a></li><li><a href="#layout">Заменете фиксираните размери</a></li><li><a href="#test">Проверете в няколко размера</a></li><li><a href="#check">Самопроверка</a></li></ol></nav><section id="recall"><h2>1. Припомнете си адаптивния дизайн</h2>
+<p>Уеб страниците се разглеждат на смартфони, таблети, лаптопи и настолни компютри. Добрият дизайн осигурява удобно четене и използване при различни размери на екрана.</p>
+<p><strong>Адаптивният дизайн (responsive design)</strong> позволява съдържанието и подредбата да се приспособяват към наличното пространство.</p>
+<p>При проектиране е важно:</p>
+<ul>
+<li><strong>Подредбата да е гъвкава.</strong> Няколко колони на широк екран могат да се подредят в една колона на телефон.</li>
+<li><strong>Текстът да е четим.</strong> Потребителят трябва да може да чете без увеличаване на страницата.</li>
+<li><strong>Изображенията да се побират в екрана.</strong> Те трябва да запазват пропорциите си и да не излизат извън съдържанието.</li>
+<li><strong>Навигацията да е удобна.</strong> Менютата и бутоните трябва да се използват лесно както с мишка, така и с докосване.</li>
+<li><strong>Да няма ненужно хоризонтално превъртане.</strong> Основното съдържание трябва да се побира в ширината на екрана.</li>
+</ul>
+<p>Често се започва с дизайн за малък екран – подходът <strong>mobile first</strong>. След това оформлението се разширява за по-големи екрани.</p>
+<div class="task"><strong>Практическа задача:</strong> Скицирайте една и съща уеб страница за телефон и за компютър. Покажете как се променят менюто, колоните и изображенията, като запазите основното съдържание.</div>
+
+</section>
+<section id="start"><h2>2. Начален файл и откриване на проблемите</h2><p><a href="files/21-responsive-practice.html" download="21-responsive-practice.html">Изтеглете страницата за упражнение</a>. Отворете я в редактор и в браузър. Изображението е вградено във файла, така че не са необходими допълнителни файлове.</p><p>Началният вариант нарочно има фиксирани размери. Първо го разгледайте в широк прозорец, после стеснете прозореца. Запишете: има ли хоризонтално превъртане, побира ли се изображението и колко място остава за текста?</p><pre><code class="language-css">.site { width: 960px; margin: auto; }
+.layout { display: flex; gap: 24px; }
+.intro { width: 620px; }
+.card { width: 300px; }
+.intro img { width: 620px; height: 240px; }</code></pre></section>
+<section id="viewport"><h2>3. Добавете viewport</h2><p>В <code>head</code> добавете следния елемент. Той позволява на мобилния браузър да използва ширината на устройството за изгледа на страницата:</p><pre><code class="language-html">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;</code></pre><p>Самият viewport не поправя фиксираните размери в CSS. След него трябва да промените и правилата за подредба.</p></section>
+<section id="layout"><h2>4. Заменете фиксираните размери</h2><p>В CSS намерете петте правила за <code>.site</code>, <code>.layout</code>, <code>.intro</code>, <code>.card</code> и <code>.intro img</code>. Заменете ги със следните правила, вместо да оставяте старите по-долу:</p><pre><code class="language-css">* { box-sizing: border-box; }
+.site { width: calc(100% - 2rem); max-width: 960px; margin: auto; }
+.layout { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+.intro, .card { min-width: 0; }
+.intro img { max-width: 100%; height: auto; display: block; }
+nav { flex-wrap: wrap; }
+@media (max-width: 700px) {
+  .layout { grid-template-columns: 1fr; }
+  h1 { font-size: 1.8rem; }
+}</code></pre><ul><li><code>max-width</code> ограничава ширината на голям екран, без да принуждава тесния екран да я побере.</li><li><code>max-width: 100%</code> и <code>height: auto</code> запазват пропорциите на изображението.</li><li>При ширина до 700 пиксела медийната заявка подрежда колоните в една колона.</li><li><code>flex-wrap</code> позволява на връзките в менюто да преминат на нов ред.</li><li><code>box-sizing: border-box</code> включва рамката и вътрешните отстъпи в зададената ширина.</li></ul></section>
+<section id="test"><h2>5. Проверете в няколко размера</h2><ol><li>Запазете файла и презаредете браузъра.</li><li>Сравнете ширини около 390, 700 и 1100 пиксела чрез преоразмеряване или режима за устройства в браузъра.</li><li>Проверете текста, менюто, изображението и блока за срещата.</li><li>Уверете се, че няма ненужно хоризонтално превъртане.</li><li>Преминете с клавиша Tab през двете връзки в менюто и проверете накъде водят.</li><li>Променете заглавието с по-дълъг текст и проверете отново.</li></ol><p>За сравнение след собствената работа отворете <a href="files/21-responsive-example.html">примерния адаптивен вариант</a>. Не прикривайте проблемите чрез <code>overflow-x: hidden</code>: първо поправете елемента, който излиза извън екрана.</p><p><strong>Резултат:</strong> работеща адаптивна страница и кратки бележки кои правила сте променили и какво сте проверили.</p></section>
+<section id="check"><h2>6. Самопроверка</h2><details><summary>Достатъчно ли е да добавим viewport?</summary><p>Не. Трябва да премахнем и неподходящите фиксирани размери и да приспособим подредбата.</p></details><details><summary>Защо height: auto е полезно за изображението?</summary><p>При променяща се ширина височината се определя така, че пропорциите да се запазят.</p></details><details><summary>Кога се прилага @media (max-width: 700px)?</summary><p>Когато ширината на изгледа е най-много 700 CSS пиксела, включително точно 700.</p></details><details><summary>Защо проверяваме и междинен размер?</summary><p>Проблем може да се появи преди или след смяната на подредбата, а не само на най-тесния екран.</p></details></section>
+<section id="sources"><h2>Прочетете още</h2><p><a href="../Web-design-Textbook/04-Web-Page-Design.html">Проектиране на уеб страница — учебник</a>; <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design">MDN — адаптивен дизайн</a>.</p></section><nav class="pager course-navigation" aria-label="Последователност на уроците"><a rel="prev" href="20-CSS-Properties-Practice.html">← Урок 20</a><a href="index.html">Всички уроци</a></nav></main><footer>Уеб дизайн · 12. клас · 2026/2027</footer></body></html>
