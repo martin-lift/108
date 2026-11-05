@@ -1,6 +1,6 @@
-{
+﻿{
   "SchemaVersion": 1,
-  "Revision": "2026-10-30.1",
+  "Revision": "2026-11-05.1",
   "Category": "Games",
   "Purpose": "Домейни за игри и нежелани видео платформи в общия списък за кабинет 307, по решение на учителя.",
   "Mode": "ReviewOnly",
@@ -168,6 +168,23 @@
       ]
     },
     {
+      "Domain": "browser.tf",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Browser.TF — TF2 server browser",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://browser.tf/"
+      ]
+    },
+    {
       "Domain": "chess.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Chess.com",
@@ -197,6 +214,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://www.chessarena.com/"
+      ]
+    },
+    {
+      "Domain": "chromedino.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Chrome Dino",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://chromedino.com/"
       ]
     },
     {
@@ -265,6 +299,23 @@
       ]
     },
     {
+      "Domain": "dos.zone",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "DOS Zone",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://dos.zone/"
+      ]
+    },
+    {
       "Domain": "eaglercraft.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Eaglercraft",
@@ -278,6 +329,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://eaglercraft.com/"
+      ]
+    },
+    {
+      "Domain": "epicgames.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Epic Games",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://store.epicgames.com/"
       ]
     },
     {
@@ -315,6 +383,40 @@
       ]
     },
     {
+      "Domain": "flagle-game.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Flagle Game",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://flagle-game.com/"
+      ]
+    },
+    {
+      "Domain": "flagle.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Flagle",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.flagle.io/"
+      ]
+    },
+    {
       "Domain": "foony.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Foony — мултиплейър игри",
@@ -345,6 +447,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://www.fortnite.com/"
+      ]
+    },
+    {
+      "Domain": "fortnite.gg",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Fortnite.GG",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://fortnite.gg/"
       ]
     },
     {
@@ -445,6 +564,23 @@
       ]
     },
     {
+      "Domain": "gamedle.wtf",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Gamedle",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.gamedle.wtf/"
+      ]
+    },
+    {
       "Domain": "gameforge.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Gameforge / Ikariam",
@@ -510,6 +646,23 @@
       ]
     },
     {
+      "Domain": "geofungames.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "GeoFun Games",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.geofungames.com/"
+      ]
+    },
+    {
       "Domain": "geoguesser.io",
       "MatchScope": "DomainAndSubdomains",
       "Service": "GeoGuesser",
@@ -523,6 +676,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://geoguesser.io/"
+      ]
+    },
+    {
+      "Domain": "geoguessr.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "GeoGuessr / Seterra",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://test.geoguessr.com/l/wor"
       ]
     },
     {
@@ -555,6 +725,57 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://globle-game.com/"
+      ]
+    },
+    {
+      "Domain": "gtabrowser.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "GTA Browser",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://gtabrowser.com/"
+      ]
+    },
+    {
+      "Domain": "guess-games.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Guess Games",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://guess-games.com/"
+      ]
+    },
+    {
+      "Domain": "guesstheage.org",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "GuessTheAge",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://guesstheage.org/"
       ]
     },
     {
@@ -591,6 +812,40 @@
       "Subcategory": "VideoPlatforms"
     },
     {
+      "Domain": "hellogames.org",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Hello Games",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://hellogames.org/"
+      ]
+    },
+    {
+      "Domain": "itch.io",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "itch.io",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://itch.io/"
+      ]
+    },
+    {
       "Domain": "kongregate.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Kongregate — игрова платформа",
@@ -621,6 +876,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://krunker.io/"
+      ]
+    },
+    {
+      "Domain": "leagueoflegends.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "League of Legends",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.leagueoflegends.com/"
       ]
     },
     {
@@ -769,6 +1041,23 @@
       ]
     },
     {
+      "Domain": "open.video",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Open.Video",
+      "Subcategory": "VideoPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://open.video/"
+      ]
+    },
+    {
       "Domain": "openfront.io",
       "MatchScope": "DomainAndSubdomains",
       "Service": "OpenFront — стратегическа игра",
@@ -851,6 +1140,23 @@
       ]
     },
     {
+      "Domain": "playdaily.org",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Daily Games",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://playdaily.org/"
+      ]
+    },
+    {
       "Domain": "playgama.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Playgama",
@@ -880,6 +1186,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://playgamor.com/"
+      ]
+    },
+    {
+      "Domain": "playgta5.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Play GTA 5",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://playgta5.com/"
       ]
     },
     {
@@ -1049,6 +1372,23 @@
       ]
     },
     {
+      "Domain": "slither.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Slither.io",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://slither.com/io"
+      ]
+    },
+    {
       "Domain": "slope2-game.io",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Slope 2",
@@ -1177,6 +1517,40 @@
       ]
     },
     {
+      "Domain": "smashsenpai.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Smash Senpai",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://smashsenpai.com/"
+      ]
+    },
+    {
+      "Domain": "sporcle.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Sporcle",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://store.sporcle.com/products/quiz-packs"
+      ]
+    },
+    {
       "Domain": "steamcommunity.com",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Steam Community",
@@ -1274,6 +1648,23 @@
       ]
     },
     {
+      "Domain": "travle.earth",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Travle",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://travle.earth/"
+      ]
+    },
+    {
       "Domain": "twitch.tv",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Twitch",
@@ -1304,6 +1695,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://www.twoplayergames.org/"
+      ]
+    },
+    {
+      "Domain": "uwufufu.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "UwUFUFU",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.uwufufu.com/"
       ]
     },
     {
@@ -1353,6 +1761,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://worldchess.com/"
+      ]
+    },
+    {
+      "Domain": "worldguessr.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "WorldGuessr",
+      "Subcategory": "GamesAndGamingPlatforms",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверен сайт за игри, игрова платформа или видео услуга.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.worldguessr.com/"
       ]
     },
     {

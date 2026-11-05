@@ -1,6 +1,6 @@
-{
+﻿{
   "SchemaVersion": 1,
-  "Revision": "2026-10-30.1",
+  "Revision": "2026-11-05.1",
   "Category": "AI-Assistants",
   "Purpose": "Домейни за AI асистенти, агенти и AI генератори за 3D моделиране за ограничаване при изпит в кабинет 307.",
   "Mode": "ReviewOnly",
@@ -328,6 +328,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction"
     },
     {
+      "Domain": "idea.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "idea.ai",
+      "Subcategory": "AICreativeTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверена AI платформа за генериране на код, електроника или творческо съдържание.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.idea.ai/platform/models"
+      ]
+    },
+    {
       "Domain": "lovable.dev",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Lovable — AI software builder",
@@ -341,6 +358,23 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://lovable.dev/"
+      ]
+    },
+    {
+      "Domain": "magnific.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Magnific AI",
+      "Subcategory": "AICreativeTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверена AI платформа за генериране на код, електроника или творческо съдържание.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.magnific.com/"
       ]
     },
     {
@@ -477,6 +511,23 @@
       ]
     },
     {
+      "Domain": "tinkered.ai",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Tinkered",
+      "Subcategory": "AICreativeTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверена AI платформа за генериране на код, електроника или творческо съдържание.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.tinkered.ai/"
+      ]
+    },
+    {
       "Domain": "triple3d.ai",
       "MatchScope": "DomainAndSubdomains",
       "Service": "Triple 3D — AI 3D генератор",
@@ -508,6 +559,40 @@
       "DecisionBasis": "ExplicitTeacherInstruction",
       "Sources": [
         "https://www.tripo3d.ai/"
+      ]
+    },
+    {
+      "Domain": "vidnoz.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Vidnoz AI",
+      "Subcategory": "AICreativeTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": false,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверена AI платформа за генериране на код, електроника или творческо съдържание.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://www.vidnoz.com/"
+      ]
+    },
+    {
+      "Domain": "websim.com",
+      "MatchScope": "DomainAndSubdomains",
+      "Service": "Websim",
+      "Subcategory": "AICreativeTools",
+      "ReviewStatus": "Confirmed",
+      "ClassificationConfidence": "High",
+      "ObservedInAdGuard": true,
+      "SourceBasis": "ObservedServiceHostsAndPublicServiceVerification",
+      "Reason": "Проверена AI платформа за генериране на код, електроника или творческо съдържание.",
+      "ReviewNote": "Добавено при анализа от 5 ноември 2026 г. Обхваща домейна и поддомейните му. DNS заявките може да са фонови и не доказват успешно посещение. При включване се ограничават всички функции на домейна, включително учебни игри, ресурси за разработчици или инструменти за обучение. Активирането остава ръчно в AdGuard.",
+      "Decision": "Block",
+      "DecisionBasis": "ExplicitTeacherInstruction",
+      "Sources": [
+        "https://websim.com/tos"
       ]
     }
   ]
