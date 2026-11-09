@@ -13,6 +13,33 @@ function ExpectFailure($action,$match){
     try { & $action | Out-Null } catch { Check ($_.Exception.Message -like $match) $_.Exception.Message; return }
     throw "Expected failure: $match"
 }
+# Simulate Windows rejecting a native operation when elevated under another account.
+& {
+    $calls=[Collections.Generic.List[string]]::new()
+    $script:nativeReadFails=$false
+    $script:showCode=0
+    $script:showText="Block list on the system (group policy)`n----------`n    <None>`nBlock list on the system (user)`n----------`n    <None>"
+    function Get-NativeWifiBlockState([switch]$ClearLocal) {
+        if($ClearLocal -or $script:nativeReadFails){throw 'The filename, directory name, or volume label syntax is incorrect.'}
+        return 0
+    }
+    function Invoke-NetshWifiFilter([string[]]$Arguments) {
+        $calls.Add($Arguments -join ' ')
+        if($Arguments[0] -eq 'show'){return [pscustomobject]@{Code=$script:showCode; Text=$script:showText}}
+        return [pscustomobject]@{Code=1; Text='Filter already absent or deletion failed.'}
+    }
+    Check ((Clear-LocalWifiBlockList) -eq 0) 'Verified native read after fallback should succeed'
+    Check (($calls -join ';') -eq 'delete filter permission=denyall networktype=infrastructure;delete filter permission=denyall networktype=adhoc') 'Only the two classroom filters should be targeted'
+    $script:nativeReadFails=$true
+    Check ((Clear-LocalWifiBlockList) -eq 0) 'Independent positive verification should succeed'
+    $script:showCode=1
+    ExpectFailure {Clear-LocalWifiBlockList} '*Wi-Fi*'
+    $script:showCode=0
+    $script:showText=$script:showText.Replace('<None>','SSID: "", Type: Infrastructure')
+    ExpectFailure {Clear-LocalWifiBlockList} '*Wi-Fi*'
+    $script:showText='unexpected output'
+    ExpectFailure {Clear-LocalWifiBlockList} '*Wi-Fi*'
+}
 # Replace system entry points before exercising the actual orchestration.
 function Get-AgentTask { $script:agent }
 function New-TestAgent($marker){

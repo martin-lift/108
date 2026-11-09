@@ -47,20 +47,33 @@ namespace Cabinet307 {
         [DllImport("wlanapi.dll")] static extern uint WlanSetFilterList(IntPtr handle, int kind, IntPtr list, IntPtr reserved);
         [DllImport("wlanapi.dll")] static extern uint WlanCloseHandle(IntPtr handle, IntPtr reserved);
         [DllImport("wlanapi.dll")] static extern void WlanFreeMemory(IntPtr memory);
-        static void Check(uint code) { if (code != 0) throw new Win32Exception((int)code); }
+        static void Check(uint code, string operation) {
+            if (code != 0) throw new Win32Exception((int)code, operation + " (Windows " + code + "): " + new Win32Exception((int)code).Message);
+        }
         static int Count(IntPtr handle, int kind) {
             IntPtr list;
-            Check(WlanGetFilterList(handle, kind, IntPtr.Zero, out list));
+            Check(WlanGetFilterList(handle, kind, IntPtr.Zero, out list), kind == 3 ? "Read local Wi-Fi blocks" : "Read Wi-Fi policy");
             if (list == IntPtr.Zero) return 0;
             try { return Marshal.ReadInt32(list); }
             finally { WlanFreeMemory(list); }
         }
-        public static int ClearLocalBlocks() {
+        public static int CheckBlocks(bool clearLocal) {
             IntPtr handle;
             uint version;
-            Check(WlanOpenHandle(2, IntPtr.Zero, out version, out handle));
+            Check(WlanOpenHandle(2, IntPtr.Zero, out version, out handle), "Open Wi-Fi service");
             try {
-                if (Count(handle, 3) != 0) Check(WlanSetFilterList(handle, 3, IntPtr.Zero, IntPtr.Zero));
+                if (clearLocal && Count(handle, 3) != 0) {
+                    uint code = WlanSetFilterList(handle, 3, IntPtr.Zero, IntPtr.Zero);
+                    // Windows also accepts an explicit DOT11_NETWORK_LIST with zero items.
+                    if (code == 123 || code == 87) {
+                        IntPtr empty = Marshal.AllocHGlobal(48);
+                        try {
+                            Marshal.Copy(new byte[48], 0, empty, 48);
+                            code = WlanSetFilterList(handle, 3, empty, IntPtr.Zero);
+                        } finally { Marshal.FreeHGlobal(empty); }
+                    }
+                    Check(code, "Clear local Wi-Fi blocks");
+                }
                 if (Count(handle, 3) != 0) throw new InvalidOperationException("Local Wi-Fi blocks remain.");
                 return Count(handle, 1);
             } finally { WlanCloseHandle(handle, IntPtr.Zero); }
@@ -70,9 +83,40 @@ namespace Cabinet307 {
 '@
 }
 
-function Clear-LocalWifiBlockList {
+function Get-NativeWifiBlockState([switch]$ClearLocal) {
     Initialize-WifiFilterApi
-    [Cabinet307.UsbWifiFilters]::ClearLocalBlocks()
+    [Cabinet307.UsbWifiFilters]::CheckBlocks([bool]$ClearLocal)
+}
+
+function Invoke-NetshWifiFilter([string[]]$Arguments) {
+    $netsh = Join-Path ([Environment]::SystemDirectory) 'netsh.exe'
+    $output = & $netsh wlan @Arguments 2>&1
+    [pscustomobject]@{Code=$LASTEXITCODE; Text=($output | Out-String).Trim()}
+}
+
+function Clear-LocalWifiBlockList {
+    try { return (Get-NativeWifiBlockState -ClearLocal) }
+    catch { $nativeError = $_.Exception.GetBaseException().Message }
+    # These are the same two local deny-all filters installed by Classroom108.
+    $errors = @()
+    foreach ($type in @('infrastructure','adhoc')) {
+        try {
+            $reply = Invoke-NetshWifiFilter @('delete','filter','permission=denyall',"networktype=$type")
+            if ($reply.Code -ne 0) { $errors += "$type ($($reply.Code)): $($reply.Text)" }
+        } catch { $errors += "${type}: $($_.Exception.Message)" }
+    }
+    # Missing filters can give nonzero deletion codes. Only a fresh read determines success.
+    try { return (Get-NativeWifiBlockState) }
+    catch { $readError = $_.Exception.GetBaseException().Message }
+    $report = Invoke-NetshWifiFilter @('show','filters')
+    $rows = @(($report.Text -split '\r?\n').Trim() | Where-Object { $_ -and $_ -notmatch '^-+$' })
+    # Accept this text fallback only when Windows positively identifies BOTH lists as empty.
+    # Other display languages are handled by the native API; unknown output is never success.
+    if ($report.Code -eq 0 -and ($rows -join "`n") -match '(?im)^Block list on the system \(group policy\)\n<None>\nBlock list on the system \(user\)\n<None>\z') {
+        return 0
+    }
+    throw ("Неуспешна проверка на Wi-Fi. Първи опит: {0}. Проверка след втория опит: {1}. netsh ({2}): {3} {4}" -f
+        $nativeError,$readError,$report.Code,$report.Text,($errors -join ' / '))
 }
 
 function Restore-WifiAccess {
