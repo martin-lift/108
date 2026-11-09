@@ -14,9 +14,9 @@ function Get-AgentTask {
 
 function Suspend-LocalAgent {
     $task = Get-AgentTask
-    if ($null -eq $task) { return 'Agent108 не е инсталиран.' }
+    if ($null -eq $task) { return 'Agent108 is not installed.' }
     if ($task.Definition.RegistrationInfo.Description -cne 'Classroom108 Wi-Fi recovery v1') {
-        throw 'Има задача със същото име, но тя няма обозначението на Agent108.'
+        throw 'A scheduled task with this name exists, but its description does not match Agent108.'
     }
     $task.Enabled = $false
     if ($task.GetInstances(0).Count -gt 0) {
@@ -28,9 +28,9 @@ function Suspend-LocalAgent {
     }
     $verified = Get-AgentTask
     if ($null -eq $verified -or $verified.Enabled -or $verified.GetInstances(0).Count -gt 0) {
-        throw 'Не е потвърдено спирането на Agent108.'
+        throw 'Could not confirm that Agent108 is stopped and its task is disabled.'
     }
-    'Agent108 е спрян. Задачата остава изключена и след рестарт.'
+    'Agent108 is stopped. Its scheduled task will stay disabled after a restart.'
 }
 
 function Initialize-WifiFilterApi {
@@ -115,55 +115,55 @@ function Clear-LocalWifiBlockList {
     if ($report.Code -eq 0 -and ($rows -join "`n") -match '(?im)^Block list on the system \(group policy\)\n<None>\nBlock list on the system \(user\)\n<None>\z') {
         return 0
     }
-    throw ("Неуспешна проверка на Wi-Fi. Първи опит: {0}. Проверка след втория опит: {1}. netsh ({2}): {3} {4}" -f
+    throw ("Could not verify Wi-Fi access. First attempt: {0}. Check after retry: {1}. netsh exit code {2}: {3} {4}" -f
         $nativeError,$readError,$report.Code,$report.Text,($errors -join ' / '))
 }
 
 function Restore-WifiAccess {
     $policyBlocks = Clear-LocalWifiBlockList
     if ($policyBlocks -gt 0) {
-        throw 'Локалните забрани са премахнати, но училищна групова политика все още забранява мрежи.'
+        throw 'Local Wi-Fi blocks are clear. A school policy still blocks some networks.'
     }
-    'Локалните забрани за Wi-Fi са премахнати. Можеш да избереш друга мрежа от Windows.'
+    'Local Wi-Fi blocks are clear. You can select another network in Windows.'
 }
 
 function Restore-WifiDns {
     $adapters = @(Get-NetAdapter -Physical -ErrorAction Stop | Where-Object {
         [int]$_.NdisPhysicalMedium -in 1,9 -or [int]$_.ifType -eq 71
     })
-    if (-not $adapters.Count) { throw 'Не е намерен физически Wi-Fi адаптер.' }
+    if (-not $adapters.Count) { throw 'No physical Wi-Fi adapter was found.' }
     $failed = @()
     foreach ($adapter in $adapters) {
         try {
             Set-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -ResetServerAddresses -ErrorAction Stop
             $guid = ([guid]$adapter.InterfaceGuid).ToString('B')
             $families = @(Get-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -ErrorAction Stop)
-            if (-not $families.Count) { throw 'Няма данни за DNS на адаптера.' }
+            if (-not $families.Count) { throw 'No DNS settings were found for this adapter.' }
             foreach ($family in $families) {
-                $service = switch ([int]$family.AddressFamily) { 2 {'Tcpip'} 23 {'Tcpip6'} default {throw 'Непознато адресно семейство.'} }
+                $service = switch ([int]$family.AddressFamily) { 2 {'Tcpip'} 23 {'Tcpip6'} default {throw 'Unrecognized IP address family.'} }
                 $path = "HKLM:\SYSTEM\CurrentControlSet\Services\$service\Parameters\Interfaces\$guid"
                 if (-not (Test-Path -LiteralPath $path -ErrorAction Stop)) {
-                    if ([int]$family.AddressFamily -eq 2) { throw 'Не може да се потвърди настройката за IPv4.' }
+                    if ([int]$family.AddressFamily -eq 2) { throw 'Could not verify the IPv4 DNS setting.' }
                     continue
                 }
                 $manual = (Get-ItemProperty -LiteralPath $path -ErrorAction Stop).NameServer
-                if (-not [string]::IsNullOrWhiteSpace(($manual -join ' '))) { throw 'Windows все още пази ръчен DNS.' }
+                if (-not [string]::IsNullOrWhiteSpace(($manual -join ' '))) { throw 'Windows still has a manually configured DNS server.' }
             }
             $servers = @(foreach ($family in $families) { $family.ServerAddresses | Where-Object { $_ } })
-            $detail = if ($servers.Count) { $servers -join ', ' } else { 'мрежата още не е предоставила адрес' }
-            Write-Host ("{0}: автоматичен DNS ({1})." -f $adapter.Name,$detail)
+            $detail = if ($servers.Count) { $servers -join ', ' } else { 'the network has not supplied a DNS server address yet' }
+            Write-Host ("{0}: automatic DNS ({1})." -f $adapter.Name,$detail)
         } catch {
             $failed += ('{0}: {1}' -f $adapter.Name,$_.Exception.Message)
         }
     }
     if ($failed.Count) { throw ($failed -join ' / ') }
     Clear-DnsClientCache -ErrorAction Stop
-    'DNS е върнат на автоматично получаване за Wi-Fi.'
+    'Wi-Fi is set to obtain DNS server addresses automatically.'
 }
 
 function Invoke-StudentRecovery {
     if ($env:COMPUTERNAME -notmatch '^307-Student-(0[1-9]|1[0-9]|2[0-7])$') {
-        throw "Този скрипт е за 307-Student-01 до 307-Student-27. Текущ компютър: $env:COMPUTERNAME."
+        throw "This script is for 307-Student-01 through 307-Student-27. Current computer: $env:COMPUTERNAME."
     }
     $failed = 0
     $steps = [ordered]@{Agent108={Suspend-LocalAgent}; 'Wi-Fi'={Restore-WifiAccess}; DNS={Restore-WifiDns}}
@@ -173,7 +173,7 @@ function Invoke-StudentRecovery {
             Write-Host ("[OK] {0}: {1}" -f $step.Key,$message) -ForegroundColor Green
         } catch {
             $failed++
-            Write-Host ("[ГРЕШКА] {0}: {1}" -f $step.Key,$_.Exception.Message) -ForegroundColor Red
+            Write-Host ("[ERROR] {0}: {1}" -f $step.Key,$_.Exception.Message) -ForegroundColor Red
         }
     }
     return $failed
@@ -182,22 +182,22 @@ function Invoke-StudentRecovery {
 if ($MyInvocation.InvocationName -eq '.') { return }
 try {
     if ($env:COMPUTERNAME -notmatch '^307-Student-(0[1-9]|1[0-9]|2[0-7])$') {
-        throw "Текущ компютър: $env:COMPUTERNAME. Стартирай от флашката на ученически компютър в кабинет 307."
+        throw "Current computer: $env:COMPUTERNAME. Run this tool on a student computer in classroom 307."
     }
     $principal = [Security.Principal.WindowsPrincipal]::new([Security.Principal.WindowsIdentity]::GetCurrent())
     if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-        if ($Elevated) { throw 'Нужни са администраторски права.' }
+        if ($Elevated) { throw 'Administrator privileges are required.' }
         $proc = Start-Process -FilePath "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -Verb RunAs -WorkingDirectory $PSScriptRoot -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',('"{0}"' -f $PSCommandPath),'-Elevated') -Wait -PassThru
         exit $proc.ExitCode
     }
-    Write-Host "Възстановяване на мрежата на $env:COMPUTERNAME" -ForegroundColor Cyan
+    Write-Host "Restoring network settings on $env:COMPUTERNAME" -ForegroundColor Cyan
     $failed = Invoke-StudentRecovery
     if ($failed -eq 0) {
-        Write-Host 'ГОТОВО. Избери налична Wi-Fi мрежа и въведи паролата ѝ, ако е нужна.' -ForegroundColor Green
+        Write-Host 'DONE. Select an available Wi-Fi network and enter its password if prompted.' -ForegroundColor Green
     } else {
-        Write-Host 'НЕ Е ЗАВЪРШЕНО. Виж редовете с ГРЕШКА. След отстраняване можеш да стартираш отново.' -ForegroundColor Yellow
+        Write-Host 'RECOVERY INCOMPLETE. Check the [ERROR] lines. You can run this tool again after resolving the errors.' -ForegroundColor Yellow
     }
-    Read-Host 'Натисни Enter за изход' | Out-Null
+    Read-Host 'Press Enter to close' | Out-Null
     if ($failed) { exit 1 }
     exit 0
 } catch {

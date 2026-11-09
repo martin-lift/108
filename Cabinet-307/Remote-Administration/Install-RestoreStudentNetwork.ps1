@@ -29,7 +29,7 @@ function New-RecoveryAcl {
 function Assert-RecoveryObject($Path,$ExpectedAcl,[switch]$Directory) {
     $item = Get-Item -LiteralPath $Path -Force -ErrorAction Stop
     if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -or $item.PSIsContainer -ne [bool]$Directory) {
-        throw "Неочакван тип файл или пренасочване: $Path"
+        throw "Unexpected file type or redirected path: $Path"
     }
     $acl = Get-Acl -LiteralPath $Path -ErrorAction Stop
     $sidType = [Security.Principal.SecurityIdentifier]
@@ -43,7 +43,7 @@ function Assert-RecoveryObject($Path,$ExpectedAcl,[switch]$Directory) {
     }
     if (-not $acl.AreAccessRulesProtected -or $acl.GetOwner($sidType).Value -ne $ExpectedAcl.GetOwner($sidType).Value -or
         ((& $rules $acl) -join ';') -cne ((& $rules $ExpectedAcl) -join ';')) {
-        throw "Неподходящи права или собственик: $Path"
+        throw "Unexpected permissions or owner: $Path"
     }
 }
 
@@ -53,11 +53,11 @@ function New-AdminShortcut($LinkPath,$Payload,$PowerShellExe) {
     $link.TargetPath = $PowerShellExe
     $link.Arguments = '-NoProfile -ExecutionPolicy Bypass -File "' + $Payload + '" -Elevated'
     $link.WorkingDirectory = [IO.Path]::GetDirectoryName($Payload)
-    $link.Description = 'Кабинет 307: възстановяване на мрежата с администраторски права'
+    $link.Description = 'Restore network settings for classroom 307 (administrator privileges required)'
     $link.Save()
     # ShellLinkHeader.LinkFlags (offset 0x14): enable RunAsUser without changing other flags.
     $bytes = [IO.File]::ReadAllBytes($LinkPath)
-    if ($bytes.Length -lt 76 -or [BitConverter]::ToUInt32($bytes,0) -ne 76) { throw 'Невалиден пряк път.' }
+    if ($bytes.Length -lt 76 -or [BitConverter]::ToUInt32($bytes,0) -ne 76) { throw 'Invalid Windows shortcut.' }
     $bytes[0x15] = $bytes[0x15] -bor 0x20
     [IO.File]::WriteAllBytes($LinkPath,$bytes)
 }
@@ -76,7 +76,7 @@ function Publish-InstallFile($Staged,$Destination,$Acl) {
 }
 
 function Install-StudentRecovery($Source,$ProgramFiles,$Programs,$PowerShellExe) {
-    if (-not (Test-Path -LiteralPath $Source -PathType Leaf)) { throw 'Липсва RestoreStudentNetwork.ps1 до инсталатора.' }
+    if (-not (Test-Path -LiteralPath $Source -PathType Leaf)) { throw 'RestoreStudentNetwork.ps1 is missing from the installer folder.' }
     $directory = Join-Path $ProgramFiles 'RestoreStudentNetwork'
     $payload = Join-Path $directory 'RestoreStudentNetwork.ps1'
     $shortcut = Join-Path $Programs 'RestoreStudentNetwork.lnk'
@@ -96,18 +96,18 @@ function Install-StudentRecovery($Source,$ProgramFiles,$Programs,$PowerShellExe)
     try {
         [IO.File]::Copy($Source,$stageFile,$false)
         $expectedHash = (Get-FileHash -LiteralPath $Source -Algorithm SHA256).Hash
-        if ((Get-FileHash -LiteralPath $stageFile).Hash -ne $expectedHash) { throw 'Копирането не завърши успешно.' }
+        if ((Get-FileHash -LiteralPath $stageFile).Hash -ne $expectedHash) { throw 'The copied file does not match the source.' }
         New-AdminShortcut $stageLink $payload $PowerShellExe
         # Verify the shortcut before publishing either file.
         $linkHash = (Get-FileHash -LiteralPath $stageLink).Hash
         $readBack = (New-Object -ComObject WScript.Shell).CreateShortcut($stageLink)
-        if ($readBack.TargetPath -ine $PowerShellExe) { throw "Неочаквана програма в прекия път: $($readBack.TargetPath)" }
-        if ($readBack.Arguments -cne ('-NoProfile -ExecutionPolicy Bypass -File "' + $payload + '" -Elevated')) { throw "Неочаквани аргументи в прекия път: $($readBack.Arguments)" }
-        if (([IO.File]::ReadAllBytes($stageLink)[0x15] -band 0x20) -eq 0) { throw 'Прекият път не изисква администраторски права.' }
+        if ($readBack.TargetPath -ine $PowerShellExe) { throw "Unexpected shortcut target: $($readBack.TargetPath)" }
+        if ($readBack.Arguments -cne ('-NoProfile -ExecutionPolicy Bypass -File "' + $payload + '" -Elevated')) { throw "Unexpected shortcut arguments: $($readBack.Arguments)" }
+        if (([IO.File]::ReadAllBytes($stageLink)[0x15] -band 0x20) -eq 0) { throw 'The shortcut does not request administrator privileges.' }
         Publish-InstallFile $stageFile $payload $fileAcl
         Publish-InstallFile $stageLink $shortcut $linkAcl
-        if ((Get-FileHash -LiteralPath $shortcut).Hash -ne $linkHash) { throw 'Инсталираният пряк път не съвпада с проверения.' }
-        if ((Get-FileHash -LiteralPath $payload).Hash -ne $expectedHash) { throw 'Инсталираният файл не съвпада с оригинала.' }
+        if ((Get-FileHash -LiteralPath $shortcut).Hash -ne $linkHash) { throw 'The installed shortcut does not match the verified copy.' }
+        if ((Get-FileHash -LiteralPath $payload).Hash -ne $expectedHash) { throw 'The installed file does not match the source.' }
     } finally {
         foreach ($temp in @($stageFile,$stageLink)) {
             if ([IO.File]::Exists($temp)) { [IO.File]::Delete($temp) }
@@ -117,12 +117,12 @@ function Install-StudentRecovery($Source,$ProgramFiles,$Programs,$PowerShellExe)
 }
 
 function Complete-StudentRecoveryInstall($InstalledScript,$PowerShellExe) {
-    Write-Host "RestoreStudentNetwork е инсталиран. Може да го пуснеш и от меню Старт." -ForegroundColor Green
+    Write-Host "RestoreStudentNetwork is installed. You can also open it from the Start menu." -ForegroundColor Green
     while ($true) {
-        $answer = ([string](Read-Host 'Да стартирам ли RestoreStudentNetwork сега? [1] Да / [2] Не (Enter = Не)')).Trim()
+        $answer = ([string](Read-Host 'Run RestoreStudentNetwork now? [1] Yes / [2] No (Enter = No)')).Trim()
         if ($answer -in @('','2','не','н','no','n')) { return 0 }
         if ($answer -in @('1','да','д','yes','y')) { break }
-        Write-Host 'Въведи 1 за Да или 2 за Не.'
+        Write-Host 'Enter 1 for Yes or 2 for No.'
     }
     # A child process inherits this console and its elevated token. Run the verified installed file.
     $arguments = @('-NoProfile','-ExecutionPolicy','Bypass','-File',('"{0}"' -f $InstalledScript),'-Elevated')
@@ -133,12 +133,12 @@ function Complete-StudentRecoveryInstall($InstalledScript,$PowerShellExe) {
 if ($MyInvocation.InvocationName -eq '.') { return }
 try {
     if ($env:COMPUTERNAME -notmatch '^307-Student-(0[1-9]|1[0-9]|2[0-7])$') {
-        throw "Инсталаторът е за 307-Student-01 до 307-Student-27. Текущ компютър: $env:COMPUTERNAME."
+        throw "This installer is for 307-Student-01 through 307-Student-27. Current computer: $env:COMPUTERNAME."
     }
     $exe = Join-Path ([Environment]::SystemDirectory) 'WindowsPowerShell\v1.0\powershell.exe'
     $principal = [Security.Principal.WindowsPrincipal]::new([Security.Principal.WindowsIdentity]::GetCurrent())
     if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-        if ($Elevated) { throw 'Нужни са администраторски права.' }
+        if ($Elevated) { throw 'Administrator privileges are required.' }
         $child = Start-Process -FilePath $exe -Verb RunAs -WorkingDirectory $PSScriptRoot -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',('"{0}"' -f $PSCommandPath),'-Elevated') -Wait -PassThru
         exit $child.ExitCode
     }
@@ -147,7 +147,7 @@ try {
     $installed = Install-StudentRecovery $source ([Environment]::GetFolderPath('ProgramFiles')) ([Environment]::GetFolderPath('CommonPrograms')) $exe
     exit (Complete-StudentRecoveryInstall $installed $exe)
 } catch {
-    Write-Host ('ГРЕШКА: ' + $_.Exception.Message) -ForegroundColor Red
-    if ($Elevated) { Read-Host 'Натисни Enter за изход' | Out-Null }
+    Write-Host ('ERROR: ' + $_.Exception.Message) -ForegroundColor Red
+    if ($Elevated) { Read-Host 'Press Enter to close' | Out-Null }
     exit 1
 }

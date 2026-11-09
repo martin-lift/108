@@ -44,7 +44,7 @@ try {
         $marker=Join-Path (Split-Path $installed -Parent) 'ran.txt'
         $answers=[Collections.Generic.Queue[string]]::new()
         function Read-Host($Prompt) { return $answers.Dequeue() }
-        foreach ($skip in @('Не','2','')) {
+        foreach ($skip in @('No','Не','2','')) {
             $answers.Enqueue($skip)
             Check ((Complete-StudentRecoveryInstall $resultPath $exe) -eq 0 -and -not [IO.File]::Exists($marker)) 'Declining or Enter must skip recovery'
         }

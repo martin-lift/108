@@ -80,7 +80,7 @@ $script:static='';$script:filterCalls=0;$script:policyCount=0
 function Clear-LocalWifiBlockList {$script:filterCalls++; $script:policyCount}
 Check ((Restore-WifiAccess) -like '*Wi-Fi*') 'No remaining blocks should succeed'
 $script:policyCount=1
-ExpectFailure {Restore-WifiAccess} '*политика*'
+ExpectFailure {Restore-WifiAccess} '*school policy*'
 $script:filterCalls=0
 $savedName=$env:COMPUTERNAME
 try {
