@@ -27,17 +27,32 @@ try {
     [void][IO.Directory]::CreateDirectory($programFiles)
     [void][IO.Directory]::CreateDirectory($programs)
     [IO.File]::WriteAllText($source,"throw 'A payload must never run during installation'")
-    Install-StudentRecovery $source $programFiles $programs $exe
+    $resultPath=Install-StudentRecovery $source $programFiles $programs $exe
     $installed=Join-Path $programFiles 'RestoreStudentNetwork\RestoreStudentNetwork.ps1'
+    Check ($resultPath -ceq $installed) 'Prompt must use the verified installed path'
     Check ((Get-FileHash $source).Hash -eq (Get-FileHash $installed).Hash) 'Installed content differs'
     $links=@(Get-ChildItem -LiteralPath $programs -Filter '*.lnk')
     Check ($links.Count -eq 1) 'Expected one permanent shortcut'
     Check ($links[0].Name -ceq 'RestoreStudentNetwork.lnk') 'Wrong Start menu name'
     $link=(New-Object -ComObject WScript.Shell).CreateShortcut($links[0].FullName)
     Check (($link.Arguments -like "*$installed*") -and (([IO.File]::ReadAllBytes($links[0].FullName)[0x15] -band 0x20) -ne 0)) 'Shortcut is not for the installed elevated target'
-    [IO.File]::WriteAllText($source,"throw 'Updated test payload'")
-    Install-StudentRecovery $source $programFiles $programs $exe
+    # The replacement payload only records its own location and whether -Elevated was supplied.
+    [IO.File]::WriteAllText($source,'param([switch]$Elevated); if (!$Elevated) {exit 9}; [IO.File]::AppendAllText((Join-Path $PSScriptRoot "ran.txt"),$PSCommandPath+[Environment]::NewLine); exit 7')
+    $resultPath=Install-StudentRecovery $source $programFiles $programs $exe
     Check ((Get-FileHash $source).Hash -eq (Get-FileHash $installed).Hash) 'Update failed'
+    & {
+        $marker=Join-Path (Split-Path $installed -Parent) 'ran.txt'
+        $answers=[Collections.Generic.Queue[string]]::new()
+        function Read-Host($Prompt) { return $answers.Dequeue() }
+        foreach ($skip in @('Не','2','')) {
+            $answers.Enqueue($skip)
+            Check ((Complete-StudentRecoveryInstall $resultPath $exe) -eq 0 -and -not [IO.File]::Exists($marker)) 'Declining or Enter must skip recovery'
+        }
+        $answers.Enqueue('invalid'); $answers.Enqueue('1')
+        Check ((Complete-StudentRecoveryInstall $resultPath $exe) -eq 7) 'Immediate launch must propagate the child exit code'
+        $runs=@([IO.File]::ReadAllLines($marker))
+        Check ($runs.Count -eq 1 -and $runs[0] -ceq $installed) 'Affirmative choice must run exactly the installed program once'
+    }
     # A saved script with unexpected write permissions must never be trusted on update.
     $bad=New-RecoveryAcl
     $bad.AddAccessRule([Security.AccessControl.FileSystemAccessRule]::new([Security.Principal.SecurityIdentifier]::new('S-1-1-0'),'Modify','Allow'))

@@ -113,6 +113,21 @@ function Install-StudentRecovery($Source,$ProgramFiles,$Programs,$PowerShellExe)
             if ([IO.File]::Exists($temp)) { [IO.File]::Delete($temp) }
         }
     }
+    return $payload
+}
+
+function Complete-StudentRecoveryInstall($InstalledScript,$PowerShellExe) {
+    Write-Host "RestoreStudentNetwork е инсталиран. Може да го пуснеш и от меню Старт." -ForegroundColor Green
+    while ($true) {
+        $answer = ([string](Read-Host 'Да стартирам ли RestoreStudentNetwork сега? [1] Да / [2] Не (Enter = Не)')).Trim()
+        if ($answer -in @('','2','не','н','no','n')) { return 0 }
+        if ($answer -in @('1','да','д','yes','y')) { break }
+        Write-Host 'Въведи 1 за Да или 2 за Не.'
+    }
+    # A child process inherits this console and its elevated token. Run the verified installed file.
+    $arguments = @('-NoProfile','-ExecutionPolicy','Bypass','-File',('"{0}"' -f $InstalledScript),'-Elevated')
+    $child = Start-Process -FilePath $PowerShellExe -ArgumentList $arguments -NoNewWindow -Wait -PassThru
+    return $child.ExitCode
 }
 
 if ($MyInvocation.InvocationName -eq '.') { return }
@@ -129,10 +144,8 @@ try {
     }
     $source = Join-Path $PSScriptRoot 'RestoreStudentNetwork.ps1'
     if (-not (Test-Path -LiteralPath $source)) { $source = Join-Path $PSScriptRoot 'Restore-StudentNetwork.ps1' }
-    Install-StudentRecovery $source ([Environment]::GetFolderPath('ProgramFiles')) ([Environment]::GetFolderPath('CommonPrograms')) $exe
-    Write-Host "Готово на $env:COMPUTERNAME. В меню Старт избери RestoreStudentNetwork." -ForegroundColor Green
-    Read-Host 'Натисни Enter за изход' | Out-Null
-    exit 0
+    $installed = Install-StudentRecovery $source ([Environment]::GetFolderPath('ProgramFiles')) ([Environment]::GetFolderPath('CommonPrograms')) $exe
+    exit (Complete-StudentRecoveryInstall $installed $exe)
 } catch {
     Write-Host ('ГРЕШКА: ' + $_.Exception.Message) -ForegroundColor Red
     if ($Elevated) { Read-Host 'Натисни Enter за изход' | Out-Null }
