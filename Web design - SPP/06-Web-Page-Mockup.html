@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Урок 6 за 11а клас: Създаване на графичен модел на уеб страница (mockup).">
+<title>Урок 6: Създаване на графичен модел на уеб страница (mockup) | 11а клас — Уеб дизайн - СПП</title>
+<style>body{font-family:Arial,sans-serif;line-height:1.6;max-width:1000px;margin:auto;padding:28px;color:#222}h1{color:#244b73;border-bottom:3px solid #244b73;padding-bottom:10px}h2{color:#315f8d;margin-top:28px}.task,.note{background:#eef4f9;border-left:5px solid #315f8d;padding:14px 18px;margin:16px 0}li{margin:5px 0}.font-example{background:#fff7cc;font-size:1.08em;padding:1px 4px;border-radius:3px}figure{margin:20px 0}figure img{display:block;max-width:100%;height:auto;margin:0 auto}figcaption{font-size:.9em;color:#555;margin-top:10px}nav{margin-bottom:20px}a{color:#244b73}footer{margin-top:32px;border-top:1px solid #ddd;padding-top:16px;font-size:.9em;color:#555}@media(max-width:600px){body{padding:18px}h1{font-size:1.7em}}@media print{nav{display:none}}</style>
+<style>.course-navigation{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;margin:1.5rem 0;padding:.8rem 0;border-bottom:1px solid #d8e0e8}.course-navigation a{overflow-wrap:anywhere}details.course-check{padding:1rem;border:1px solid #d8e0e8;border-radius:6px;margin:1rem 0}details.course-check summary{font-weight:bold;cursor:pointer}.course-addition{margin-top:2rem;padding-top:1rem;border-top:2px solid #d8e0e8}.course-addition .table-wrap{overflow-x:auto}.course-addition table{border-collapse:collapse;width:100%}.course-addition td,.course-addition th{border:1px solid #bdcbd8;padding:.65rem;text-align:left;vertical-align:top}.course-addition th{background:#eef4f9}.course-addition details{margin:.8rem 0;padding:.8rem;border:1px solid #d8e0e8}.course-addition summary{cursor:pointer;font-weight:bold}@media print{.course-navigation{display:none}}</style><style>
+.lesson-demo{margin:1.2rem 0;border:2px solid #555;border-radius:8px;overflow:hidden;background:white;color:#24213a}.lesson-demo .demo-top,.lesson-demo .demo-nav,.lesson-demo .demo-bottom{padding:.8rem 1rem;background:#f0f0f0;border-bottom:1px solid #777}.lesson-demo .demo-bottom{border-top:1px solid #777;border-bottom:0}.lesson-demo .demo-content{padding:1rem}.lesson-demo .demo-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:1rem}.lesson-demo .demo-box{border:1px dashed #777;padding:1rem}.lesson-demo .demo-title{font-weight:750;font-size:1.35em;line-height:1.3}.lesson-demo .demo-action{display:inline-block;background:#254e70;color:white;padding:.55rem .9rem;border-radius:6px;font-weight:700}.lesson-demo.mockup{border-color:#254e70}.lesson-demo.mockup .demo-top{background:#254e70;color:white}.lesson-demo.mockup .demo-nav{background:#edf4f8;color:#254e70}.lesson-demo.mockup .demo-box{border:1px solid #bfd0db;border-radius:8px;background:#f5f8fa}.lesson-demo.mockup .demo-bottom{background:#edf4f8}.demo-caption{font-size:.9em;color:#555}.swatch{display:inline-block;width:2.5rem;height:1.5rem;vertical-align:middle;border:1px solid #555;margin-right:.5rem}.contrast-demo{padding:1rem;border-radius:6px;margin:.7rem 0}.contrast-good{background:#fff;color:#254e70}.contrast-bad{background:#fff;color:#b8c9d8}.contrast-demo p{margin:0}@media(max-width:600px){.lesson-demo .demo-grid{grid-template-columns:1fr}.lesson-demo{font-size:.95em}}
+</style><style>
+/* Course links for 11a */
+.toplinks,.pager{display:flex;flex-wrap:wrap;gap:.65rem 1.2rem}.course-context{font:16px/1.65 Arial,sans-serif;color:#24213a;background:#f5f0f8;border:1px solid #ddd4e6;border-radius:10px;padding:1rem 1.25rem;margin:1.5rem auto;max-width:940px;box-sizing:border-box}.course-context a{color:#673d87;overflow-wrap:anywhere}.course-context h2{font-size:1.25rem;color:#4b2867}.course-context li{margin:.5rem 0}.course-context .pager{background:transparent;box-shadow:none;border:0;padding:0}select{font:inherit;max-width:100%;padding:.4rem;margin:.35rem}.same-lesson{cursor:help;color:#673d87;font-weight:bold}.same-lesson:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #673d87;outline-offset:4px}
+
+button,input{font:inherit;max-width:100%}button{cursor:pointer;padding:.6rem 1rem;border:1px solid #673d87;border-radius:6px;background:#f5f0f8;color:#24213a}button:focus-visible,input:focus-visible{outline:3px solid #673d87;outline-offset:3px}.task{margin:1.25rem 0}.task h3{font-size:1.08rem}#contrast-sample{overflow-wrap:anywhere}</style></head>
+<body>
+<nav class="toplinks" aria-label="Учебни раздели"><a href="../index.html">Всички предмети</a><a href="../Web%20design%20-%20SPP/index.html">Уеб дизайн - СПП</a><a href="../Web%20design%20-%20Extended/index.html">Уеб дизайн - Разширена подготовка</a><a href="../Web%20design%20-%20Practice/index.html">Уеб дизайн - Учебна практика</a></nav>
+<main>
+<h1>Създаване на графичен модел на уеб страница (mockup)</h1>
+<h2>Mockup</h2>
+<p><strong>Графичният модел (mockup)</strong> е визуален прототип на уеб страница, който дизайнерът създава и представя за одобрение преди реалното ѝ изграждане. Той показва как ще изглежда страницата: подредбата на съдържанието, избраните шрифтове, цветовата схема, изображенията, иконите и бутоните. Обикновено mockup е статичен и служи за оценка на външния вид; интерактивният прототип показва и как ще работят действията и навигацията.</p>
+<p>Създаването на графичен модел включва оформяне на избрания <strong>схематичен дизайн (wireframe)</strong> – структурата и местата на елементите – с конкретни шрифтове, цветове и графични компоненти. Така дизайнерът превръща схемата в цялостен визуален проект, по който възложителят може да даде обратна връзка и одобрение.</p>
+<figure>
+<img src="https://framerusercontent.com/images/rUC62nSMX4eDWzQBSb6IjkZ0.png?height=900&amp;width=1600" alt="Графичен модел на уеб страница с меню, заглавие We Create Creativity, основен текст, розов бутон LOG IN, социални икони и геометрични фигури в синьо, розово и жълто." loading="lazy">
+<figcaption>Пример за mockup на уеб страница. <a href="https://www.cursorup.com/blog/color-palette-for-website" target="_blank" rel="noopener noreferrer">Източник: CursorUp</a>.</figcaption>
+</figure>
+<p>В картинката се виждат решенията, които дизайнерът представя за одобрение:</p>
+<ul>
+<li><strong>Подредба, основана на избрания wireframe:</strong> меню в горната част, икони вляво, заглавие и текст в основната област и бутон под тях. Показан е вече оформеният графичен модел; самият wireframe е предходната схема на тази структура.</li>
+<li><strong>Шрифтове и текстова йерархия:</strong> голямо, удебелено заглавие и по-дребен текст за описанието и навигацията.</li>
+<li><strong>Цветова схема:</strong> светъл фон с акценти в синьо, розово и жълто.</li>
+<li><strong>Графични елементи:</strong> геометрични фигури, декоративни линии и икони за социални мрежи.</li>
+<li><strong>Бутони и навигация:</strong> външният вид и разположението на менюто и бутона „LOG IN“.</li>
+</ul>
+<h2>Използване на цветовете в уеб дизайна</h2>
+<p>При избора на цветова схема за уеб сайт се определя кои цветове ще предадат подходящото послание на посетителите. При изграждане на графичния дизайн трябва да се избере цветова гама, в която да се развият страниците на уеб сайта. Тя трябва да бъде съобразена с тематиката на сайта, да не е натрапчива и отблъскваща. Внимателният и балансиран подбор на цветовете може да създаде великолепна композиция, тъй като цветовете са първото нещо, което потребителите забелязват на страниците. За по-малките елементи трябва да се избират по-ярки цветове. Повечето дизайнери използват не повече от 3 – 4 цвята.</p>
+<p>Връзката между цветовете може да се представи в кръгла диаграма с 12 цвята, наречена <strong>колело на цветовете</strong>. В класическия художествен модел RYB тези цветове се получават от <strong>3 основни, 3 вторични и 6 третични цвята</strong>:</p>
+<ul>
+<li><strong>Основни:</strong> червено, жълто и синьо.</li>
+<li><strong>Вторични (второстепенни):</strong> червено + жълто → оранжево; жълто + синьо → зелено; синьо + червено → виолетово.</li>
+<li><strong>Третични (междинни):</strong> получават се от смесването на основен цвят със съседния му вторичен цвят – жълто-оранжево, червено-оранжево, червено-виолетово, синьо-виолетово, синьо-зелено и жълто-зелено.</li>
+</ul>
+<p>Така <strong>3 + 3 + 6 = 12</strong>. В този кръг „чисти цветове“ означава цветове без добавено бяло, черно или сиво. Между тях има още много междинни цветове: <strong>12 е удобно деление, а не фундаментален природен брой цветове</strong>.</p>
+<p>При разделяне на кръга на 12 равни части получаваме <strong>360° / 12 = 30°</strong> между съседните позиции. Това улеснява избора на цветови схеми: допълващите се цветове са срещуположни (180°, или 6 позиции), триадите са през 120° (4 позиции), а аналогичните цветове са съседни.</p>
+<figure>
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Farbkreis_Itten_1961.svg" alt="Цветови кръг на Итен: три основни цвята в централния триъгълник, три вторични около него и дванайсет цвята във външния пръстен." width="340" height="340" loading="lazy">
+<figcaption>От 3 основни към 12 цвята: централният триъгълник показва червено, жълто и синьо; около него са вторичните цветове; външният пръстен включва и шестте третични. <a href="https://commons.wikimedia.org/wiki/File:Farbkreis_Itten_1961.svg" target="_blank" rel="noopener noreferrer">Източник: Wikimedia Commons</a>, MalteAhrens / SidShakal, обществено достояние.</figcaption>
+</figure>
+<h2>Цветови модели: RGB, RYB и CMYK</h2>
+<p><strong>Цветовият модел</strong> описва как се изграждат или смесват цветовете, а <strong>цветовата схема</strong> е подборът на цветове за даден дизайн.</p>
+<ul>
+<li><strong>RGB (Red, Green, Blue):</strong> червено, зелено и синьо. Това е <strong>адитивно смесване на светлина</strong>, използвано от екраните и в уеб дизайна. Червена + зелена светлина дава жълто, зелена + синя – циан, синя + червена – магента. Трите светлини заедно при пълна интензивност дават бяло.</li>
+<li><strong>RYB (Red, Yellow, Blue):</strong> червено, жълто и синьо. Това е традиционен художествен модел за смесване на бои и пигменти, върху който е изграден класическият 12-цветен кръг. Смесването е <strong>субтрактивно</strong>: пигментите поглъщат част от падащата светлина. Реалният резултат зависи и от конкретните бои.</li>
+<li><strong>CMYK (Cyan, Magenta, Yellow, Key/Black):</strong> циан, магента, жълто и черно. Това е <strong>субтрактивен модел за печат</strong>: мастилата поглъщат част от светлината, отразена от хартията. Черното мастило осигурява плътно черно и по-ясни детайли.</li>
+</ul>
+<div class="task">
+<p><strong>Опитайте сами:</strong> <a href="https://colormixy.com/?utm_source=108SU" target="_blank" rel="noopener noreferrer">ColorMixy – онлайн инструмент за смесване на цветове</a>. Сравнете смесването на светлина (RGB) със смесването на бои (RYB) и мастила (CMYK). Проверете например защо червено и зелено дават жълто при събиране на светлина, а смесването на бои дава различен резултат.</p>
+</div>
+<p>Цветовете могат да се разделят на неутрални, топли и студени.</p>
+<ul>
+<li>Неутрални цветове са бяло, черно и сиво (смес от бяло и черно). Те могат да участват във всяка цветова схема.</li>
+<li>Топли са всички цветове, в чийто състав участват червено и жълто. Те се асоциират със слънцето и се смята, че са активни.</li>
+<li>Студени цветове са всички, в чийто състав влиза синьото. Те се асоциират с водата и небето и се приемат за успокояващи.</li>
+</ul>
+<h2>Нюанс, сянка и тон (Tint, Shade, Tone)</h2>
+<p>От един <strong>чист цвят (hue)</strong> можем да получим различни вариации, като добавяме бяло, черно или сиво. Така разширяваме палитрата, без да избираме нов основен цвят:</p>
+<ul>
+<li><strong>Нюанс (tint)</strong> – получава се, когато към чистия цвят добавим <strong>бяло</strong>. Цветът става по-светъл; например червено + бяло → розово. Светлите нюанси често се наричат пастелни.</li>
+<li><strong>Сянка (shade)</strong> – получава се, когато към чистия цвят добавим <strong>черно</strong>. Цветът става по-тъмен; например от червено получаваме тъмночервено.</li>
+<li><strong>Тон (tone)</strong> – получава се, когато към чистия цвят добавим <strong>сиво</strong> (смес от бяло и черно). Цветът става по-приглушен и по-малко наситен; например от червено получаваме приглушено сивкаво-червено.</li>
+</ul>
+<figure>
+<img src="https://learn.g2.com/hubfs/hue%20tint%20tone%20shade.png" alt="Четири колони сравняват чисти цветове (Hue), нюанси с добавено бяло (Tint), сенки с добавено черно (Shade) и тонове с добавено сиво (Tone)." loading="lazy">
+<figcaption>Сравнете един и същ цвят във всяка колона: Hue – чист цвят; Tint – добавено бяло; Shade – добавено черно; Tone – добавено сиво. <a href="https://www.g2.com/articles/color-theory" target="_blank" rel="noopener noreferrer">Източник: G2 – Color Theory</a>.</figcaption>
+</figure>
+<div class="note">
+<p><strong>В уеб дизайна:</strong> тези вариации са полезни за създаване на монохромна цветова схема – например светъл син фон, син бутон и тъмносин текст. На екрана задаваме получените цветове чрез RGB стойности, вместо физически да смесваме бои.</p>
+</div>
+<h2>Цветови схеми (Color schemes)</h2>
+<p><strong>Цветова схема (color scheme)</strong> е подборът и съчетаването на цветове в един дизайн. Тя определя кои цветове ще използваме за фон, текст, бутони и акценти, така че страницата да изглежда цялостна и да е лесна за възприемане.</p>
+<p>Основните видове цветови схеми се определят според отношенията между цветовете в цветовия кръг:</p>
+<figure>
+<img src="https://www.nohioprint.com/graphics/433-ColorWheel.jpg" alt="Пет цветови схеми върху цветови кръг: монохромна (Monochromatic), аналогична (Analogous), допълваща (Complementary), триадна (Triadic) и тетрадна (Tetradic)." loading="lazy">
+<figcaption>Основните цветови схеми: един цвят с неговите вариации (монохромна), съседни цветове (аналогична), срещуположни цветове (допълваща), три равномерно разположени цвята (триадна) и две допълващи се двойки (тетрадна). <a href="https://www.nohioprint.com/resources/the-ideas-collection/four-gorgeous-color-schemes-for-your-next-design/" target="_blank" rel="noopener noreferrer">Източник: Northern Ohio Printing</a>.</figcaption>
+</figure>
+<ul>
+<li><strong>Монохромна (Monochromatic):</strong> използва един основен цвят и негови по-светли, по-тъмни или по-приглушени вариации. Например различни нюанси на синьото. Създава единство; контрастът се постига чрез разлики в светлотата и наситеността.
+<figure>
+<img src="https://cdn.dribbble.com/userupload/14662042/file/original-feb76aa385dc6ca31ffab28b9101bd62.png?resize=1440x1080" alt="Графичен модел на сайта Ecopulse с монохромна зелена схема: тъмнозелен фон, по-светли зелени панели и акценти и бял текст." loading="lazy">
+<figcaption><strong>Пример за монохромна схема (Monochromatic):</strong> в дизайна на Ecopulse фонът, панелите и акцентите използват светли и тъмни вариации на зеленото. Белият текст е неутрален и осигурява контраст, без да добавя втори цветен акцент. <a href="https://dribbble.com/shots/24200539-Ecopulse-Sustainable-Website-Design" target="_blank" rel="noopener noreferrer">Източник: Ashwin Pradeep Kumar – Dribbble</a>.</figcaption>
+</figure>
+</li>
+<li><strong>Аналогична (Analogous):</strong> използва съседни цветове в кръга, например жълто, жълто-оранжево и оранжево. Един цвят е основен, а останалите го допълват.
+<figure>
+<img src="https://cdn.csswinner.com/images/winners/2020/jun/1092117158.jpg" alt="Секция Flowers от сайта Delassus с жълт фон, червени цветя и оранжев бутон Discover." loading="lazy">
+<figcaption><strong>Пример за аналогична схема (Analogous):</strong> секцията „Flowers“ на Delassus съчетава жълт фон, оранжев бутон и червени цветя. Жълтото, оранжевото и червеното са съседни цветове в класическия цветови кръг и създават единно, топло усещане. <a href="https://www.csswinner.com/details/delassus/14576" target="_blank" rel="noopener noreferrer">Източник: CSS Winner – Delassus</a>.</figcaption>
+</figure>
+</li>
+<li><strong>Допълваща (Complementary):</strong> използва два срещуположни цвята в кръга, например синьо и оранжево в класическия RYB кръг. Създава силен цветови контраст; единият цвят може да преобладава, а другият да служи за акцент.
+<figure>
+<img src="https://www.upwork.com/mc/documents/39223759283c43c9465b83c858ffe985" alt="Пример за уеб страница с допълваща синьо-оранжева цветова схема: син фон, бял текст и оранжев бутон и долна лента." loading="lazy">
+<figcaption><strong>Пример за допълваща схема (Complementary):</strong> синият фон е съчетан с оранжев бутон и оранжева долна лента. Синьото и оранжевото са срещуположни в класическия RYB цветови кръг. Контрастът между тях кара бутона да изпъква и насочва вниманието към действието; белият текст служи като неутрален елемент. <a href="https://www.upwork.com/resources/how-to-choose-color-scheme-for-website" target="_blank" rel="noopener noreferrer">Източник: Upwork</a>.</figcaption>
+</figure>
+</li>
+<li><strong>Триъгълна / триадна (Triadic):</strong> използва три цвята на равни разстояния в кръга – през 120°. Например червено, жълто и синьо в RYB кръга. За баланс избираме един водещ цвят и два допълващи акцента.
+<figure>
+<img src="https://www.upwork.com/mc/documents/2fb0d9bd936b9891a1a94ea573375ce5" alt="Пример от Upwork за триадна цветова схема: жълта горна лента, синя основна област с надпис Youthful и пурпурна долна област." loading="lazy">
+<figcaption><strong>Пример за триадна схема (Triadic):</strong> този учебен пример от Upwork разпределя жълто, синьо и пурпурно между горната лента, основната област и долната секция. Трите цветови акцента придават разнообразие и ясно разграничават областите. При изграждане на триадна палитра избираме три позиции през 120° в използвания цветови кръг; конкретните оттенъци зависят от избрания кръг. <a href="https://www.upwork.com/resources/how-to-choose-color-scheme-for-website" target="_blank" rel="noopener noreferrer">Източник: Upwork</a>.</figcaption>
+</figure>
+</li>
+<li><strong>Четириъгълна / тетрадна (Tetradic / Double complementary):</strong> използва четири цвята, подбрани в две допълващи се двойки. Дава повече възможности за разнообразие, но изисква внимателен баланс между основните цветове и акцентите.
+<figure>
+<img src="https://solardigital.com.ua/content-images/16754386520.jpg" alt="Тетрадна цветова схема: четири избрани позиции върху цветови кръг и два примера за приложението им в уеб дизайн." loading="lazy">
+<figcaption><strong>Пример за тетрадна схема (Tetradic / Double complementary):</strong> илюстрацията показва четири цвята върху цветовия кръг и приложението им в уеб страници. Цветовете образуват две допълващи се двойки. Показаният квадратен вариант използва позиции през 90°; при правоъгълния вариант разстоянията между съседните позиции се редуват, но срещуположните цветове от всяка двойка остават през 180°. За визуален баланс един цвят може да преобладава, а останалите да служат като акценти. <a href="https://it-rating.ua/yak-kombinuvati-kolori-u-veb-dizayni" target="_blank" rel="noopener noreferrer">Източник: IT Rating</a>.</figcaption>
+</figure>
+</li>
+</ul>
+
+<p>Изборът на цвят за фон е важен за доброто възприемане на текстовата информация. Текстът трябва да контрастира с фона, за да бъде лесен за четене. Препоръчва се при светъл фон текстът върху него да е тъмен и обратно – при тъмен фон цветът на текста да е светъл.</p>
+<div class="task">
+<p><strong>Изберете палитра за вашия mockup:</strong> <a href="https://coolors.co/palettes/popular/3%20colors" target="_blank" rel="noopener noreferrer">Coolors – популярни палитри с 3 цвята</a>. Разгледайте готовите цветови комбинации и изберете палитра, която подхожда на тематиката на вашия сайт. Определете кой цвят ще бъде основен, кой ще го допълва и кой ще използвате за акценти като бутони и важни елементи. Проверете дали текстът се чете ясно върху избрания фон.</p>
+<p>Палитра с три цвята не е непременно <strong>триадна схема</strong>: броят на цветовете показва колко цвята използваме, а видът на схемата зависи от отношенията им в цветовия кръг. Опитайте да определите дали избраната комбинация е монохромна, аналогична, триадна или друг вид.</p>
+</div>
+<h2>„Цветови схеми“ е различен термин от „цветови модели“</h2>
+<p><strong>Цветови схеми (color schemes)</strong> и <strong>цветови модели (color models)</strong> описват различни страни на работата с цветовете:</p>
+<ul>
+<li><strong>Цветова схема (color scheme)</strong> отговаря на въпроса <strong>„Кои цветове да съчетаем в дизайна?“</strong> Примери са монохромна, аналогична, допълваща и триадна схема. Това е избор на цветова композиция.</li>
+<li><strong>Цветови модел (color model)</strong> отговаря на въпроса <strong>„Как да представим цветовете чрез компоненти и как се комбинират тези компоненти?“</strong> Примери са RGB за светлина и екрани, RYB като традиционен модел за бои и CMYK за печат.</li>
+</ul>
+<div class="note">
+<p><strong>Пример:</strong> уеб страница може да има <strong>допълваща цветова схема</strong> със синьо и оранжево, а цветовете ѝ да са зададени чрез <strong>RGB модела</strong> – например <code>rgb(0, 102, 204)</code> и <code>rgb(255, 153, 51)</code>. „Допълваща“ описва съчетанието на цветовете; „RGB“ описва начина, по който задаваме всеки цвят за екрана.</p>
+</div>
+<p>Една цветова схема може да се реализира с различни цветови модели. Например синьо-оранжевата комбинация може да се използва и за печат с CMYK, но точният вид на цветовете може да се промени според мастилата, хартията и преобразуването от RGB към CMYK.</p>
+<h2>Използване на шрифтове в уеб дизайна</h2>
+<p>Важен елемент при създаване на графичен модел на уеб страница е подборът на шрифтове. Шрифтът е не само средство за предаване на информация, но и художествен елемент, който взема пряко участие в изработката на дизайн на самия уеб сайт.</p>
+<p>Шрифтовете могат да бъдат разделени на две основни категории: <span class="font-example" style="font-family:'Times New Roman',serif">серифни (<em>serif</em>)</span> – с допълнителни графични елементи, и <span class="font-example" style="font-family:Arial,sans-serif">несерифни (<em>sans-serif</em>)</span> – без допълнителни графични елементи.</p>
+<figure>
+<img src="https://posstack.com/images/blog/2024/5/font-pairing-tip2.jpg" alt="Сравнение на буквите Aa в серифен и безсерифен шрифт: при serif малките завършващи чертички са оградени в червено, а при sans-serif те липсват." loading="lazy">
+<figcaption><strong>Serif (серифен)</strong> – с малки завършващи чертички по краищата на буквите; <strong>sans-serif (безсерифен)</strong> – без тези чертички. Червените кръгове показват серифите. <a href="https://posstack.com/blog/top-free-font-pairings-for-shopify" target="_blank" rel="noopener noreferrer">Източник: Posstack</a>.</figcaption>
+</figure>
+<p>Серифните шрифтове натоварват по-малко окото при четене. Затова се използват при изписването на основни текстове. Но когато буквите са малки, четенето се затруднява. Тогава се предпочитат несерифните шрифтове. Те имат по-изчистен геометричен дизайн и са по-четивни за ситен текст или за устройства с ниска разделителна способност на екрана. Често се ползват за изработването на дизайнерски заглавия.</p>
+<p>Спазвайте определени изисквания при избора на шрифт:</p>
+<ul>
+<li>Трябва да се използват подходящи шрифтове. Препоръчват се <span class="font-example" style="font-family:Verdana,sans-serif">Verdana</span>, <span class="font-example" style="font-family:Arial,sans-serif">Arial</span>, <span class="font-example" style="font-family:'Times New Roman',serif">Times New Roman</span>, <span class="font-example" style="font-family:Tahoma,sans-serif">Tahoma</span>, <span class="font-example" style="font-family:Helvetica,Arial,sans-serif">Helvetica</span>. Не се препоръчват прекалено големи размери на шрифтовете.</li>
+<li>Подходящо е големината да бъде съобразена с размера на страницата, за да не изглежда шрифтът прекалено голям или прекалено дребен.</li>
+<li>Не трябва да се използват повече от 2 – 3 шрифта, като едновременната употреба на различни по стил шрифтове невинаги изглежда добре.</li>
+<li>Добре е да се използват шрифтове от едно и също семейство с цел отделяне на основен текст и подтекст, вместо основният да бъде в получер/удебелен стил.</li>
+<li>Важна е четливостта – трябва да се обръща внимание на детайлите, които да се четат леко и да не дразнят окото. Трябва да има съгласуваност по отношение на стила и размерите на целия набор от символи, съставляващи шрифта.</li>
+<li>В заглавията на модерните уеб сайтове все по-често се използват и артшрифтове, както и калиграфски/ръкописни шрифтове.</li>
+<li>Когато шрифтът се слага върху фон с натоварено съдържание, той трябва да е удебелен, за да се чете лесно.</li>
+</ul>
+<h2>Основни понятия</h2>
+<p><strong>Графичен модел (mockup)</strong> – определяне на дизайн, цветова схема, избор на шрифтове, изработване на графични компоненти.</p>
+<p><strong>Цветова схема (color scheme)</strong> – подбор и съчетаване на цветове за даден дизайн.</p>
+<p><strong>Цветови модел (color model)</strong> – начин за представяне на цветовете чрез компоненти, например RGB или CMYK.</p>
+
+<h2>Въпроси и задачи</h2>
+<ol>
+<li>Кои са основните видове цветови схеми?</li>
+<li>Каква е разликата между цветова схема (color scheme) и цветови модел (color model)? Дайте пример.</li>
+<li>Кои от основните цветове предпочитате и защо?</li>
+<li>Какви са изискванията за избор на шрифт?</li>
+</ol>
+
+<h2>Инструменти и приложения на цветовете в уеб дизайна и извън него</h2>
+<p>Цветовите палитри и отношенията между цветовете се използват не само за уеб страници, но и при създаване на приложения, печатни материали, облекло, интериори и грим. Следните ресурси показват различни приложения на наученото:</p>
+<ul>
+<li><a href="https://www.logicui.com/colorgenerator" target="_blank" rel="noopener noreferrer"><strong>LogicUI – Material 3 Color Generator</strong></a> – инструмент за създаване на цветова палитра за потребителски интерфейс по Material Design 3. От избрани ключови цветове генерира тонални палитри, показва светла и тъмна тема и позволява преглед на елементи като бутони. Подходящ е за уеб и мобилни приложения.</li>
+<li><a href="https://www.pantone.com/" target="_blank" rel="noopener noreferrer"><strong>Pantone – цветови системи и професионални палитри</strong></a> – ресурс за определяне и съгласуване на цветове между дизайнери и производители. Системите Pantone се използват в графичния дизайн, печата, опаковките, модата, интериора и продуктовия дизайн, където е важно избраният цвят да бъде ясно обозначен и сравнен с физическа цветова мостра.</li>
+<li><a href="https://fioremakeup.com/tsvetova-teoria-v-grima/" target="_blank" rel="noopener noreferrer"><strong>Fiore Makeup – Цветова теория в грима</strong></a> – материал за приложението на цветовата теория в грима. Използвайте го като отправна точка за сравнение с уеб дизайна: и в двете области съчетаването на цветове помага да се създават хармония, контраст и акценти.</li>
+</ul>
+
+<div class="course-addition" id="project-examples"><h2>От схема към собствен графичен модел</h2><div class="table-wrap"><table><caption>Три начина за представяне на проекта</caption><thead><tr><th scope="col">Модел</th><th scope="col">Основен въпрос</th><th scope="col">Какво показва</th></tr></thead><tbody><tr><td>Wireframe</td><td>Къде ще бъде информацията?</td><td>Опростена структура и подредба.</td></tr><tr><td>Mockup</td><td>Как ще изглежда страницата?</td><td>Цветове, шрифтове, изображения и визуални детайли.</td></tr><tr><td>Интерактивен прототип</td><td>Как ще се преминава и действа?</td><td>Пробни взаимодействия и преходи между екрани.</td></tr></tbody></table></div><section id="example"><h2>Пример: от схема към визуален модел</h2><p>Запазете структурата от урок 7 и я попълнете с по-конкретни решения. Вместо надпис „Заглавие“ използвайте истинско заглавие, а вместо произволен текст — кратко съдържание, близко до бъдещото.</p><div class="lesson-demo mockup" role="img" aria-label="Примерен макет на Фото клуб 108: тъмносиня заглавна част, светло меню, представяне на пролетна изложба с дата и място, място за собствена снимка и долна част."><div class="demo-top"><strong>Фото клуб 108</strong></div><div class="demo-nav">Начало · За клуба · Събития · Галерия · Контакти</div><div class="demo-content"><div class="demo-grid"><div><p class="demo-title">Пролетна изложба</p><p>Нашият град през обектива на учениците.</p><p><strong>15 април · 14:00 ч.</strong><br>Училищно фоайе</p><span class="demo-action">Разгледай програмата</span></div><div class="demo-box">Собствена снимка на града<br><small>Място за фотография в бъдещата страница</small></div></div></div><div class="demo-bottom">Фото клуб 108 · Ученически проект</div></div><p class="demo-caption">Учебен макет с примерни данни. Елементът „Разгледай програмата“ показва мястото и вида на бъдещата връзка.</p><p>Синият цвят свързва заглавната част и основното действие. Светлият фон отделя менюто. Заглавието е по-едро от описанието, а датата се вижда лесно.</p></section><section id="steps"><h2>Създайте първи макет на проекта си</h2><ol><li>Отворете схемата на началната страница от урок 7.</li><li>Работете в познат редактор с фигури и текстови полета, например редактор за презентации или векторна графика.</li><li>Запазете основните области и добавете истинското име на сайта и имената в менюто.</li><li>Изберете предварителна палитра и задайте цвят на фона, текста и основното действие.</li><li>Добавете подходящо заглавие, кратък текст и собствена снимка или ясно означено място за нея.</li><li>Оформете заглавията, подравняването и отстоянията.</li><li>Направете и вариант за телефон, в който запазвате важната информация.</li><li>Запазете редактируемия файл и изображение или PDF за преглед.</li></ol><p><strong>Проверете със съученик:</strong> разпознава ли темата, намира ли основното действие и чете ли текста лесно? Поправете поне едно неясно място. За следващия урок запишете кодовете на избраните цветове, ако редакторът ги показва.</p></section><section id="check"><h2>Самопроверка</h2><details><summary>По какво mockup се различава от wireframe?</summary><p>Mockup добавя конкретен визуален облик: цветове, шрифтове, изображения и оформени елементи. Wireframe се съсредоточава върху структурата.</p></details><details><summary>Работи ли нарисуваният бутон като бутон в сайт?</summary><p>Не задължително. В статичния макет той показва бъдещото място, вид и предназначение на действието.</p></details><details><summary>Защо използваме реалистичен текст?</summary><p>За да проверим дали заглавията и абзаците се побират и дали действителното съдържание остава разбираемо.</p></details><details><summary>Гарантира ли хармоничната палитра четим текст?</summary><p>Не. Трябва отделно да проверим контраста между текста и фона и подходящия размер на шрифта.</p></details></section></div>
+<section class="course-context"><h2>Връзка с другите предмети</h2><p>Основните знания от СПП се допълват в разширената подготовка и се прилагат в учебната практика. Свързани уроци:</p><ul><li><a href="../Web%20design%20-%20Extended/03-UX-Website-Design.html">Уеб дизайн - Разширена подготовка — урок 3: UX при проектиране на сайтове</a></li><li><a href="../Web%20design%20-%20Extended/05-Web-Fonts.html">Уеб дизайн - Разширена подготовка — урок 5: Шрифтове – особености при ползване във веб</a></li><li><a href="../Web%20design%20-%20Practice/06-School-Website-Redesign.html">Уеб дизайн - Учебна практика — урок 6: Проектиране на промени на училищен сайт</a></li><li><a href="../Web%20design%20-%20Practice/07-Web-Page-Mockup-Practice.html">Уеб дизайн - Учебна практика — урок 7: Създаване на графичен модел на уеб страница – упражнение</a></li></ul><p>Същият урок се изучава и в <a href="../Web-design-12/08-Web-Page-Mockup.html">12. клас</a>.</p><nav class="pager" aria-label="Последователност на уроците"><a rel="prev" href="05-Web-Page-Design.html">← Урок 5</a><a href="index.html">Всички уроци</a><a rel="next" href="07-Color-Scheme-Tools.html">Урок 7 →</a></nav></section></main>
+<footer>По учебника по уеб дизайн, страници 15–16.<p>11а клас · Уеб дизайн - СПП · Урок 6</p></footer>
+
+</body>
+</html>

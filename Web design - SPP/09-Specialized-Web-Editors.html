@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 9: Специализирани софтуерни средства за създаване на уеб сайтове | 11а клас — Уеб дизайн - СПП</title><meta name="description" content="Урок 9 за 11а клас: Специализирани софтуерни средства за създаване на уеб сайтове."><style>body{font-family:Arial,sans-serif;line-height:1.65;max-width:1000px;margin:auto;padding:28px;color:#222;background:#fff}h1{color:#244b73;border-bottom:3px solid #244b73;padding-bottom:12px;line-height:1.25}h2{color:#315f8d;margin-top:32px;line-height:1.35}h3{color:#315f8d}p{margin:12px 0}li{margin:7px 0}.task,.note{background:#eef4f9;border-left:5px solid #315f8d;padding:14px 18px;margin:18px 0}.task{background:#f1f7ee;border-color:#557b39}pre{background:#f3f5f7;border:1px solid #d8e0e8;border-radius:5px;padding:16px;overflow-x:auto;line-height:1.5;font-size:.95em}code{font-family:Consolas,monospace;overflow-wrap:anywhere}pre code{overflow-wrap:normal}table{border-collapse:collapse;max-width:100%;display:block;overflow-x:auto;margin:18px 0}td,th{border:1px solid #bdcbd8;padding:9px;text-align:left}th{background:#eef4f9}figure{margin:24px 0;padding:16px;border:1px solid #d8e0e8;background:#fafcff}figure img{display:block;max-width:100%;height:auto;margin:auto;max-height:600px;object-fit:contain}figcaption{font-size:.92em;color:#455568;margin-top:12px}nav{margin-bottom:20px;display:flex;flex-wrap:wrap;gap:16px}a{color:#244b73}footer{margin-top:32px;border-top:1px solid #ddd;padding-top:16px;font-size:.9em;color:#555}.contents{background:#f4f7fa;padding:16px 24px}.contents ol{columns:2;column-gap:36px}.contents li{break-inside:avoid}section{scroll-margin-top:16px}@media(max-width:600px){body{padding:18px}h1{font-size:1.7em}.contents ol{columns:1}}@media print{nav,.contents{display:none}body{max-width:none;padding:0}h2{break-after:avoid}pre,figure,.task{break-inside:avoid}a{color:#222}}</style><style>.course-navigation{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;margin:1.5rem 0;padding:.8rem 0;border-bottom:1px solid #d8e0e8}.course-navigation a{overflow-wrap:anywhere}details.course-check{padding:1rem;border:1px solid #d8e0e8;border-radius:6px;margin:1rem 0}details.course-check summary{font-weight:bold;cursor:pointer}.course-addition{margin-top:2rem;padding-top:1rem;border-top:2px solid #d8e0e8}.course-addition .table-wrap{overflow-x:auto}.course-addition table{border-collapse:collapse;width:100%}.course-addition td,.course-addition th{border:1px solid #bdcbd8;padding:.65rem;text-align:left;vertical-align:top}.course-addition th{background:#eef4f9}.course-addition details{margin:.8rem 0;padding:.8rem;border:1px solid #d8e0e8}.course-addition summary{cursor:pointer;font-weight:bold}@media print{.course-navigation{display:none}}</style><style>
+/* Course links for 11a */
+.toplinks,.pager{display:flex;flex-wrap:wrap;gap:.65rem 1.2rem}.course-context{font:16px/1.65 Arial,sans-serif;color:#24213a;background:#f5f0f8;border:1px solid #ddd4e6;border-radius:10px;padding:1rem 1.25rem;margin:1.5rem auto;max-width:940px;box-sizing:border-box}.course-context a{color:#673d87;overflow-wrap:anywhere}.course-context h2{font-size:1.25rem;color:#4b2867}.course-context li{margin:.5rem 0}.course-context .pager{background:transparent;box-shadow:none;border:0;padding:0}select{font:inherit;max-width:100%;padding:.4rem;margin:.35rem}.same-lesson{cursor:help;color:#673d87;font-weight:bold}.same-lesson:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #673d87;outline-offset:4px}
+
+button,input{font:inherit;max-width:100%}button{cursor:pointer;padding:.6rem 1rem;border:1px solid #673d87;border-radius:6px;background:#f5f0f8;color:#24213a}button:focus-visible,input:focus-visible{outline:3px solid #673d87;outline-offset:3px}.task{margin:1.25rem 0}.task h3{font-size:1.08rem}#contrast-sample{overflow-wrap:anywhere}</style></head><body>
+<nav class="toplinks" aria-label="Учебни раздели"><a href="../index.html">Всички предмети</a><a href="../Web%20design%20-%20SPP/index.html">Уеб дизайн - СПП</a><a href="../Web%20design%20-%20Extended/index.html">Уеб дизайн - Разширена подготовка</a><a href="../Web%20design%20-%20Practice/index.html">Уеб дизайн - Учебна практика</a></nav>
+<main>
+<h1>Специализирани софтуерни средства за създаване на уеб сайтове</h1>
+<p><strong>Практическа работа: редактиране на готова HTML страница със SeaMonkey Composer.</strong></p>
+<aside class="note"><strong>Подготовка.</strong> SeaMonkey вече е наличен на компютрите. За всички задачи използвайте неговия редактор Composer. Нужен е само приложеният HTML файл; той съдържа и оформлението си.</aside>
+<details class="contents" open><summary>Теми в урока</summary><ol>
+<li><a href="#editors">HTML редактори и WYSIWYG</a></li>
+<li><a href="#composer">SeaMonkey Composer и неговите изгледи</a></li>
+<li><a href="#template">Готовата страница за упражнение</a></li>
+<li><a href="#task-1">Задача 1. Отваряне и запазване на копие</a></li>
+<li><a href="#task-2">Задача 2. Редактиране на съдържание</a></li>
+<li><a href="#task-3">Задача 3. Оформление, списък и таблица</a></li>
+<li><a href="#task-4">Задача 4. Връзка и HTML код</a></li>
+<li><a href="#check">Проверка и предаване</a></li>
+<li><a href="#online-editors">Онлайн HTML редактори</a></li>
+<li><a href="#rights">Шаблони, авторство и лицензи</a></li>
+</ol></details>
+
+<h2 id="editors">1. HTML редактори и WYSIWYG</h2>
+<p><strong>HTML редакторът</strong> е приложение за създаване и редактиране на уеб страници. HTML описва структурата на съдържанието, а CSS — неговото оформление. Редакторът помага на автора да променя страницата и да проверява резултата.</p>
+<p><strong>Текстовите редактори</strong> позволяват пряко писане на HTML код. Специализираните текстови редактори могат да оцветяват синтаксиса и да допълват тагове. При <strong>визуалните редактори</strong> текстът, заглавията, списъците и таблиците се обработват чрез бутони и менюта, а приложението създава съответния код.</p>
+<p><strong>WYSIWYG</strong> означава <em>What You See Is What You Get</em> — „Каквото виждате, това получавате“. Визуалният изглед улеснява работата, но крайният резултат и връзките се проверяват в браузър. Един редактор може да предлага и визуална работа, и редактиране на код.</p>
+
+<h2 id="composer">2. SeaMonkey Composer и неговите изгледи</h2>
+<p>SeaMonkey е пакет с браузър и други инструменти. <strong>Composer</strong> е неговият редактор за уеб страници. В него можете да редактирате текст, да добавяте заглавия, списъци, таблици и връзки, както и да разглеждате HTML кода.</p>
+<table><caption>Изгледи в Composer</caption><thead><tr><th scope="col">Изглед</th><th scope="col">За какво служи</th></tr></thead><tbody>
+<tr><td>Normal</td><td>Визуално редактиране на съдържанието.</td></tr>
+<tr><td>HTML Tags</td><td>Показва маркери на HTML елементите в страницата.</td></tr>
+<tr><td>&lt;HTML&gt; Source</td><td>Преглед и промяна на изходния HTML код.</td></tr>
+<tr><td>Preview</td><td>Предварителен изглед на оформлението; връзките се тестват в браузър.</td></tr>
+</tbody></table>
+<p>Изберете изглед от лентата в долната част на Composer или от менюто <strong>View</strong>. Ако долната лента е скрита, покажете я чрез <strong>View → Show/Hide → Edit Mode Toolbar</strong>. Имената на командите може да са преведени според езика на програмата.</p>
+
+<h2 id="template">3. Готовата страница за упражнение</h2>
+<div class="task"><p><strong>Материал за работа:</strong> <a href="../Web-design-Textbook/files/09-school-homepage.html" download="09-school-homepage.html">Изтеглете HTML файла за редактиране — 09-school-homepage.html</a>.</p>
+<p><a href="../Web-design-Textbook/files/09-school-homepage.html" target="_blank" rel="noopener">Разгледайте началния образец в браузъра</a>. Ако файлът се отвори вместо да се изтегли, щракнете с десния бутон върху връзката за изтегляне и изберете „Запазване на връзката като…“ / <strong>Save Link As…</strong>.</p></div>
+<p>Образецът е опростена учебна начална страница на тема <strong>108 СУ „Никола Беловеждов“</strong>. Името, мотото и местоположението са по <a href="https://www.108su.net/" target="_blank" rel="noopener">официалния сайт на училището</a>. Текстовете за новини и клубове са примерни, а обозначените места очакват редакция. Страницата работи локално без външни стилове, изображения или скриптове. Интернет е нужен само за посещаване на външните връзки.</p>
+
+<h2 id="task-1">4. Задача 1. Отваряне и запазване на копие</h2>
+<ol>
+<li>Създайте папка <code>Urok09</code> и запазете в нея приложения файл <code>09-school-homepage.html</code>.</li>
+<li>Стартирайте SeaMonkey и изберете <strong>Window → Composer</strong>.</li>
+<li>В прозореца на Composer изберете <strong>File → Open File…</strong> и отворете изтегления файл. Проверете, че сте в редактора Composer.</li>
+<li>Чрез <strong>File → Save As…</strong> запазете работно копие в същата папка с име <code>school-homepage-ИНИЦИАЛИ.html</code>, като замените „ИНИЦИАЛИ“ със своите инициали на латиница. Запазете разширението <code>.html</code>.</li>
+<li>Разгледайте четирите изгледа. В <strong>HTML Tags</strong> открийте заглавие, абзац и списък. Върнете се в <strong>Normal</strong>.</li>
+</ol>
+
+<h2 id="task-2">5. Задача 2. Редактиране на съдържание</h2>
+<div class="task"><strong>Цел:</strong> превърнете началния образец в завършена учебна страница за училището.</div>
+<ol>
+<li>В изглед <strong>Normal</strong> променете главното заглавие на <strong>108 СУ „Никола Беловеждов“ — нашето училище</strong>.</li>
+<li>В раздел „За нашето училище“ заменете подканващия текст с 2–3 собствени изречения за училищния живот. Може да използвате сайта на училището за справка и да преразкажете информацията.</li>
+<li>В раздел „Последни новини“ заменете примерното заглавие и текста с покана за въображаема училищна работилница по уеб дизайн. Напишете 3–4 изречения: за кого е, какво ще се прави и къде ще се проведе.</li>
+<li>Запазете обозначението, че събитието е примерно. В долната част попълнете реда „Редактор“ с име или инициали и клас.</li>
+<li>Запазете промените с <strong>Ctrl+S</strong>.</li>
+</ol>
+
+<h2 id="task-3">6. Задача 3. Оформление, списък и таблица</h2>
+<ol>
+<li>Поставете курсора в главното заглавие и проверете, че от падащото меню за формат е избрано <strong>Heading 1</strong>. За заглавията на основните раздели използвайте <strong>Heading 2</strong>.</li>
+<li>Маркирайте ключова фраза в новината и я направете получерна с бутона <strong>B</strong>. Променете цвета на друга кратка фраза чрез цвета на текста в лентата за форматиране. Изберете тъмен цвят, който се чете върху белия фон.</li>
+<li>Добавете трети клуб в съществуващия списък. Поставете курсора в края на последната точка, натиснете <strong>Enter</strong> и въведете свое предложение.</li>
+<li>Променете деня и мястото на една дейност в таблицата. Добавете още един ред: поставете курсора в клетка от последния ред и използвайте <strong>Table → Insert → Row Below</strong>. Попълнете и трите клетки.</li>
+<li>Проверете дали заглавията, списъкът и таблицата са четливи, след което запазете файла.</li>
+</ol>
+
+<h2 id="task-4">7. Задача 4. Връзка и HTML код</h2>
+<ol>
+<li>В „Контакти и полезни връзки“ оставете текста „Официален сайт на училището“ и премахнете указанието след него.</li>
+<li>Маркирайте този текст. Изберете <strong>Insert → Link…</strong> или бутона <strong>Link</strong>, въведете адрес <code>https://www.108su.net/</code> и потвърдете.</li>
+<li>Преминете в <strong>&lt;HTML&gt; Source</strong>. Намерете главното заглавие между <code>&lt;h1&gt;</code> и <code>&lt;/h1&gt;</code> и новата връзка с <code>href="https://www.108su.net/"</code>. Обяснете кое е текстът на връзката и кое — адресът.</li>
+<li>Намерете елемента <code>&lt;title&gt;</code> в началото на документа и заменете само текста в него с <strong>Нашето училище — учебна страница</strong>. Запазете отварящия и затварящия таг.</li>
+<li>Върнете се в <strong>Normal</strong>, запазете файла и разгледайте <strong>Preview</strong>. Сравнете заглавието в страницата с името на раздела в браузъра след следващата проверка.</li>
+</ol>
+<aside class="note"><strong>Съвет.</strong> Променяйте само посочените текстове и елементи. Ако сгрешите, използвайте <strong>Ctrl+Z</strong>. Главното заглавие <code>h1</code> е част от видимото съдържание, а <code>title</code> задава заглавието на документа за браузъра.</aside>
+
+<h2 id="check">8. Проверка и предаване</h2>
+<p>След запазване изберете <strong>File → Browse Page</strong> или бутона <strong>Browse</strong>. Проверете връзките в отворилия се браузър. При последващи промени запазете отново в Composer и обновете страницата в браузъра.</p>
+<table><caption>Контролен списък</caption><thead><tr><th scope="col">Какво проверявате</th><th scope="col">Очакван резултат</th></tr></thead><tbody>
+<tr><td>Файл</td><td>Работното копие е с вашите инициали и разширение .html; отваря се повторно.</td></tr>
+<tr><td>Съдържание</td><td>Има ново главно заглавие, собствено представяне и учебна новина без останали подкани.</td></tr>
+<tr><td>Оформление</td><td>Има заглавия H1/H2, получерна фраза и четлив цветен текст.</td></tr>
+<tr><td>Списък и таблица</td><td>Поне 3 клуба и 3 попълнени реда с дейности, отделно от заглавния ред.</td></tr>
+<tr><td>Връзки</td><td>Новата връзка отваря официалния сайт; менюто води към разделите в страницата.</td></tr>
+<tr><td>HTML</td><td>Заглавието на документа е променено; кирилицата се показва правилно.</td></tr>
+<tr><td>Авторство</td><td>Попълнени са редактор и клас; запазени са източникът и обозначенията за учебен образец и примерни събития.</td></tr>
+</tbody></table>
+<p><strong>Предайте:</strong> файла <code>school-homepage-ИНИЦИАЛИ.html</code> по посочения от учителя начин. HTML файлът е самостоятелен и съдържа необходимото оформление.</p>
+
+<h2 id="online-editors">9. Онлайн HTML редактори</h2>
+<p>Онлайн редакторите работят в браузър и позволяват да изпробвате промени без инсталиране на софтуер. За работа с тях е необходим интернет.</p>
+<table><caption>Два инструмента за демонстрация и кратко упражнение</caption><thead><tr><th scope="col">Инструмент</th><th scope="col">Как се работи</th><th scope="col">Какво показва</th></tr></thead><tbody>
+<tr><td><a href="https://html-online.com/editor/" target="_blank" rel="noopener">HTML Online Editor</a></td><td>Редактирате съдържание във визуалното поле и наблюдавате съответния HTML код.</td><td>Връзката между визуалното форматиране и таговете.</td></tr>
+<tr><td><a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default" target="_blank" rel="noopener">W3Schools Tryit</a></td><td>Променяте HTML кода и натискате <strong>Run</strong>, за да видите резултата.</td><td>Как промените в кода променят страницата в браузъра.</td></tr>
+</tbody></table>
+<h3>Демонстрация с HTML Online Editor</h3>
+<ol>
+<li>Отворете редактора чрез връзката по-горе. Във визуалното поле въведете заглавие „Нашето училище“ и кратък абзац.</li>
+<li>Изберете формат за заглавие, а след това направете дума от абзаца получерна чрез бутона за форматиране.</li>
+<li>Наблюдавайте HTML полето. Открийте таговете на заглавието и на получения получерен текст. Сравнете с работата в изгледите <strong>Normal</strong> и <strong>&lt;HTML&gt; Source</strong> на Composer.</li>
+</ol>
+<h3>Демонстрация с W3Schools Tryit и готовия HTML файл</h3>
+<ol>
+<li>Отворете работното копие на <code>09-school-homepage.html</code> в Composer и преминете в <strong>&lt;HTML&gt; Source</strong>.</li>
+<li>Щракнете в полето с кода, маркирайте целия код с <strong>Ctrl+A</strong> и го копирайте с <strong>Ctrl+C</strong>.</li>
+<li>Отворете W3Schools Tryit. Щракнете в полето с примерния код, маркирайте съдържанието му и го заменете с копирания HTML чрез <strong>Ctrl+V</strong>.</li>
+<li>Натиснете <strong>Run</strong>. В полето с резултата ще се покаже учебната страница.</li>
+<li>Променете текста между <code>&lt;h1&gt;</code> и <code>&lt;/h1&gt;</code>, натиснете отново <strong>Run</strong> и обяснете резултата.</li>
+</ol>
+<aside class="note"><strong>Запазване на работата.</strong> Промените в онлайн редактора не променят автоматично локалния HTML файл. Ако искате да ги включите в работното си копие, копирайте обновения код от Tryit обратно в <strong>&lt;HTML&gt; Source</strong> на Composer, върнете се в <strong>Normal</strong> и запазете файла. HTML Online Editor използвайте за кратката демонстрация на форматиране; за целия документ с вградените му стилове използвайте Tryit.</aside>
+
+<h2 id="rights">10. HTML шаблони, авторство и лицензи</h2>
+<p><strong>HTML шаблонът</strong> е предварително подготвена структура, която се приспособява чрез редактиране на съдържанието и оформлението. Приложеният образец съдържа заглавна част, меню, раздели, списък, таблица и долна част. При редактиране пазете полезната структура и проверявайте работата на връзките.</p>
+<p>За това упражнение използвайте собствени текстове и посочвайте източниците на сведенията. Публично достъпна страница не означава автоматично разрешение да се копират всички нейни текстове, снимки и оформление.</p>
+<p>Лицензът описва условията за използване на чуждо произведение. При <strong>Creative Commons</strong> условията зависят от конкретния лиценз. <strong>GNU GPL</strong> е пример за лиценз за свободен софтуер. Лицензът на редактора и правата върху съдържанието на страницата са отделни въпроси.</p>
+<h3>Въпроси за самопроверка</h3>
+<ol><li>Каква е разликата между текстов и визуален HTML редактор?</li><li>В кой изглед на Composer редактирате HTML кода?</li><li>Как се различават <code>title</code> и <code>h1</code>?</li><li>Защо проверявате връзките в браузър?</li><li>Какво трябва да проверите, преди да използвате чужд шаблон или снимка?</li></ol>
+<h3>Източници и справка</h3>
+<ul><li><a href="https://www.108su.net/">Официален сайт на 108 СУ „Никола Беловеждов“</a> — информация за училището.</li><li><a href="https://www.seamonkey-project.org/doc/">SeaMonkey — документация</a>; в самата програма: <strong>Help → Help Contents → Creating Web Pages</strong>.</li><li><a href="https://creativecommons.org/share-your-work/cclicenses/">Creative Commons — видове лицензи</a>.</li><li><a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL — текст на лиценза</a>.</li></ul>
+<section class="course-addition" id="codepen"><h2>11. CodePen и избор на средство за работа</h2>
+<p><strong>Система за управление на съдържание (CMS)</strong>, например WordPress, позволява да създавате и подреждате страници и публикации през административен панел. Тя управлява съдържанието на сайт, докато редакторът на код ви дава пряк достъп до HTML, CSS и JavaScript. Визуален редактор като Composer улеснява оформянето на отделни HTML страници.</p>
+<p>Избирайте средство според задачата: редактор на код за пряка работа с файловете, визуален редактор за работа с елементи на страницата, CMS за управление на съдържание и онлайн среда за кратки опити и споделяне на резултата.</p>
+<h3>Първи опит в CodePen</h3>
+<p><a href="https://codepen.io/">CodePen</a> е онлайн среда за работа с HTML, CSS и JavaScript и преглед на резултата. HTML описва съдържанието, CSS — оформлението, а JavaScript — поведението. За създаване и запазване на собствен Pen използвайте своя акаунт.</p>
+<ol><li>Отворете редактора за нов Pen.</li><li>В областта за HTML поставете следния откъс:</li></ol>
+<pre><code>&lt;h1&gt;Фото клуб 108&lt;/h1&gt;
+&lt;p&gt;Създаваме и споделяме собствени фотографии.&lt;/p&gt;</code></pre>
+<p>В областта за CSS поставете:</p>
+<pre><code>h1 {
+  color: #254e70;
+}
+p {
+  font-size: 20px;
+}</code></pre>
+<ol start="3"><li>Намерете заглавието и абзаца в прегледа на резултата.</li><li>Променете заглавието в HTML. После променете цвета в CSS. Обяснете разликата между двете промени.</li><li>За тази задача оставете областта за JavaScript празна.</li><li>Дайте на Pen разбираемо име и го запазете. Запишете неговия адрес в документа на проекта.</li></ol>
+<aside class="note"><strong>Съдържание и достъп.</strong> Обикновените публични Pens могат да се виждат от други хора. Използвайте учебни текстове и измислени примерни данни. Запазването на Pen не променя локалния HTML файл, с който работихте в Composer.</aside>
+<p><strong>Ако не можете да влезете в CodePen:</strong> запишете HTML и CSS откъсите в документа на проекта и изпълнете същата промяна в локална страница. За CodePen отбележете кое поле бихте използвали за всеки откъс.</p>
+<details class="course-check"><summary>Самопроверка: редактор, технология и резултат</summary><ul><li>CodePen и Composer са инструменти за работа; HTML и CSS са технологии, с които описваме страницата.</li><li>Промяната на думите в HTML изменя съдържанието.</li><li>Промяната на цвета в CSS изменя оформлението.</li><li>Екранът с резултата показва как браузърът представя написаното.</li></ul></details>
+<p><a href="https://blog.codepen.io/documentation/pen-editor/">CodePen — ръководство за редактора (на английски)</a></p></section>
+<section class="course-context"><h2>Връзка с другите предмети</h2><p>Основните знания от СПП се допълват в разширената подготовка и се прилагат в учебната практика. Свързани уроци:</p><ul><li><a href="../Web%20design%20-%20Extended/06-Browsers-and-Compatibility.html">Уеб дизайн - Разширена подготовка — урок 6: Браузери – съвместимост, популярни браузери и развитие на браузерите</a></li><li><a href="../Web%20design%20-%20Extended/08-Browser-Extensions.html">Уеб дизайн - Разширена подготовка — урок 8: Плъгини на браузера</a></li><li><a href="../Web%20design%20-%20Practice/10-Specialized-Web-Editors.html">Уеб дизайн - Учебна практика — урок 10: Специализирани софтуерни средства за създаване на уеб сайтове</a></li></ul><p>Същият урок се изучава и в <a href="../Web-design-12/11-Specialized-Web-Editors.html">12. клас</a>.</p><nav class="pager" aria-label="Последователност на уроците"><a rel="prev" href="08-Web-Standards-and-Technologies.html">← Урок 8</a><a href="index.html">Всички уроци</a><a rel="next" href="10-Review-Planning-and-Design.html">Урок 10 →</a></nav></section></main>
+<footer>По темите от учебника по уеб дизайн, стр. 24–25. <p>11а клас · Уеб дизайн - СПП · Урок 9</p></footer>
+
+</body></html>
