@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 16: JavaScript - Създаване на калкулатор за цена и отстъпка | 11а клас — Уеб дизайн - Учебна практика</title><link rel="stylesheet" href="style.css"><style>.toplinks,.pager{display:flex;flex-wrap:wrap;gap:.65rem 1.2rem}.course-context{font:16px/1.65 Arial,sans-serif;color:#24213a;background:#f5f0f8;border:1px solid #ddd4e6;border-radius:10px;padding:1rem 1.25rem;margin:1.5rem auto;max-width:940px;box-sizing:border-box}.course-context a{color:#673d87;overflow-wrap:anywhere}.course-context h2{font-size:1.25rem;color:#4b2867}.course-context .pager{background:transparent;box-shadow:none;border:0;padding:0}button,input,select{font:inherit;max-width:100%}button{cursor:pointer;padding:.6rem 1rem;border:1px solid #673d87;border-radius:6px;background:#f5f0f8;color:#24213a}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #673d87;outline-offset:3px}fieldset{min-width:0}input{box-sizing:border-box}pre{max-width:100%;overflow-x:auto}.task{margin:1.25rem 0}.task h3{font-size:1.08rem}img,video{max-width:100%;height:auto}.table-wrap{max-width:100%;overflow-x:auto}</style></head>
+<body><a class="skip" href="#main">Към съдържанието</a><header><div class="eyebrow">11а клас · Уеб дизайн - Учебна практика · Урок 16</div><h1>JavaScript - Създаване на калкулатор за цена и отстъпка</h1><p>Прочетете числа от полета, проверете допустимите стойности и покажете изчислената крайна цена.</p></header>
+<main id="main"><nav class="toplinks" aria-label="Учебни раздели"><a href="../index.html">Всички предмети</a><a href="../Web%20design%20-%20SPP/index.html">Уеб дизайн - СПП</a><a href="../Web%20design%20-%20Practice/index.html">Уеб дизайн - Учебна практика</a><a href="../Web%20design%20-%20Extended/index.html">Уеб дизайн - Разширена подготовка</a></nav><section><h2>След урока ще можете да:</h2><ul><li>получавате числова стойност от input;</li><li>използвате променливи, условия и аритметични изрази;</li><li>обработвате празни и недопустими стойности с ясно съобщение.</li></ul></section><nav aria-label="Съдържание на урока"><h2>В този урок</h2><ol><li><a href="#idea">Как работи задачата</a></li><li><a href="#demo">Работещ пример</a></li><li><a href="#setup">Подгответе работата в CodePen</a></li><li><a href="#html">HTML — елементите</a></li><li><a href="#css">CSS — оформлението</a></li><li><a href="#javascript">JavaScript — поведението</a></li><li><a href="#practice">Самостоятелна работа</a></li><li><a href="#test">Проверете резултата</a></li><li><a href="#check">Самопроверка</a></li></ol></nav><section id="idea"><h2>1. Как работи задачата</h2><p>За начална цена 100 и отстъпка 20% спестената сума е 20, а крайната цена — 80. Използваме формулите:</p><pre>спестена сума = цена × (процент / 100)
+крайна цена = цена × (1 − процент / 100)</pre><p><code>valueAsNumber</code> връща числото от поле с type="number". При празна или неприемлива стойност може да получим <code>NaN</code> — „не е число“. <code>Number.isFinite</code> проверява дали имаме крайно число. След това проверяваме диапазона: цена поне 0 и процент от 0 до 100.</p><p>Събитието <code>submit</code> се получава и при бутона, и при обичайното изпращане с Enter. <code>preventDefault()</code> спира изпращането на формата, защото тук изчисляваме в браузъра. <code>novalidate</code> позволява да покажем собствените JavaScript съобщения. Това не отменя проверките в нашата функция.</p><p><code>return</code> прекратява функцията при грешка. <code>toFixed(2)</code> представя резултата с два знака след десетичната точка; то не проверява входа. Единиците в примера са условни.</p></section>
+<section id="demo"><h2>2. Работещ пример</h2><p><a href="../Web-design-12/files/25-javascript-example.html" target="_blank" rel="noopener">Отворете работещия пример</a> или <a href="../Web-design-12/files/25-javascript-example.html" download="25-javascript-example.html">изтеглете HTML файла</a>.</p><iframe src="../Web-design-12/files/25-javascript-example.html" title="Работещ пример: Калкулатор за цена и отстъпка" style="width:100%;height:570px;border:1px solid #b5c9d4;border-radius:8px"></iframe></section>
+<section id="setup"><h2>3. Подгответе работата в CodePen</h2><ol><li>Отворете нов Pen в CodePen.</li><li>Поставете HTML откъса в полето <strong>HTML</strong>, стиловете в <strong>CSS</strong>, а програмата в <strong>JS</strong>.</li><li>В полето JS не добавяйте тагове &lt;script&gt;. Запазете Pen с разбираемо име.</li><li>Сравнете резултата с примера и изпълнете задачите.</li></ol><p>За работа в локален файл изтеглете готовия пример. В него JavaScript е поставен след HTML елементите, преди затварящия таг body. Така елементите вече са създадени, когато кодът ги избира.</p></section>
+<section id="html"><h2>4. HTML — елементите</h2><pre><code class="language-html">&lt;h1&gt;Калкулатор за отстъпка&lt;/h1&gt;
+&lt;form id=&quot;calculator&quot; novalidate&gt;
+  &lt;label for=&quot;price&quot;&gt;Начална цена&lt;/label&gt;
+  &lt;input id=&quot;price&quot; name=&quot;price&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;any&quot; value=&quot;100&quot; required&gt;
+  &lt;label for=&quot;discount&quot;&gt;Отстъпка в проценти&lt;/label&gt;
+  &lt;input id=&quot;discount&quot; name=&quot;discount&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;100&quot; step=&quot;any&quot; value=&quot;20&quot; required&gt;
+  &lt;button type=&quot;submit&quot;&gt;Изчисли&lt;/button&gt;
+&lt;/form&gt;
+&lt;p id=&quot;result&quot; class=&quot;card&quot; role=&quot;status&quot;&gt;Въведете стойности и изберете „Изчисли“.&lt;/p&gt;</code></pre></section>
+<section id="css"><h2>5. CSS — оформлението</h2><pre><code class="language-css">* { box-sizing: border-box; }
+body { margin: 0; padding: 20px; font: 18px/1.6 Arial, sans-serif; color: #203244; background: #f5f8fa; }
+.demo { max-width: 680px; margin: auto; }
+h1 { font-size: 1.6rem; line-height: 1.25; }
+button { font: inherit; padding: .6rem 1rem; color: white; background: #254e70; border: 0; border-radius: 6px; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid #a06000; outline-offset: 3px; }
+input { display: block; width: 100%; max-width: 24rem; font: inherit; padding: .4rem; margin: .2rem 0 1rem; }
+.card { background: white; border: 1px solid #b5c9d4; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+[hidden] { display: none !important; }
+</code></pre></section>
+<section id="javascript"><h2>6. JavaScript — поведението</h2><pre><code class="language-javascript">const form = document.querySelector(&quot;#calculator&quot;);
+const priceInput = document.querySelector(&quot;#price&quot;);
+const discountInput = document.querySelector(&quot;#discount&quot;);
+const result = document.querySelector(&quot;#result&quot;);
+
+function calculate(event) {
+  event.preventDefault();
+  const price = priceInput.valueAsNumber;
+  const discount = discountInput.valueAsNumber;
+
+  if (!Number.isFinite(price) || price &lt; 0) {
+    result.textContent = &quot;Въведете валидна цена, която е поне 0.&quot;;
+    priceInput.focus();
+    return;
+  }
+  if (!Number.isFinite(discount) || discount &lt; 0 || discount &gt; 100) {
+    result.textContent = &quot;Въведете отстъпка между 0 и 100.&quot;;
+    discountInput.focus();
+    return;
+  }
+
+  const saved = price * (discount / 100);
+  const finalPrice = price * (1 - discount / 100);
+  result.textContent = &quot;Отстъпка: &quot; + saved.toFixed(2) +
+    &quot; ед. Крайна цена: &quot; + finalPrice.toFixed(2) + &quot; ед.&quot;;
+}
+
+form.addEventListener(&quot;submit&quot;, calculate);
+form.addEventListener(&quot;input&quot;, function () {
+  result.textContent = &quot;Стойностите са променени. Изберете отново „Изчисли“.&quot;;
+});</code></pre></section>
+<section id="practice"><h2>7. Самостоятелна работа</h2><ol><li>Създайте и запазете работещия калкулатор в CodePen.</li><li>Проверете всички редове от таблицата по-долу.</li><li>Променете началните стойности и текста на съобщенията.</li><li>Добавете отделен ред за началната цена, без да променяте формулите.</li><li>Променете стойност след успешно изчисление и проверете дали старият резултат е заменен с указание за ново изчисление.</li></ol><p><strong>Резултат:</strong> ваш работещ вариант и кратка бележка какво сте променили и проверили.</p></section>
+<section id="test"><h2>8. Проверете резултата</h2><div class="table-wrap"><table><thead><tr><th scope="col">Проверка</th><th scope="col">Очакван резултат</th></tr></thead><tbody><tr><td>Цена 100, отстъпка 20</td><td>Отстъпка 20.00; крайна цена 80.00.</td></tr><tr><td>Цена 120, отстъпка 0</td><td>Крайна цена 120.00.</td></tr><tr><td>Цена 120, отстъпка 100</td><td>Крайна цена 0.00.</td></tr><tr><td>Цена 0, отстъпка 50</td><td>Крайна цена 0.00.</td></tr><tr><td>Празно поле или отрицателна цена</td><td>Ясно съобщение за грешка, без стар резултат.</td></tr><tr><td>Отстъпка −1 или 101</td><td>Съобщение за допустимия диапазон.</td></tr><tr><td>Редакция след изчисление</td><td>Указание да изчислите отново.</td></tr></tbody></table></div></section>
+<section id="check"><h2>9. Самопроверка</h2><details><summary>Защо проверяваме числото преди смятане?</summary><p>Иначе празно поле или недопустима стойност може да доведе до неясен резултат.</p></details><details><summary>Защо 20% се дели на 100?</summary><p>Защото 20% е 20 от сто, тоест 0.20 като дял.</p></details><details><summary>Какво прави preventDefault?</summary><p>Спира стандартното изпращане на формата, за да обработим данните локално.</p></details><details><summary>Показва ли toFixed, че входът е правилен?</summary><p>Не. То само оформя вече изчисленото число като текст.</p></details></section>
+<section id="sources"><h2>Прочетете още</h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/valueAsNumber">MDN — valueAsNumber</a>. Повторете и <a href="../Web-design-12/18-HTML-Forms.html">урок 18 за формите</a>.</p></section><section class="course-context"><h2>Свързани уроци</h2><ul><li><a href="../Web%20design%20-%20SPP/16-JavaScript-Show-Hide.html">Уеб дизайн - СПП — урок 16: JavaScript - Показване и скриване на съдържание чрез бутон</a></li><li><a href="../Web%20design%20-%20Extended/17-DOM-Events-and-Interface-State.html">Уеб дизайн - Разширена подготовка — урок 17: JavaScript — DOM, събития и състояние на интерфейса</a></li></ul><p>Същият урок се изучава и в <a href="../Web-design-12/25-JavaScript-Discount-Calculator.html">12. клас</a>.</p><nav class="pager" aria-label="Последователност на уроците"><a rel="prev" href="15-Review-HTML-and-CSS.html">← Урок 15</a><a href="index.html">Всички уроци</a><a rel="next" href="17-JavaScript-Form-Validation.html">Урок 17 →</a></nav></section></main><footer>Уеб дизайн - Учебна практика · 11а клас · 2026/2027<p>11а клас · Уеб дизайн - Учебна практика · Урок 16</p></footer></body></html>
