@@ -25,4 +25,4 @@
 
 - Lesson and mission text is written for students. Keep development notes, implementation reasoning, and instructions for developers or teachers outside student-facing content.
 - Store each mission step's main heading only in `step_content.title`. Do not repeat it as an HTML heading in `step_content.instruction`; use subheadings only when they organize additional content.
-- Keep required image attribution accessible with a compact source link. Put longer author and license details on a separate sources page rather than interrupting the lesson or mission.
+- Image source links must lead directly to the external source, never through our own intermediary page. Include only the author and license information required for attribution; omit production notes such as “logos unchanged”. Original instructional diagrams do not need an invented external source.
