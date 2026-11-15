@@ -20,3 +20,9 @@
 - Student computers are controlled through the existing WinRM scripts. Keep the existing credential prompt and remote identity checks.
 - Files in a ChatGPT project mirror's `sources/` directory are read-only references.
 - Communicate with the user in Bulgarian, briefly and directly.
+
+## Student-facing lessons and missions
+
+- Lesson and mission text is written for students. Keep development notes, implementation reasoning, and instructions for developers or teachers outside student-facing content.
+- Store each mission step's main heading only in `step_content.title`. Do not repeat it as an HTML heading in `step_content.instruction`; use subheadings only when they organize additional content.
+- Keep required image attribution accessible with a compact source link. Put longer author and license details on a separate sources page rather than interrupting the lesson or mission.
