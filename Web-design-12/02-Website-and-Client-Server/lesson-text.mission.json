@@ -1,6 +1,6 @@
 {
   "mission_version": 4,
-  "mission_id": "web-design-client-server-lesson-text-20261115-c",
+  "mission_id": "web-design-client-server-lesson-text-20261115-d",
   "mission_content": {
     "title": "Уеб сайт и система клиент–сървър",
     "description": "Браузър, уеб сървър, хостване, адреси, HTTP и HTTPS, статично и динамично съдържание.",
@@ -36,40 +36,41 @@
         "id": "opening-question",
         "step_content": {
           "type": "multiple_choice",
-          "title": "Кой изпраща и кой показва?",
-          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><p>В примера с Уикипедия кои твърдения са верни?</p><p class=\"focus\"><strong>Отбележи всички верни отговори.</strong> Има повече от един верен отговор.</p></main></body></html>",
+          "title": "Как стига статията „България“ до екрана?",
+          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><p>Отваряш статията „България“ в Уикипедия. Кои твърдения описват ролите на браузъра и на уеб сървъра в този пример?</p><p class=\"focus\">Отбележи всички верни отговори.</p></main></body></html>",
           "options": [
             {
               "id": "answer-1",
-              "text": "Браузърът изпраща заявката за статията."
+              "text": "Chrome или Edge е клиентът, в който въвеждаш адреса."
             },
             {
               "id": "answer-2",
-              "text": "За да прочете статията, читателят трябва да хоства Уикипедия на своя компютър."
+              "text": "Уеб сървърът започва обмена, като пита браузъра коя статия искаш."
             },
             {
               "id": "answer-3",
-              "text": "Уеб сървърът изпраща съдържанието на страницата."
+              "text": "Браузърът изпраща заявката за статията „България“."
             },
             {
               "id": "answer-4",
-              "text": "Уеб сървърът показва страницата върху екрана вместо браузъра."
+              "text": "Уеб сървърът хоства сайта и изпраща поисканата страница."
             },
             {
               "id": "answer-5",
-              "text": "Браузърът получава съдържанието и показва страницата."
+              "text": "Хостинг е името на действието, с което браузърът показва текста на екрана."
             },
             {
               "id": "answer-6",
-              "text": "Уикипедия е друго име на Chrome."
+              "text": "Браузърът получава съдържанието и показва статията."
             }
           ],
           "correct_option_ids": [
             "answer-1",
             "answer-3",
-            "answer-5"
+            "answer-4",
+            "answer-6"
           ],
-          "feedback": "Браузърът заявява статията, сървърът изпраща съдържанието, а браузърът го показва. Читателят не е длъжен да има собствен уеб сървър. Уикипедия е сайт, а Chrome е браузър. Сайтът се хоства на уеб сървъра, който предоставя страниците му при заявка."
+          "feedback": "Когато въведеш адреса, браузърът пръв изпраща заявка. Уеб сървърът съхранява сайта и предоставя поисканата страница — това е хостинг. Браузърът показва получената статия на екрана."
         },
         "step_rules": {
           "time_limit_seconds": 0,
@@ -92,40 +93,42 @@
         "id": "model-question",
         "step_content": {
           "type": "multiple_choice",
-          "title": "Как уеб сървърът обслужва целия клас?",
-          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><p>Мария чете училищните новини с Edge, а Иван отваря същия адрес на телефона си. Кои твърдения описват правилно как работи системата?</p><p class=\"focus\">Отбележи всички верни отговори.</p></main></body></html>",
+          "title": "Кой е клиентът и какво прави уеб сървърът?",
+          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><p>Когато целият клас отвори Уикипедия, как ролите на учениците, браузърите и уеб сървъра обясняват обмена?</p><p class=\"focus\">Отбележи всички верни отговори.</p></main></body></html>",
           "options": [
             {
               "id": "answer-1",
-              "text": "Мария е потребителят, а Edge е клиентът, който иска страницата от нейно име."
+              "text": "Всеки ученик е потребител, а неговият браузър е клиент."
             },
             {
               "id": "answer-2",
-              "text": "След като Мария е отворила новината, браузърът на Иван използва нейната заявка като своя."
+              "text": "Браузърът на всеки ученик изпраща своя заявка за страницата."
             },
             {
               "id": "answer-3",
-              "text": "На сървърния компютър работи програма, която приема заявките и изпраща отговорите."
+              "text": "Тъй като сайтът е един, сървърът е длъжен да върне еднакво съдържание на всички."
             },
             {
               "id": "answer-4",
-              "text": "За да покаже новината, браузърът на всеки ученик трябва сам да вземе текста от базата данни на сайта."
+              "text": "„Уеб сървър“ може да означава както програмата, която обслужва заявките, така и компютъра, на който работи."
             },
             {
               "id": "answer-5",
-              "text": "Браузърът на Иван изпраща своя заявка и уеб сървърът може да му върне различно съдържание."
+              "text": "За да получат браузърите отговор от сървъра, той трябва да работи и да е достъпен по мрежата."
             },
             {
               "id": "answer-6",
-              "text": "Когато сайтът е записан на сървъра, той може да отговаря на нови заявки и при изключен сървърен компютър."
+              "text": "Уеб сървърът обслужва много клиенти и връща отговор на всеки от тях."
             }
           ],
           "correct_option_ids": [
             "answer-1",
-            "answer-3",
-            "answer-5"
+            "answer-2",
+            "answer-4",
+            "answer-5",
+            "answer-6"
           ],
-          "feedback": "Мария и Иван са потребители. Всеки браузър е отделен клиент и изпраща своя заявка. На достъпния по мрежата компютър работи уеб сървър. При нужда сървърното приложение взема новината от базата данни, а всеки браузър получава отговор и показва страницата."
+          "feedback": "Всеки ученик използва свой браузър. Неговата заявка достига по мрежата до програмата на сървърния компютър. Уеб сървърът отговаря на всеки браузър поотделно, затова отговорите могат да се различават дори когато всички отворят един и същ сайт."
         },
         "step_rules": {
           "time_limit_seconds": 0,
@@ -148,16 +151,16 @@
         "id": "address-question",
         "step_content": {
           "type": "multiple_choice",
-          "title": "Разчети адреса на урока",
-          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><p>За адреса https://martin-lift.github.io/108/Web-design-12/index.html кои твърдения са верни?</p><p class=\"focus\"><strong>Отбележи всички верни отговори.</strong> Има повече от един верен отговор.</p></main></body></html>",
+          "title": "Как се чете адресът на ресурса?",
+          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><p>Разгледай адреса от текста:<br><code>https://martin-lift.github.io/108/Web-design-12/index.html</code><br>Кои твърдения обясняват частите му и избора на начален документ?</p><p class=\"focus\">Отбележи всички верни отговори.</p></main></body></html>",
           "options": [
             {
               "id": "answer-1",
-              "text": "https е пътят до ресурса."
+              "text": "https указва използване на HTTP със защитена връзка."
             },
             {
               "id": "answer-2",
-              "text": "martin-lift.github.io е името на хоста."
+              "text": "martin-lift.github.io/108 е името на хоста."
             },
             {
               "id": "answer-3",
@@ -165,23 +168,24 @@
             },
             {
               "id": "answer-4",
-              "text": "Адресът, завършващ с /, винаги е невалиден."
+              "text": "index.html е името на хоста, защото стои в края на адреса."
             },
             {
               "id": "answer-5",
-              "text": "https указва използване на HTTP със защитена връзка."
+              "text": "martin-lift.github.io посочва хоста, към който се обръща браузърът."
             },
             {
               "id": "answer-6",
-              "text": "Всеки сървър е длъжен винаги да отваря index.html при адрес, завършващ с /."
+              "text": "При адрес, завършващ с /, сървърът може да предостави начален документ според настройките си."
             }
           ],
           "correct_option_ids": [
-            "answer-2",
+            "answer-1",
             "answer-3",
-            "answer-5"
+            "answer-5",
+            "answer-6"
           ],
-          "feedback": "https е схемата за защитения обмен, martin-lift.github.io е хостът, а останалата част е пътят. Адрес с / накрая може да отвори начален документ като index.html, но това зависи от настройките на сървъра и не е безусловно правило."
+          "feedback": "В този адрес схемата е https, а хостът е martin-lift.github.io. Наклонената черта след хоста започва пътя, затова /108 принадлежи към пътя. Името index.html в края посочва документ. Сървърът може да предостави начален документ и при адрес, който завършва с /."
         },
         "step_rules": {
           "time_limit_seconds": 0,
@@ -204,9 +208,9 @@
         "id": "http-question",
         "step_content": {
           "type": "open_answer",
-          "title": "Какво защитава HTTPS при вход в сайт?",
-          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><p>Дай пример със сайт, в който влизаш с парола. Обясни със свои думи какво определя HTTP за заявката и отговора и как HTTPS защитава паролата по пътя до уеб сървъра.</p></main></body></html>",
-          "reference_answer": "Например влизам в училищния портал. Браузърът изпраща заявка с данните за вход, а сървърът връща отговор. HTTP определя как са оформени заявките и отговорите и какво означават. При HTTPS браузърът и уеб сървърът криптират обмена. Така човек, който прихване данните по пътя, не може да прочете паролата."
+          "title": "Защо паролата се изпраща чрез HTTPS?",
+          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><p>Използвай примера от текста с въвеждането на парола. Обясни със свои думи какво определя HTTP за заявката и отговора. Кой изпраща паролата, до кого и какво би могъл да прочете човек, прихванал данните по пътя при HTTPS?</p></main></body></html>",
+          "reference_answer": "HTTP определя как изглеждат заявките и отговорите и какво означават. Например, когато въведа парола в сайт, браузърът ми я изпраща до уеб сървъра. При HTTPS данните се криптират при пренасянето им. Човек, който ги прихване по пътя, вижда криптирани данни и не може да прочете паролата."
         },
         "step_rules": {
           "time_limit_seconds": 0,
@@ -228,15 +232,48 @@
       {
         "id": "sequence-question",
         "step_content": {
-          "type": "open_answer",
-          "title": "От адреса до страницата",
-          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><p>Дай пример със страница, която посещаваш. Опиши със свои думи как тя се появява на екрана ти. Проследи действията на потребителя, браузъра и уеб сървъра. Обясни отделно какво се добавя, ако адресът започва с HTTPS вместо HTTP.</p></main></body></html>",
-          "reference_answer": "Например искам да прочета училищните новини. Аз въвеждам адреса и натискам Enter. Браузърът установява връзка с уеб сървъра. При HTTPS браузърът и сървърът създават криптирана сесия, която защитава данните от прочитане и незабелязана промяна по пътя. Браузърът изпраща заявка за страницата. Сървърът получава заявката, подготвя съдържанието и го изпраща като отговор. Браузърът получава отговора, обработва го и показва страницата на моя екран."
+          "type": "multiple_choice",
+          "title": "В какъв ред се зарежда страницата?",
+          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><p>Потребителят въвежда HTTPS адрес и натиска Enter. Кои твърдения поставят действията на браузъра и уеб сървъра в правилния ред?</p><p class=\"focus\">Отбележи всички верни отговори.</p></main></body></html>",
+          "options": [
+            {
+              "id": "answer-1",
+              "text": "Браузърът първо показва страницата и след това изпраща заявката за нейното съдържание."
+            },
+            {
+              "id": "answer-2",
+              "text": "Браузърът установява връзка с уеб сървъра, който предоставя сайта."
+            },
+            {
+              "id": "answer-3",
+              "text": "Браузърът и уеб сървърът създават криптирана сесия преди изпращането на заявката за страницата."
+            },
+            {
+              "id": "answer-4",
+              "text": "След като получи заявката, уеб сървърът подготвя поисканото съдържание."
+            },
+            {
+              "id": "answer-5",
+              "text": "Уеб сървърът изпраща подготвеното съдържание като отговор към браузъра."
+            },
+            {
+              "id": "answer-6",
+              "text": "След като получи отговора, браузърът обработва съдържанието и показва страницата."
+            }
+          ],
+          "correct_option_ids": [
+            "answer-2",
+            "answer-3",
+            "answer-4",
+            "answer-5",
+            "answer-6"
+          ],
+          "feedback": "След Enter браузърът се свързва със сървъра. При HTTPS двамата установяват защитена връзка. Следват заявката на браузъра и отговорът на сървъра. Едва когато получи съдържанието, браузърът може да го обработи и покаже."
         },
         "step_rules": {
           "time_limit_seconds": 0,
           "automatic_feedback": true,
-          "ai_feedback": false
+          "do_not_shuffle_answers": false
         }
       },
       {
@@ -253,15 +290,47 @@
       {
         "id": "changes-question",
         "step_content": {
-          "type": "open_answer",
-          "title": "Готова страница или съдържание според заявката?",
-          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><p>Училищният сайт има страница с правилата за кабинета и начална страница с лично приветствие и последните новини. Обясни със свои думи как сървърът може да предоставя всяка от тях. Дай пример какво ще видят двама различни ученици днес и какво може да види единият утре.</p></main></body></html>",
-          "reference_answer": "Учителят записва правилата предварително. Мария и Иван получават една и съща записана страница, докато учителят не публикува нова версия. Началната страница сървърът подготвя при заявката. Днес той може да изпрати „Здравей, Мария!“ на Мария и „Здравей, Иван!“ на Иван, като и на двамата покаже днешните новини. Ако утре има нова статия, Мария ще види същото лично приветствие, но новата статия ще е най-отгоре."
+          "type": "multiple_choice",
+          "title": "Как се подготвя съдържанието на страницата?",
+          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><p>Кои твърдения обясняват примерите с правилата за кабинета, личното приветствие, часа и новините?</p><p class=\"focus\">Отбележи всички верни отговори.</p></main></body></html>",
+          "options": [
+            {
+              "id": "answer-1",
+              "text": "При статичната страница Мария и Иван получават правилата, които учителят е записал предварително."
+            },
+            {
+              "id": "answer-2",
+              "text": "Когато учителят поправи правилата и публикува обновения файл, страницата става динамична."
+            },
+            {
+              "id": "answer-3",
+              "text": "При динамично генериране сървърът може да включи „Здравей, Мария!“ или „Здравей, Иван!“ според профила."
+            },
+            {
+              "id": "answer-4",
+              "text": "При по-късно отваряне на същия адрес сървърът може да включи новия час в отговора."
+            },
+            {
+              "id": "answer-5",
+              "text": "За да види утрешните новини, читателят задължително трябва да отвори друг адрес."
+            },
+            {
+              "id": "answer-6",
+              "text": "Сървърът може да подготви страницата с най-новите статии при всяка заявка."
+            }
+          ],
+          "correct_option_ids": [
+            "answer-1",
+            "answer-3",
+            "answer-4",
+            "answer-6"
+          ],
+          "feedback": "Правилата остават статична страница и след редакция: сървърът изпраща готовия файл. При динамичната страница той подготвя отговора при заявката и може да включи името от профила, текущия час или последните статии. Така един и същ адрес може да показва различно съдържание."
         },
         "step_rules": {
           "time_limit_seconds": 0,
           "automatic_feedback": true,
-          "ai_feedback": false
+          "do_not_shuffle_answers": false
         }
       }
     ]
