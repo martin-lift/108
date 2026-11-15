@@ -1,6 +1,6 @@
 {
   "mission_version": 4,
-  "mission_id": "web-design-client-server-lesson-text-20261115-d",
+  "mission_id": "web-design-client-server-lesson-text-20261115-e",
   "mission_content": {
     "title": "Уеб сайт и система клиент–сървър",
     "description": "Браузър, уеб сървър, хостване, адреси, HTTP и HTTPS, статично и динамично съдържание.",
@@ -331,6 +331,17 @@
           "time_limit_seconds": 0,
           "automatic_feedback": true,
           "do_not_shuffle_answers": false
+        }
+      },
+      {
+        "id": "review-text",
+        "step_content": {
+          "type": "information",
+          "title": "Въпроси и отговори",
+          "instruction": "<!doctype html><html lang=\"bg\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;color:#25243a;background:#fff;font:20px/1.65 \"Segoe UI\",Arial,sans-serif}main{max-width:860px;margin:auto;padding:22px}h1{font-size:30px;line-height:1.25;color:#54316f;margin:0 0 18px}h2{font-size:23px;color:#54316f}p{margin:12px 0}li{margin:7px 0}.focus{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.example{padding:14px 18px;background:#eef7fb;border-radius:10px}figure{margin:20px 0;padding:14px;background:#f8f7fb;border:1px solid #ded8e8;border-radius:12px}figure svg{display:block;width:100%;height:auto}figcaption{font-size:14px;color:#54515e;margin-top:9px}a{color:#553176;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:18px}td,th{border:1px solid #d8cfe1;padding:10px;text-align:left;vertical-align:top}th{background:#f3edf8}.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:center}.logos span{display:flex;align-items:center;gap:9px}.logos img{width:54px;height:54px;object-fit:contain}.small{font-size:14px;color:#54515e}@media(max-width:500px){body{font-size:18px}main{padding:14px}h1{font-size:26px}table{font-size:16px}}.task{padding:14px 18px;background:#f3edf8;border-left:5px solid #79509b;border-radius:8px}.table-wrap{overflow-x:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}details{padding:10px 0;border-bottom:1px solid #ddd}summary{font-weight:600}</style></head><body><main><h2>Кой е клиентът при отваряне на уеб страница?</h2><p>Клиентът е браузърът. Потребителят е човекът, който използва браузъра.</p>\n<h2>Какво означава, че уеб сървърът „хоства“ сайт?</h2><p>Уеб сървърът съхранява сайта и изпраща неговите страници, когато клиент ги поиска.</p>\n<h2>Кой започва обмена — клиентът или сървърът?</h2><p>Клиентът започва обмена със заявка. Уеб сървърът получава заявката и изпраща отговор.</p>\n<h2>Кой показва текста и цветовете на екрана?</h2><p>Браузърът обработва получените ресурси и представя страницата.</p>\n<h2>Каква е разликата между заявка и отговор?</h2><p>Заявката е искането на клиента, а отговорът е резултатът, върнат от сървъра.</p><figure><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 235\" role=\"img\" aria-label=\"Браузърът изпраща заявка; уеб сървърът връща отговор.\"><rect width=\"760\" height=\"235\" rx=\"12\" fill=\"#f8f7fb\"/><rect x=\"20\" y=\"70\" width=\"215\" height=\"100\" rx=\"12\" fill=\"#eee6f6\" stroke=\"#b8a5cd\" stroke-width=\"2\"/><text x=\"127.5\" y=\"107\" font-family=\"Segoe UI,Arial,sans-serif\" font-size=\"20\" fill=\"#29243a\" text-anchor=\"middle\">Браузър</text><text x=\"127.5\" y=\"133\" font-family=\"Segoe UI,Arial,sans-serif\" font-size=\"20\" fill=\"#29243a\" text-anchor=\"middle\">КЛИЕНТ</text><rect x=\"525\" y=\"70\" width=\"215\" height=\"100\" rx=\"12\" fill=\"#eee6f6\" stroke=\"#b8a5cd\" stroke-width=\"2\"/><text x=\"632.5\" y=\"120\" font-family=\"Segoe UI,Arial,sans-serif\" font-size=\"20\" fill=\"#29243a\" text-anchor=\"middle\">Уеб сървър</text><path d=\"M250 98 L510 98\" stroke=\"#71508f\" stroke-width=\"4\" fill=\"none\"/><path d=\"M500 91 L510 98 L500 105\" stroke=\"#71508f\" stroke-width=\"4\" fill=\"none\"/><text x=\"380\" y=\"77\" font-family=\"Segoe UI,Arial,sans-serif\" font-size=\"18\" fill=\"#29243a\" text-anchor=\"middle\">Заявка: дай страницата</text><path d=\"M510 150 L250 150\" stroke=\"#26777b\" stroke-width=\"4\" fill=\"none\"/><path d=\"M260 143 L250 150 L260 157\" stroke=\"#26777b\" stroke-width=\"4\" fill=\"none\"/><text x=\"380\" y=\"186\" font-family=\"Segoe UI,Arial,sans-serif\" font-size=\"18\" fill=\"#29243a\" text-anchor=\"middle\">Отговор: съдържанието</text></svg><figcaption>Браузърът изпраща заявка; уеб сървърът връща отговор.</figcaption></figure></main></body></html>"
+        },
+        "step_rules": {
+          "time_limit_seconds": 0
         }
       }
     ]
