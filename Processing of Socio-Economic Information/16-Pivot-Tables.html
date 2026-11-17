@@ -1,6 +1,186 @@
-<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 16: Обобщаващи таблици</title><style>
-:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f5f5fa;color:#202236;font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:24px 18px 70px}header{background:#32245f;color:white;padding:42px max(18px,calc((100vw - 864px)/2));}header p{margin:0;color:#ded6ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.2;margin:.4em 0}h2{font-size:1.55rem;line-height:1.3;color:#40317d;margin:0 0 12px}h3{font-size:1.1rem;margin:1.2em 0 .3em}section{background:white;border:1px solid #e4e1ef;border-radius:14px;padding:24px 28px;margin:20px 0}p{margin:.5em 0 1em}li{margin:.35em 0}.note{border-left:4px solid #7955c9;background:#f3efff;padding:10px 16px;border-radius:5px}.task{background:#faf7ff;border-left:4px solid #7955c9;padding:14px 18px;margin-top:14px}nav a{display:inline-block;margin:0 12px 8px 0;color:#49358e}code{background:#f0edf6;padding:2px 5px;border-radius:4px}table{width:100%;border-collapse:collapse;font-size:.94em}th,td{border:1px solid #ddd9e9;padding:9px;text-align:left}th{background:#efeafa}footer{font-size:.85em;color:#666;text-align:center}@media(max-width:600px){section{padding:19px 17px}body{font-size:16px}}
-</style></head><body><header><p>Обработка на социално-икономическа информация · Урок 16</p><h1>Обобщаващи таблици</h1><p>Групиране, обобщаване и сравняване на голям набор от данни.</p></header><main><nav><a href="index.html">Всички уроци</a></nav><section><h2>1. Какво е обобщаваща таблица?</h2><p>Обобщаващата таблица (PivotTable) позволява бързо да групираме и обобщаваме голям набор от данни, без да променяме източника.</p></section>
-<section><h2>2. Основни области</h2><ul><li><strong>Rows</strong> — категории по редове.</li><li><strong>Columns</strong> — категории по колони.</li><li><strong>Values</strong> — числата, които се обобщават чрез Sum, Average, Count и други.</li><li><strong>Filters</strong> — филтриране на цялото обобщение.</li></ul></section>
-<section><h2>3. Създаване</h2><ol><li>Щракнете в източника на данни.</li><li>Изберете <strong>Insert → PivotTable</strong>.</li><li>Проверете диапазона и изберете място за обобщаващата таблица.</li><li>Преместете полетата в Rows, Columns, Values и Filters.</li></ol><p>При промяна на изходните данни използвайте <strong>Refresh</strong>, за да обновите резултатите.</p></section>
-<section><h2>4. Файл за упражнения</h2><p><a href="16-pivot-tables-practice.xlsx" download><strong>16-pivot-tables-practice.xlsx</strong></a></p><p>Създайте обобщения по регион, категория, търговец и месец и проверете как се променят резултатите при Sum и Average.</p></section><footer>Урок 16 · Обработка на социално-икономическа информация</footer></main></body></html>
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Урок 16: Обобщаващи таблици (Pivot Table)</title>
+<style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f5f5fa;color:#202236;font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:24px 18px 70px}header{background:#32245f;color:white;padding:42px max(18px,calc((100vw - 864px)/2));}header p{margin:0;color:#ded6ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.2;margin:.4em 0}h2{font-size:1.55rem;line-height:1.3;color:#40317d;margin:0 0 12px}h3{font-size:1.1rem;margin:1.2em 0 .3em}section{background:white;border:1px solid #e4e1ef;border-radius:14px;padding:24px 28px;margin:20px 0}p{margin:.5em 0 1em}li{margin:.35em 0}.note{border-left:4px solid #7955c9;background:#f3efff;padding:10px 16px;border-radius:5px}.task{background:#faf7ff;border-left:4px solid #7955c9;padding:14px 18px;margin-top:14px}nav a{display:inline-block;margin:0 12px 8px 0;color:#49358e}code{background:#f0edf6;padding:2px 5px;border-radius:4px}table{width:100%;border-collapse:collapse;font-size:.94em}th,td{border:1px solid #ddd9e9;padding:9px;text-align:left}th{background:#efeafa}footer{font-size:.85em;color:#666;text-align:center}@media(max-width:600px){section{padding:19px 17px}body{font-size:16px}}
+
+.table-scroll{overflow-x:auto}caption{text-align:left;font-weight:600;margin-bottom:8px}a{overflow-wrap:anywhere}.task h3{margin-top:0}summary{cursor:pointer;font-weight:600}details{margin:16px 0}td.num,th.num{text-align:right;white-space:nowrap}</style>
+</head>
+<body>
+<header>
+<p>Обработка на социално-икономическа информация · Урок 16</p>
+<h1>Обобщаващи таблици (Pivot Table)</h1>
+<p>Как да превърнем списък с продажби в разбираем отчет.</p>
+</header>
+<main>
+<nav aria-label="Навигация"><a href="index.html">Всички уроци</a><a href="#practice">Към задачите</a></nav>
+
+<section>
+<h2>1. Какво е обобщаваща таблица?</h2>
+<p>Представете си списък с продажби: всеки ред описва една продажба, а колоните съдържат месец, регион, търговец, продукт, категория и сума. За да разберем кой регион има най-висока обща стойност на продажбите, трябва да съберем сумите за всички негови редове.</p>
+<p><strong>Обобщаващата таблица (Pivot Table, в Excel: PivotTable)</strong> групира записите по избрани признаци и изчислява резултат за всяка група. Например можем да покажем общата сума по региони, средната стойност на продажба или броя на продажбите. Изходният списък остава непроменен.</p>
+<p>Думата <em>pivot</em> означава завъртане. Като преместваме полетата между редовете и колоните, разглеждаме едни и същи данни от различни гледни точки. Не е нужно да пишем отделна формула за всяка група.</p>
+<p class="note">В края на урока ще можете да подготвите източник, да създадете две обобщаващи таблици, да изберете подходящо изчисление, да филтрирате и обновявате резултатите.</p>
+</section>
+
+<section>
+<h2>2. Файлът и подготовката на данните</h2>
+<p><a href="16-pivot-tables-practice.xlsx" download><strong>Изтеглете файла за упражнения (.xlsx)</strong></a> и го запазете на компютъра. Той съдържа лист <strong>„Продажби“</strong> с 18 записа за януари–юни 2026 г. и лист <strong>„Упражнения“</strong> със седем задачи. Същите задачи са развити стъпка по стъпка по-долу.</p>
+<p>Източникът е <strong>„Продажби“!A1:G19</strong>. Ред 1 съдържа заглавията: <strong>Дата, Месец, Регион, Търговец, Продукт, Категория, Сума</strong>. Един ред е една продажба. „Сума“ е стойността на целия запис, а не единична цена или брой продадени артикули.</p>
+<ul>
+<li>Всяка колона трябва да има собствено непразно заглавие.</li>
+<li>Не включвайте празни редове, слети клетки или предварително изчислен ред „Общо“ в източника. Иначе може да пропуснете записи или да ги преброите два пъти.</li>
+<li>Стойностите в <strong>G2:G19</strong> трябва да са числа. Паричният формат променя изгледа, но не превръща текст в число.</li>
+<li>Използвайте еднакви имена за една и съща категория. „Техника“ и „Техника “ с интервал накрая могат да образуват различни групи.</li>
+</ul>
+<p class="note">За този урок използвайте готовото поле <strong>„Месец“</strong>. Датите в колона A са записани като текст във вида <code>2026-01-05</code>, затова тук не разчитаме на автоматично групиране на дати. Месеците са текстови имена и може да се подредят по азбучен ред. Подредете ги ръчно: Януари, Февруари, Март, Април, Май, Юни. При данни от няколко години ще трябва да разграничите и годината.</p>
+</section>
+
+<section>
+<h2>3. Четирите области на обобщението</h2>
+<p>Поле означава колона от източника. Поставянето на едно поле в различна област променя въпроса, на който отговаря отчетът.</p>
+<div class="table-scroll"><table>
+<caption>Пример: продажби по региони и категории</caption>
+<thead><tr><th scope="col">Област в Excel / Calc</th><th scope="col">Предназначение</th><th scope="col">Поле от файла</th></tr></thead>
+<tbody>
+<tr><td>Rows / Row Fields (Редове)</td><td>По една група на ред</td><td>Регион</td></tr>
+<tr><td>Columns / Column Fields (Колони)</td><td>По една група в колона</td><td>Категория</td></tr>
+<tr><td>Values / Data Fields (Стойности / Данни)</td><td>Полето, върху което извършваме изчисление</td><td>Сума, функция Sum</td></tr>
+<tr><td>Filters / Page Fields (Филтри)</td><td>Ограничава записите за цялото обобщение</td><td>Месец, например само Януари</td></tr>
+</tbody></table></div>
+<p>Клетката на пресечната точка на ред „Запад“ и колона „Техника“ събира само записите, които едновременно са от регион Запад и категория Техника. Ако зададем и филтър за Януари, ще останат само записите, отговарящи и на това условие.</p>
+<h3>Sum, Average и Count отговарят на различни въпроси</h3>
+<ul>
+<li><strong>Sum (Сума):</strong> каква е общата стойност на продажбите? За Запад: 2 900 + 500 + 780 + 1 770 + 760 + 1 680 = <strong>8 390</strong>.</li>
+<li><strong>Average (Средно):</strong> каква е средната стойност на един запис? За Запад: 8 390 ÷ 6 = <strong>1 398,33</strong> след закръгляване до два знака.</li>
+<li><strong>Count (Брой):</strong> колко непразни стойности има? При поле „Сума“ и този попълнен източник за Запад получаваме <strong>6 продажби</strong>, а не 6 артикула.</li>
+</ul>
+<p class="note">В „Стойности“ поставете полето „Сума“ и отделно изберете функцията <strong>Sum</strong> или <strong>Average</strong>. Името на колоната не определя автоматично правилното изчисление. Ако виждате Count вместо Sum, проверете дали сумите са числа.</p>
+</section>
+
+<section>
+<h2>4. Как се създава таблицата?</h2>
+<p>Следвайте указанията за програмата, с която работите. Имената на командите може да са преведени според езика на интерфейса.</p>
+<h3>В Microsoft Excel</h3>
+<ol>
+<li>В лист „Продажби“ маркирайте <strong>A1:G19</strong>. По желание изберете <strong>Insert → Table</strong> и потвърдете <strong>My table has headers</strong>.</li>
+<li>Щракнете в данните и изберете <strong>Insert → PivotTable</strong>. Проверете, че източникът включва всички седем колони и 18 записа.</li>
+<li>Изберете <strong>New Worksheet</strong> и потвърдете. Преименувайте листа на <strong>„По региони“</strong>.</li>
+<li>В панела <strong>PivotTable Fields</strong> преместете „Регион“ в <strong>Rows</strong> и „Сума“ в <strong>Values</strong>.</li>
+<li>От менюто на полето в Values отворете <strong>Value Field Settings → Summarize Values By → Sum</strong>. За числата задайте два десетични знака чрез <strong>Number Format</strong>.</li>
+</ol>
+<h3>В LibreOffice Calc</h3>
+<ol>
+<li>В лист „Продажби“ маркирайте <strong>A1:G19</strong>. За упражнението е достатъчен обикновен диапазон с правилни заглавия.</li>
+<li>Изберете <strong>Data → Pivot Table → Insert or Edit</strong> (Данни → Обобщаваща таблица → Вмъкване или редактиране). В диалога за източник потвърдете <strong>Current selection</strong> (Текуща селекция).</li>
+<li>Преместете „Регион“ в <strong>Row Fields</strong>, а „Сума“ в <strong>Data Fields</strong>.</li>
+<li>Щракнете два пъти върху „Сума“ в Data Fields и изберете функция <strong>Sum</strong>.</li>
+<li>Разгънете <strong>Source and Destination</strong>, ако е необходимо. Проверете източника и изберете <strong>New sheet</strong> за резултата. Потвърдете и назовете листа <strong>„По региони“</strong>.</li>
+</ol>
+<p>За промяна на оформлението в Excel щракнете в резултата и използвайте списъка с полета. В Calc щракнете в резултата и отворете <strong>Data → Pivot Table → Insert or Edit</strong>. Преместването на поле извън областта го премахва от отчета, без да изтрива изходната колона.</p>
+</section>
+
+<section>
+<h2>5. Разгледан пример: продажби по региони</h2>
+<p>При <strong>Редове = Регион</strong> и <strong>Стойности = Sum на Сума</strong>, без филтър, получаваме:</p>
+<table>
+<caption>Обща стойност на продажбите от примерния файл</caption>
+<thead><tr><th scope="col">Регион</th><th scope="col" class="num">Sum на Сума</th></tr></thead>
+<tbody><tr><th scope="row">Запад</th><td class="num">8 390,00</td></tr><tr><th scope="row">Изток</th><td class="num">9 175,00</td></tr><tr><th scope="row">Юг</th><td class="num">5 935,00</td></tr><tr><th scope="row">Общо</th><td class="num"><strong>23 500,00</strong></td></tr></tbody>
+</table>
+<p>Изток има най-висока обща стойност. Разликата спрямо Запад е 9 175 − 8 390 = <strong>785</strong>. Това е сравнение на стойности на продажби. Само от него не можем да заключим кой регион е с най-голяма печалба, защото нямаме данни за разходите.</p>
+<p>Ако добавим „Категория“ в Колони, сумата за Запад се разделя на <strong>Техника: 6 350</strong>, <strong>Аксесоари: 1 280</strong> и <strong>Консумативи: 760</strong>. Проверка: 6 350 + 1 280 + 760 = 8 390.</p>
+</section>
+
+<section id="practice">
+<h2>6. Практическа работа: седемте задачи от файла</h2>
+<p>Работете последователно. Запазете двете обобщаващи таблици в отделни листове <strong>„По региони“</strong> и <strong>„По търговци“</strong>. Не въвеждайте контролните резултати ръчно в клетките на обобщението.</p>
+
+<div class="task">
+<h3>Задача 1. Подгответе източника</h3>
+<p>Превърнете диапазона в Excel Table или проверете дали заглавията са коректни и няма празни редове.</p>
+<ol><li>Отворете „Продажби“ и проверете <strong>A1:G19</strong> по правилата от раздел 2.</li><li>В Excel можете да създадете Table със заглавия. В Calc използвайте директно проверения диапазон.</li><li>Уверете се, че всички 18 суми са числови. С <code>=SUM(G2:G19)</code> в свободна клетка извън източника проверете общата стойност: <strong>23 500</strong>. Не включвайте тази клетка в източника на обобщението.</li></ol>
+</div>
+
+<div class="task">
+<h3>Задача 2. Обобщете продажбите по регион</h3>
+<p>Създайте обобщаваща таблица: <strong>Регион в Rows, Сума в Values (Sum)</strong>.</p>
+<ol><li>Следвайте стъпките за Excel или Calc от раздел 4. Поставете резултата в нов лист „По региони“.</li><li>Оставете Колони и Филтри празни. Включете общия сбор, ако не се вижда.</li><li>Сравнете резултата с примера от раздел 5. Отговорете: кой регион е с най-висока сума и с колко изпреварва втория?</li></ol>
+</div>
+
+<div class="task">
+<h3>Задача 3. Сравнете региони и категории</h3>
+<p>Добавете <strong>Категория в Columns</strong> и сравнете продажбите по региони и категории.</p>
+<ol><li>Редактирайте първата таблица. Запазете Регион в Редове и Sum на Сума в Стойности.</li><li>Преместете „Категория“ в Колони. Вече всяка клетка обобщава конкретна комбинация от регион и категория.</li><li>Намерете продажбите на „Техника“ за всеки регион. Къде са най-високи? Сравнете и общите стойности на трите категории.</li></ol>
+<p>Проверка: общият сбор остава <strong>23 500</strong>. Добавянето на колони разпределя същите записи в повече групи. Празна пресечна клетка означава, че няма запис за тази комбинация.</p>
+</div>
+
+<div class="task">
+<h3>Задача 4. Създайте отчет по търговци и месеци</h3>
+<p>Създайте втора обобщаваща таблица: <strong>Търговец в Rows, Месец в Columns, Сума в Values</strong>.</p>
+<ol><li>Върнете се в „Продажби“ и създайте нова обобщаваща таблица от същия източник <strong>A1:G19</strong>. Използвайте нов лист „По търговци“.</li><li>Поставете „Търговец“ в Редове, „Месец“ в Колони, „Сума“ в Стойности и задайте <strong>Sum</strong>. Засега не задавайте филтър.</li><li>Подредете месеците от Януари до Юни. Сравнете общите стойности по търговци и по месеци.</li><li>Запишете кой търговец има най-висока обща сума и през кой месец е най-висока сумата за всички търговци.</li></ol>
+<p>Проверка: за Анна общата сума е <strong>6 850</strong>, а за Март общо е <strong>5 970</strong>. Празна клетка означава, че за съответния търговец и месец няма запис. Не я тълкувайте като отделна продажба с нулева стойност.</p>
+</div>
+
+<div class="task">
+<h3>Задача 5. Покажете само категория „Техника“</h3>
+<p>Добавете филтър по <strong>Категория</strong> и покажете само <strong>„Техника“</strong>.</p>
+<ol><li>Работете във втората таблица, „По търговци“. Поставете „Категория“ във <strong>Filters</strong> в Excel или <strong>Page Fields</strong> в Calc.</li><li>От падащия списък над резултата изберете само „Техника“. Оставете функцията Sum.</li><li>Сравнете общия сбор с този преди филтрирането. Проверете дали Анна остава с най-висока сума.</li></ol>
+<p>Проверка: общият сбор за „Техника“ е <strong>17 470</strong>. Филтърът променя само този отчет. Всичките 18 изходни записа остават в „Продажби“.</p>
+</div>
+
+<div class="task">
+<h3>Задача 6. Сравнете Sum и Average</h3>
+<p>Променете обобщаването на „Сума“ от <strong>Sum</strong> на <strong>Average</strong> и сравнете резултата.</p>
+<ol><li>В „По търговци“ запазете филтъра „Техника“. Преди промяната запишете сумите за Анна и Борис.</li><li>В Excel отворете <strong>Value Field Settings → Summarize Values By → Average</strong>. В Calc редактирайте оформлението, щракнете два пъти върху полето в Data Fields и изберете <strong>Average</strong>.</li><li>Покажете два десетични знака. Сравнете колоната с общия резултат за всеки търговец, а не само отделните месеци.</li><li>Обяснете защо търговецът с най-висока обща сума може да няма най-висока средна стойност на продажба.</li></ol>
+<p>Пример за проверка: Анна има 3 продажби на техника с обща сума <strong>6 350</strong> и средно <strong>2 116,67</strong>. Борис има 2 такива продажби с обща сума <strong>5 610</strong> и средно <strong>2 805,00</strong>. По обща сума на техниката води Анна, а по средна стойност води Борис. В отделна месечна клетка с един запис Sum и Average съвпадат, затова сравняваме и общите резултати по търговци.</p>
+</div>
+
+<div class="task">
+<h3>Задача 7. Променете източника и обновете отчета</h3>
+<p>Променете една сума в източника, обновете обобщаващата таблица (<strong>Refresh</strong>) и проверете промяната.</p>
+<ol><li>За ясна проверка върнете „По търговци“ на <strong>Sum</strong> и филтър <strong>Всички категории</strong>. В „По региони“ също използвайте Sum без филтър.</li><li>В „Продажби“ променете <strong>G2 от 2 900 на 3 000</strong>. Това е продажбата на Анна от регион Запад през Януари, категория Техника.</li><li>Обновете всяка от двете таблици: в Excel щракнете в нея и изберете <strong>Refresh</strong> от контекстното меню. В Calc използвайте <strong>Data → Pivot Table → Refresh</strong>.</li><li>Проверете увеличението със 100: общ сбор <strong>23 600</strong>, Запад <strong>8 490</strong>, Анна <strong>6 950</strong>, Януари <strong>4 635</strong>. Ако „Категория“ още е в Колони на първия отчет, клетката Запад/Техника става <strong>6 450</strong>.</li><li>Върнете G2 на <strong>2 900</strong> и обновете и двата отчета отново. Общият сбор трябва отново да е <strong>23 500</strong>. Запазете работата си.</li></ol>
+<p class="note">Refresh преизчислява обобщението от неговия източник. Ако добавите записи извън фиксирания диапазон A1:G19, първо разширете източника. Excel Table обичайно включва новодобавените редове след обновяване, но винаги проверявайте дали са обхванати.</p>
+</div>
+</section>
+
+<section>
+<h2>7. Проверка и обяснение на резултатите</h2>
+<details><summary>Контролни резултати за първоначалните данни</summary>
+<ul>
+<li>Без филтър: 18 продажби, обща сума <strong>23 500</strong>, средна стойност <strong>1 305,56</strong>.</li>
+<li>По категории: Техника <strong>17 470</strong>, Аксесоари <strong>3 825</strong>, Консумативи <strong>2 205</strong>.</li>
+<li>Техника по региони: Запад <strong>6 350</strong>, Изток <strong>7 380</strong>, Юг <strong>3 740</strong>.</li>
+<li>По търговци, всички категории: Анна <strong>6 850</strong>, Борис <strong>6 780</strong>, Гергана <strong>4 115</strong>, Даниел <strong>2 395</strong>, Елена <strong>1 820</strong>, Виктор <strong>1 540</strong>.</li>
+<li>По месеци, всички категории: Януари <strong>4 535</strong>, Февруари <strong>2 250</strong>, Март <strong>5 970</strong>, Април <strong>2 895</strong>, Май <strong>4 830</strong>, Юни <strong>3 020</strong>.</li>
+<li>Само Техника: <strong>9 записа</strong>, обща сума <strong>17 470</strong>, обща средна стойност <strong>1 941,11</strong>.</li>
+</ul>
+</details>
+<p><strong>Важно за Average:</strong> общата средна стойност се изчислява от всички включени изходни записи. Не събирайте средните стойности и не осреднявайте механично видимите средни по групи. Групите може да имат различен брой записи. Празните комбинации не участват като нулеви продажби.</p>
+<h3>Ако резултатът е различен</h3>
+<ul>
+<li><strong>Виждате брой вместо сума:</strong> проверете функцията и дали G2:G19 съдържа числа.</li>
+<li><strong>Сборът е по-малък от 23 500:</strong> проверете филтрите и дали източникът обхваща всички редове.</li>
+<li><strong>Сборът е прекалено голям:</strong> проверете за включен ред „Общо“ или дублирани записи.</li>
+<li><strong>Промяната не се вижда:</strong> обновете конкретната таблица и проверете източника ѝ.</li>
+<li><strong>Числата са отрязани или се вижда ####:</strong> разширете колоната и задайте подходящ числов формат.</li>
+</ul>
+<h3>Какво да запазите</h3>
+<p>Запазете работната книга като <strong>16-Pivot-Име-Фамилия.xlsx</strong> с изходните листове и двата си отчета. За финал оставете „По региони“ с категории в Колони, Sum и без филтър, а „По търговци“ с месеци в Колони, Average и филтър „Техника“. G2 трябва да е върната на 2 900. В Calc потвърдете използването на Excel формат при запис.</p>
+<p>В свободна област под втория отчет напишете три кратки извода: кой регион води по обща стойност, коя категория има най-висока сума и защо Sum и Average могат да подредят търговците различно. Посочете числа в подкрепа на отговорите си.</p>
+</section>
+
+<section>
+<h2>Справка за командите</h2>
+<ul>
+<li><a href="https://support.microsoft.com/en-us/excel/get-started/create-a-pivottable-to-analyze-worksheet-data">Microsoft: създаване и обновяване на PivotTable</a></li>
+<li><a href="https://support.microsoft.com/en-us/excel/sum-values-in-a-pivottable">Microsoft: избор на функция за обобщаване</a></li>
+<li><a href="https://books.libreoffice.org/en/CG24/CG2409-PivotTables.html">LibreOffice Calc Guide: обобщаващи таблици</a></li>
+</ul>
+</section>
+<footer>Урок 16 · Обработка на социално-икономическа информация</footer>
+</main>
+</body>
+</html>
