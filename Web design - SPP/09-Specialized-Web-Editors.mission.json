@@ -1,0 +1,162 @@
+{
+  "mission_version": 4,
+  "mission_id": "web-design-spp-09-composer-html-20261118",
+  "mission_content": {
+    "title": "Училищна уеб страница със SeaMonkey Composer",
+    "description": "Урок и практическа мисия: намиране на SeaMonkey, редактиране на готова страница и предаване на един HTML файл.",
+    "class_name": "11а",
+    "subject": "Уеб дизайн - СПП",
+    "category": "HTML редактори",
+    "lesson": "9. Специализирани софтуерни средства за създаване на уеб сайтове",
+    "content_format": "html",
+    "steps": [
+      {
+        "id": "goal",
+        "step_content": {
+          "type": "information",
+          "title": "1. Твоята мисия: училищна уеб страница",
+          "instruction": "<p>Редактирай готова училищна страница с <strong>SeaMonkey Composer</strong>. Накрая ще предадеш <strong>един HTML файл</strong> чрез последната стъпка „Качване на готовия HTML файл“.</p><p>Работи последователно: чети указанията, изпълнявай ги в Composer и после преминавай напред в мисията. Всички промени се натрупват в един и същ работен файл.</p><p>Резултат: <code>school-homepage-ИНИЦИАЛИ.html</code>, например <code>school-homepage-MM.html</code>. Файлът съдържа и оформлението си; не са нужни отделни CSS файлове, снимки или архив.</p><p><a href=\"https://martin-lift.github.io/108/Web%20design%20-%20SPP/09-Specialized-Web-Editors.html\">Отвори пълния урок за справка</a>.</p>",
+          "instruction_format": "html"
+        },
+        "step_rules": {
+          "time_limit_seconds": 0,
+          "send_progress": true
+        }
+      },
+      {
+        "id": "editors",
+        "step_content": {
+          "type": "information",
+          "title": "2. Какво прави HTML редакторът?",
+          "instruction": "<p><strong>HTML</strong> описва структурата на страницата: заглавия, абзаци, списъци, таблици и връзки. <strong>CSS</strong> задава цветове, шрифтове и оформление.</p><p>В текстов редактор променяш кода непосредствено. Във визуален редактор избираш текст и използваш бутони и менюта, а програмата създава кода. Един инструмент може да предлага и двата начина.</p><p><strong>WYSIWYG</strong> означава „Каквото виждаш, това получаваш“. Визуалният изглед помага при редактиране, но готовата страница и връзките се проверяват в браузър.</p><p>SeaMonkey е пакет от инструменти. <strong>Composer е редакторът му за уеб страници.</strong></p>",
+          "instruction_format": "html"
+        },
+        "step_rules": {
+          "time_limit_seconds": 0,
+          "send_progress": true
+        }
+      },
+      {
+        "id": "find-composer",
+        "step_content": {
+          "type": "information",
+          "title": "3. Намери SeaMonkey и отвори Composer",
+          "instruction": "<p>SeaMonkey вече е инсталиран на компютъра.</p><ol><li>Натисни клавиша <strong>Windows</strong> или бутона <strong>Старт</strong>. Напиши <strong>SeaMonkey</strong> и отвори намереното приложение. Ако има пряк път SeaMonkey на работния плот, можеш да го отвориш с двойно щракване.</li><li>Ако търсенето не го показва, натисни <strong>Win+R</strong>, въведи <code>\"C:\\Program Files\\SeaMonkey\\seamonkey.exe\"</code> и натисни Enter. Ако Windows не намира този файл, опитай <code>\"C:\\Program Files (x86)\\SeaMonkey\\seamonkey.exe\"</code>. Ако и този път липсва, поискай помощ от учителя.</li><li>В отворения SeaMonkey избери <strong>Window → Composer</strong>. Ще се отвори редакторът за уеб страници. Той има лента за форматиране и изгледи Normal, HTML Tags, &lt;HTML&gt; Source и Preview. Ако виждаш само адресна лента за сайтове, още си в браузъра.</li></ol>",
+          "instruction_format": "html"
+        },
+        "step_rules": {
+          "time_limit_seconds": 0,
+          "send_progress": true
+        }
+      },
+      {
+        "id": "save-working-file",
+        "step_content": {
+          "type": "information",
+          "title": "4. Отвори образеца и запази работния файл",
+          "instruction": "<ol><li>Създай папка <code>Urok09</code> на работния плот.</li><li><a href=\"https://martin-lift.github.io/108/Web-design-Textbook/files/09-school-homepage.html\">Изтегли началния HTML файл — 09-school-homepage.html</a> в тази папка. Ако вместо изтегляне се показва страница, използвай десен бутон върху връзката → „Запазване на връзката като…“ / <strong>Save Link As…</strong>.</li><li>В Composer избери <strong>File → Open File…</strong> и отвори изтегления файл.</li><li>Избери <strong>File → Save As…</strong> и запази работния файл в <code>Urok09</code> като <code>school-homepage-ИНИЦИАЛИ.html</code>. Замени ИНИЦИАЛИ със своите инициали на латиница. Провери, че името завършва на <code>.html</code>, а не на <code>.html.txt</code>.</li></ol><p>Променяй този работен файл до края на мисията. Запазвай с <strong>Ctrl+S</strong>.</p><table><tr><th>Изглед</th><th>Какво правиш в него</th></tr><tr><td>Normal</td><td>Редактираш визуално.</td></tr><tr><td>HTML Tags</td><td>Разпознаваш маркерите на елементите.</td></tr><tr><td>&lt;HTML&gt; Source</td><td>Разглеждаш и редактираш кода.</td></tr><tr><td>Preview</td><td>Разглеждаш предварителния резултат.</td></tr></table><p>Разгледай четирите изгледа. В HTML Tags намери заглавие, абзац и списък. Върни се в Normal. Ако долната лента липсва: <strong>View → Show/Hide → Edit Mode Toolbar</strong>.</p>",
+          "instruction_format": "html"
+        },
+        "step_rules": {
+          "time_limit_seconds": 0,
+          "send_progress": true
+        }
+      },
+      {
+        "id": "edit-content",
+        "step_content": {
+          "type": "information",
+          "title": "5. Напиши съдържанието на страницата",
+          "instruction": "<p>Работи в <strong>Normal</strong>.</p><ol><li>Промени главното заглавие на <strong>108 СУ „Никола Беловеждов“ — нашето училище</strong>.</li><li>В „За нашето училище“ замени подканващия текст с <strong>2–3 собствени изречения</strong> за училищния живот. Можеш да преразкажеш информация от <a href=\"https://www.108su.net/\">официалния училищен сайт</a>.</li><li>В „Последни новини“ напиши заглавие и покана за <strong>въображаема работилница по уеб дизайн</strong>. В 3–4 изречения посочи за кого е, какво ще се прави и къде ще се проведе.</li><li>Остави обозначението, че събитието е примерно. Долу попълни „Редактор“ с име или инициали и клас.</li><li>Запази с Ctrl+S.</li></ol><p>Провери: няма останали подкани „Тук добавете…“, „Тук напишете…“ или непопълнени квадратни скоби.</p>",
+          "instruction_format": "html"
+        },
+        "step_rules": {
+          "time_limit_seconds": 0,
+          "send_progress": true
+        }
+      },
+      {
+        "id": "format",
+        "step_content": {
+          "type": "information",
+          "title": "6. Оформи заглавията и важния текст",
+          "instruction": "<p>Заглавието е структурен елемент, а не просто едър получерен текст.</p><ol><li>Постави курсора в главното заглавие. В менюто за формат избери <strong>Heading 1</strong>.</li><li>За основните раздели „За нашето училище“, „Последни новини“, „Ученически клубове“ и „Контакти и полезни връзки“ използвай <strong>Heading 2</strong>.</li><li>Маркирай ключова фраза в новината и я направи получерна с <strong>B</strong>.</li><li>За друга кратка фраза избери тъмен цвят чрез бутона за цвят на текста. Увери се, че се чете ясно върху белия фон.</li><li>Запази с Ctrl+S.</li></ol>",
+          "instruction_format": "html"
+        },
+        "step_rules": {
+          "time_limit_seconds": 0,
+          "send_progress": true
+        }
+      },
+      {
+        "id": "list-table",
+        "step_content": {
+          "type": "information",
+          "title": "7. Допълни списъка и таблицата",
+          "instruction": "<ol><li>В списъка с клубове постави курсора след последната точка, натисни Enter и добави <strong>трети клуб</strong> по свой избор. Той трябва да е точка от същия списък.</li><li>В таблицата промени <strong>деня и мястото</strong> на една от съществуващите дейности.</li><li>Постави курсора в клетка от последния ред. Избери <strong>Table → Insert → Row Below</strong> и попълни трите клетки на новия ред: дейност, ден и място.</li><li>Запази с Ctrl+S.</li></ol><p>Провери: имаш поне <strong>3 клуба</strong> и <strong>3 попълнени реда с дейности</strong>, отделно от заглавния ред на таблицата.</p>",
+          "instruction_format": "html"
+        },
+        "step_rules": {
+          "time_limit_seconds": 0,
+          "send_progress": true
+        }
+      },
+      {
+        "id": "link-source",
+        "step_content": {
+          "type": "information",
+          "title": "8. Създай връзка и редактирай HTML кода",
+          "instruction": "<ol><li>В „Контакти и полезни връзки“ остави текста „Официален сайт на училището“ и премахни указанието след него.</li><li>Маркирай този текст → <strong>Insert → Link…</strong> или бутона Link → въведи <code>https://www.108su.net/</code> → потвърди.</li><li>Премини в <strong>&lt;HTML&gt; Source</strong>. Намери главното заглавие между <code>&lt;h1&gt;</code> и <code>&lt;/h1&gt;</code> и връзката с <code>href=\"https://www.108su.net/\"</code>. Адресът е стойността на href; текстът между отварящия и затварящия таг е видимият текст на връзката.</li><li>Намери <code>&lt;title&gt;</code> в началото на документа. Замени само текста вътре с <strong>Нашето училище — учебна страница</strong>. Запази двата тага.</li><li>Върни се в Normal, запази и разгледай Preview.</li></ol><p><strong>Разлика:</strong> h1 е видимото главно заглавие в страницата. title е заглавието на документа, което браузърът показва в своя раздел. При грешка използвай Ctrl+Z.</p>",
+          "instruction_format": "html"
+        },
+        "step_rules": {
+          "time_limit_seconds": 0,
+          "send_progress": true
+        }
+      },
+      {
+        "id": "tools-rights",
+        "step_content": {
+          "type": "information",
+          "title": "9. Избор на инструмент и уважение към авторството",
+          "instruction": "<p><strong>Composer</strong> е удобен за визуално редактиране на локален HTML файл. <strong>Редактор на код</strong> дава пряк достъп до кода. <strong>CMS</strong>, например WordPress, управлява страници и публикации чрез административен панел.</p><p>Онлайн среда като CodePen има области за HTML, CSS и JavaScript и показва резултата в браузър. Промяна на думите в HTML променя съдържанието; промяна на цвят в CSS променя оформлението. JavaScript добавя поведение. За тази мисия работиш в Composer и не ти е нужен онлайн акаунт.</p><p>Шаблонът е отправна точка. Преди да използваш чужд текст, снимка или шаблон, провери лиценза и условията за посочване на автора. Различните Creative Commons лицензи имат различни условия. GNU GPL е лиценз за свободен софтуер; лицензът на редактора и правата върху съдържанието са отделни въпроси.</p><p><strong>В твоя HTML файл:</strong> запази източника на името, мотото и местоположението на училището, обозначението „Учебен образец“ и уточнението за примерното събитие. Увери се, че си попълнил редактор и клас.</p>",
+          "instruction_format": "html"
+        },
+        "step_rules": {
+          "time_limit_seconds": 0,
+          "send_progress": true
+        }
+      },
+      {
+        "id": "check",
+        "step_content": {
+          "type": "information",
+          "title": "10. Провери точно файла, който ще предадеш",
+          "instruction": "<ol><li>Запази в Composer с Ctrl+S.</li><li>Избери <strong>File → Browse Page</strong> или бутона <strong>Browse</strong>. Тествай новата връзка към официалния сайт и менюто към разделите на страницата.</li><li>Провери, че разделът на браузъра е „Нашето училище — учебна страница“, а в страницата е новото главно заглавие.</li><li>Отвори отново работния HTML файл от папка Urok09 и провери кирилицата и оформлението. След поправки запази отново и обнови браузъра.</li></ol><p><strong>Контролен списък преди качване:</strong></p><ul><li>Файл с твоите инициали и разширение .html.</li><li>Собствено представяне от 2–3 изречения и учебна новина от 3–4 изречения.</li><li>Главно заглавие H1, основни раздели H2, получерна и цветна фраза.</li><li>Поне 3 клуба и 3 реда с дейности; променени ден и място на съществуваща дейност.</li><li>Работеща нова връзка и меню; променен title.</li><li>Попълнен редактор и клас; запазени източник и обозначенията за учебен образец и примерно събитие.</li><li>Няма останали подкани за попълване; файлът се отваря самостоятелно с правилна кирилица.</li></ul>",
+          "instruction_format": "html"
+        },
+        "step_rules": {
+          "time_limit_seconds": 0,
+          "send_progress": true
+        }
+      },
+      {
+        "id": "upload-html",
+        "step_content": {
+          "type": "file",
+          "title": "11. Качване на готовия HTML файл",
+          "instruction": "<p>Предай <strong>редактирания</strong> файл <code>school-homepage-ИНИЦИАЛИ.html</code>.</p><ol><li>Запази последните промени в Composer с <strong>Ctrl+S</strong>.</li><li>В тази стъпка натисни <strong>„Избери файл…“</strong>.</li><li>Отвори папка <code>Urok09</code> и избери своя <code>school-homepage-ИНИЦИАЛИ.html</code>.</li><li>Провери, че под стъпката се показва името на избрания файл. Ако си избрал друг файл, натисни „Избери файл…“ отново и избери правилния.</li><li>Завърши мисията, за да предадеш резултата.</li></ol><p><strong>Качи самия HTML файл.</strong> Началният образец, снимка на екрана, ZIP архив или адрес към сайт не заменят готовата страница. Максималният размер на прикачения файл е 20 MB.</p><p>Ако след прикачването редактираш страницата в Composer, запази и <strong>избери файла отново</strong> преди завършване, за да предадеш последните промени.</p>",
+          "instruction_format": "html"
+        },
+        "step_rules": {
+          "time_limit_seconds": 0,
+          "send_progress": true
+        }
+      }
+    ]
+  },
+  "mission_rules": {
+    "allow_back_navigation": true,
+    "show_progress_panel": true
+  }
+}
