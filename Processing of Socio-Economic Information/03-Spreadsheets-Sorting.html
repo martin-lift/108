@@ -1,13 +1,186 @@
-<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 03: Електронни таблици - сортиране</title><style>
-:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f5f5fa;color:#202236;font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:24px 18px 70px}header{background:#32245f;color:white;padding:42px max(18px,calc((100vw - 864px)/2));}header p{margin:0;color:#ded6ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.2;margin:.4em 0}h2{font-size:1.55rem;line-height:1.3;color:#40317d;margin:0 0 12px}h3{font-size:1.1rem;margin:1.2em 0 .3em}section{background:white;border:1px solid #e4e1ef;border-radius:14px;padding:24px 28px;margin:20px 0}p{margin:.5em 0 1em}li{margin:.35em 0}.note{border-left:4px solid #7955c9;background:#f3efff;padding:10px 16px;border-radius:5px}.task{background:#faf7ff;border-left:4px solid #7955c9;padding:14px 18px;margin-top:14px}nav a{display:inline-block;margin:0 12px 8px 0;color:#49358e}code{background:#f0edf6;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:.94em}th,td{border:1px solid #ddd9e9;padding:9px;text-align:left}th{background:#efeafa}.scroll{overflow-x:auto}footer{font-size:.85em;color:#666;text-align:center}@media(max-width:600px){section{padding:19px 17px}body{font-size:16px}}
-</style></head><body><header><p>Обработка на социално-икономическа информация · Урок 03</p><h1>Електронни таблици - сортиране</h1><p>Сортиране по един и няколко признака. Запазване на целостта на записите.</p></header><main><nav><a href="index.html">Всички уроци</a><a href="02-Spreadsheets-Creation.html">Предишен урок</a></nav>
-<section><h2>1. Какво е сортиране?</h2><p>Сортирането подрежда записите според избрана колона: по азбучен ред, по числова стойност, по дата или по друг критерий. При сортиране трябва да се маркира цялата таблица, за да останат данните за всеки запис на един ред.</p></section>
-<section><h2>2. Сортиране по няколко критерия</h2><p>Когато стойностите по първия критерий са еднакви, вторият критерий определя реда. Например: първо по клас, след това по среден успех в низходящ ред.</p><p>В Excel използвайте <strong>Data → Sort</strong> и <strong>Add Level</strong> за допълнителни критерии.</p></section>
-<section><h2>3. Файл за упражнения</h2><p>Свалете <a href="03-sorting-practice.xlsx" download><strong>03-sorting-practice.xlsx</strong></a>.</p>
-<div class="task"><h3>Задача 1</h3><p>Сортирайте учениците по име във възходящ ред.</p></div>
-<div class="task"><h3>Задача 2</h3><p>Сортирайте по среден успех в низходящ ред.</p></div>
-<div class="task"><h3>Задача 3</h3><p>Сортирайте първо по клас, а вътре в класа – по среден успех.</p></div>
-<div class="task"><h3>Задача 4</h3><p>Сортирайте по град, след това по отсъствия във възходящ ред.</p></div>
-<div class="task"><h3>Задача 5</h3><p>При равен успех добавете втори критерий „Резултат тест“ в низходящ ред.</p></div>
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 03: Електронни таблици — сортиране</title><style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f5f5fa;color:#202236;font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:24px 18px 70px}header{background:#32245f;color:white;padding:42px max(18px,calc((100vw - 864px)/2));}header p{margin:0;color:#ded6ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.2;margin:.4em 0}h2{font-size:1.55rem;line-height:1.3;color:#40317d;margin:0 0 12px}h3{font-size:1.1rem;margin:1.2em 0 .3em}section{background:white;border:1px solid #e4e1ef;border-radius:14px;padding:24px 28px;margin:20px 0}p{margin:.5em 0 1em}li{margin:.35em 0}.note{border-left:4px solid #7955c9;background:#f3efff;padding:10px 16px;border-radius:5px}.task{background:#faf7ff;border-left:4px solid #7955c9;padding:14px 18px;margin-top:14px}nav a{display:inline-block;margin:0 12px 8px 0;color:#49358e}code{background:#f0edf6;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;font-size:.94em}th,td{border:1px solid #ddd9e9;padding:9px;text-align:left}th{background:#efeafa}.scroll{overflow-x:auto}footer{font-size:.85em;color:#666;text-align:center}@media(max-width:600px){section{padding:19px 17px}body{font-size:16px}}
+caption{text-align:left;font-weight:600;margin-bottom:8px}summary{cursor:pointer;font-weight:600}details{margin:14px 0}.result{border-left:4px solid #2c8260;background:#eef8f2;padding:10px 16px}td,th{vertical-align:top}a{overflow-wrap:anywhere}
+</style></head>
+<body><header><p>Обработка на социално-икономическа информация · Урок 03</p><h1>Електронни таблици — сортиране</h1><p>От ASC и DESC по една колона до сортиране по няколко критерия.</p></header>
+<main><nav aria-label="Навигация"><a href="index.html">Всички уроци</a><a href="02-Spreadsheets-Creation.html">Предишен урок</a><a href="#task-1">Към упражненията</a></nav>
+<nav aria-label="Стъпки в урока"><details><summary>Стъпки в урока</summary><ol>
+<li><a href="#what-is-sorting">Какво е сортиране?</a></li>
+<li><a href="#workbook">Файлът и отделните работни таблици</a></li>
+<li><a href="#select-range">Маркирайте целия диапазон</a></li>
+<li><a href="#asc-desc">Една колона: възходящ ред ASC и низходящ ред DESC</a></li>
+<li><a href="#task-1">Задача 1. Сортирайте по име възходящо — ASC</a></li>
+<li><a href="#task-2">Задача 2. Сортирайте по име низходящо — DESC</a></li>
+<li><a href="#task-3">Задача 3. Сортирайте по числова колона — успех DESC</a></li>
+<li><a href="#multiple-keys">Как работи сортирането по няколко колони?</a></li>
+<li><a href="#task-4">Задача 4. Подредете по клас и успех</a></li>
+<li><a href="#task-5">Задача 5. Подредете по град и отсъствия</a></li>
+<li><a href="#task-6">Задача 6. Разрешете равенство с втори критерий</a></li>
+<li><a href="#task-7">Задача 7. Проверете целостта на записите</a></li>
+<li><a href="#task-8">Задача 8. Използвайте потребителски ред на градовете</a></li>
+<li><a href="#check-results">Проверете всички запазени резултати</a></li>
+<li><a href="#save-work">Запазете готовата работна книга</a></li>
+</ol></details></nav>
+<section id="what-is-sorting" data-step="1">
+<h2>1. Какво е сортиране?</h2>
+<p><strong>Сортирането</strong> променя реда на записите според избрана колона — например име, успех или брой отсъствия. То не трябва да променя стойностите и връзките между тях.</p>
+<p>Един ред е един ученик. Името, класът, градът, успехът, отсъствията и резултатът от теста са части от един и същ запис. Когато ученикът се премести на друг ред, <strong>всичките му данни трябва да се преместят заедно</strong>.</p>
+<p>Например Алекс е от 12А клас, София, с успех 5,25, 3 отсъствия и резултат от теста 84. След сортиране той може да е на друг ред, но тези данни трябва да останат до неговото име.</p>
+<p class="note">Ще започнете със сортиране по една колона във възходящ и низходящ ред. След това ще използвате два критерия. Всяка задача има собствена работна таблица, така че всички резултати да останат във файла за предаване.</p>
+</section>
+
+<section id="workbook" data-step="2">
+<h2>2. Файлът и отделните работни таблици</h2>
+<p><a href="03-sorting-practice.xlsx" download><strong>Изтеглете работния файл за сортиране (.xlsx)</strong></a> и го запазете на компютъра. Отворете го с <strong>Microsoft Excel</strong> или <strong>LibreOffice Calc</strong>.</p>
+<p>Във файла има <strong>10 листа</strong>: „Ученици“, „Задачи“ и „Таблица 1“ до „Таблица 8“. Листът е отделна таблица с клетки в една и съща работна книга; имената на листовете са върху разделите в долната част на прозореца. За да преминете към лист, щракнете върху името му.</p>
+<ul><li><strong>„Ученици“</strong> съдържа първоначалните данни за 12 ученици. Използвайте го за сравнение и го оставете непроменен.</li><li><strong>„Задачи“</strong> съдържа кратките условия на осемте упражнения.</li><li><strong>„Таблица 1“–„Таблица 8“</strong> вече са подготвени с едни и същи 12 записа в разбъркан ред. Не е нужно да създавате листове или да копирате данни. Всяка задача се изпълнява само в листа със същия номер.</li></ul>
+<div class="scroll"><table><caption>Колоните в работните таблици</caption><thead><tr><th scope="col">Колона</th><th scope="col">Заглавие</th><th scope="col">Вид на данните</th></tr></thead><tbody>
+<tr><td>A</td><td>Име</td><td>Текст</td></tr><tr><td>B</td><td>Клас</td><td>Текст: 12А или 12Б</td></tr><tr><td>C</td><td>Град</td><td>Текст</td></tr><tr><td>D</td><td>Среден успех</td><td>Число с два десетични знака</td></tr><tr><td>E</td><td>Отсъствия</td><td>Цяло число</td></tr><tr><td>F</td><td>Резултат тест</td><td>Цяло число</td></tr>
+</tbody></table></div>
+<p class="note"><strong>Запазвайте всеки резултат.</strong> След задача 1 оставете „Таблица 1“ сортирана и преминете към „Таблица 2“. Не връщайте началния ред и не сортирайте предходна таблица за следващата задача. Учителят трябва да може да провери всички осем резултата в една работна книга.</p>
+</section>
+
+<section id="select-range" data-step="3">
+<h2>3. Маркирайте целия диапазон</h2>
+<p><strong>Диапазон</strong> е група клетки. Във всяка работна таблица данните са в <strong>A1:F13</strong>: ред 1 съдържа шестте заглавия, а редове 2–13 — 12-те ученици.</p>
+<ol><li>Преминете към листа, посочен в задачата.</li><li>В Excel или Calc намерете <strong>полето за име (Name Box)</strong> вляво от лентата за формули. То обикновено показва адреса на активната клетка.</li><li>Щракнете в него, въведете <code>A1:F13</code> и натиснете <strong>Enter</strong>. Можете също да маркирате с мишката от A1 до F13.</li><li>Проверете, че са маркирани <strong>всички шест колони</strong>, включително заглавията.</li></ol>
+<p>В диалога за сортиране посочете, че диапазонът има заглавия: <strong>My data has headers</strong> в Excel и <strong>Range contains column labels</strong> в Calc. Така ред 1 остава на мястото си и можете да избирате колоните по имената им.</p>
+<p class="note">Сортирайте само <strong>A1:F13</strong>. Условието под таблицата и полето за отговор в <strong>A19</strong> са извън диапазона. Не избирайте целия лист и не маркирайте само колоната, по която подреждате.</p>
+<p>Ако Excel покаже предупреждение, че е избрана само част от таблицата, изберете <strong>Expand the selection</strong>. В Calc също разширете избора до целите записи. Ако не сте сигурни, откажете операцията и маркирайте изрично A1:F13.</p>
+</section>
+
+<section id="asc-desc" data-step="4">
+<h2>4. Една колона: възходящ ред ASC и низходящ ред DESC</h2>
+<p><strong>Критерий за сортиране</strong> е колоната, по която сравняваме записите. <strong>Посоката</strong> определя дали най-напред ще се показват по-малките или по-големите стойности.</p>
+<div class="scroll"><table><thead><tr><th scope="col">Ред</th><th scope="col">Текст</th><th scope="col">Числа</th></tr></thead><tbody>
+<tr><th scope="row">ASC — Ascending — възходящ</th><td>От А към Я; в интерфейса A to Z</td><td>От малко към голямо; Smallest to Largest. Пример: 1, 3, 8</td></tr>
+<tr><th scope="row">DESC — Descending — низходящ</th><td>От Я към А; в интерфейса Z to A</td><td>От голямо към малко; Largest to Smallest. Пример: 8, 3, 1</td></tr>
+</tbody></table></div>
+<p>При сортиране по <strong>една колона</strong> избирате само един критерий, например „Име“. Програмата сравнява имената, но премества <strong>целите редове</strong>.</p>
+<p>Ако две стойности са еднакви, този един критерий не определя реда между тях. Например две оценки 5,75 могат да се появят в различен вътрешен ред. По-късно ще добавите втори критерий, който да разреши равенството.</p>
+<p>Числата трябва да са числови стойности. Текстовото „10“ може да се подреди пред „2“, докато числовото 2 е преди числовото 10 при ASC. В работния файл успехът, отсъствията и тестът са подготвени като числа.</p>
+</section>
+
+<section id="task-1" data-step="5">
+<h2>5. Задача 1. Сортирайте по име възходящо — ASC</h2>
+<p><strong>Условие:</strong> в лист <strong>„Таблица 1“</strong> сортирайте учениците по <strong>Име (колона A)</strong> във възходящ ред.</p>
+<h3>В Microsoft Excel</h3>
+<ol><li>Отворете „Таблица 1“ и маркирайте <strong>A1:F13</strong>.</li><li>Изберете <strong>Data → Sort</strong> (Данни → Сортиране).</li><li>Включете <strong>My data has headers</strong>. Оставете само едно ниво за сортиране.</li><li>Задайте <strong>Sort by: Име</strong>, <strong>Sort On: Cell Values</strong> и <strong>Order: A to Z</strong>.</li><li>Натиснете <strong>OK</strong>.</li></ol>
+<h3>В LibreOffice Calc</h3>
+<ol><li>Отворете „Таблица 1“ и маркирайте <strong>A1:F13</strong>.</li><li>Изберете <strong>Data → Sort</strong> (Данни → Сортиране).</li><li>Включете <strong>Range contains column labels</strong>. Според версията настройката е при критериите или в <strong>Options</strong>. Посоката трябва да е <strong>Top to bottom / Sort rows</strong>.</li><li>В <strong>Sort Criteria</strong> задайте <strong>Sort Key 1: Име</strong> и <strong>Ascending</strong>. За останалите ключове оставете <strong>Undefined</strong> / без критерий.</li><li>Натиснете <strong>OK</strong>.</li></ol>
+<p><strong>Самопроверка:</strong> първите три имена са Алекс, Борис, Виктория, а последното е Мартин. До всяко име трябва да стоят неговите първоначални данни.</p>
+<p class="result"><strong>Запазен резултат:</strong> „Таблица 1“ остава сортирана по Име ASC. В <strong>A19</strong> на този лист запишете първото и последното име. За следващата задача преминете към „Таблица 2“.</p>
+</section>
+
+<section id="task-2" data-step="6">
+<h2>6. Задача 2. Сортирайте по име низходящо — DESC</h2>
+<p><strong>Условие:</strong> в лист <strong>„Таблица 2“</strong> сортирайте по <strong>Име (колона A)</strong> в низходящ ред. Оставете „Таблица 1“ непроменена.</p>
+<h3>В Microsoft Excel</h3>
+<ol><li>Маркирайте <strong>A1:F13</strong> в „Таблица 2“ и отворете <strong>Data → Sort</strong>.</li><li>Потвърдете заглавията с <strong>My data has headers</strong>. Оставете едно ниво: <strong>Име → Cell Values → Z to A</strong>.</li><li>Потвърдете с <strong>OK</strong>.</li></ol>
+<h3>В LibreOffice Calc</h3>
+<ol><li>Маркирайте <strong>A1:F13</strong> в „Таблица 2“ и отворете <strong>Data → Sort</strong>.</li><li>Потвърдете <strong>Range contains column labels</strong> и сортиране на редове отгоре надолу.</li><li>В <strong>Sort Criteria</strong> задайте само <strong>Sort Key 1: Име → Descending</strong>. Останалите ключове са без критерий. Натиснете <strong>OK</strong>.</li></ol>
+<p><strong>Самопроверка:</strong> първите три имена са Мартин, Лора, Калина, а последното е Алекс. Това е обратният ред на имената от задача 1.</p>
+<p class="result"><strong>Запазен резултат:</strong> „Таблица 2“ остава с Име DESC, а „Таблица 1“ — с Име ASC. В <strong>A19</strong> на „Таблица 2“ запишете първото и последното име.</p>
+</section>
+
+<section id="task-3" data-step="7">
+<h2>7. Задача 3. Сортирайте по числова колона — успех DESC</h2>
+<p><strong>Условие:</strong> в лист <strong>„Таблица 3“</strong> сортирайте по <strong>Среден успех (колона D)</strong> в низходящ ред.</p>
+<h3>В Microsoft Excel</h3>
+<ol><li>Маркирайте <strong>A1:F13</strong> и отворете <strong>Data → Sort</strong>. Включете <strong>My data has headers</strong>.</li><li>Оставете само едно ниво: <strong>Sort by: Среден успех</strong>, <strong>Sort On: Cell Values</strong>, <strong>Order: Largest to Smallest</strong>.</li><li>Натиснете <strong>OK</strong>.</li></ol>
+<h3>В LibreOffice Calc</h3>
+<ol><li>Маркирайте <strong>A1:F13</strong> и отворете <strong>Data → Sort</strong>. Включете <strong>Range contains column labels</strong>.</li><li>Задайте само <strong>Sort Key 1: Среден успех → Descending</strong>, без други критерии, със сортиране на редове отгоре надолу.</li><li>Натиснете <strong>OK</strong>.</li></ol>
+<p><strong>Самопроверка:</strong> първите две оценки са <strong>5,75</strong> за Виктория и Елена. Най-ниската оценка е <strong>4,45</strong> за Живко и Мартин. При равните оценки редът на имената тук не е определен, защото използвате само един критерий.</p>
+<p class="result"><strong>Запазен резултат:</strong> „Таблица 3“ остава с успех DESC. В <strong>A19</strong> посочете най-високия и най-ниския успех. Запазете отделно резултатите от задачи 1 и 2.</p>
+</section>
+
+<section id="multiple-keys" data-step="8">
+<h2>8. Как работи сортирането по няколко колони?</h2>
+<p>При два критерия програмата първо сравнява стойностите по <strong>първия</strong>. Само когато те са еднакви, използва <strong>втория</strong>.</p>
+<p>Пример: <strong>Клас ASC, след това Среден успех DESC</strong>. Първо получавате група 12А и след нея група 12Б. Във всяка група оценките се подреждат от най-високата към най-ниската. Ученик от 12Б с висок успех няма да прескочи цялата група 12А.</p>
+<h3>В Microsoft Excel</h3>
+<p>В <strong>Data → Sort</strong> първият ред <strong>Sort by</strong> е основният критерий. С <strong>Add Level</strong> добавяте ред <strong>Then by</strong> за втория. За всеки ред задавате колоната и посоката. Всички критерии се прилагат заедно с едно натискане на <strong>OK</strong>.</p>
+<h3>В LibreOffice Calc</h3>
+<p>В <strong>Data → Sort → Sort Criteria</strong> задайте основната колона в <strong>Sort Key 1</strong>, а следващата — в <strong>Sort Key 2</strong>. Посоката Ascending или Descending се избира отделно за всеки ключ. Третият ключ остава без критерий.</p>
+<p class="note">Не правете две отделни едноколонни сортировки, за да зададете два критерия. Второто сортиране може да промени приоритета на първото. Задайте и двата критерия в един диалог. Следващата задача е в нов работен лист, за да запазите и вече изпълнените едноколонни сортировки.</p>
+</section>
+
+<section id="task-4" data-step="9">
+<h2>9. Задача 4. Подредете по клас и успех</h2>
+<p><strong>Условие:</strong> в лист <strong>„Таблица 4“</strong> сортирайте първо по <strong>Клас (B) ASC</strong>, а вътре във всеки клас — по <strong>Среден успех (D) DESC</strong>.</p>
+<h3>В Microsoft Excel</h3>
+<ol><li>Маркирайте <strong>A1:F13</strong> в „Таблица 4“. Изберете <strong>Data → Sort</strong> и включете <strong>My data has headers</strong>.</li><li>Задайте <strong>Sort by: Клас → A to Z</strong>. Натиснете <strong>Add Level</strong> и задайте <strong>Then by: Среден успех → Largest to Smallest</strong>.</li><li>Оставете точно тези две нива, с <strong>Cell Values</strong> за вида на сортиране, и натиснете <strong>OK</strong>.</li></ol>
+<h3>В LibreOffice Calc</h3>
+<ol><li>Маркирайте <strong>A1:F13</strong> в „Таблица 4“. Изберете <strong>Data → Sort</strong>, включете <strong>Range contains column labels</strong> и сортиране на редове отгоре надолу.</li><li>В <strong>Sort Criteria</strong> задайте <strong>Sort Key 1: Клас → Ascending</strong> и <strong>Sort Key 2: Среден успех → Descending</strong>.</li><li>Оставете третия ключ без критерий и натиснете <strong>OK</strong>.</li></ol>
+<p><strong>Самопроверка:</strong> първо са шестимата ученици от 12А, после шестимата от 12Б. В 12А най-висок успех има Виктория — <strong>5,75</strong>, а в 12Б — Елена с <strong>5,75</strong>.</p>
+<p class="result"><strong>Запазен резултат:</strong> „Таблица 4“ остава с това подреждане. В <strong>A19</strong> на същия лист запишете ученика с най-висок успех във всеки клас. Не променяйте предходните таблици.</p>
+</section>
+
+<section id="task-5" data-step="10">
+<h2>10. Задача 5. Подредете по град и отсъствия</h2>
+<p><strong>Условие:</strong> в лист <strong>„Таблица 5“</strong> сортирайте първо по <strong>Град (C) ASC</strong>, след това по <strong>Отсъствия (E) ASC</strong>.</p>
+<h3>В Microsoft Excel</h3>
+<ol><li>Маркирайте <strong>A1:F13</strong> в „Таблица 5“. Изберете <strong>Data → Sort</strong> и включете <strong>My data has headers</strong>.</li><li>Задайте <strong>Sort by: Град → A to Z</strong>. С <strong>Add Level</strong> добавете <strong>Then by: Отсъствия → Smallest to Largest</strong>.</li><li>Оставете точно тези две нива, с <strong>Cell Values</strong> за вида на сортиране, и натиснете <strong>OK</strong>.</li></ol>
+<h3>В LibreOffice Calc</h3>
+<ol><li>Маркирайте <strong>A1:F13</strong> в „Таблица 5“. Изберете <strong>Data → Sort</strong>, включете <strong>Range contains column labels</strong> и сортиране на редове отгоре надолу.</li><li>Задайте <strong>Sort Key 1: Град → Ascending</strong> и <strong>Sort Key 2: Отсъствия → Ascending</strong>.</li><li>Оставете третия ключ без критерий и натиснете <strong>OK</strong>.</li></ol>
+<p><strong>Самопроверка:</strong> групите са <strong>Перник, Радомир, София</strong>. Първият запис е Лора от Перник с <strong>0 отсъствия</strong>. Във всеки град отсъствията нарастват. При еднакви град и отсъствия вътрешният ред на тези записи не е определен.</p>
+<p class="result"><strong>Запазен резултат:</strong> „Таблица 5“ остава с това подреждане. В <strong>A19</strong> на същия лист посочете града на първата група и най-малкия брой отсъствия в нея. Не променяйте предходните таблици.</p>
+</section>
+
+<section id="task-6" data-step="11">
+<h2>11. Задача 6. Разрешете равенство с втори критерий</h2>
+<p><strong>Условие:</strong> в лист <strong>„Таблица 6“</strong> сортирайте първо по <strong>Среден успех (D) DESC</strong>, а при равен успех — по <strong>Резултат тест (F) DESC</strong>.</p>
+<h3>В Microsoft Excel</h3>
+<ol><li>Маркирайте <strong>A1:F13</strong> в „Таблица 6“. Изберете <strong>Data → Sort</strong> и включете <strong>My data has headers</strong>.</li><li>Задайте <strong>Sort by: Среден успех → Largest to Smallest</strong>. С <strong>Add Level</strong> добавете <strong>Then by: Резултат тест → Largest to Smallest</strong>.</li><li>Оставете точно тези две нива, с <strong>Cell Values</strong> за вида на сортиране, и натиснете <strong>OK</strong>.</li></ol>
+<h3>В LibreOffice Calc</h3>
+<ol><li>Маркирайте <strong>A1:F13</strong> в „Таблица 6“. Изберете <strong>Data → Sort</strong>, включете <strong>Range contains column labels</strong> и сортиране на редове отгоре надолу.</li><li>Задайте <strong>Sort Key 1: Среден успех → Descending</strong> и <strong>Sort Key 2: Резултат тест → Descending</strong>.</li><li>Оставете третия ключ без критерий и натиснете <strong>OK</strong>.</li></ol>
+<p><strong>Самопроверка:</strong> Виктория и Елена имат успех 5,75, но Виктория е първа заради тест <strong>93</strong> пред <strong>91</strong>. При успех 4,80 Георги с тест <strong>79</strong> е преди Борис с <strong>72</strong>. Тестът се сравнява само при равен успех: Лора има тест 95, но успех 5,60 и остава след записите с 5,75.</p>
+<p class="result"><strong>Запазен резултат:</strong> „Таблица 6“ остава с това подреждане. В <strong>A19</strong> на същия лист обяснете защо Виктория е преди Елена и защо Георги е преди Борис. Не променяйте предходните таблици.</p>
+</section>
+
+<section id="task-7" data-step="12">
+<h2>12. Задача 7. Проверете целостта на записите</h2>
+<p><strong>Условие:</strong> в лист <strong>„Таблица 7“</strong> сортирайте целия диапазон по <strong>Отсъствия (E) ASC</strong> и проверете дали данните на всеки ученик са останали заедно.</p>
+<h3>В Microsoft Excel</h3>
+<p>Маркирайте <strong>A1:F13</strong>, отворете <strong>Data → Sort</strong>, включете <strong>My data has headers</strong> и задайте само <strong>Отсъствия → Cell Values → Smallest to Largest</strong>. Потвърдете с OK.</p>
+<h3>В LibreOffice Calc</h3>
+<p>Маркирайте <strong>A1:F13</strong>, отворете <strong>Data → Sort</strong>, включете <strong>Range contains column labels</strong> и задайте само <strong>Sort Key 1: Отсъствия → Ascending</strong>. Останалите ключове са без критерий, посоката е отгоре надолу. Потвърдете с OK.</p>
+<h3>Сравнете с първоначалния лист</h3>
+<ol><li>Проверете, че най-отгоре е Лора с 0 отсъствия, а най-отдолу — Живко с 8.</li><li>Намерете Алекс, Лора и Мартин в „Таблица 7“. Преминете към „Ученици“ и сравнете <strong>всичките шест стойности</strong> за всяко от тези имена. В това упражнение имената са различни и могат да служат за разпознаване на записа.</li><li>Не сравнявайте номерата на редовете — те се променят при сортиране. Сравнявайте данните за един и същ ученик.</li></ol>
+<p>Например Алекс трябва да остане с <strong>12А, София, 5,25, 3, 84</strong>, независимо на кой ред е преместен. Ако сортирате само имената, числата може да останат на старите си места и вече да описват друг ученик.</p>
+<p class="result"><strong>Запазен резултат:</strong> „Таблица 7“ остава сортирана по Отсъствия ASC. В <strong>A19</strong> запишете дали трите проверени записа са цели и обяснете защо сортирането само на една колона би нарушило данните.</p>
+</section>
+
+<section id="task-8" data-step="13">
+<h2>13. Задача 8. Използвайте потребителски ред на градовете</h2>
+<p><strong>Условие:</strong> в лист <strong>„Таблица 8“</strong> подредете по <strong>Град (C)</strong> в зададения ред <strong>София, Перник, Радомир</strong>. Това е потребителски ред и се различава от азбучния.</p>
+<p>За да запазите самото условие във файла, въведете <strong>София в H2</strong>, <strong>Перник в H3</strong> и <strong>Радомир в H4</strong> на „Таблица 8“. Тези помощни клетки не са част от диапазона за сортиране A1:F13.</p>
+<h3>В Microsoft Excel</h3>
+<ol><li>Маркирайте H2:H4 и изберете <strong>File → Options → Advanced</strong>. В област <strong>General</strong> отворете <strong>Edit Custom Lists</strong>.</li><li>Проверете, че <strong>Import list from cells</strong> сочи H2:H4 на „Таблица 8“, и натиснете <strong>Import</strong>. Потвърдете с OK.</li><li>Маркирайте <strong>A1:F13</strong> и отворете <strong>Data → Sort</strong> със заглавия. Оставете едно ниво: <strong>Sort by: Град</strong>, <strong>Sort On: Cell Values</strong>.</li><li>В <strong>Order</strong> изберете <strong>Custom List</strong>, посочете списъка София, Перник, Радомир и потвърдете сортирането.</li></ol>
+<h3>В LibreOffice Calc</h3>
+<ol><li>Отворете <strong>Tools → Options → LibreOffice Calc → Sort Lists</strong>.</li><li>Натиснете <strong>New</strong>. В <strong>Entries</strong> въведете София, Перник и Радомир, всяко на отделен ред. Натиснете <strong>Add</strong> и потвърдете с OK.</li><li>В „Таблица 8“ маркирайте <strong>A1:F13</strong> и отворете <strong>Data → Sort</strong>. Потвърдете, че има заглавия. Задайте само <strong>Sort Key 1: Град → Ascending</strong>.</li><li>В <strong>Options / Sort Options</strong> включете <strong>Custom sort order</strong> и изберете списъка София, Перник, Радомир. Посоката на сортиране е на редове отгоре надолу. Потвърдете с OK.</li></ol>
+<p><strong>Самопроверка:</strong> първо са <strong>5 записа от София</strong>, после <strong>4 от Перник</strong> и накрая <strong>3 от Радомир</strong>. Не е зададен втори критерий, затова редът вътре в един град може да е различен.</p>
+<p class="result"><strong>Запазен резултат:</strong> „Таблица 8“ остава в потребителския ред, а „Таблица 5“ запазва азбучното подреждане по градове. Оставете списъка в H2:H4 и в <strong>A19</strong> обяснете разликата между двете подредби.</p>
+</section>
+
+<section id="check-results" data-step="14">
+<h2>14. Проверете всички запазени резултати</h2>
+<p>В готовата работна книга трябва да останат <strong>„Ученици“, „Задачи“ и осемте отделни работни таблици</strong>. Проверете всяка по нейното условие:</p>
+<div class="scroll"><table><thead><tr><th scope="col">Лист</th><th scope="col">Подреждане, което остава</th><th scope="col">Писмен отговор</th></tr></thead><tbody>
+<tr><td>Ученици</td><td>Първоначалните данни, без промяна</td><td>Не е необходим</td></tr>
+<tr><td>Задачи</td><td>Условията на осемте задачи</td><td>Не е необходим</td></tr>
+<tr><td>Таблица 1</td><td>Име ASC</td><td>В A19</td></tr><tr><td>Таблица 2</td><td>Име DESC</td><td>В A19</td></tr><tr><td>Таблица 3</td><td>Среден успех DESC</td><td>В A19</td></tr><tr><td>Таблица 4</td><td>Клас ASC, след това Среден успех DESC</td><td>В A19</td></tr><tr><td>Таблица 5</td><td>Град ASC, след това Отсъствия ASC</td><td>В A19</td></tr><tr><td>Таблица 6</td><td>Среден успех DESC, след това Резултат тест DESC</td><td>В A19</td></tr><tr><td>Таблица 7</td><td>Отсъствия ASC и цели записи</td><td>В A19</td></tr><tr><td>Таблица 8</td><td>Град: София, Перник, Радомир; списъкът остава в H2:H4</td><td>В A19</td></tr>
+</tbody></table></div>
+<ul><li>Във всяка работна таблица трябва да има същите <strong>12 ученици</strong>, без пропуснати или дублирани записи.</li><li>Шестте стойности за всеки ученик трябва да съвпадат с „Ученици“. Подредбата може да е различна, съдържанието — не.</li><li>При равни стойности по всички зададени критерии са допустими различни вътрешни подредби.</li><li>Заглавията трябва да са на ред 1, а отговорът и условието под таблицата да са извън сортираните редове.</li></ul>
+<h3>Ако нещо не е наред</h3>
+<ul><li><strong>Заглавието е отишло между учениците:</strong> липсва отметката за заглавия.</li><li><strong>Имената не съответстват на оценките:</strong> сортирана е само част от записа. Спрете и поправете само текущата задача; не заменяйте завършени резултати от други листове.</li><li><strong>Числата се подреждат като думи:</strong> проверете дали не са записани като текст.</li><li><strong>Вторият критерий не се вижда:</strong> проверете реда и посоката на двата ключа. Той действа само при равенство по първия.</li><li><strong>Виждате два пъти еднаква подредба за задачи 1 и 2:</strong> проверете дали сте работили в различните листове и дали сте задали ASC и DESC.</li></ul>
+</section>
+
+<section id="save-work" data-step="15">
+<h2>15. Запазете готовата работна книга</h2>
+<ol><li>Изберете <strong>File → Save As</strong> и запишете файла като <strong>03-Sortirane-Име-Фамилия.xlsx</strong>.</li><li>Запазете всичките <strong>10 листа</strong> и отговорите в A19 на осемте работни таблици.</li><li>В LibreOffice Calc при предупреждение за формата потвърдете използването на <strong>Excel 2007–365 (.xlsx)</strong>, за да запазите същия файлов формат.</li><li>Затворете и отворете отново файла. Проверете, че „Таблица 1“ е останала ASC, „Таблица 2“ — DESC, а всички други резултати и отговори са запазени.</li></ol>
+<p>Предавате <strong>една работна книга с всички резултати</strong>. Учителят ще проверява всеки лист отделно, затова запазете различните подредби едновременно.</p>
+<h3>Справка за командите</h3>
+<ul><li><a href="https://support.microsoft.com/en-gb/excel/sort-data-in-a-range-or-table-in-excel">Microsoft: сортиране на диапазон по една или няколко колони</a></li><li><a href="https://help.libreoffice.org/latest/en-GB/text/scalc/01/12030100.html">LibreOffice Calc: критерии за сортиране</a></li><li><a href="https://help.libreoffice.org/latest/en-US/text/scalc/01/12030200.html">LibreOffice Calc: настройки за сортиране</a></li><li><a href="https://support.microsoft.com/en-us/excel/sort-data-using-a-custom-list">Microsoft: потребителски ред</a></li><li><a href="https://help.libreoffice.org/latest/en-US/text/shared/optionen/01060400.html">LibreOffice Calc: потребителски списъци</a></li></ul>
 </section>
 <footer>Урок 03 · Обработка на социално-икономическа информация</footer></main></body></html>
