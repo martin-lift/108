@@ -1,7 +1,166 @@
-<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 17: Обобщаващи диаграми</title><style>
-:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f5f5fa;color:#202236;font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:24px 18px 70px}header{background:#32245f;color:white;padding:42px max(18px,calc((100vw - 864px)/2));}header p{margin:0;color:#ded6ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.2;margin:.4em 0}h2{font-size:1.55rem;line-height:1.3;color:#40317d;margin:0 0 12px}h3{font-size:1.1rem;margin:1.2em 0 .3em}section{background:white;border:1px solid #e4e1ef;border-radius:14px;padding:24px 28px;margin:20px 0}p{margin:.5em 0 1em}li{margin:.35em 0}.note{border-left:4px solid #7955c9;background:#f3efff;padding:10px 16px;border-radius:5px}.task{background:#faf7ff;border-left:4px solid #7955c9;padding:14px 18px;margin-top:14px}nav a{display:inline-block;margin:0 12px 8px 0;color:#49358e}code{background:#f0edf6;padding:2px 5px;border-radius:4px}table{width:100%;border-collapse:collapse;font-size:.94em}th,td{border:1px solid #ddd9e9;padding:9px;text-align:left}th{background:#efeafa}footer{font-size:.85em;color:#666;text-align:center}@media(max-width:600px){section{padding:19px 17px}body{font-size:16px}}
-</style></head><body><header><p>Обработка на социално-икономическа информация · Урок 17</p><h1>Обобщаващи диаграми</h1><p>Създаване и настройване на диаграми към обобщаващи таблици.</p></header><main><nav><a href="index.html">Всички уроци</a><a href="16-Pivot-Tables.html">Предишен урок</a></nav><section><h2>1. Какво е обобщаваща диаграма?</h2><p>Обобщаващата диаграма (PivotChart) визуализира данните от обобщаваща таблица. Когато филтрирате или променяте обобщаващата таблица, диаграмата се обновява заедно с нея.</p></section>
-<section><h2>2. Създаване</h2><ol><li>Създайте или изберете обобщаваща таблица.</li><li>Изберете <strong>Insert → PivotChart</strong>.</li><li>Изберете подходящ вид диаграма.</li><li>Добавете ясно заглавие и легенда.</li></ol></section>
-<section><h2>3. Избор на подходящ вид</h2><ul><li><strong>Колонна</strong> — сравнение между категории.</li><li><strong>Лентова</strong> — сравнение при по-дълги имена.</li><li><strong>Линейна</strong> — промяна във времето.</li><li><strong>Кръгова</strong> — дялове от едно цяло при малко категории.</li></ul></section>
-<section><h2>4. Филтриране и анализ</h2><p>Ползвайте филтрите на обобщаващата таблица или диаграма, за да показвате само нужната част от данните. След всяка промяна проверявайте дали заглавието на диаграмата остава вярно.</p></section>
-<section><h2>5. Файл за упражнения</h2><p><a href="17-pivot-charts-practice.xlsx" download><strong>17-pivot-charts-practice.xlsx</strong></a></p><p>В лист „Упражнения“ има 7 задачи за създаване, промяна и тълкуване на обобщаващи диаграми.</p></section><footer>Урок 17 · Обработка на социално-икономическа информация</footer></main></body></html>
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 17: Обобщаващи диаграми (PivotChart)</title><style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f5f5fa;color:#202236;font:18px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:24px 18px 70px}header{background:#32245f;color:white;padding:42px max(18px,calc((100vw - 864px)/2));}header p{margin:0;color:#ded6ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.2;margin:.4em 0}h2{font-size:1.55rem;line-height:1.3;color:#40317d;margin:0 0 12px}h3{font-size:1.1rem;margin:1.2em 0 .3em}section{background:white;border:1px solid #e4e1ef;border-radius:14px;padding:24px 28px;margin:20px 0}p{margin:.5em 0 1em}li{margin:.35em 0}.note{border-left:4px solid #7955c9;background:#f3efff;padding:10px 16px;border-radius:5px}.task{background:#faf7ff;border-left:4px solid #7955c9;padding:14px 18px;margin-top:14px}nav a{display:inline-block;margin:0 12px 8px 0;color:#49358e}code{background:#f0edf6;padding:2px 5px;border-radius:4px}table{width:100%;border-collapse:collapse;font-size:.94em}th,td{border:1px solid #ddd9e9;padding:9px;text-align:left}th{background:#efeafa}footer{font-size:.85em;color:#666;text-align:center}@media(max-width:600px){section{padding:19px 17px}body{font-size:16px}}
+.scroll{overflow-x:auto}caption{text-align:left;font-weight:600;margin-bottom:8px}td,th{vertical-align:top}summary{cursor:pointer;font-weight:600}details{margin:14px 0}a,code{overflow-wrap:anywhere}.result{border-left:4px solid #2c8260;background:#eef8f2;padding:12px 16px}figure{margin:18px 0}figure svg{display:block;width:100%;height:auto;max-width:680px;margin:auto}figcaption{font-size:.9em;color:#56546a;margin-top:8px}
+</style></head>
+<body><header><p>Обработка на социално-икономическа информация · Урок 17</p><h1>Обобщаващи диаграми (PivotChart)</h1><p>От обобщени числа към четими диаграми и обосновани изводи.</p></header><main><nav aria-label="Навигация"><a href="index.html">Всички уроци</a><a href="16-Pivot-Tables.html">Предишен урок</a><a href="#task-1">Към упражненията</a></nav>
+<nav aria-label="Стъпки в урока"><details><summary>Стъпки в урока</summary><ol>
+<li><a href="#purpose">За какво е този урок?</a></li>
+<li><a href="#pivotchart">Какво е обобщаваща диаграма?</a></li>
+<li><a href="#download">Изтеглете и запишете работния файл</a></li>
+<li><a href="#source">Проверете източника и диапазона</a></li>
+<li><a href="#new-sheet">Създайте нов лист за първия отчет</a></li>
+<li><a href="#task-1">Задача 1. Създайте обобщаваща таблица по региони</a></li>
+<li><a href="#chart-types">Разчетете диаграмата и изберете подходящ вид</a></li>
+<li><a href="#task-2">Задача 2. Създайте обобщаваща колонна диаграма</a></li>
+<li><a href="#task-3">Задача 3. Сравнете категориите по региони</a></li>
+<li><a href="#task-4">Задача 4. Оформете ясно заглавие, оси и легенда</a></li>
+<li><a href="#task-5">Задача 5. Покажете само категория „Техника“</a></li>
+<li><a href="#task-6">Задача 6. Сравнете колонна и лентова диаграма</a></li>
+<li><a href="#refresh">Как се обновяват свързаните данни?</a></li>
+<li><a href="#task-7">Задача 7. Напишете два извода с числа</a></li>
+<li><a href="#check">Проверете какво остава във файла</a></li>
+<li><a href="#save">Запазете и проверете готовата книга</a></li>
+</ol></details></nav>
+<section id="purpose" data-step="1">
+<h2>1. За какво е този урок?</h2>
+<p>В предишния урок използвахте обобщаваща таблица, за да сравнявате групи записи. Сега ще покажете тези резултати чрез <strong>обобщаваща диаграма (PivotChart)</strong>.</p>
+<p>Ще се научите да създавате диаграма от обобщаваща таблица, да избирате подходящ вид, да добавяте ясни заглавия и легенда, да филтрирате и да извеждате подкрепени с числа изводи.</p>
+<p>Работете в <strong>Microsoft Excel</strong> или <strong>LibreOffice Calc</strong>. Указанията за двете програми са дадени отделно. Всяка от седемте задачи оставя собствен резултат за проверка.</p>
+</section>
+
+<section id="pivotchart" data-step="2">
+<h2>2. Какво е обобщаваща диаграма?</h2>
+<p><strong>PivotChart</strong> е диаграма, свързана с обобщаваща таблица. Обобщаващата таблица групира и изчислява числата, а диаграмата показва същото обобщение чрез колони, ленти или друг подходящ вид.</p>
+<p>Например списъкът с продажби съдържа няколко записа за всеки регион. Обобщаващата таблица събира продажбите по региони. Колонната диаграма показва три колони — по една за всеки регион. Височината на колоната съответства на сумата му.</p>
+<div class="scroll"><table><thead><tr><th scope="col">Обект</th><th scope="col">Роля в упражнението</th></tr></thead><tbody><tr><td>Изходни данни</td><td>12-те записа в лист „Продажби“</td></tr><tr><td>Обобщаваща таблица (PivotTable)</td><td>Групиране по Регион и сумиране на Продажби</td></tr><tr><td>Обобщаваща диаграма (PivotChart)</td><td>Графично сравнение на получените суми</td></tr></tbody></table></div>
+<p class="note">Запазете връзката <strong>източник → обобщаваща таблица → обобщаваща диаграма</strong>. Снимка на диаграмата или обикновена диаграма върху ръчно въведени крайни суми не изпълнява задачата за PivotChart. При филтриране на свързаната таблица трябва да се промени и диаграмата.</p>
+</section>
+
+<section id="download" data-step="3">
+<h2>3. Изтеглете и запишете работния файл</h2>
+<p><a href="17-pivot-charts-practice.xlsx" download><strong>Изтеглете работния файл за урок 17 (.xlsx)</strong></a>. Той съдържа лист <strong>„Продажби“</strong> с 12 записа за януари–април и лист <strong>„Упражнения“</strong> със седем задачи.</p>
+<ol><li>Запазете файла на компютъра и го отворете с програмата, с която ще работите.</li><li>Изберете <strong>File → Save As</strong> (Файл → Записване като).</li><li>В <strong>Excel</strong> запишете <strong>17-PivotChart-Име-Фамилия.xlsx</strong>.</li><li>В <strong>LibreOffice Calc</strong> изберете <strong>ODF Spreadsheet (.ods)</strong> и запишете <strong>17-PivotChart-Име-Фамилия.ods</strong>.</li></ol>
+<p>Попълнете своите имена във файловото име. По време на работата запазвайте промените с Ctrl+S. Работните книги ще се проверяват в програмата, в която са създадени — запазете нейния собствен формат за обобщаващите диаграми.</p>
+<p class="note"><strong>Запазвайте всички резултати.</strong> Създавайте всеки нов отчет от оригиналния източник и в отделния лист, посочен в задачата. Не променяйте готова таблица или диаграма от предходна задача и не копирайте крайни числа като заместител на обобщаващата таблица. Изходните продажби остават непроменени.</p>
+</section>
+
+<section id="source" data-step="4">
+<h2>4. Проверете източника и диапазона</h2>
+<p>Източникът за всички задачи е <strong>„Продажби“!A1:E13</strong>. <strong>Диапазон</strong> е група клетки: тук A1 е горният ляв край, а E13 — долният десен. Ред 1 съдържа заглавията, редове 2–13 — данните.</p>
+<div class="scroll"><table><thead><tr><th scope="col">Колона</th><th scope="col">Поле</th><th scope="col">Какво съдържа</th></tr></thead><tbody><tr><td>A</td><td>Месец</td><td>Януари, Февруари, Март или Април</td></tr><tr><td>B</td><td>Регион</td><td>Запад, Изток или Юг</td></tr><tr><td>C</td><td>Категория</td><td>Техника, Канцелария или Консумативи</td></tr><tr><td>D</td><td>Търговец</td><td>Име на търговеца</td></tr><tr><td>E</td><td>Продажби</td><td>Числова стойност, форматирана в лева</td></tr></tbody></table></div>
+<ol><li>Изберете лист „Продажби“ чрез раздела му в долната част на прозореца.</li><li>В Excel или Calc щракнете в <strong>полето за име (Name Box)</strong> вляво от лентата за формули. Въведете <code>A1:E13</code> и натиснете Enter. Можете да маркирате диапазона и с мишката.</li><li>Проверете за пет непразни заглавия, 12 записа, липса на празни редове между тях и числови стойности в E2:E13.</li></ol>
+<p>Не включвайте допълнителен ред „Общо“ в източника. Общата сума на тези 12 записа е <strong>78 700 лв.</strong> За проверка можете да въведете <code>=SUM(E2:E13)</code> в свободната G2 на „Продажби“. G2 остава извън източника A1:E13.</p>
+<p>При настройката на обобщението <strong>Rows / Row Fields</strong> определя групите по редове, <strong>Columns / Column Fields</strong> — групите по колони, <strong>Values / Data Fields</strong> — числовото поле и функцията, а <strong>Filters / Page Fields</strong> — ограниченията за целия отчет.</p>
+</section>
+
+<section id="new-sheet" data-step="5">
+<h2>5. Създайте нов лист за първия отчет</h2>
+<p>Работната книга е целият файл. Листовете „Продажби“ и „Упражнения“ са части от него. Сега добавете празен лист <strong>„1-По региони“</strong>, в който ще поставите първата обобщаваща таблица.</p>
+<h3>В Microsoft Excel</h3><ol><li>До разделите на листовете в долната част на прозореца натиснете бутона <strong>+</strong> (New Sheet).</li><li>Щракнете два пъти върху името на новия лист, въведете <strong>1-По региони</strong> и натиснете Enter.</li><li>Оставете клетка <strong>A1</strong> празна — от нея ще започне отчетът.</li></ol>
+<h3>В LibreOffice Calc</h3><ol><li>Натиснете <strong>+</strong> до разделите на листовете.</li><li>Щракнете два пъти върху раздела на новия лист. Въведете <strong>1-По региони</strong> и потвърдете с OK.</li><li>Оставете листа празен за резултата от задача 1.</li></ol>
+<p>В следващите задачи самият диалог за обобщаваща таблица може да създава нов лист: <strong>New Worksheet</strong> в Excel или <strong>New sheet</strong> в Calc. След това го преименувайте с името от съответната задача. По същия начин с бутона + ще създадете и листа за изводи накрая.</p>
+</section>
+
+<section id="task-1" data-step="6">
+<h2>6. Задача 1. Създайте обобщаваща таблица по региони</h2>
+<p><strong>Условие:</strong> от „Продажби“!A1:E13 създайте обобщение с <strong>Регион в Редове</strong> и <strong>Sum на Продажби в Стойности</strong>. Поставете го в A1 на подготвения лист „1-По региони“. Колони и Филтри остават празни.</p>
+<h3>В Microsoft Excel</h3><ol><li>В „Продажби“ маркирайте <strong>A1:E13</strong> и изберете <strong>Insert → PivotTable</strong>.</li><li>Проверете източника. Изберете <strong>Existing Worksheet</strong> и местоположение <code>'1-По региони'!$A$1</code>. Потвърдете с OK.</li><li>В панела с полетата преместете <strong>Регион в Rows</strong> и <strong>Продажби в Values</strong>.</li><li>От менюто на полето във Values изберете <strong>Value Field Settings → Summarize Values By → Sum</strong>. За числата използвайте формат с разделител за хиляди.</li></ol>
+<h3>В LibreOffice Calc</h3><ol><li>В „Продажби“ маркирайте <strong>A1:E13</strong> и изберете <strong>Data → Pivot Table → Insert or Edit</strong>. Потвърдете <strong>Current selection</strong>.</li><li>Преместете <strong>Регион в Row Fields</strong> и <strong>Продажби в Data Fields</strong>. Щракнете два пъти върху полето в Data Fields и изберете <strong>Sum</strong>.</li><li>Разгънете <strong>Source and Destination</strong>, ако е необходимо. За резултата изберете <strong>Selection</strong>, използвайте бутона за избор на местоположение и посочете <strong>A1 на „1-По региони“</strong>. Върнете се в диалога и потвърдете.</li></ol>
+<table><caption>Контролни суми по региони</caption><thead><tr><th scope="col">Регион</th><th scope="col">Продажби (лв.)</th></tr></thead><tbody><tr><td>Запад</td><td>27 500</td></tr><tr><td>Изток</td><td>25 200</td></tr><tr><td>Юг</td><td>26 000</td></tr><tr><th scope="row">Общо</th><td><strong>78 700</strong></td></tr></tbody></table>
+<p>За Запад например се събират 8 200 + 5 200 + 9 400 + 4 700 = <strong>27 500 лв.</strong> Ако вместо тези суми виждате броя на записите, проверете функцията Sum и дали полето „Продажби“ е числово.</p>
+<p class="result"><strong>Запазен резултат:</strong> оставете този отчет в <strong>„1-По региони“</strong> без диаграма и без филтри. В <strong>A25</strong> на листа запишете кой регион има най-високи продажби и колко са те. Следващата задача ще има собствен отчет.</p>
+</section>
+
+<section id="chart-types" data-step="7">
+<h2>7. Разчетете диаграмата и изберете подходящ вид</h2>
+<p>При колонна диаграма <strong>хоризонталната ос</strong> показва категориите, например регионите, а <strong>вертикалната ос</strong> — числовите стойности. <strong>Серия</strong> е група сравними стойности с общо значение. При разбивка по категории всяка категория е отделна серия, разпознавана чрез легендата.</p>
+<figure><svg viewBox="0 0 680 370" role="img" aria-labelledby="example-chart-title example-chart-desc" xmlns="http://www.w3.org/2000/svg"><title id="example-chart-title">Продажби по региони</title><desc id="example-chart-desc">Колонен пример: Запад 27 500, Изток 25 200 и Юг 26 000 лева. Числовата ос започва от нула.</desc><rect width="680" height="370" fill="#ffffff"/><g font-family="Segoe UI,Arial,sans-serif" fill="#202236"><text x="340" y="28" font-size="21" text-anchor="middle">Продажби по региони</text><g stroke="#dedbe9"><path d="M90 60H640M90 140H640M90 220H640M90 300H640"/></g><path d="M90 60V300H640" fill="none" stroke="#777084"/><g font-size="14" text-anchor="end"><text x="80" y="305">0</text><text x="80" y="225">10 000</text><text x="80" y="145">20 000</text><text x="80" y="65">30 000</text></g><g fill="#7955c9"><rect x="145" y="80" width="100" height="220"/><rect x="325" y="98.4" width="100" height="201.6"/><rect x="505" y="92" width="100" height="208"/></g><g text-anchor="middle" font-size="17"><text x="195" y="69">27 500</text><text x="375" y="87">25 200</text><text x="555" y="81">26 000</text><text x="195" y="330">Запад</text><text x="375" y="330">Изток</text><text x="555" y="330">Юг</text><text x="365" y="359">Регион</text></g><text x="18" y="182" font-size="14" text-anchor="middle" transform="rotate(-90 18 182)">Продажби (лв.)</text></g></svg><figcaption>Трите колони показват същите регионални суми като таблицата от задача 1. „Общо“ е сборът им и не е четвърти регион.</figcaption></figure>
+<div class="scroll"><table><thead><tr><th scope="col">Вид</th><th scope="col">Подходящ за</th><th scope="col">Пример от данните</th></tr></thead><tbody><tr><td>Колонна — Column</td><td>Сравнение между категории</td><td>Продажбите на трите региона</td></tr><tr><td>Лентова — Bar</td><td>Същото сравнение чрез хоризонтални ленти, удобно при дълги имена</td><td>Продажбите на техника по региони</td></tr><tr><td>Линейна — Line</td><td>Промяна във времето</td><td>Общо по месеци: Януари 16 700; Февруари 19 700; Март 18 700; Април 23 600</td></tr><tr><td>Кръгова — Pie</td><td>Дялове от едно цяло при малко категории и една серия</td><td>Делът на всяка категория от общите 78 700 лв.</td></tr></tbody></table></div>
+<p>При линейна диаграма месеците трябва да са в календарен ред, а не по азбука. За сравняване на суми използвайте ясна числова ос, започваща от нула, и двуизмерен вид. Групираната колонна диаграма показва отделните серии една до друга; 100% натрупаната показва дялове и отговаря на друг въпрос.</p>
+</section>
+
+<section id="task-2" data-step="8">
+<h2>8. Задача 2. Създайте обобщаваща колонна диаграма</h2>
+<p><strong>Условие:</strong> създайте нова обобщаваща таблица и свързана с нея колонна диаграма в отделен лист <strong>„2-Колонна“</strong>.</p>
+<ol><li>Върнете се в <strong>„Продажби“</strong> и маркирайте A1:E13. Създайте <strong>нова</strong> обобщаваща таблица по стъпките от задача 1, но този път изберете <strong>New Worksheet</strong> в Excel или <strong>New sheet</strong> в Calc.</li><li>Преименувайте новия лист на <strong>2-Колонна</strong>. Задайте Регион в Редове и Sum на Продажби в Стойности, без Колони и Филтри. Проверете сбор 78 700.</li></ol>
+<h3>В Microsoft Excel</h3><ol><li>Щракнете в клетка от <strong>новата обобщаваща таблица</strong>.</li><li>Изберете <strong>Insert → PivotChart</strong>. В прозореца изберете <strong>Column → Clustered Column</strong> — двуизмерна групирана колонна диаграма — и натиснете OK.</li><li>Поставете заглавие <strong>„Продажби по региони“</strong>. Преместете диаграмата вдясно от таблицата, например в областта от H2 надясно, така че и двете да се виждат.</li></ol>
+<h3>В LibreOffice Calc</h3><ol><li>Щракнете в клетка от <strong>новата обобщаваща таблица</strong>.</li><li>Изберете <strong>Insert → Chart</strong>. Calc разпознава обобщаващата таблица и отваря помощника за обобщаваща диаграма.</li><li>Изберете <strong>Column</strong> с обикновени колони една до друга. В Chart Elements въведете <strong>„Продажби по региони“</strong> и завършете помощника.</li><li>Щракнете извън диаграмата, после веднъж върху рамката ѝ, за да я преместите вдясно от таблицата.</li></ol>
+<p class="note">В Calc страниците за ръчен избор на диапазон и серии на обобщаващата диаграма са недостъпни — данните се управляват от свързаната обобщаваща таблица. Не избирайте изходния списък или ръчно преписани суми вместо нея.</p>
+<p class="result"><strong>Запазен резултат:</strong> „2-Колонна“ съдържа собствена обобщаваща таблица и PivotChart с три регионални колони. „1-По региони“ остава непроменен. Не включвайте общия сбор като отделна колона.</p>
+</section>
+
+<section id="task-3" data-step="9">
+<h2>9. Задача 3. Сравнете категориите по региони</h2>
+<p><strong>Условие:</strong> в нов лист <strong>„3-Категории“</strong> покажете продажбите по региони и категории чрез отделна групирана колонна обобщаваща диаграма.</p>
+<ol><li>От <strong>„Продажби“!A1:E13</strong> създайте нова обобщаваща таблица в нов лист. Преименувайте го на <strong>3-Категории</strong>.</li><li>Задайте <strong>Регион в Rows / Row Fields</strong>, <strong>Категория в Columns / Column Fields</strong> и <strong>Продажби в Values / Data Fields</strong> с функция <strong>Sum</strong>. Не задавайте филтър.</li></ol>
+<h3>В Microsoft Excel</h3><p>Щракнете в новата таблица и изберете <strong>Insert → PivotChart → Column → Clustered Column</strong>. Поставете заглавие „Продажби по региони и категории“ и оставете легендата за категориите видима.</p>
+<h3>В LibreOffice Calc</h3><p>Щракнете в новата таблица и изберете <strong>Insert → Chart → Column</strong>, с колони една до друга. В Chart Elements задайте същото заглавие и включете легендата.</p>
+<p>Поставете диаграмата вдясно от таблицата. По хоризонталната ос трябва да са <strong>трите региона</strong>, а във всяка група — по една колона за <strong>Техника, Канцелария и Консумативи</strong>. Легендата свързва цветовете със сериите.</p>
+<div class="scroll"><table><caption>Контролна разбивка по региони и категории, лв.</caption><thead><tr><th scope="col">Регион</th><th scope="col">Техника</th><th scope="col">Канцелария</th><th scope="col">Консумативи</th><th scope="col">Общо</th></tr></thead><tbody><tr><td>Запад</td><td>17 600</td><td>5 200</td><td>4 700</td><td>27 500</td></tr><tr><td>Изток</td><td>16 400</td><td>4 600</td><td>4 200</td><td>25 200</td></tr><tr><td>Юг</td><td>17 000</td><td>5 100</td><td>3 900</td><td>26 000</td></tr><tr><th scope="row">Общо</th><td>51 000</td><td>14 900</td><td>12 800</td><td>78 700</td></tr></tbody></table></div>
+<p class="result"><strong>Запазен резултат:</strong> „3-Категории“ запазва своята таблица, три категории в легендата и групирана колонна диаграма. Таблицата и диаграмата в „2-Колонна“ продължават да показват общите суми по региони.</p>
+</section>
+
+<section id="task-4" data-step="10">
+<h2>10. Задача 4. Оформете ясно заглавие, оси и легенда</h2>
+<p><strong>Условие:</strong> създайте отделен отчет в <strong>„4-Оформление“</strong> със същите полета като задача 3 — Регион по редове, Категория по колони и Sum на Продажби. Създайте нова групирана колонна PivotChart към него.</p>
+<h3>В Microsoft Excel</h3><ol><li>Създайте новата таблица от оригиналния A1:E13 в нов лист и от нея изберете <strong>Insert → PivotChart → Clustered Column</strong>.</li><li>Щракнете върху диаграмата. От <strong>Chart Design → Add Chart Element</strong> задайте заглавие, заглавия на двете оси и легенда. Можете да използвате и бутона <strong>+</strong> до избраната диаграма.</li><li>Задайте заглавие <strong>„Продажби по региони и категории — януари–април“</strong>, хоризонтална ос <strong>„Регион“</strong> и вертикална <strong>„Продажби (лв.)“</strong>. Поставете легендата отдолу или вдясно.</li></ol>
+<h3>В LibreOffice Calc</h3><ol><li>Създайте новата таблица от оригиналния A1:E13 в нов лист и изберете <strong>Insert → Chart → Column</strong>.</li><li>В <strong>Chart Elements</strong> въведете същото заглавие, ос X <strong>„Регион“</strong>, ос Y <strong>„Продажби (лв.)“</strong> и включете легендата.</li><li>Ако диаграмата вече е създадена, щракнете два пъти в нея, за да влезете в режим на редактиране. Използвайте <strong>Insert → Titles</strong> или контекстното меню за съответния елемент.</li></ol>
+<p>Увеличете диаграмата, ако имената се застъпват. Проверете всички три имена в легендата, стойностите по оста и четимостта на текста. Числовата ос трябва да започва от нула. Избягвайте 3D ефекти, които затрудняват сравняването на височините.</p>
+<p class="result"><strong>Запазен резултат:</strong> „4-Оформление“ съдържа отделната оформена диаграма и таблицата ѝ. „3-Категории“ запазва резултата си от предишната задача.</p>
+</section>
+
+<section id="task-5" data-step="11">
+<h2>11. Задача 5. Покажете само категория „Техника“</h2>
+<p><strong>Условие:</strong> в нов лист <strong>„5-Техника“</strong> покажете продажбите на техника по региони и ги визуализирайте с колонна обобщаваща диаграма.</p>
+<ol><li>От <strong>„Продажби“!A1:E13</strong> създайте нова обобщаваща таблица в нов лист с име <strong>5-Техника</strong>.</li><li>Задайте <strong>Регион в Редове</strong> и <strong>Sum на Продажби в Стойности</strong>. Оставете Колони празни.</li></ol>
+<h3>В Microsoft Excel</h3><p>Поставете <strong>Категория във Filters</strong>. От падащия списък над таблицата изберете само <strong>Техника</strong>. Щракнете в тази таблица и създайте <strong>Insert → PivotChart → Clustered Column</strong>.</p>
+<h3>В LibreOffice Calc</h3><p>В оформлението поставете <strong>Категория в Page Fields / Filters</strong>. В готовия отчет изберете само <strong>Техника</strong> от филтъра. Щракнете в тази таблица и изберете <strong>Insert → Chart → Column</strong>.</p>
+<p>Поставете заглавие <strong>„Продажби на техника по региони“</strong>. Филтърът управлява обобщаващата таблица и свързаната диаграма. Самото изписване на „Техника“ в заглавието не филтрира данните.</p>
+<p><strong>Самопроверка:</strong> Запад <strong>17 600</strong>, Изток <strong>16 400</strong>, Юг <strong>17 000</strong>; общо <strong>51 000 лв.</strong> В листовете без филтър общата сума трябва да остане 78 700.</p>
+<p class="result"><strong>Запазен резултат:</strong> „5-Техника“ остава с активен филтър <strong>Техника</strong>, таблицата и нейната колонна диаграма. „4-Оформление“ продължава да показва всички категории.</p>
+</section>
+
+<section id="task-6" data-step="12">
+<h2>12. Задача 6. Сравнете колонна и лентова диаграма</h2>
+<p><strong>Условие:</strong> създайте отделна <strong>лентова</strong> обобщаваща диаграма в лист <strong>„6-Лентова“</strong>. Използвайте същото обобщение и филтър Техника като задача 5, за да сравнявате един и същ набор от данни.</p>
+<ol><li>Създайте нова обобщаваща таблица от <strong>„Продажби“!A1:E13</strong> в нов лист <strong>6-Лентова</strong>.</li><li>Задайте Регион в Редове, Sum на Продажби в Стойности, Категория във Филтри и изберете само <strong>Техника</strong>. Колони остават празни.</li></ol>
+<h3>В Microsoft Excel</h3><p>Щракнете в новата таблица и изберете <strong>Insert → PivotChart → Bar → Clustered Bar</strong>. Лентите трябва да са хоризонтални. Ако още в тази задача сте избрали колонна диаграма, променете вида само на диаграмата в „6-Лентова“ чрез <strong>Chart Design → Change Chart Type</strong>.</p>
+<h3>В LibreOffice Calc</h3><p>Щракнете в новата таблица и изберете <strong>Insert → Chart → Bar</strong> с обикновени хоризонтални ленти. За промяна на вида в този лист щракнете два пъти в диаграмата и изберете <strong>Chart Type</strong> от контекстното меню.</p>
+<p>Поставете заглавие <strong>„Продажби на техника по региони — лентова диаграма“</strong>. При този вид числовата ос е хоризонтална, а имената на регионите са по вертикалната ос. Използвайте същите стойности: 17 600, 16 400 и 17 000 лв.</p>
+<p class="result"><strong>Запазен резултат:</strong> „6-Лентова“ запазва лентовата диаграма, а „5-Техника“ — колонната. В <strong>A25</strong> на „6-Лентова“ напишете кой вид ви е по-лесен за четене и защо. Диаграмите сравняват едни и същи данни — видът не променя сумите.</p>
+</section>
+
+<section id="refresh" data-step="13">
+<h2>13. Как се обновяват свързаните данни?</h2>
+<p><strong>Филтриране</strong> означава да ограничите кои записи участват в отчета. <strong>Refresh</strong> означава да преизчислите обобщаващата таблица след промяна в източника. Това са различни действия.</p>
+<h3>В Microsoft Excel</h3><p>След промяна на изходните стойности щракнете в съответната обобщаваща таблица и използвайте <strong>Refresh</strong> от контекстното меню. Свързаната PivotChart трябва да отрази обновената таблица.</p>
+<h3>В LibreOffice Calc</h3><p>Щракнете в обобщаващата таблица и изберете <strong>Data → Pivot Table → Refresh</strong>. Свързаната обобщаваща диаграма се обновява с нея.</p>
+<p>Ако добавяте редове извън фиксирания A1:E13, първо разширете източника на обобщението. Проверявайте и обхвата на активния филтър.</p>
+<p class="note">В тези седем задачи не променяте първоначалните продажби. За сравненията използвате отделни отчети. Така се запазват както пълното обобщение, така и филтрираният резултат, без единият да заменя другия.</p>
+</section>
+
+<section id="task-7" data-step="14">
+<h2>14. Задача 7. Напишете два извода с числа</h2>
+<p><strong>Условие:</strong> създайте отделен лист <strong>„7-Изводи“</strong> и напишете два кратки извода — един за регионите и един за категориите.</p>
+<h3>В Microsoft Excel</h3><p>Натиснете + до разделите, щракнете два пъти върху името на новия лист, въведете <strong>7-Изводи</strong> и потвърдете с Enter.</p>
+<h3>В LibreOffice Calc</h3><p>Натиснете + до разделите, щракнете два пъти върху новия раздел, въведете <strong>7-Изводи</strong> и потвърдете с OK.</p>
+<ol><li>В <strong>A1</strong> запишете първия извод. Използвайте „1-По региони“ или „2-Колонна“, за да посочите водещия регион и сравнение с друг регион, подкрепено с числа.</li><li>В <strong>A3</strong> запишете втория извод по категориите. Използвайте „3-Категории“ или „4-Оформление“ и посочете сумите или разликата, на която се основава твърдението ви.</li><li>Посочете от кой лист вземате данните и дали обобщението е за <strong>всички категории</strong> или само за <strong>Техника</strong>. Ако текстът не се побира, включете <strong>Wrap Text</strong> в Excel или автоматично пренасяне в <strong>Format Cells → Alignment</strong> в Calc и увеличете реда.</li></ol>
+<p>Изводът трябва да следва числата. По-високи продажби не доказват по-висока печалба, защото файлът не съдържа разходи. „Тази колона е по-висока“ описва изгледа; подкрепете сравнението и с конкретни суми.</p>
+<p class="result"><strong>Запазен резултат:</strong> „7-Изводи“ съдържа двата ви извода. Остават и всички шест обобщаващи таблици и петте диаграми в отделните им листове.</p>
+</section>
+
+<section id="check" data-step="15">
+<h2>15. Проверете какво остава във файла</h2>
+<p>Преди предаване проверете всичките <strong>9 листа</strong>. Всеки резултат трябва да е наличен едновременно с останалите.</p>
+<div class="scroll"><table><thead><tr><th scope="col">Лист</th><th scope="col">Запазен резултат</th></tr></thead><tbody><tr><td>Продажби</td><td>Първоначалните 12 записа; общо 78 700 лв.</td></tr><tr><td>Упражнения</td><td>Условията на седемте задачи</td></tr><tr><td>1-По региони</td><td>Таблица по региони без филтър и отговор в A25</td></tr><tr><td>2-Колонна</td><td>Отделна таблица и колонна PivotChart по региони; общо 78 700</td></tr><tr><td>3-Категории</td><td>Отделна таблица Регион × Категория и групирана колонна PivotChart</td></tr><tr><td>4-Оформление</td><td>Отделна таблица и групирана колонна PivotChart с период, заглавия на оси и четима легенда</td></tr><tr><td>5-Техника</td><td>Отделна таблица и колонна PivotChart с филтър Техника; общо 51 000</td></tr><tr><td>6-Лентова</td><td>Отделна таблица и лентова PivotChart с филтър Техника; общо 51 000; сравнение в A25</td></tr><tr><td>7-Изводи</td><td>Два подкрепени с числа извода в A1 и A3</td></tr></tbody></table></div>
+<ul><li>Диаграмите са свързани с правилната обобщаваща таблица и не закриват данните или писмените отговори.</li><li>Таблиците и диаграмите показват едни и същи региони, серии и активен филтър. „Общо“ не е отделен регион или категория.</li><li>Всички суми са Sum на Продажби. Заглавието отговаря на реалния филтър и обхват.</li><li>В „5-Техника“ и „6-Лентова“ филтърът е Техника; в първите четири отчета са всички категории.</li><li>Има три региона, а в „3-Категории“ и „4-Оформление“ — и три серии за категориите.</li></ul>
+<p>Ако виждате празна или неподходяща диаграма, първо проверете свързаната таблица, източника, функцията Sum и филтрите. Ако имената се застъпват, увеличете диаграмата или преместете легендата. Оформянето не трябва да прикрива разлика в данните.</p>
+</section>
+
+<section id="save" data-step="16">
+<h2>16. Запазете и проверете готовата книга</h2>
+<ol><li>Запазете файла с всичките 9 листа: <strong>.xlsx в Excel</strong> или <strong>.ods в LibreOffice Calc</strong>.</li><li>Затворете и отворете отново файла в същата програма. Проверете таблиците, петте диаграми, филтрите и писмените отговори.</li><li>Проверете връзката в „5-Техника“: временно сменете филтъра на <strong>Всички / All</strong> — таблицата и диаграмата трябва да покажат пълните суми по региони и сбор 78 700. После върнете <strong>Техника</strong> и потвърдете сбор 51 000.</li><li>Проверете, че „6-Лентова“ остава с Техника и че останалите отчети са запазили собствените си настройки. Запишете отново с Ctrl+S.</li></ol>
+<p>Предавате <strong>една работна книга</strong> с резултатите от всички задачи, във формата на програмата, с която работите. Учителят ще проверява както вида на диаграмите, така и връзката им с обобщаващите таблици.</p>
+<h3>Справка за командите</h3><ul><li><a href="https://support.microsoft.com/en-us/excel/get-started/create-a-pivotchart">Microsoft: създаване на PivotChart</a></li><li><a href="https://support.microsoft.com/en-us/excel/overview-of-pivottables-and-pivotcharts">Microsoft: връзка между PivotTable и PivotChart</a></li><li><a href="https://help.libreoffice.org/latest/en-US/text/scalc/guide/pivotchart_create.html">LibreOffice Calc: създаване на обобщаваща диаграма</a></li><li><a href="https://help.libreoffice.org/latest/en-US/text/scalc/guide/pivotchart_edit.html">LibreOffice Calc: редактиране</a></li><li><a href="https://help.libreoffice.org/latest/en-US/text/scalc/guide/pivotchart_filter.html">LibreOffice Calc: филтриране</a></li><li><a href="https://help.libreoffice.org/latest/en-US/text/scalc/guide/pivotchart_update.html">LibreOffice Calc: обновяване</a></li><li><a href="https://support.microsoft.com/en-us/excel/differences-between-the-opendocument-spreadsheet-ods-format-and-the-excel-for-windows-xlsx-format">Microsoft: съвместимост на форматите .ods и .xlsx</a></li></ul>
+</section>
+<footer>Урок 17 · Обработка на социално-икономическа информация</footer></main></body></html>
