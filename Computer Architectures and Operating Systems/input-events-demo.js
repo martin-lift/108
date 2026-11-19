@@ -5,6 +5,7 @@
   const find = id => root.querySelector('#' + id);
   const keyboard = find('demo-keyboard');
   const zone = find('demo-mouse-zone');
+  if (!keyboard && !zone) return;
   const dot = find('demo-mouse-dot');
   const log = find('demo-log');
   const pause = find('demo-pause');
@@ -14,6 +15,9 @@
   const recordMovement = find('demo-record-movement');
   const holdScroll = find('demo-hold-scroll');
   const limit = 120;
+  const runningStatus = keyboard && zone ? 'Записът е включен — работи в тестовите полета.'
+    : keyboard ? 'Записът е включен — пиши в полето за клавиатура.'
+    : 'Записът е включен — използвай зоната за мишка и скрол.';
   let paused = false;
   let total = 0;
   let started = performance.now();
@@ -55,17 +59,19 @@
     set('demo-modifiers', modifiers(event));
     add(event, `key=${quoted(event.key)}; code=${quoted(event.code)}; ${unicode(event.key)}; location=${event.location}; repeat=${event.repeat}; modifiers=${modifiers(event)}; isComposing=${event.isComposing}`);
   }
-  keyboard.addEventListener('keydown', keyboardEvent);
-  keyboard.addEventListener('keyup', keyboardEvent);
-  for (const type of ['beforeinput', 'input']) {
-    keyboard.addEventListener(type, event => {
-      if (paused) return;
-      set('demo-text-event', `${event.type}: data=${quoted(event.data)}, inputType=${event.inputType || '—'}`);
-      add(event, `data=${quoted(event.data)}; inputType=${quoted(event.inputType)}; isComposing=${event.isComposing}`);
-    });
-  }
-  for (const type of ['compositionstart', 'compositionupdate', 'compositionend']) {
-    keyboard.addEventListener(type, event => add(event, `data=${quoted(event.data)}`));
+  if (keyboard) {
+    keyboard.addEventListener('keydown', keyboardEvent);
+    keyboard.addEventListener('keyup', keyboardEvent);
+    for (const type of ['beforeinput', 'input']) {
+      keyboard.addEventListener(type, event => {
+        if (paused) return;
+        set('demo-text-event', `${event.type}: data=${quoted(event.data)}, inputType=${event.inputType || '—'}`);
+        add(event, `data=${quoted(event.data)}; inputType=${quoted(event.inputType)}; isComposing=${event.isComposing}`);
+      });
+    }
+    for (const type of ['compositionstart', 'compositionupdate', 'compositionend']) {
+      keyboard.addEventListener(type, event => add(event, `data=${quoted(event.data)}`));
+    }
   }
   function mouseEvent(event) {
     if (paused) return;
@@ -87,33 +93,35 @@
     }
     add(event, `clientX=${event.clientX}; clientY=${event.clientY}; zoneX=${x}; zoneY=${y}; button=${event.button}; buttons=${event.buttons}; modifiers=${modifiers(event)}`);
   }
-  // Capture keeps a drag's final release visible even if it occurs outside the zone.
-  zone.addEventListener('pointerdown', event => {
-    if (event.pointerType === 'mouse') zone.setPointerCapture(event.pointerId);
-  });
-  zone.addEventListener('mousedown', event => {
-    zone.focus({ preventScroll: true });
-    if (event.button === 1) event.preventDefault(); // Avoid middle-button auto-scroll in this exercise.
-  });
-  for (const type of ['mousemove', 'mousedown', 'mouseup', 'click', 'dblclick', 'auxclick', 'contextmenu']) {
-    zone.addEventListener(type, mouseEvent);
+  if (zone) {
+    // Capture keeps a drag's final release visible even if it occurs outside the zone.
+    zone.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'mouse') zone.setPointerCapture(event.pointerId);
+    });
+    zone.addEventListener('mousedown', event => {
+      zone.focus({ preventScroll: true });
+      if (event.button === 1) event.preventDefault(); // Avoid middle-button auto-scroll in this exercise.
+    });
+    for (const type of ['mousemove', 'mousedown', 'mouseup', 'click', 'dblclick', 'auxclick', 'contextmenu']) {
+      zone.addEventListener(type, mouseEvent);
+    }
+    zone.addEventListener('contextmenu', event => event.preventDefault());
+    zone.addEventListener('wheel', event => {
+      if (holdScroll.checked) event.preventDefault();
+      if (paused) return;
+      const units = ['пиксели', 'редове', 'страници'];
+      const unit = units[event.deltaMode] || 'други единици';
+      set('demo-mouse-event', 'wheel');
+      set('demo-wheel', `deltaX=${event.deltaX}; deltaY=${event.deltaY}; deltaZ=${event.deltaZ}; deltaMode=${event.deltaMode} (${unit})`);
+      set('demo-mouse-modifiers', modifiers(event));
+      add(event, `deltaX=${event.deltaX}; deltaY=${event.deltaY}; deltaZ=${event.deltaZ}; deltaMode=${event.deltaMode} (${unit}); modifiers=${modifiers(event)}`);
+    }, { passive: false });
   }
-  zone.addEventListener('contextmenu', event => event.preventDefault());
-  zone.addEventListener('wheel', event => {
-    if (holdScroll.checked) event.preventDefault();
-    if (paused) return;
-    const units = ['пиксели', 'редове', 'страници'];
-    const unit = units[event.deltaMode] || 'други единици';
-    set('demo-mouse-event', 'wheel');
-    set('demo-wheel', `deltaX=${event.deltaX}; deltaY=${event.deltaY}; deltaZ=${event.deltaZ}; deltaMode=${event.deltaMode} (${unit})`);
-    set('demo-mouse-modifiers', modifiers(event));
-    add(event, `deltaX=${event.deltaX}; deltaY=${event.deltaY}; deltaZ=${event.deltaZ}; deltaMode=${event.deltaMode} (${unit}); modifiers=${modifiers(event)}`);
-  }, { passive: false });
   pause.addEventListener('click', () => {
     paused = !paused;
     pause.setAttribute('aria-pressed', String(paused));
     pause.textContent = paused ? 'Продължи записа' : 'Пауза';
-    status.textContent = paused ? 'Пауза — показанията и дневникът са замразени.' : 'Записът е включен — работи в тестовите полета.';
+    status.textContent = paused ? 'Пауза — показанията и дневникът са замразени.' : runningStatus;
   });
   clear.addEventListener('click', () => {
     log.replaceChildren();
@@ -126,5 +134,5 @@
   pause.disabled = false;
   clear.disabled = false;
   showCount();
-  status.textContent = 'Записът е включен — работи в тестовите полета.';
+  status.textContent = runningStatus;
 })();

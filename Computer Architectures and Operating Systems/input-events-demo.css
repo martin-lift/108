@@ -1,5 +1,6 @@
 #input-events-demo{scroll-margin-top:16px}
 #input-events-demo .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+#input-events-demo .demo-grid.demo-single{grid-template-columns:1fr}
 #input-events-demo .demo-panel{min-width:0;border:1px solid #ccd4df;border-radius:10px;padding:16px;background:#f6f8fb}
 #input-events-demo h3{margin:0 0 12px}
 #input-events-demo label{display:block}
