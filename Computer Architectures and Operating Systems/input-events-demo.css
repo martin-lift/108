@@ -1,0 +1,29 @@
+#input-events-demo{scroll-margin-top:16px}
+#input-events-demo .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+#input-events-demo .demo-panel{min-width:0;border:1px solid #ccd4df;border-radius:10px;padding:16px;background:#f6f8fb}
+#input-events-demo h3{margin:0 0 12px}
+#input-events-demo label{display:block}
+#input-events-demo textarea{box-sizing:border-box;width:100%;min-height:110px;padding:10px;border:1px solid #6b7b91;border-radius:6px;font:inherit;background:white;color:#202124;resize:vertical}
+#input-events-demo :focus-visible{outline:3px solid #174ea6;outline-offset:3px}
+#input-events-demo .demo-zone{position:relative;box-sizing:border-box;min-height:195px;padding:22px;border:2px dashed #6b7b91;border-radius:8px;background:linear-gradient(90deg,#dce6f2 1px,transparent 1px),linear-gradient(#dce6f2 1px,transparent 1px),#fff;background-size:24px 24px;cursor:crosshair;user-select:none;overflow:hidden}
+#input-events-demo .demo-zone span{position:relative;background:#fffffff0;padding:3px;pointer-events:none}
+#input-events-demo .demo-dot{position:absolute;display:none;width:14px;height:14px;border:2px solid white;box-shadow:0 0 0 2px #174ea6;border-radius:50%;background:#174ea6;transform:translate(-50%,-50%);pointer-events:none}
+#input-events-demo .demo-values{display:grid;grid-template-columns:minmax(90px,auto) minmax(0,1fr);gap:6px 12px;font-size:15px;margin-bottom:0}
+#input-events-demo dt{font-weight:bold}
+#input-events-demo dd{margin:0;overflow-wrap:anywhere}
+#input-events-demo .demo-options{font-size:15px;margin:12px 0}
+#input-events-demo .demo-options label{margin:8px 0}
+#input-events-demo input[type=checkbox]{width:18px;height:18px;vertical-align:middle;margin-right:7px;accent-color:#174ea6}
+#input-events-demo .demo-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:18px 0 8px}
+#input-events-demo button{font:inherit;padding:9px 14px;border:1px solid #174ea6;border-radius:6px;background:white;color:#174ea6;cursor:pointer}
+#input-events-demo button[aria-pressed=true]{background:#174ea6;color:white}
+#input-events-demo button:disabled{opacity:.55;cursor:default}
+#input-events-demo .demo-status{font-size:15px;margin:8px 0}
+#input-events-demo .demo-log{list-style:none;margin:0;padding:0;max-height:380px;overflow:auto;border:1px solid #ccd4df;border-radius:8px;background:white;overscroll-behavior:contain}
+#input-events-demo .demo-log li{margin:0;padding:10px 12px;border-bottom:1px solid #e0e6ef;font-size:14px;overflow-wrap:anywhere}
+#input-events-demo .demo-log li:last-child{border:0}
+#input-events-demo .demo-log strong{color:#174ea6}
+#input-events-demo .demo-log code{display:block;background:transparent;padding:3px 0 0;white-space:pre-wrap}
+#input-events-demo .demo-note{font-size:15px;color:#465469}
+@media(max-width:700px){#input-events-demo .demo-grid{grid-template-columns:1fr}#input-events-demo .demo-panel{padding:12px}#input-events-demo .demo-zone{min-height:175px}}
+@media print{#input-events-demo .demo-toolbar,#input-events-demo .demo-options,#input-events-demo .demo-log{display:none}#input-events-demo .demo-grid{display:block}#input-events-demo .demo-panel{margin:12px 0;break-inside:avoid}}
