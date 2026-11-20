@@ -68,6 +68,7 @@ try {
         [pscredential]::new('108SU',(ConvertTo-SecureString 'test-only-dummy' -AsPlainText -Force))
     }
     function New-PSSessionOption { param($OpenTimeout,$OperationTimeout) 'mock-options' }
+    function Start-Service { param($Name) Assert ($Name -eq 'WinRM') 'Only the WinRM service is started locally' }
     function New-PSSession {
         param($ComputerName,$Credential,$SessionOption)
         if ($ComputerName -notmatch '^307-Student-(0[1-9]|1[0-9]|2[0-7])\.local$') { throw 'Non-student target' }

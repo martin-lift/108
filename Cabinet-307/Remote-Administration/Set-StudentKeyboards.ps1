@@ -8,6 +8,7 @@ param(
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'Credential-Helper.ps1')
 $profileScript = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'Set-StudentKeyboardProfile.ps1') -Raw
+Start-Service -Name WinRM
 $credentialInput = Get-ClassroomCredential
 if ($null -eq $credentialInput) { return }
 $sessionOption = New-PSSessionOption -OpenTimeout 15000 -OperationTimeout 120000
