@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-25",
+  "images": [
+    {
+      "original": "https://framerusercontent.com/images/rUC62nSMX4eDWzQBSb6IjkZ0.png?height=900&width=1600",
+      "local": "images/mockup/mockup-01.png",
+      "bytes": 142988,
+      "sha256": "72591b5375465dc85ef7ec74e0164aeaca1cab667c29ce11046551bac51c3152"
+    },
+    {
+      "original": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Farbkreis_Itten_1961.svg",
+      "local": "images/mockup/mockup-02.svg",
+      "bytes": 7728,
+      "sha256": "d00ff099835da243392c34dc4d249d06619c8f82395afadbf2f50421bf8d0873"
+    },
+    {
+      "original": "https://learn.g2.com/hubfs/hue%20tint%20tone%20shade.png",
+      "local": "images/mockup/mockup-03.png",
+      "bytes": 13810,
+      "sha256": "e92ff364a3e0287697fce0ad3e665ca26602b4fabcd47213281a659ef6d93d7e"
+    },
+    {
+      "original": "https://www.nohioprint.com/graphics/433-ColorWheel.jpg",
+      "local": "images/mockup/mockup-04.jpg",
+      "bytes": 61654,
+      "sha256": "43273aac48ab353363aa212e835ac0e41dcab604078f6faaf3881412b5bef1a9"
+    },
+    {
+      "original": "https://cdn.dribbble.com/userupload/14662042/file/original-feb76aa385dc6ca31ffab28b9101bd62.png?resize=1440x1080",
+      "local": "images/mockup/mockup-05.png",
+      "bytes": 755446,
+      "sha256": "93925bf3f75b2f488e8a831cf091a56d74f3a642a5a18dcbfc49f1f0cc09ae38"
+    },
+    {
+      "original": "https://cdn.csswinner.com/images/winners/2020/jun/1092117158.jpg",
+      "local": "images/mockup/mockup-06.jpg",
+      "bytes": 173782,
+      "sha256": "b8ea85dadef8fec4c79c99a5ff43eb9b55930b921711717f01ddb8e49f8beb59"
+    },
+    {
+      "original": "https://www.upwork.com/mc/documents/39223759283c43c9465b83c858ffe985",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "original": "https://www.upwork.com/mc/documents/2fb0d9bd936b9891a1a94ea573375ce5",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "original": "https://solardigital.com.ua/content-images/16754386520.jpg",
+      "local": "images/mockup/mockup-09.jpg",
+      "bytes": 509740,
+      "sha256": "c22cbe347429f40ab16ad1b3d7fea13486bde5e8d0c7d760cce4a4b06fc670b3"
+    },
+    {
+      "original": "https://posstack.com/images/blog/2024/5/font-pairing-tip2.jpg",
+      "local": "images/mockup/mockup-10.jpg",
+      "bytes": 18635,
+      "sha256": "b211be2950d379383771adff1f5c218697fbbb9a5ed7207e2e84660ad8c4e968"
+    }
+  ]
+}
