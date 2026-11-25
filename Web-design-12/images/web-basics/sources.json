@@ -1,0 +1,30 @@
+[
+  {
+    "lesson": 14,
+    "original": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax/grumpy-cat-small.png",
+    "local": "images/web-basics/html-element.png",
+    "sha256": "73fc6726ac22ba03bc8b1f398bc8b369575d5273ee408fdb2d4a0e5e49b15b19"
+  },
+  {
+    "lesson": 19,
+    "original": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/What_is_CSS/html-example.png",
+    "local": "images/web-basics/html-default-styles.png",
+    "sha256": "73ccfcc1b40e58df689105396487e32ddaf921e6b00fe11dbec66684d79d1984"
+  },
+  {
+    "lesson": 20,
+    "original": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Box_model/box-model.png",
+    "local": "images/web-basics/box-model.png",
+    "sha256": "dbab5c003455e9c3fde01b4b1993506512a51a38bf7ad5d1e4bf3e9fcd6fb85a"
+  },
+  {
+    "lesson": 15,
+    "original": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Vasil_Levski_Museum%2C_Karlovo_01.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:Vasil_Levski_Museum,_Karlovo_01.JPG",
+    "author": "Спасимир",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "local": "images/web-basics/karlovo-museum.jpg",
+    "sha256": "ed76869d430077d5bf594293f52860f735c4142387c476d49e20362812d00023"
+  }
+]
